@@ -14,7 +14,9 @@ A főmenüből új projektet indíthat, meglévő projektet nyithat meg vagy meg
 
 Ha engedélyezve van, az indítás gomb elindítja a képfeldolgozási folyamatot.
 
-### <img src=".gitbook/assets/image (4).png" alt="" data-size="line"> Haladási sáv <img src=".gitbook/assets/image (5).png" alt="" data-size="line">Az ingyenes Chloros módban, amely az összes fájlt egymás után dolgozza fel, a haladásjelző sáv 2 szakaszt mutat: Célfelismerés és Feldolgozás.
+### <img src=".gitbook/assets/image (4).png" alt="" data-size="line"> Haladási sáv <img src=".gitbook/assets/image (5).png" alt="" data-size="line">
+
+Az ingyenes Chloros módban, amely az összes fájlt egymás után dolgozza fel, a haladásjelző sáv 2 szakaszt mutat: Célfelismerés és Feldolgozás.
 
 A fizetős Chloros+ licencelt módban, amely az összes fájlt egyszerre dolgozza fel, a haladásjelző sáv 4 szakaszt mutat: Felismerés, Elemzés, Kalibrálás, Exportálás. Ha az egérmutatót az Chloros+ haladási sáv fölé viszi, akkor megjelenik a kibővített 4 haladási sáv panel, így követheti a folyamatot. A felső haladási sávra kattintva a legördülő panel befagyasztásra kerül, újabb kattintással pedig feloldható.
 

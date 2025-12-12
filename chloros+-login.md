@@ -6,7 +6,9 @@ A felhasználói <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line
 
 Bejelentkezés után a fiók adatait jeleníti meg:
 
-<figure><img src=".gitbook/assets/user_account.JPG" alt="" width="375"><figcaption></figcaption></figure>## CLI Bejelentkezés
+<figure><img src=".gitbook/assets/user_account.JPG" alt="" width="375"><figcaption></figcaption></figure>
+
+## CLI Bejelentkezés
 
 Jelentkezzen be Chloros+ hitelesítő adataival, hogy engedélyezze az CLI feldolgozást.
 
@@ -28,7 +30,9 @@ chloros-cli login user@example.com 'MyP@ssw0rd123'
 
 **Kimenet:**
 
-<figure><img src=".gitbook/assets/cli login_w.JPG" alt=""><figcaption></figcaption></figure>### A terv lejárati ideje
+<figure><img src=".gitbook/assets/cli login_w.JPG" alt=""><figcaption></figcaption></figure>
+
+### A terv lejárati ideje
 
 A GUI-ban látható a terv lejárati ideje, amely azt mutatja, hogy mikor válik érvénytelenné a licenc. Havi előfizetések esetén a lejárati idő a hónap végén van. Éves előfizetések esetén a lejárati idő az előfizetés megkezdésétől számított egy év. A licenc ellenőrzéséhez havi internetkapcsolat szükséges, 30 napos türelmi idővel.
 

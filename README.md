@@ -4,7 +4,9 @@ metaLinks: {}
 
 # Első lépések
 
-<div data-full-width="false"><figure><img src=".gitbook/assets/chloros_logo_transparent.png" alt=""><figcaption></figcaption></figure></div>Az Chloros egy [MAPIR](https://www.mapir.camera) szoftveralkalmazás képek és egyéb érzékelőadatok feldolgozására.
+<div data-full-width="false"><figure><img src=".gitbook/assets/chloros_logo_transparent.png" alt=""><figcaption></figcaption></figure></div>
+
+Az Chloros egy [MAPIR](https://www.mapir.camera) szoftveralkalmazás képek és egyéb érzékelőadatok feldolgozására.
 
 ***
 

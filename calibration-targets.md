@@ -9,11 +9,15 @@ metaLinks:
 
 Az MAPIR különböző kalibrációs célokat kínál, hogy lefedje a különböző alkalmazási területeket. Az alábbi kompakt T4-R50 4 panelt tartalmaz, amelyek fényvisszaverődését 250–2500 nm tartományban mérték.
 
-<figure><img src=".gitbook/assets/t4-r50_2.jpg" alt=""><figcaption><p>MAPIR T4-R50</p></figcaption></figure>A T4 diffúz referencia célok a következő visszaverődési görbéket mutatják, [adatok letöltése itt](https://cdn.shopify.com/s/files/1/0972/5566/files/MAPIR_Diffuse_Reflectance_Standard_Calibration_Target_Data_T4.xlsx?v=1741759157):
+<figure><img src=".gitbook/assets/t4-r50_2.jpg" alt=""><figcaption><p>MAPIR T4-R50</p></figcaption></figure>
+
+A T4 diffúz referencia célok a következő visszaverődési görbéket mutatják, [adatok letöltése itt](https://cdn.shopify.com/s/files/1/0972/5566/files/MAPIR_Diffuse_Reflectance_Standard_Calibration_Target_Data_T4.xlsx?v=1741759157):
 
 <figure><img src=".gitbook/assets/MAPIR Diffuse Reflectance Standard Calibration Target Data T4 (250-2500nm).png" alt=""><figcaption><p>MAPIR T4 visszaverődés :: 250–2500 nm</p></figcaption></figure>
 
-<figure><img src=".gitbook/assets/MAPIR Diffuse Reflectance Standard Calibration Target Data T4 (400-1000nm).png" alt=""><figcaption><p>MAPIR T4 visszaverődés :: 400–1000 nm</p></figcaption></figure>A visszaverődési grafikonon látható, hogy az értékek a hullámhossz (x-tengely) és a visszaverődés százalékos aránya (y-tengely) között vannak. Amikor képet készítünk a kalibrációs célpontról, akkor a kamera érzékeny szenzorcsatornáinak spektrumán belül kapcsolatot hozunk létre a pixelérték és a visszaverődés százalékos aránya között.
+<figure><img src=".gitbook/assets/MAPIR Diffuse Reflectance Standard Calibration Target Data T4 (400-1000nm).png" alt=""><figcaption><p>MAPIR T4 visszaverődés :: 400–1000 nm</p></figcaption></figure>
+
+A visszaverődési grafikonon látható, hogy az értékek a hullámhossz (x-tengely) és a visszaverődés százalékos aránya (y-tengely) között vannak. Amikor képet készítünk a kalibrációs célpontról, akkor a kamera érzékeny szenzorcsatornáinak spektrumán belül kapcsolatot hozunk létre a pixelérték és a visszaverődés százalékos aránya között.
 
 Ez azt jelenti, hogy minden, kameráinkkal készített képpel használhatja a fényvisszaverődési célpontjaink fényképét, például a [T4-R50](https://www.mapir.camera/collections/calibration-targets/products/diffuse-reflectance-standard-calibration-target-package-t3-r50) vagy a [T4-R125](https://www.mapir.camera/collections/multispectral-reflectance-reference-calibration-targets/products/diffuse-reflectance-standard-calibration-target-package-t4-r125) fényképet a képek fényvisszaverődésének kalibrálásához. A kalibrálás után a kép minden egyes képpontja egyenlő a visszaverődés százalékával.
 

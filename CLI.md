@@ -1,6 +1,8 @@
 # CLI : Parancssor
 
-<figure><img src=".gitbook/assets/cli.JPG" alt=""><figcaption></figcaption></figure>Az **Chloros CLI** hatékony parancssori hozzáférést biztosít az Chloros képfeldolgozó motorhoz, lehetővé téve az automatizálást, a szkriptelést és a headless működést a képalkotási munkafolyamatokhoz.
+<figure><img src=".gitbook/assets/cli.JPG" alt=""><figcaption></figcaption></figure>
+
+Az **Chloros CLI** hatékony parancssori hozzáférést biztosít az Chloros képfeldolgozó motorhoz, lehetővé téve az automatizálást, a szkriptelést és a headless működést a képalkotási munkafolyamatokhoz.
 
 ### Főbb jellemzők
 

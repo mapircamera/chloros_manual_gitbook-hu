@@ -2,9 +2,9 @@
 
 ## Chloros és Chloros (böngésző) Bejelentkezés
 
-A felhasználói <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line"> oldalsáv menü lehetővé teszi, hogy bejelentkezzen az Chloros+ fiókjába, és további funkciókat nyisson meg.
+A felhasználói <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line"> oldalsáv menü lehetővé teszi, hogy bejelentkezzen Chloros+ fiókjába, és további funkciókat nyisson meg.
 
-Bejelentkezés után a fiók adatait jeleníti meg:
+Bejelentkezés után megjelennek a fiókadatok:
 
 <figure><img src=".gitbook/assets/user_account.JPG" alt="" width="375"><figcaption></figcaption></figure>
 
@@ -34,7 +34,7 @@ chloros-cli login user@example.com 'MyP@ssw0rd123'
 
 ### A terv lejárati ideje
 
-A GUI-ban látható a terv lejárati ideje, amely azt mutatja, hogy mikor válik érvénytelenné a licenc. Havi előfizetések esetén a lejárati idő a hónap végén van. Éves előfizetések esetén a lejárati idő az előfizetés megkezdésétől számított egy év. A licenc ellenőrzéséhez havi internetkapcsolat szükséges, 30 napos türelmi idővel.
+A GUI-ban látható a terv lejárati ideje, amely jelzi, hogy mikor válik érvénytelenné a licenc. Havi előfizetések esetén a lejárat a hónap végén van. Éves előfizetések esetén a lejárat az előfizetés megkezdésétől számított egy év után van. A licenc ellenőrzéséhez havi internetkapcsolat szükséges, 30 napos türelmi idővel.
 
 ### Eszközkorlát
 

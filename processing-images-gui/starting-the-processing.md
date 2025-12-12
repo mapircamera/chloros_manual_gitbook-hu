@@ -88,12 +88,12 @@ Az Chloros a licencétől függően két különböző feldolgozási módban mű
 
 * **Vigye az egérmutatót** a sáv fölé, hogy megtekintse a részletes, 4 szakaszból álló legördülő panelt
 * **Kattintson** a haladási sávra, hogy a legördülő panelt a helyén rögzítse
-* **Kattintson újra** a panel feloldásához és elrejtéséhez
+* **Kattintson újra**, hogy a panelt feloldja és elrejtse
 
 **Feldolgozási idő:**
 
 * Jelentősen gyorsabb, mint az ingyenes mód
-* A CPU magszámával arányosan skálázódik
+* A CPU magok számával arányosan skálázódik
 * A GPU-gyorsítás tovább javítja a sebességet
 
 {% hint style=&quot;info&quot; %}
@@ -109,11 +109,11 @@ Az Chloros a licencétől függően két különböző feldolgozási módban mű
 **Mit csinál az Chloros:**
 
 * Beolvassa a megjelölt célképeket (vagy az összes képet, ha nincs megjelölve)
-* Azonosítja a 4 kalibrációs panelt minden célpontban
-* Kivonja a visszaverődési értékeket a célpont panelekből
-* Rögzíti a célpont időbélyegzőit a kalibráció ütemezéséhez
+* Azonosítja a 4 kalibrációs panelt minden célban
+* Kivonja a visszaverődési értékeket a célpanelekből
+* Rögzíti a cél időbélyegzőit a kalibráció ütemezéséhez
 
-**Időtartam:** 1-30 másodperc (jelölt célpontok esetén), 5-30+ perc (jelöletlen célpontok esetén)
+**Időtartam:** 1-30 másodperc (jelölt célok esetén), 5-30+ perc (jelöletlen célok esetén)
 
 ### 2. szakasz: Debayering (RAW konverzió)
 
@@ -123,14 +123,14 @@ Az Chloros a licencétől függően két különböző feldolgozási módban mű
 * Kiváló minőségű demosaicing algoritmust alkalmaz
 * Megőrzi a maximális képminőséget és részletességet
 
-**Időtartam:** A képek számától és a CPU sebességétől függően változik
+**Időtartam:** A képek számától és a CPU sebességétől függően változik.
 
 ### 3. szakasz: Kalibrálás
 
 **Az Chloros funkciói:**
 
-* **Vignette-korrekció**: Eltávolítja a lencse sötétedését a széleken
-* **Reflektancia-kalibrálás**: Normalizálja a célreflektancia-értékek felhasználásával
+* **Vignette-korrekció**: eltávolítja a lencse sötétedését a széleken
+* **Reflektancia-kalibrálás**: normalizálja a célreflektancia-értékek felhasználásával
 * Korrekciókat alkalmaz minden sávon/csatornán
 * Az időbélyeg alapján minden képhez a megfelelő kalibrációs célt használja
 
@@ -138,7 +138,7 @@ Az Chloros a licencétől függően két különböző feldolgozási módban mű
 
 ### 4. szakasz: Index számítás
 
-**Az Chloros funkciója:**
+**Az Chloros funkciói:**
 
 * Kiszámítja a konfigurált multispektrális indexeket (NDVI, NDRE stb.)
 * Sávmatematikát alkalmaz a kalibrált képekre
@@ -150,12 +150,12 @@ Az Chloros a licencétől függően két különböző feldolgozási módban mű
 
 **Az Chloros feladata:**
 
-* A kalibrált képeket a kiválasztott formátumban menti
-* Az indexképeket a konfigurált LUT színekkel exportálja
-* A fájlokat a kamera modell alkönyvtáraiba írja
-* Megőrzi az eredeti fájlneveket a kiterjesztésekkel
+* A kalibrált képek mentése a kiválasztott formátumban
+* Az indexképek exportálása a konfigurált LUT színekkel
+* A fájlok írása a kameramodell almappákba
+* Az eredeti fájlnevek és kiterjesztések megőrzése
 
-**Időtartam:** Az export formátumtól és a fájl méretétől függően változik
+**Időtartam:** Az export formátumtól és a fájl méretétől függően változik.
 
 ***
 
@@ -165,9 +165,9 @@ Az Chloros a licencétől függően két különböző feldolgozási módban mű
 
 A folyamat elindítása után az egész folyamat automatikusan lefut:
 
-* Nincs szükség felhasználói beavatkozásra
-* Az összes konfigurált lépés egymás után fut le
-* A folyamat előrehaladása valós időben látható
+* Nincs szükség felhasználói beavatkozásra.
+* Az összes konfigurált lépés egymás után fut le.
+* A folyamat előrehaladása valós időben látható.
 
 ### Számítógép használata a feldolgozás során
 
@@ -197,7 +197,7 @@ A folyamat elindítása után az egész folyamat automatikusan lefut:
 * A részleges eredmények nem kerülnek mentésre.
 * Törlés esetén az elejétől kell újrakezdeni.
 
-**Tervezési tipp:** Nagyon nagy projektek esetén fontolja meg a feldolgozás kötegelt feldolgozását vagy az CLI használatát a jobb ellenőrzés érdekében.
+**Tervezési tipp:** Nagyon nagy projektek esetén fontolja meg a feldolgozás kötegelt végrehajtását vagy az CLI használatát a jobb ellenőrzés érdekében.
 
 ***
 
@@ -205,9 +205,9 @@ A folyamat elindítása után az egész folyamat automatikusan lefut:
 
 A feldolgozás futása közben a következőket teheti:
 
-* **A haladási sáv megtekintése** – Az általános befejezési százalék megtekintése
+* **A haladási sáv figyelése** – Az általános befejezési százalék megtekintése
 * **Az aktuális szakasz megtekintése** – Észlelés, elemzés, kalibrálás vagy exportálás
-* **A napló fül megtekintése** – A feldolgozással kapcsolatos részletes üzenetek és figyelmeztetések megtekintése
+* **A napló fül ellenőrzése** – A feldolgozással kapcsolatos részletes üzenetek és figyelmeztetések megtekintése
 * **A befejezett képek előnézete** – Néhány exportált fájl a feldolgozás során megjelenhet
 
 A figyelemmel kísérésről részletes információkat a [A feldolgozás figyelemmel kísérése](monitoring-the-processing.md) című részben talál.
@@ -218,45 +218,45 @@ A figyelemmel kísérésről részletes információkat a [A feldolgozás figyel
 
 Ha meg kell szakítania a feldolgozást:
 
-### Megszakítás módja
+### A megszakítás módja
 
 1. Keresse meg a **Stop/Cancel gombot** (a feldolgozás során ez helyettesíti a Start gombot)
 2. Kattintson a Stop gombra
-3. A feldolgozás azonnal leáll
-4. A részleges eredmények elvetésre kerülnek
+3. A feldolgozás azonnal leáll.
+4. A részleges eredmények elvetésre kerülnek.
 
-### Mikor kell megszakítani
+### Mikor kell megszakítani?
 
 **Érvényes okok a megszakításra:**
 
-* Rájött, hogy helytelen beállításokat használt
-* Elfelejtette megjelölni a célképeket
-* Rossz képeket importált
-* A rendszer túl lassú vagy nem reagál
+* Rájött, hogy helytelen beállításokat használt.
+* Elfelejtette megjelölni a célképeket.
+* Rossz képeket importált.
+* A rendszer túl lassú vagy nem reagál.
 
 **A megszakítás után:**
 
-* Ellenőrizze és javítsa ki az esetleges problémákat
-* Szükség szerint módosítsa a beállításokat
-* Indítsa újra a feldolgozást az elejétől
+* Ellenőrizze és javítsa ki az esetleges problémákat.
+* Szükség szerint módosítsa a beállításokat.
+* Indítsa újra a feldolgozást az elejétől.
 * A legtisztább élmény érdekében teljesen zárja be az Chloros programot, és indítsa újra.
 
 {% hint style=&quot;warning&quot; %}
-**Nincs részleges eredmény**: A lemondás az összes előrehaladást elveti. Az Chloros nem menti a részlegesen feldolgozott képeket.
+**Nincs részleges eredmény**: A lemondás minden eddigi eredményt elvet. Az Chloros nem menti a részlegesen feldolgozott képeket.
 {% endhint %}
 
 ***
 
-## Becsült feldolgozási idő
+## Feldolgozási idő becslések
 
-A tényleges feldolgozási idő nagyban függ a következőktől:
+A tényleges feldolgozási idő nagymértékben függ a következőktől:
 
 * Képek száma
 * Képfelbontás
 * RAW vagy JPG bemeneti formátum
 * Feldolgozási mód (Free vagy Chloros+)
-* CPU sebesség és magok száma
-* GPU rendelkezésre állása (csak Chloros+)
+* CPU sebesség és magszám
+* GPU rendelkezésre állás (csak Chloros+)
 * Számítandó indexek száma
 * Export formátum komplexitása
 
@@ -291,7 +291,7 @@ A tényleges feldolgozási idő nagyban függ a következőktől:
 
 1. Várja meg, amíg a háttérprogram teljesen inicializálódik (ellenőrizze a főmenü ikont)
 2. Ellenőrizze, hogy a képek importálva vannak-e a Fájlböngészőben
-3. Indítsa újra az Chloros programot, ha a gomb továbbra is letiltva marad
+3. Indítsa újra az Chloros programot, ha a gomb továbbra is letiltott marad
 4. Ellenőrizze a hibajelentéseket a hibakeresési naplóban
 
 ### A feldolgozás elindul, majd azonnal megszakad
@@ -329,13 +329,13 @@ A tényleges feldolgozási idő nagyban függ a következőktől:
 
 ## Tippek a sikeres feldolgozáshoz
 
-### Mielőtt elkezdené
+### Indulás előtt
 
 1. **Először kis részhalmazzal teszteljen** – Feldolgozzon 10-20 képet a beállítások ellenőrzéséhez.
 2. **Ellenőrizze a rendelkezésre álló lemezterületet** – Gondoskodjon arról, hogy a adatállomány méretének 2-3-szorosának megfelelő szabad hely álljon rendelkezésre.
 3. **Zárjon be felesleges alkalmazásokat** – Szabadítson fel rendszererőforrásokat.
 4. **Ellenőrizze a célképeket** – Nézze meg a megjelölt célok előnézetét a minőség ellenőrzése érdekében.
-5. **Mentse el a projektet** – A projekt automatikusan mentésre kerül, de célszerű manuálisan is elmenteni.
+5. **Mentse a projektet** – A projekt automatikusan mentésre kerül, de célszerű manuálisan is menteni.
 
 ### Feldolgozás közben
 
@@ -363,4 +363,4 @@ A feldolgozás megkezdése után:
 2. **Várja meg a befejezést** – A feldolgozás automatikusan fut.
 3. **Ellenőrizze az eredményeket** – Lásd: [A feldolgozás befejezése](finishing-the-processing.md)
 
-A feldolgozás során teendőkről további információkat a [A feldolgozás figyelése](monitoring-the-processing.md) című részben talál.
+A feldolgozás során teendőkről további információkat a [A feldolgozás figyelemmel kísérése](monitoring-the-processing.md) című részben talál.

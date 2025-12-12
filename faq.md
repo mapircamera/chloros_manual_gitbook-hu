@@ -11,15 +11,15 @@ metaLinks:
 
 <summary>Feldolgozhatok-e Chloros segítségével olyan kamerák képeit, amelyek nem MAPIR márkájúak?</summary>
 
-Nem, az Chloros csak az MAPIR kamerák képeinek feldolgozását támogatja. További információkért kérjük, tekintse meg a [támogatott kameramodellek](supported-cameras.md) listáját. Az MAPIR Cloudon más kamerák feldolgozását is kínáljuk, a teljes listát [itt](https://mapir.gitbook.io/mapir-cloud/supported-cameras) találja.
+Nem, az Chloros csak az MAPIR kamerák képeinek feldolgozását támogatja. További információkért kérjük, tekintse meg a [támogatott kameramodellek listáját](supported-cameras.md). Az MAPIR Cloudon más kamerák feldolgozását is kínáljuk, a teljes listát [itt](https://mapir.gitbook.io/mapir-cloud/supported-cameras) találja.
 
 </details>
 
 <details>
 
-<summary>Kalibrálhatom a képeimet a visszaverődéshez kalibrációs célpont nélkül?</summary>
+<summary>Kalibrálhatom a képeimet a visszaverődés alapján kalibrációs célpont nélkül?</summary>
 
-Nem. A nem célképek rögzítésekor a kalibrációs cél képének rögzítése nélkül nem tudja a kép pixelértékeit ismert visszaverődési százalékhoz rendelni. Ha nem csatolja az MAPIR fényérzékelő naplóját sem, akkor a környezeti fény spektruma nem kerül mérésre, és a visszaverődési eredmények nem lesznek pontosak.
+Nem. Ha a nem célképek rögzítésekor nem rögzít kép a kalibrációs célról, akkor nem tudja a kép pixelértékeit ismert visszaverődési százalékhoz rendelni. Ha nem csatolja az MAPIR fényérzékelő naplóját sem, akkor a környezeti fény spektruma nem lesz mérhető, és a visszaverődési eredmények nem lesznek pontosak.
 
 </details>
 
@@ -35,7 +35,7 @@ Nem. Az Chloros feltételezi, hogy a bevitt adatok nem lettek módosítva. Ne v�
 
 <summary>Beállíthatom az MAPIR Survey3 kameráimat automatikus expozícióra, és feldolgozhatom a képeket az Chloros programban?</summary>
 
-Nem. Az Survey3 képadatbázisoknak fix/zárt expozícióval kell rendelkezniük, ezért nem lehet automatikus zársebességet vagy automatikus ISO-t használni. Az azonos kameramodellel készült összes képnek azonos zársebességgel és ISO-val (expozícióval) kell rendelkeznie.
+Nem. Az Survey3 képadatbázisoknak fix/zárt expozícióval kell rendelkezniük, ezért nem lehet automatikus zársebességet vagy automatikus ISO-t használni. Az azonos kameramodellel készült képeknek azonos zársebességgel és ISO-val (expozícióval) kell rendelkezniük.
 
 </details>
 
@@ -57,9 +57,9 @@ A fájlböngésző táblázatban a jobb oldali oszlopban előre kiválasztva a c
 
 <details>
 
-<summary>Ha a képeimet <a href="https://www.mapir.camera/collections/software/products/mapir-cloud-subscription">az</a> <a href="https://www.mapir.camera/collections/software/products/mapir-cloud-subscription">MAPIR Cloud</a>ra töltöm fel, akkor a feltöltés előtt feldolgoznom kell őket az Chloros-ben?</summary>
+<summary>Ha feltöltöm a képeimet <a href="https://www.mapir.camera/collections/software/products/mapir-cloud-subscription">az</a> <a href="https://www.mapir.camera/collections/software/products/mapir-cloud-subscription">MAPIR Cloud</a>ra, akkor feltöltés előtt feldolgoznom kell őket az Chloros-ban?</summary>
 
-Ha feltöltést tervez az online feldolgozó platformunkra [MAPIR Cloud](https://www.mapir.camera/collections/software/products/mapir-cloud-subscription), ne szerkessze a képeket a feltöltés előtt. A Cloud ugyanazokat a feldolgozási műveleteket végzi el, és még többet is.
+Ha feltölteni szeretné a képeket az online feldolgozó platformunkra, a [MAPIR Cloud](https://www.mapir.camera/collections/software/products/mapir-cloud-subscription) felhőre, akkor ne szerkessze a képeket a feltöltés előtt. A felhő ugyanazt a feldolgozást végzi el, és még többet is.
 
 </details>
 

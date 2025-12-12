@@ -55,7 +55,7 @@ Fő képfeldolgozási és kalibrálási beállítások.
 **Főbb beállítások:**
 
 * **Vignette-korrekció**: Kompenzálja a lencse sötétedését a széleken ✅ Ajánlott
-* **Reflektancia-kalibrálás**: Normalizálja az értékeket a kalibrálási célok segítségével ✅ Ajánlott
+* **Reflektancia-kalibrálás**: Normalizálja az értékeket kalibrációs célok segítségével ✅ Ajánlott
 * **Debayer-módszer**: Algoritmus a RAW 3-csatornás multispektrális formátumba konvertálásához
 * **Minimális újrakalibrálási intervallum**: A kalibrációs célok használata közötti idő (0 = mindet használja)
 
@@ -67,7 +67,7 @@ Fő képfeldolgozási és kalibrálási beállítások.
 
 ### Index (multispektrális indexek)
 
-Állítsa be, mely növényzetindexeket kívánja kiszámítani és exportálni.
+Konfigurálja, mely növényzetindexeket kívánja kiszámítani és exportálni.
 
 **Indexek hozzáadása:**
 
@@ -82,7 +82,7 @@ Fő képfeldolgozási és kalibrálási beállítások.
 * **NDRE**: Korai stresszfelismerés az RedEdge segítségével
 * **GNDVI**: Klorofillkoncentrációra érzékeny
 * **OSAVI**: Jól működik látható talajjal
-* **EVI**: Magas levélterületi indexű (LAI) régiók
+* **EVI**: Magas levélterület-indexű (LAI) régiók
 
 **Egyéni képletek (csak Chloros+):**
 
@@ -109,7 +109,7 @@ A kimeneti fájl formátumának és minőségének vezérlése.
 
 ### Projekt sablon mentése
 
-Hozzon létre újrafelhasználható sablonokat az egységes munkafolyamatokhoz:
+Hozzon létre újrafelhasználható sablonokat a konzisztens munkafolyamatokhoz:
 
 1. Konfigurálja az összes kívánt beállítást a Projektbeállítások panelen.
 2. Görgessen le az alján található **„Projekt sablon mentése”** szakaszhoz.
@@ -126,7 +126,7 @@ Hozzon létre újrafelhasználható sablonokat az egységes munkafolyamatokhoz:
 
 Új projekt létrehozásakor:
 
-1. Válassza a főmenüből az **„Új projekt”** lehetőséget.
+1. Válassza a **„Új projekt”** lehetőséget a főmenüből.
 2. Válassza a **„Betöltés sablonból”** lehetőséget.
 3. Válassza ki a mentett sablont.
 4. Az összes beállítás automatikusan alkalmazásra kerül.
@@ -158,7 +158,7 @@ Ha MAPIR DAQ rögzítőket használ GPS-szel a pontos földrajzi helymeghatároz
 
 1. Helyezze a .daq naplófájlt a projektmappájába.
 2. A Projektbeállításokban jelölje be az **„PPK-korrekciók alkalmazása”** jelölőnégyzetet.
-3. Szükség esetén állítsa be a **„Fényérzékelő időzóna eltolása”** értéket (alapértelmezett: 0 UTC esetén).
+3. Szükség esetén állítsa be a **„Fényérzékelő időzóna eltolása”** értéket (alapértelmezett: 0 az UTC esetében).
 4. Rendelje hozzá a kamerákat az expozíciós csapokhoz:
    * **Egyetlen kamera**: Automatikusan hozzárendelve az 1. csaphoz
    * **Két kamera**: Manuálisan rendelje hozzá az egyes kamerákat a megfelelő csapokhoz
@@ -181,7 +181,7 @@ Ha MAPIR DAQ rögzítőket használ GPS-szel a pontos földrajzi helymeghatároz
 
 Ha egy projektben több MAPIR kamera képét dolgozza fel:
 
-1. Chloros automatikusan felismeri az egyes kameramodelleket
+1. Az Chloros automatikusan felismeri az egyes kameramodelleket
 2. Minden kamera megkapja a megfelelő feldolgozási profilt
 3. PPK: Manuálisan rendelje hozzá az egyes kamerákat a megfelelő expozíciós csaphoz
 4. Az összes kamera ugyanazt az exportformátumot és indexeket használja
@@ -192,7 +192,7 @@ Ha egy projektben több MAPIR kamera képét dolgozza fel:
 
 Ugyanazon terület időbeli ismételt felméréseihez:
 
-1. Hozzon létre egy sablont a standard beállításaival.
+1. Hozzon létre egy sablont a standard beállításokkal.
 2. Minden munkamenetben használjon konzisztens kalibrációs célbeállítást.
 3. Minden dátumot külön projektként dolgozzon fel.
 4. Az összehasonlítható eredmények érdekében használjon azonos beállításokat.
@@ -200,7 +200,7 @@ Ugyanazon terület időbeli ismételt felméréseihez:
 
 ### Nagy adatállományok
 
-Sok képet (500+) tartalmazó projektek esetén:
+Sok képpel rendelkező projektek (500+) esetén:
 
 * Fontolja meg a projektek kisebb projektekre bontását dátum vagy terület szerint.
 * Használja az Chloros+ párhuzamos feldolgozást a gyorsabb eredmények érdekében.
@@ -214,7 +214,7 @@ Sok képet (500+) tartalmazó projektek esetén:
 A feldolgozás megkezdése előtt ellenőrizze a következő fontos beállításokat:
 
 * [ ] A kamera modellje helyesen lett felismerve a Fájlkezelőben
-* [ ] A vignettázás korrekció engedélyezve
+* [ ] A vignettás korrekció engedélyezve
 * [ ] A visszaverődés kalibrálása engedélyezve
 * [ ] Legalább egy kalibrációs célkép importálva
 * [ ] A kívánt multispektrális indexek hozzáadva
@@ -231,4 +231,4 @@ A beállítások konfigurálása után:
 2. **Indítsa el a feldolgozást** – Lásd: [A feldolgozás elindítása](starting-the-processing.md)
 3. **Figyelje a folyamatot** – Lásd: [A feldolgozás figyelése](monitoring-the-processing.md)
 
-Az összes rendelkezésre álló beállítás részletes leírását lásd a [Projektbeállítások](../project-settings/project-settings.md) referencia dokumentációban.
+Az összes rendelkezésre álló beállításról részletes információkat a [Projektbeállítások](../project-settings/project-settings.md) referencia dokumentációban talál.

@@ -1,6 +1,6 @@
 # Célképek kiválasztása
 
-A kalibrációs célokat tartalmazó képek megjelölése egy fontos lépés, amely jelentősen felgyorsítja az Chloros feldolgozási folyamatot. A célképek előzetes kiválasztásával elkerülhető, hogy az Chloros az adatkészlet minden képét átvizsgálja a kalibrációs célok keresése érdekében.
+A kalibrációs célokat tartalmazó képek megjelölése egy fontos lépés, amely jelentősen felgyorsítja az Chloros feldolgozási folyamatot. A célképek előzetes kiválasztásával elkerülhető, hogy az Chloros az adatkészlet minden képét beolvassa a kalibrációs célok keresése érdekében.
 
 ## Miért érdemes megjelölni a célképeket?
 
@@ -9,7 +9,7 @@ A kalibrációs célokat tartalmazó képek megjelölése egy fontos lépés, am
 A célképek megjelölése nélkül az Chloros-nek:
 
 * át kell vizsgálnia a projektben található összes képet,
-* célfelismerő algoritmusokat kell futtatnia minden képen,
+* minden képen futtatnia kell a célfelismerő algoritmusokat,
 * feleslegesen több száz vagy ezer képet kell ellenőriznie.
 
 **Eredmény**: A feldolgozás jelentősen hosszabb ideig tarthat, különösen nagy adatkészletek esetén.
@@ -23,7 +23,7 @@ Ha a Cél oszlopban megjelöl bizonyos képeket:
 * Az általános feldolgozási idő jelentősen csökken
 
 {% hint style=&quot;success&quot; %}
-**Sebességjavulás**: 500 képből álló adathalmazban 2-3 célkép megjelölésével a célfelismerés ideje 30 percről 1 perc alá csökkenhet.
+**Sebességjavulás**: 500 képből álló adatkészletben 2-3 célkép megjelölésével a célfelismerés ideje 30 percről 1 perc alá csökkenhet.
 {% endhint %}
 
 ***
@@ -55,7 +55,7 @@ Minden kalibrációs célt tartalmazó kép esetében:
 A feldolgozás előtt ellenőrizze:
 
 * [ ] Minden kalibrációs célt tartalmazó kép be van jelölve.
-* [ ] Nincs véletlenül bejelölve olyan kép, amely nem tartalmaz célt.
+* [ ] Nem jelölt be véletlenül olyan képet, amely nem tartalmaz célt.
 * [ ] A célok jól láthatóak a bejelölt képeken.
 
 ***
@@ -67,8 +67,8 @@ A feldolgozás előtt ellenőrizze:
 **Időzítés:**
 
 * A célképeket közvetlenül a rögzítési munkamenet előtt és annak során rögzítse.
-* A DAQ fényérzékelőjével megegyező fényviszonyok között.
-* A legjobb eredmények elérése érdekében ideális esetben a lehető leggyakrabban rögzítse a célképeket. Ellenkező esetben a fényérzékelő adatai alapján kerül sor a kalibrálás időbeli kiigazítására.
+* Ugyanolyan fényviszonyok mellett, mint a DAQ fényérzékelő.
+* A legjobb eredmények elérése érdekében ideális esetben a lehető leggyakrabban rögzítsen célképeket. Ellenkező esetben a fényérzékelő adatai alapján kerül sor a kalibrálás időbeli kiigazítására.
 
 **Kamera pozíciója:**
 
@@ -79,16 +79,16 @@ A feldolgozás előtt ellenőrizze:
 
 * Ugyanaz a környezeti megvilágítás, mint a DAQ fényérzékelőjének.
 * Kerülje az árnyékokat a célfelületeken.
-* Ne takarja el a fényforrást testével, járművel vagy növényzettel.
+* Ne takarja el a fényforrást a testével, járművével vagy növényzettel.
 * A felhős időjárás biztosítja a legkonzisztensebb eredményeket.
 
 **Célállapot:**
 
 * Tartsa a célpaneleket tisztán és szárazon.
 * Mind a 4 panelnek jól láthatónak és akadálymentesnek kell lennie.
-* A célok lehetőség szerint merőlegesek/nadír a fényforráshoz képest.
+* A célok lehetőség szerint merőlegesek/nadírban legyenek a fényforráshoz képest.
 
-### Hány célképet?
+### Hány célkép szükséges?
 
 **Minimum:** 1 célkép munkamenetenként. **Ajánlott:** 3-5 célkép munkamenetenként.
 
@@ -113,7 +113,7 @@ Ha két MAPIR kamerát használ egyszerre (pl. Survey3W RGN + Survey3N OCN):
 
 ### Kamera modell oszlop
 
-A **Kamera modell** oszlop segít azonosítani, hogy melyik képek melyik kamerából származnak:
+A **Kamera modell** oszlop segít azonosítani, hogy melyik kép melyik kamerából származik:
 
 * Survey3W\_RGN
 * Survey3N\_OCN
@@ -128,7 +128,7 @@ Ezzel az oszloppal ellenőrizheti, hogy a projektben minden kameratípushoz megj
 
 ### A felismerés érzékenységének beállítása
 
-Ha az Chloros nem ismeri fel megfelelően a célpontokat, állítsa be ezeket a beállításokat a [Projektbeállítások](adjusting-project-settings.md) menüpontban:
+Ha az Chloros nem ismeri fel megfelelően a célpontokat, állítsa be a következő beállításokat a [Projektbeállítások](adjusting-project-settings.md) menüpontban:
 
 **Minimális kalibrációs mintaterület:**
 
@@ -159,14 +159,14 @@ Ha az Chloros nem ismeri fel megfelelően a célpontokat, állítsa be ezeket a 
 
 1. Ellenőrizze, hogy a Cél oszlopban a megfelelő képek vannak-e bejelölve.
 2. Ellenőrizze a célképek minőségét az előnézetben.
-3. Ha a minőség rossz, rögzítse újra a célokat.
+3. Ha a minőség rossz, vegye fel újra a célokat.
 4. Szükség esetén módosítsa a célfelismerési beállításokat.
 
 ### Probléma: Hamis célfelismerések
 
 **Lehetséges okok:**
 
-* Fehér épületek, járművek vagy talajborítás tévesen célpontnak minősülnek
+* Fehér épületek, járművek vagy talajtakaró tévesen célpontnak minősülnek
 * Világos foltok a növényzetben
 * Túl alacsony felismerési érzékenység
 
@@ -183,11 +183,11 @@ Ha az Chloros nem ismeri fel megfelelően a célpontokat, állítsa be ezeket a 
 
 A feldolgozás megkezdése előtt ellenőrizze a célképek kiválasztását:
 
-* [ ] Legalább 1 célkép megjelölve munkamenetenként
-* [ ] A cél oszlop jelölőnégyzetei be vannak jelölve az összes célképnél
+* [ ] Legalább 1 célkép megjelölve minden munkamenetben
+* [ ] A cél oszlop jelölőnégyzetei be vannak jelölve minden célképnél
 * [ ] A célképek a felméréssel azonos időintervallumban készültek
 * [ ] A célok kattintáskor jól láthatóak az előnézetben
-* [ ] Mind a 4 kalibrációs panel látható az egyes célképeken
+* [ ] Mind a 4 kalibrációs panel látható minden célképen
 * [ ] Nincsenek árnyékok vagy akadályok a célpontokon
 * [ ] Kettős kamera esetén: mindkét kameratípushoz megjelölt célpontok
 
@@ -205,7 +205,7 @@ Bár tudományos munkához nem ajánlott, célpontok nélkül is elvégezhető a
 4. A kimenet nem lesz kalibrálva az abszolút reflektancia tekintetében.
 
 {% hint style=&quot;warning&quot; %}
-**Nem ajánlott**: Reflektancia-kalibrálás nélkül a pixelértékek csak a relatív fényerőt jelzik, nem pedig tudományos reflektancia-méréseket. A pontos, megismételhető eredmények érdekében használjon kalibrációs célokat.
+**Nem ajánlott**: Reflektancia-kalibrálás nélkül a pixelértékek csak a relatív fényerőt jelzik, nem pedig tudományos reflektancia-méréseket. Pontos, megismételhető eredmények érdekében használjon kalibrációs célokat.
 {% endhint %}
 
 ***

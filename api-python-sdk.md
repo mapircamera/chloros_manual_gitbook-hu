@@ -132,7 +132,7 @@ Az SDK ugyanazt a licencet használja, mint az Chloros, Chloros (böngésző) é
 3. A licenc helyileg tárolódik (újraindítás után is megmarad)
 
 {% hint style=&quot;success&quot; %}
-**Egyszeri beállítás**: A GUI-n vagy az CLI-en keresztül történő bejelentkezés után az SDK automatikusan a cache-elt licencet használja. Nincs szükség további hitelesítésre!
+**Egyszeri beállítás**: A GUI-n vagy az CLI-en keresztül történő bejelentkezés után az SDK automatikusan a gyorsítótárban tárolt licencet használja. Nincs szükség további hitelesítésre!
 {% endhint %}
 
 ### Kapcsolat tesztelése
@@ -152,7 +152,7 @@ print(f"Backend running: {status['running']}")
 
 ***
 
-## API hivatkozás
+## API Referencia
 
 ### ChlorosLocal osztály
 
@@ -174,11 +174,11 @@ ChlorosLocal(
 
 | Paraméter                 | Típus | Alapértelmezett                   | Leírás                           |
 | ------------------------- | ---- | ------------------------- | ------------------------------------- |
-| `api_url`                 | str  | `"http://localhost:5000"` | URL a helyi Chloros háttérrendszerből          |
+| `api_url`                 | str  | `"http://localhost:5000"` | URL a helyi Chloros háttérprogramhoz          |
 | `auto_start_backend`      | bool | `True`                    | Szükség esetén automatikusan indítsa el a háttérprogramot |
 | `backend_exe`             | str  | `None` (automatikus felismerés)      | A háttérprogram futtatható fájljának elérési útja            |
-| `timeout`                 | int  | `30`                      | Kérés időtúllépése másodpercben            |
-| `backend_startup_timeout` | int  | `60`                      | A háttérprogram indításának időtúllépése (másodperc) |
+| `timeout`                 | int  | `30`                      | Kérés időtúllépés másodpercben            |
+| `backend_startup_timeout` | int  | `60`                      | Backend indításának időtúllépése (másodperc) |
 
 **Példák:**
 
@@ -211,7 +211,7 @@ chloros = ChlorosLocal(timeout=60)
 | `project_name` | str  | Igen      | A projekt neve                                     |
 | `camera`       | str  | Nem       | Kamera sablon (pl. „Survey3N\_RGN”, „Survey3W\_OCN”) |
 
-**Visszatérési érték:** `dict` – Projekt létrehozásának válasza
+**Visszatérési érték:** `dict` – Projekt létrehozási válasz
 
 **Példa:**
 
@@ -236,7 +236,7 @@ Képek importálása egy mappából.
 | `folder_path` | str/Path | Igen      | A képeket tartalmazó mappa elérési útja         |
 | `recursive`   | bool     | Nem       | Almappák keresése (alapértelmezett: False) |
 
-**Visszatérési értékek:** `dict` - Importálási eredmények a fájlok számával
+**Visszatérési érték:** `dict` - Importálási eredmények a fájlok számával
 
 **Példa:**
 
@@ -259,10 +259,10 @@ A feldolgozási beállítások konfigurálása.
 | Paraméter                 | Típus | Alapértelmezett                 | Leírás                     |
 | ------------------------- | ---- | ----------------------- | ------------------------------- |
 | `debayer`                 | str  | „Kiváló minőség (gyorsabb)” | Debayer-módszer                  |
-| `vignette_correction`     | bool | `True`                  | Vignette-korrekció engedélyezése      |
-| `reflectance_calibration` | bool | `True`                  | Reflektancia-kalibrálás engedélyezése  |
-| `indices`                 | lista | `None`                  | Számítandó vegetációs indexek |
-| `export_format`           | str  | „TIFF (16 bites)”         | Kimeneti formátum                   |
+| `vignette_correction`     | bool | `True`                  | Vignettakorrekció engedélyezése      |
+| `reflectance_calibration` | bool | `True`                  | Reflektancia kalibrálás engedélyezése  |
+| `indices`                 | list | `None`                  | Számítandó vegetációs indexek |
+| `export_format`           | str  | &quot;TIFF (16 bites)&quot;         | Kimeneti formátum                   |
 | `ppk`                     | bool | `False`                 | PPK-korrekciók engedélyezése          |
 | `custom_settings`         | dict | `None`                  | Speciális egyéni beállítások        |
 
@@ -308,7 +308,7 @@ A projekt képek feldolgozása.
 
 | Paraméter           | Típus     | Alapértelmezett      | Leírás                               |
 | ------------------- | -------- | ------------ | ----------------------------------------- |
-| `mode`              | str      | `"parallel"` | Feldolgozási mód: „parallel” vagy „soros”   |
+| `mode`              | str      | `"parallel"` | Feldolgozási mód: „parallel” vagy „serial”   |
 | `wait`              | bool     | `True`       | Várjon a befejezésre                       |
 | `progress_callback` | callable | `None`       | Haladás visszahívási funkció (haladás, üzenet) |
 | `poll_interval`     | float    | `2.0`        | A haladás lekérdezési intervalluma (másodperc)   |
@@ -360,7 +360,7 @@ print(config['Project Settings'])
 
 A háttérállapot információk lekérése.
 
-**Visszatérési érték:** `dict` - Háttérállapot
+**Visszatérési érték:** `dict` - Háttérrendszer állapota
 
 **Példa:**
 
@@ -374,7 +374,7 @@ print(f"URL: {status['url']}")
 
 #### `shutdown_backend()`
 
-A háttér leállítása (ha az SDK indította el).
+A háttérrendszer leállítása (ha az SDK indította el).
 
 **Példa:**
 
@@ -397,12 +397,12 @@ Egy soros kényelmi funkció egy mappa feldolgozásához.
 | `folder_path`             | str/Path | Szükséges        | A képeket tartalmazó mappa elérési útja     |
 | `project_name`            | str      | Automatikusan generált  | Projekt neve                   |
 | `camera`                  | str      | `None`          | Kamera sablon                |
-| `indices`                 | list     | `["NDVI"]`      | Számítandó indexek           |
-| `vignette_correction`     | bool     | `True`          | Vignett korrekció engedélyezése     |
-| `reflectance_calibration` | bool     | `True`          | Reflektancia kalibrálás engedélyezése |
+| `indices`                 | list     | `["NDVI"]`      | Számításhoz szükséges indexek           |
+| `vignette_correction`     | bool     | `True`          | Vignette-korrekció engedélyezése     |
+| `reflectance_calibration` | bool     | `True`          | Reflektancia-kalibrálás engedélyezése |
 | `export_format`           | str      | &quot;TIFF (16 bites)&quot; | Kimeneti formátum                  |
 | `mode`                    | str      | `"parallel"`    | Feldolgozási mód                |
-| `progress_callback`       | callable | `None`          | Haladás visszahívás              |
+| `progress_callback`       | hívható | `None`          | Haladás visszahívás              |
 
 **Visszatérési értékek:** `dict` - Feldolgozási eredmények
 
@@ -457,7 +457,7 @@ with ChlorosLocal() as chloros:
 
 ### 1. példa: Alapvető feldolgozás
 
-Egy mappa feldolgozása az alapértelmezett beállításokkal:
+Egy mappa feldolgozása alapértelmezett beállításokkal:
 
 ```python
 from chloros_sdk import process_folder
@@ -514,7 +514,7 @@ print("Processing complete!")
 
 ### 3. példa: Több mappa kötegelt feldolgozása
 
-Több repülési adatsor feldolgozása:
+Több repülési adatkészlet feldolgozása:
 
 ```python
 from chloros_sdk import ChlorosLocal
@@ -619,7 +619,7 @@ print(df)
 
 ***
 
-### 5. példa: Egyedi előrehaladás-figyelés
+### 5. példa: Egyéni előrehaladás-figyelés
 
 Fejlett előrehaladás-követés naplózással:
 
@@ -660,7 +660,7 @@ logging.info("Processing complete!")
 
 ### 6. példa: Hiba kezelése
 
-Robusztus hiba kezelés termelési felhasználásra:
+Robusztus hiba kezelés termelési használatra:
 
 ```python
 from chloros_sdk import ChlorosLocal
@@ -799,7 +799,7 @@ ChlorosError                    # Base exception
 └── ChlorosConfigurationError  # Configuration errors
 ```
 
-### Kivételpéldák
+### Kivételek példái
 
 ```python
 from chloros_sdk import ChlorosLocal
@@ -841,7 +841,7 @@ chloros = ChlorosLocal(
 
 ### Nem blokkoló feldolgozás
 
-A feldolgozás megkezdése és más feladatok folytatása:
+Indítsa el a feldolgozást, és folytassa más feladatokkal:
 
 ```python
 # Start processing (non-blocking)
@@ -863,7 +863,7 @@ print("Processing complete!")
 
 ### Memóriakezelés
 
-Nagy adathalmazok esetén a feldolgozás kötegekben történik:
+Nagy adathalmazok esetén kötegelt feldolgozás:
 
 ```python
 from pathlib import Path
@@ -913,9 +913,9 @@ chloros = ChlorosLocal(backend_exe="C:\\Path\\To\\chloros-backend.exe")
 
 ***
 
-### Licenc nem található
+### A licenc nem található
 
-**Probléma:** SDK figyelmeztet a hiányzó licencre
+**Probléma:** Az SDK figyelmeztet a hiányzó licencre
 
 **Megoldások:**
 
@@ -957,7 +957,7 @@ python -c "import sys; print(sys.path)"
 
 ### Feldolgozási időtúllépés
 
-**Probléma:** A feldolgozás időtúllépésbe kerül.
+**Probléma:** A feldolgozás időtúllépése
 
 **Megoldások:**
 
@@ -967,7 +967,7 @@ python -c "import sys; print(sys.path)"
 chloros = ChlorosLocal(timeout=120)  # 2 minutes
 ```
 
-2. Kisebb adagokat dolgozzon fel
+2. Feldolgozzon kisebb adagokat
 3. Ellenőrizze a rendelkezésre álló lemezterületet
 4. Figyelje a rendszer erőforrásait
 
@@ -1003,13 +1003,13 @@ Get-NetTCPConnection -LocalPort 5000
 chloros.process(mode="parallel")  # Up to 16 workers
 ```
 
-2. **Csökkentse a kimeneti felbontást** (ha ez elfogadható)
+2. **A kimeneti felbontás csökkentése** (ha elfogadható)
 
 ```python
 chloros.configure(export_format="PNG (8-bit)")  # Faster than TIFF
 ```
 
-3. **Kapcsolja ki a felesleges indexeket**
+3. **A felesleges indexek letiltása**
 
 ```python
 # Only calculate needed indices
@@ -1022,7 +1022,7 @@ chloros.configure(indices=["NDVI"])  # Not all indices
 
 ### Memóriaoptimalizálás
 
-Nagy adathalmazok esetén:
+Nagy adatállományok esetén:
 
 ```python
 # Process in batches instead of all at once
@@ -1123,7 +1123,7 @@ chloros.process(progress_callback=notebook_progress)
 
 ### K: Az SDK internetkapcsolatot igényel?
 
-**V:** Csak az első licencteljesítéshez. Miután bejelentkezett az Chloros, Chloros (böngésző) vagy Chloros CLI segítségével, a licenc helyileg tárolódik, és 30 napig offline is működik.
+**V:** Csak az első licenctelepítéshez. Miután bejelentkezett az Chloros, Chloros (böngésző) vagy az Chloros CLI segítségével a licenc helyileg tárolódik, és 30 napig offline módban is működik.
 
 ***
 
@@ -1155,7 +1155,7 @@ chloros.process(progress_callback=notebook_progress)
 
 * A végfelhasználóknak telepíteniük kell az Chloros szoftvert
 * A végfelhasználóknak aktív Chloros+ licenccel kell rendelkezniük
-* Kereskedelmi terjesztéshez OEM licenc szükséges.
+* Kereskedelmi terjesztéshez OEM licenc szükséges
 
 OEM-rel kapcsolatos kérdésekkel forduljon az info@mapir.camera-hez.
 
@@ -1171,7 +1171,7 @@ pip install --upgrade chloros-sdk
 
 ### K: Hol kerülnek mentésre a feldolgozott képek?
 
-Alapértelmezés szerint a Projekt elérési útjában:
+Alapértelmezés szerint a projekt útvonalában:
 
 ```
 Project_Path/
@@ -1181,7 +1181,7 @@ Project_Path/
 
 ***
 
-### K: Feldolgozhatom a képeket az Python szkriptekkel, amelyek ütemezetten futnak?
+### K: Feldolgozhatom a Python szkriptekkel ütemezetten futó képeket?
 
 **V:** Igen! Használja az Windows Feladatütemezőt az Python szkriptekkel:
 
@@ -1193,13 +1193,13 @@ from chloros_sdk import process_folder
 results = process_folder("C:\\Flights\\Today")
 ```
 
-A Feladatütemező segítségével állítsa be a napi futtatásra.
+A Feladatütemező segítségével ütemezze be a napi futtatásra.
 
 ***
 
 ### K: Az SDK támogatja az async/await funkciót?
 
-**V:** A jelenlegi verzió szinkron. Aszinkron működéshez használja az `wait=False`-et, vagy futtassa külön szálban:
+**V:** A jelenlegi verzió szinkronizált. Aszinkron viselkedéshez használja az `wait=False`-et, vagy futtassa külön szálban:
 
 ```python
 import threading
@@ -1235,6 +1235,6 @@ Az itt felsorolt példák mindegyike tesztelt és termeléskész. Másolja és a
 
 ## Licenc
 
-**Saját fejlesztésű szoftver** - Szerzői jog (c) 2025 MAPIR Inc.
+**Saját fejlesztésű szoftver** – Copyright (c) 2025 MAPIR Inc.
 
-Az SDK aktív Chloros+ előfizetést igényel. A jogosulatlan használat, terjesztés vagy módosítás tilos.
+Az SDK használatához aktív Chloros+ előfizetés szükséges. A jogosulatlan használat, terjesztés vagy módosítás tilos.

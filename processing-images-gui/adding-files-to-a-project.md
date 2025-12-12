@@ -22,7 +22,7 @@ Két fő módszer létezik a képek hozzáadására a projekthez:
 
 Ezzel az opcióval egyedi képfájlokat vagy egy kis fájlválogatást importálhat.
 
-1. Kattintson a **„Fájlok hozzáadása”** gombra a Fájlböngésző panel tetején.
+1. Kattintson a **„Fájlok hozzáadása”** gombra a Fájlkezelő panel tetején.
 2. Keresse meg a képeket tartalmazó mappát.
 3. Válasszon ki egy vagy több képfájlt (több fájl kiválasztásához tartsa lenyomva a **Ctrl** billentyűt).
 4. Kattintson az **„Megnyitás”** gombra a kiválasztott fájlok importálásához.
@@ -31,13 +31,13 @@ Ezzel az opcióval egyedi képfájlokat vagy egy kis fájlválogatást importál
 
 Ezzel az opcióval egyszerre importálhatja az összes képet egy mappából.
 
-1. Kattintson a Fájlböngésző panel tetején található **„Mappa hozzáadása”** gombra.
+1. Kattintson a **„Mappa hozzáadása”** gombra a Fájlböngésző panel tetején.
 2. Keresse meg és válassza ki a rögzített képeket tartalmazó mappát.
-3. Kattintson a **„Mappa kiválasztása”** gombra a mappában található összes támogatott kép importálásához.
+3. Kattintson a **„Mappa kiválasztása”** gombra az összes támogatott kép importálásához a mappából.
 
 ***
 
-## A fájlböngésző táblázat megértése
+## A Fájlböngésző táblázat megértése
 
 A képek importálása után azok a következő oszlopokkal rendelkező táblázatban jelennek meg:
 
@@ -66,7 +66,7 @@ A képek importálása után azok a következő oszlopokkal rendelkező tábláz
 ### Cél oszlop (jelölőnégyzet)
 
 * Jelölje be ezt a jelölőnégyzetet a kalibrációs célokat tartalmazó képeknél
-* Jelentősen felgyorsítja a célok felismerését a feldolgozás során
+* Jelentősen felgyorsítja a célok észlelését a feldolgozás során
 * A részleteket lásd a [Célképek kiválasztása](choosing-target-images.md) című részben.
 
 ***
@@ -85,7 +85,7 @@ A nem kívánt képek eltávolítása a projektből:
 
 * **Oszlop szerinti rendezés**: Kattintson bármely oszlopfejlécre a képek rendezéséhez
 * **Időbélyeg szerinti rendezés**: Hasznos a kronológiai felvételi sorozatok rendezéséhez.
-* **Kameramodell szűrő**: Több kamera használata esetén csoportosítsa a képeket kameratípus szerint.
+* **Fényképezőgép-modell szűrő**: Több fényképezőgép használata esetén csoportosítsa a képeket fényképezőgép-típus szerint.
 
 ***
 
@@ -93,18 +93,18 @@ A nem kívánt képek eltávolítása a projektből:
 
 ### Teljes kép megtekintése
 
-Kattintson bármelyik kép miniatűrjére a Fájlböngészőben, hogy azt a fő előnézeti területen megjelenítsék:
+Kattintson bármelyik kép miniatűrjére a Fájlböngészőben, hogy azt a fő előnézeti területen megjelenítse:
 
-1. A kép megjelenik a középső előnézeti panelen.
+1. A kép a középső előnézeti panelen jelenik meg.
 2. A nagyítás vezérlőivel megtekintheti a kép részleteit.
 3. A nyílgombokkal navigálhat a képek között
 
 ### Gyors navigáció
 
-* **Előző kép**: Kattintson a bal nyílra vagy nyomja meg a ← gombot
-* **Következő kép**: Kattintson a jobb nyílra vagy nyomja meg a → gombot
-* **Nagyítás/kicsinyítés**: Használja az egérgörgőt vagy a nagyító gombokat
-* **Panoráma**: Nagyításkor kattintson a képre és húzza el
+* **Előző kép**: Kattintson a bal nyílra, vagy nyomja meg a ← gombot
+* **Következő kép**: Kattintson a jobb nyílra, vagy nyomja meg a → gombot
+* **Nagyítás/kicsinyítés**: Használja az egér görgőjét vagy a nagyító gombokat
+* **Panoráma**: Nagyítás esetén kattintson a képre, és húzza el
 
 ***
 
@@ -141,7 +141,7 @@ Ha a projekt több MAPIR kamerából származó képeket tartalmaz:
 
 * A kalibrációs célképeket tartsa ugyanabban a mappában, mint a felmérési képeket.
 * Tartsa meg a kamera/SD-kártya eredeti mappaszerkezetét.
-* Ne keverje össze a különböző munkamenetek adatállományait egy projektben.
+* Ne keverje össze a különböző munkamenetek adatait egy projektben.
 
 ### Fájlnevezés
 
@@ -151,9 +151,9 @@ Ha a projekt több MAPIR kamerából származó képeket tartalmaz:
 
 ### Kalibrációs célképek
 
-* Minden munkamenethez mindig csatoljon 1-2 kalibrációs célképet.
-* A célképeket a felvételek előtt és után készítse el.
-* A célképeket ugyanolyan fényviszonyok között helyezze el, mint a felvételi területet.
+* Minden munkamenetben mindig 1-2 kalibrációs célképet vegyen fel.
+* A felvételek előtt és után rögzítse a célokat.
+* Helyezze a célokat ugyanolyan fényviszonyok közé, mint a felvételi területet.
 * A feldolgozás gyorsítása érdekében jelölje meg a célképeket a Cél jelölőnégyzet segítségével.
 
 ***
@@ -187,7 +187,7 @@ Ha a projekt több MAPIR kamerából származó képeket tartalmaz:
 * A kamera órája nincs megfelelően beállítva
 * Az EXIF-adatok külső szoftver által törölve
 
-**Megoldás**: Ellenőrizze, hogy a kamera időbeállításai a felvétel készítése során helyesek voltak-e.
+**Megoldás**: Ellenőrizze, hogy a kamera időbeállításai a felvétel készítése során megfelelőek voltak-e.
 
 ***
 

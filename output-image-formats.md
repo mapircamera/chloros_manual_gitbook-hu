@@ -20,5 +20,5 @@ metaLinks:
 
 ### **PNG (8 bites)**
 
-8 bites (pixel digitális szám 0 - 255) PNG (.png) formátumú kimenet. Veszteségmentes tömörítés, alkalmas webes megtekintésre és megjelenítésre.
+8 bites (pixel digitális szám 0 - 255) PNG (.png) formátumú kimenet. Veszteségmentes tömörítés, amely alkalmas webes megtekintésre és vizualizálásra.
 

@@ -8,7 +8,7 @@ A feldolgozás sikeres befejezése után több jelző is megjelenik:
 
 * ✅ **Haladási sáv**: Eléri a 100%-os befejezést
 * ✅ **Hibakeresési napló**: Megjelenik a „Feldolgozás befejezve” üzenet
-* ✅ **Start gomb**: Ismét engedélyezetté válik (kész a következő feldolgozási futtatásra)
+* ✅ **Indítás gomb**: Ismét engedélyezetté válik (kész a következő feldolgozási futtatásra)
 * ✅ **Kimeneti fájlok**: Az összes feldolgozott kép a kamera modell alkönyvtárába kerül
 
 ***
@@ -45,13 +45,13 @@ A feldolgozás sikeres befejezése után több jelző is megjelenik:
 * **GIMP** – ingyenes alternatíva a Photoshophoz
 * **Windows Photos** – alapvető megtekintés (lehet, hogy nem támogatja a 16 bites TIFF-et)
 
-### Előnézet az Chloros Képnézegetőben
+### Előnézet az Chloros Képmegjelenítőben
 
-Használja az Chloros beépített Képnézegetőjét a fejlett megjelenítéshez:
+Használja az Chloros beépített Képmegjelenítőjét a fejlett vizualizáláshoz:
 
-1. Kattintson egy kép miniatűrjére a Fájlböngészőben
-2. A kép megnyílik a fő előnézeti területen
-3. Kattintson a **Képnézegető** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> fülre a bal oldali sávban.
+1. Kattintson egy kép miniatűrjére a Fájlböngészőben.
+2. A kép megnyílik a fő előnézeti területen.
+3. Kattintson a **Képmegjelenítő** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> fülre a bal oldali sávban.
 4. Használja az [Index/LUT Sandbox](../image-viewer-gui/index-lut-sandbox.md) funkciót az interaktív elemzéshez.
 
 Részletes utasításokat az [Image Viewer](../image-viewer-gui/opening-an-image-full-screen.md) oldalon talál.
@@ -62,7 +62,7 @@ Részletes utasításokat az [Image Viewer](../image-viewer-gui/opening-an-image
 
 ### Figyeljen a figyelmeztetésekre és hibákra
 
-1. Nyissa meg a **Hibakeresési napló** <img src="../.gitbook/assets/icon_log.JPG" alt="" data-size="line"> fület
+1. Nyissa meg a **Hibaelhárítási napló** <img src="../.gitbook/assets/icon_log.JPG" alt="" data-size="line"> fület
 2. Görgessen végig az üzeneteken
 3. Keresse meg a sárga figyelmeztetéseket vagy a piros hibákat
 4. Tekintse át a megjegyzett problémákat
@@ -70,12 +70,12 @@ Részletes utasításokat az [Image Viewer](../image-viewer-gui/opening-an-image
 
 ### A napló mentése
 
-A feldolgozás rögzítéséhez vagy az MAPIR támogatáshoz való elküldéshez:
+A feldolgozás nyilvántartása vagy az MAPIR támogatáshoz való elküldéshez:
 
 1. Kattintson a **„Másolás”** vagy **„Letöltés”** gombra.
 2. Mentse szövegfájlként a projektmappába.
 3. Csatolja a projekt dokumentációjához.
-4. Problémák esetén küldje el az MAPIR ügyfélszolgálatnak.
+4. Problémák esetén küldje el az MAPIR támogatásnak.
 
 ***
 
@@ -88,11 +88,11 @@ A feldolgozás rögzítéséhez vagy az MAPIR támogatáshoz való elküldéshez
 * A fájlok nem feleltek meg a feldolgozási kritériumoknak.
 * Csak célképek (kizárva az exportálásból).
 * Az exportálás során elfogyott a lemezterület.
-* A feldolgozás során a fájlok megsérültek.
+* A fájlok megsérültek a feldolgozás során.
 
 **Megoldások:**
 
-1. Ellenőrizze a hibakeresési naplóban, hogy vannak-e kihagyási/hibajelentések.
+1. Ellenőrizze a hibakeresési naplót ugrási/hibajelentésekre.
 2. Ellenőrizze, hogy elegendő lemezterület állt-e rendelkezésre.
 3. Számolja meg a fájlokat: Meg kell egyeznie (eredeti szám – célszám) × (indexek + 1)
 4. Importálja újra és dolgozza fel újra a hiányzó fájlokat.
@@ -103,7 +103,7 @@ A feldolgozás rögzítéséhez vagy az MAPIR támogatáshoz való elküldéshez
 
 * A vignettálás-korrekció ki van kapcsolva.
 * A kamera/objektív nincs az Chloros profil adatbázisban.
-* A vignettálás túlzott mértékű, a korrekciós képességet meghaladja.
+* A vignettálás olyan mértékű, hogy a korrekció nem képes kijavítani.
 
 **Megoldások:**
 
@@ -118,7 +118,7 @@ A feldolgozás rögzítéséhez vagy az MAPIR támogatáshoz való elküldéshez
 * Nincs kalibrációs célpont felismerve.
 * Helytelen kalibrációs célpont modell lett kiválasztva.
 * A reflektancia kalibráció le van tiltva.
-* Rossz minőségű célpont képek.
+* Rossz minőségű célképek.
 
 **Megoldások:**
 
@@ -198,7 +198,7 @@ A feldolgozás rögzítéséhez vagy az MAPIR támogatáshoz való elküldéshez
 **Tárolási ajánlások:**
 
 * **Azonnali biztonsági mentés**: Külső merevlemez
-* **Hosszú távú archiválás**: Felhőalapú tárolás (Google Drive, Dropbox stb.)
+* **Hosszú távú archívum**: Felhőalapú tároló (Google Drive, Dropbox stb.)
 * **Kritikus adatok**: 2-3 másolatot tároljon különböző helyeken
 
 ***
@@ -260,7 +260,7 @@ Csak bizonyos képek újrafeldolgozásához:
 
 ### Segítség
 
-Ha problémát tapasztal:
+Ha problémákba ütközik:
 
 * 📧 **E-mail**: info@mapir.camera (tartalmazza a hibakeresési naplót)
 * 🌐 **Támogatás**: [https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
@@ -273,11 +273,11 @@ Ha problémát tapasztal:
 
 Most már teljesítette a teljes Chloros feldolgozási munkafolyamatot:
 
-1. ✅ **Projekt létrehozása** - Lásd [Projektek](../projects.md)
-2. ✅ **Fájlok hozzáadása** - Lásd [Fájlok hozzáadása](adding-files-to-a-project.md)
-3. ✅ **Beállítások módosítása** – Lásd: [Projektbeállítások módosítása](adjusting-project-settings.md)
-4. ✅ **Célok megjelölése** – Lásd: [Célképek kiválasztása](choosing-target-images.md)
-5. ✅ **Feldolgozás elindítása** – Lásd: [A feldolgozás elindítása](starting-the-processing.md)
+1. ✅ **Létrehozott projekt** - Lásd [Projektek](../projects.md)
+2. ✅ **Fájlok hozzáadása** – Lásd [Fájlok hozzáadása](adding-files-to-a-project.md)
+3. ✅ **Beállítások módosítása** – Lásd [Projektbeállítások módosítása](adjusting-project-settings.md)
+4. ✅ **Célok megjelölése** - Lásd [Célképek kiválasztása](choosing-target-images.md)
+5. ✅ **Feldolgozás elindítása** - Lásd [A feldolgozás elindítása](starting-the-processing.md)
 6. ✅ **Figyelt előrehaladás** - Lásd [A feldolgozás figyelése](monitoring-the-processing.md)
 7. ✅ **Ellenőrzött eredmények** - Ez az oldal
 
@@ -289,13 +289,13 @@ Most már teljesítette a teljes Chloros feldolgozási munkafolyamatot:
 
 ### Speciális funkciók
 
-* [**Képmegjelenítő**](../image-viewer-gui/opening-an-image-full-screen.md) - Interaktív megjelenítés és elemzés
-* [**Index/LUT Sandbox**](../image-viewer-gui/index-lut-sandbox.md) - Egyéni index tesztelés
-* [**Multispektrális index képletek**](../project-settings/multispectral-index-formulas.md) – Teljes index referencia
+* [**Képmegjelenítő**](../image-viewer-gui/opening-an-image-full-screen.md) – Interaktív megjelenítés és elemzés
+* [**Index/LUT Sandbox**](../image-viewer-gui/index-lut-sandbox.md) – Egyéni index tesztelés
+* [**Multispektrális index képletek**](../project-settings/multispectral-index-formulas.md) - Teljes index referencia
 
 ### Automatizálás és integráció
 
-* [**CLI dokumentáció**](../CLI.md) – Parancssori kötegelt feldolgozás
+* [**CLI dokumentáció**](../CLI.md) - Parancssori kötegelt feldolgozás
 * [**Python SDK**](../api-python-sdk.md) – Programozási automatizálás
 * [**Chloros+ funkciók**](../#chloros) – Fejlett feldolgozási képességek
 

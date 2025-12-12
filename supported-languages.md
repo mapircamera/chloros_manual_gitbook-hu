@@ -1,6 +1,6 @@
 # Támogatott nyelvek
 
-Az Chloros **38 nyelven** biztosít teljes interfész-támogatást, így a világ minden táján elérhető a felhasználók számára. Az összes felületen azonnal válthat nyelvet: asztali számítógép, böngésző, CLI és Python SDK.
+Az Chloros **38 nyelven** biztosít teljes interfész támogatást, így a világ minden táján elérhető a felhasználók számára. Az összes felületen azonnal válthat nyelvet: asztali számítógép, böngésző, CLI és Python SDK.
 
 Az Chloros a következő nyelveket támogatja:
 
@@ -22,8 +22,8 @@ Az Chloros a következő nyelveket támogatja:
 | 14 | 🇵🇱 Lengyel | Polski | `pl` |
 | 15 | 🇹🇷 török | Türkçe | `tr` |
 | 16 | 🇮🇳 hindi | हिंदी | `hi` |
-| 17 | 🇮🇩 Indonéz | Bahasa Indonesia | `id` |
-| 18 | 🇻🇳 Vietnámi | Tiếng Việt | `vi` |
+| 17 | 🇮🇩 indonéz | Bahasa Indonesia | `id` |
+| 18 | 🇻🇳 vietnámi | Tiếng Việt | `vi` |
 | 19 | 🇹🇭 Thai | ไทย | `th` |
 | 20 | 🇸🇪 Svéd | Svenska | `sv` |
 | 21 | 🇩🇰 Dán | Dansk | `da` |
@@ -77,13 +77,13 @@ chloros-cli language --list
 
 További részletekért lásd az [CLI dokumentációt](CLI.md).
 
-### Az Chloros Python SDK programokban
+### Az Chloros Python SDK
 
-Az SDK program inicializálásakor állítsa be a nyelvi paramétert, hogy az üzeneteket és kimeneteket a kívánt nyelven kapja meg.
+Az SDK inicializálásakor állítsa be a nyelvi paramétert, hogy az üzeneteket és kimeneteket a kívánt nyelven kapja meg.
 
 ## Lefedettség
 
-Mind a 38 nyelv teljes mértékben támogatott a következő programokban:
+Mind a 38 nyelv teljes mértékben támogatott:
 
 * **Chloros Desktop** - Teljes GUI fordítás
 * **Chloros Browser** - Webes felület minden nyelven

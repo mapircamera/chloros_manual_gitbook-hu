@@ -12,8 +12,8 @@ Chloros+ licenccel nem rendelkező felhasználók számára:
 
 **Kétlépcsős haladási kijelzés:**
 
-1. **Célpont felismerés** – Kalibrációs célpontok keresése a képeken
-2. **Feldolgozás** – Korrekciók alkalmazása és exportálás
+1. **Célfelismerés** – Kalibrációs célok keresése a képeken
+2. **Feldolgozás** – Javítások alkalmazása és exportálás
 
 **A haladási sáv a következőket jeleníti meg:**
 
@@ -25,16 +25,16 @@ Chloros+ licenccel nem rendelkező felhasználók számára:
 
 Chloros+ licenccel rendelkező felhasználók számára:
 
-**4 lépcsős haladási kijelzés:**
+**4 szakaszos haladási kijelzés:**
 
 1. **Észlelés** – Kalibrációs célpontok keresése
 2. **Elemzés** – Képek vizsgálata és folyamat előkészítése
-3. **Kalibrálás** – Vignettázás és fényvisszaverődés korrekciók alkalmazása
+3. **Kalibrálás** – Vignettázás és visszaverődés korrekciók alkalmazása
 4. **Exportálás** – Feldolgozott fájlok mentése
 
 **Interaktív funkciók:**
 
-* **Vigye az egérmutatót** a haladási sávra a kibővített 4 szakaszos panel megjelenítéséhez
+* **Vigye az egérmutatót** a haladásjelző sávra a kibővített 4 szakaszos panel megjelenítéséhez
 * **Kattintson** a haladási sávra a kibővített panel befagyasztásához/rögzítéséhez
 * **Kattintson újra** a befagyasztás feloldásához és az egér elmozdításakor az automatikus elrejtéshez
 * Minden szakasz az egyéni haladást mutatja (0-100%)
@@ -76,7 +76,7 @@ Chloros+ licenccel rendelkező felhasználók számára:
 * A kép EXIF metaadatainak olvasása (időbélyegek, expozíciós beállítások)
 * A cél időbélyegei alapján a kalibrációs stratégia meghatározása
 * A képfeldolgozási sor rendezése
-* Párhuzamos feldolgozó munkások előkészítése (csak Chloros+)
+* Párhuzamos feldolgozási munkások előkészítése (csak Chloros+)
 
 **Időtartam:** 5-30 másodperc
 
@@ -112,19 +112,19 @@ Chloros+ licenccel rendelkező felhasználók számára:
 
 * **Szabad mód**: Egyszerre egy képet dolgoz fel egymás után
 * **Chloros+ mód**: Egyszerre legfeljebb 16 képet dolgoz fel
-* **GPU-gyorsítás**: Jelentősen felgyorsítja ezt a szakaszt
+* **GPU-gyorsítás**: jelentősen felgyorsítja ezt a szakaszt
 
 **Mire kell figyelni:**
 
-* A képek számának folyamatos előrehaladása
-* Ellenőrizze a hibakeresési naplót a képek befejezéséről szóló üzenetekért
+* A képek számának folyamatos növekedése
+* A képek befejezéséről szóló üzenetek ellenőrzése a hibakeresési naplóban
 * Figyelmeztetések a képminőségről vagy a kalibrálási problémákról
 
 ### 4. szakasz: Exportálás
 
 **Mi történik:**
 
-* A kalibrált képek írása a lemezre a kiválasztott formátumban
+* A kalibrált képek írása a kiválasztott formátumban a lemezre
 * Multispektrális indexképek exportálása LUT színekkel
 * Kamera modell alkönyvtárak létrehozása
 * Az eredeti fájlnevek megőrzése a megfelelő kiterjesztésekkel
@@ -179,7 +179,7 @@ Nem kritikus problémák, amelyek nem állítják le a feldolgozást:
 [WARN] Low contrast in calibration panel - results may vary
 ```
 
-**Teendő:** A feldolgozás után ellenőrizze a figyelmeztetéseket, de ne szakítsa meg a feldolgozást.
+**Művelet:** A feldolgozás után ellenőrizze a figyelmeztetéseket, de ne szakítsa meg a feldolgozást.
 
 #### Hibaüzenetek (Red)
 
@@ -199,17 +199,17 @@ Kritikus problémák, amelyek a feldolgozás meghibásodását okozhatják:
 | -------------------------------- | -------------------------------------- | ----------------------------------------------------- |
 | „Célpont észlelve a \[filename] fájlban” | Kalibrációs célpont sikeresen megtalálva  | Nincs – normális                                         |
 | „Y kép X feldolgozása”        | Aktuális előrehaladás frissítése                | Nincs – normális                                         |
-| „Célpontok nem találtak”               | Kalibrációs célpontok nem észleltek        | Jelölje meg a célpontképeket, vagy tiltsa le a visszaverődés kalibrálását |
-| „Nincs elegendő lemezterület”        | Nincs elegendő tárhely a kimenethez          | Szabadítson fel lemezterületet                                    |
+| „Nincs célpont”               | Nincs kalibrációs célpont észlelve        | Jelölje meg a célképeket, vagy tiltsa le a visszaverődés kalibrálását |
+| „Nincs elegendő lemezterület”        | Nincs elegendő tárhely a kimenethez          | Felszabadítson lemezterületet                                    |
 | „Sérült fájl kihagyása”        | A képfájl sérült                  | Másolja át a fájlt az SD-kártyáról                             |
-| „PPK-adatok alkalmazva”               | A .daq fájlból származó GPS-korrekciók alkalmazva | Nincs - normál                                         |
+| „PPK-adatok alkalmazva”               | .daq fájlból származó GPS-korrekciók alkalmazva | Nincs - normális                                         |
 
 ### Naplóadatok másolása
 
 A napló másolása hibaelhárítás vagy támogatás céljából:
 
-1. Nyissa meg a Debug Log panelt.
-2. Kattintson a **„Copy Log”** gombra (vagy kattintson a jobb gombbal → Select All).
+1. Nyissa meg a Debug Log (Hibakeresési napló) panelt.
+2. Kattintson a **„Copy Log”** (Napló másolása) gombra (vagy kattintson a jobb gombbal → Select All (Összes kijelölése)).
 3. Illessze be egy szövegfájlba vagy e-mailbe.
 4. Szükség esetén küldje el az MAPIR támogatásnak.
 
@@ -221,17 +221,17 @@ A napló másolása hibaelhárítás vagy támogatás céljából:
 
 **Szabad mód:**
 
-* 1 CPU-mag ~100%-os kihasználtsággal
+* 1 CPU-mag ~100%
 * A többi mag üresjáratban vagy rendelkezésre áll
 * A rendszer továbbra is reagál
 
 **Chloros+ párhuzamos mód:**
 
-* Több mag 80-100%-os kihasználtsággal (legfeljebb 16 mag)
+* Több mag 80-100% (legfeljebb 16 mag)
 * Magas általános CPU-kihasználtság
-* A rendszer kevésbé reagál
+* A rendszer kevésbé reagálhat
 
-**Felügyelet:**
+**Megfigyelés:**
 
 * Windows Feladatkezelő (Ctrl+Shift+Esc)
 * Teljesítmény fül → CPU szakasz
@@ -257,14 +257,14 @@ A napló másolása hibaelhárítás vagy támogatás céljából:
 Ha a GPU-gyorsítás engedélyezve van:
 
 * Az NVIDIA GPU magas kihasználtságot mutat (60-90%)
-* A VRAM-használat növekszik (4 GB+ VRAM szükséges)
+* A VRAM használata nő (4 GB+ VRAM szükséges)
 * A kalibrálási szakasz jelentősen gyorsabb
 
-**Figyelemmel kísérés:**
+**Megfigyelés:**
 
 * NVIDIA tálcaikon
 * Feladatkezelő → Teljesítmény → GPU
-* GPU-Z vagy hasonló figyelő eszköz
+* GPU-Z vagy hasonló megfigyelő eszköz
 
 ### Lemez I/O
 
@@ -276,9 +276,9 @@ Ha a GPU-gyorsítás engedélyezve van:
 
 **Teljesítménytipp:**
 
-* Ha lehetséges, használjon SSD-t a projektmappához
+* Ha lehetséges, SSD-t használjon a projektmappához
 * Kerülje a hálózati meghajtókat nagy adathalmazok esetén
-* Győződjön meg arról, hogy a lemez nem közelíti meg a kapacitáshatárt (ez befolyásolja az írási sebességet)
+* Győződjön meg arról, hogy a lemez nem közelíti meg a kapacitását (ez befolyásolja az írási sebességet)
 
 ***
 
@@ -311,12 +311,12 @@ Ha a GPU-gyorsítás engedélyezve van:
 * ❌ „Lemez megtelt” vagy „Nem lehet fájlt írni” hibák
 * ❌ Ismétlődő képfájl-sérülési hibák
 * ❌ A rendszer teljesen lefagyott (nem reagál)
-* ❌ Rájött, hogy rossz beállításokat konfigurált
-* ❌ Rossz képeket importált
+* ❌ Rossz beállítások konfigurálása
+* ❌ Rossz képek importálása
 
-**Hogyan állítsa le:**
+**A leállítás módja:**
 
-1. Kattintson a **Stop/Cancel gombra** (a Start gomb helyett)
+1. Kattintson a **Stop/Cancel (Leállítás/Mégse) gombra** (a Start gomb helyett)
 2. A feldolgozás leáll, az előrehaladás elveszik
 3. Javítsa ki a problémákat, és indítsa újra az elejétől
 
@@ -329,7 +329,7 @@ Ha a GPU-gyorsítás engedélyezve van:
 **Lehetséges okok:**
 
 * Nem jelölt célképek (az összes kép beolvasása)
-* HDD SSD-tároló helyett
+* HDD SSD tároló helyett
 * Nem elegendő rendszererőforrás
 * Sok index konfigurálva
 * Hálózati meghajtóhoz való hozzáférés
@@ -354,7 +354,7 @@ Ha a GPU-gyorsítás engedélyezve van:
 **Megoldások:**
 
 1. Másolja át újra a képeket az SD-kártyáról az integritás biztosítása érdekében.
-2. Ellenőrizze az SD-kártyát hibák szempontjából.
+2. Ellenőrizze az SD-kártyát hibákra.
 3. Távolítsa el a sérült fájlokat a projektből.
 4. Folytassa a többi kép feldolgozását.
 

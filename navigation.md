@@ -1,6 +1,6 @@
 # GUI: Navigáció
 
-Amikor először elindítja az Chloros és az Chloros (böngésző) programokat, azok elindítják a háttérprogramot. Amint ez elkészült, a bal felső sarokban megjelenik a főmenü ikonja. <img src=".gitbook/assets/image (1).png" alt="" data-size="line"> .
+Amikor először indítja el az Chloros és az Chloros (böngésző) programokat, azok elindítják a háttérprogramot. Amint ez elkészült, megjelenik a bal felső sarokban a főmenü ikonja. <img src=".gitbook/assets/image (1).png" alt="" data-size="line"> .
 
 <figure><img src=".gitbook/assets/header.JPG" alt=""><figcaption></figcaption></figure>
 
@@ -24,7 +24,7 @@ A fizetős Chloros+ licencelt módban, amely az összes fájlt egyszerre dolgozz
 
 ## Oldalsó menü
 
-A bal oldali sáv menüje különböző ikonokat tartalmaz, amelyekkel interakcióba léphet:
+A bal oldali oldalsáv menü különböző ikonokat tartalmaz, amelyekkel interakcióba léphet:
 
 #### <img src=".gitbook/assets/icon_project-settings.JPG" alt="" data-size="line"> [Projektbeállítások](project-settings/project-settings.md)
 
@@ -36,7 +36,7 @@ Fájlok/mappák hozzáadása és eltávolítása a projektből. Az ismétlődő 
 
 #### <img src=".gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> [Képmegjelenítő](image-viewer-gui/opening-an-image-full-screen.md)
 
-Ha a fő képmegjelenítőben rákattint egy képre, az teljes képernyős módban megnyílik a Képmegjelenítő fülön.
+Ha a fő képmegjelenítőben rákattint egy képre, az teljes képernyős módban megnyílik a Képmegjelenítő lapon.
 
 #### <img src=".gitbook/assets/icon_log.JPG" alt="" data-size="line"> Hibakeresési napló
 
@@ -44,4 +44,4 @@ Problémák esetén tekintse át a hibakeresési napló bejegyzéseit. Másolja/
 
 #### <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line"> [Felhasználói bejelentkezés](chloros+-login.md)
 
-A felhasználói bejelentkezés oldalsávon bejelentkezhet az Chloros+ fiókjába, hogy feloldja a fejlett funkciókat. Megtekintheti az alkalmazás aktuális verzióját, valamint beállíthatja a megjelenített szöveg nyelvét az Chloros GUI-ban és az CLI-ben.
+A felhasználói bejelentkezés oldalsávján bejelentkezhet az Chloros+ fiókjába, hogy feloldja a fejlett funkciókat. Megtekintheti az alkalmazás aktuális verzióját, valamint beállíthatja az Chloros GUI és az CLI felületén megjelenő szöveg nyelvét.

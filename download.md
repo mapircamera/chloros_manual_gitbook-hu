@@ -49,7 +49,7 @@ Töltse le az Chloros legújabb verzióját az Windows-hez, hogy elindulhasson a
 6. Jelentkezzen be MAPIR Cloud Chloros+ fiókjával (vagy folytassa az ingyenes verzióval).
 
 {% hint style=&quot;success&quot; %}
-A telepítő automatikusan hozzáadja az `chloros-cli` programot a rendszer PATH-jéhez a parancssori hozzáféréshez.
+A telepítő automatikusan hozzáadja az `chloros-cli` programot a rendszer PATH környezeti változójához a parancssori hozzáférés érdekében.
 {% endhint %}
 
 ***
@@ -70,9 +70,9 @@ pip install chloros-sdk
 
 ***
 
-## Tartalom
+## Mit tartalmaz a csomag?
 
-Az Chloros telepítés tartalmazza:
+Az Chloros telepítés a következőket tartalmazza:
 
 * ✅ **Chloros Desktop GUI** - Teljes funkcionalitású grafikus felület
 * ✅ **Chloros (böngésző)** - Webalapú felület alacsonyabb specifikációjú rendszerekhez
@@ -91,7 +91,7 @@ Fejlett funkciók elérése Chloros+ előfizetéssel:
 * 💻 **CLI hozzáférés** - Automatizálás parancssori eszközökkel
 * 🐍 **Python SDK** - Programozható API hozzáférés
 * 📱 **Több eszköz** - 2-10+ eszközön használható (a csomagtól függően)
-* 🧮 **Egyedi képletek** - Egyedi multispektrális indexek létrehozása
+* 🧮 **Egyéni képletek** - Egyéni multispektrális indexek létrehozása
 
 <p align="center"><a href="https://cloud.mapir.camera/pricing" class="button primary">Chloros+ csomagok és árak megtekintése</a></p>***
 
@@ -101,9 +101,9 @@ Fejlett funkciók elérése Chloros+ előfizetéssel:
 
 **A telepítés hibaüzenettel meghiúsul:**
 
-* Győződjön meg arról, hogy rendelkezik rendszergazdai jogokkal.
-* Ideiglenesen tiltsa le a víruskereső szoftvert.
-* Ellenőrizze, hogy megfelel-e a minimális rendszerkövetelményeknek.
+* Győződjön meg arról, hogy rendelkezik rendszergazdai jogokkal
+* Ideiglenesen tiltsa le a víruskereső szoftvert
+* Ellenőrizze, hogy megfelel-e a minimális rendszerkövetelményeknek
 
 **Az alkalmazás nem indul el:**
 

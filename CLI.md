@@ -32,12 +32,12 @@ Az **Chloros CLI** hatékony parancssori hozzáférést biztosít az Chloros ké
 
 Az CLI automatikusan része az Chloros telepítőnek:
 
-1. Töltse le és futtassa az **Chloros telepítőt.exe**.
-2. Végezze el a telepítő varázslót.
+1. Töltse le és futtassa az **Chloros telepítőt.exe**
+2. Végezze el a telepítő varázslót
 3. CLI telepítve: `C:\Program Files\Chloros\resources\cli\chloros-cli.exe`
 
 {% hint style=&quot;success&quot; %}
-A telepítő automatikusan hozzáadja az `chloros-cli` fájlt a rendszer PATH könyvtárához. A telepítés után indítsa újra a terminált.
+A telepítő automatikusan hozzáadja az `chloros-cli` fájlt a rendszer PATH környezeti változójához. A telepítés után indítsa újra a terminált.
 {% endhint %}
 
 ### Első beállítás
@@ -57,7 +57,7 @@ chloros-cli process "C:\Images\Dataset001"
 
 ### Alapvető használat
 
-Feldolgozza a mappát az alapértelmezett beállításokkal:
+Feldolgozás egy mappában az alapértelmezett beállításokkal:
 
 ```powershell
 chloros-cli process "C:\Images\Dataset001"
@@ -100,8 +100,8 @@ chloros-cli process "C:\Datasets\Survey_001" --vignette --reflectance
 | `<input-folder>`      | Útvonal    | _Szükséges_     | RAW/JPG multispektrális képeket tartalmazó mappa                                         |
 | `-o, --output`        | Útvonal    | Megegyezik a bemenettel  | A feldolgozott képek kimeneti mappája                                                     |
 | `-n, --project-name`  | Karakterlánc  | Automatikusan generált | Egyéni projektnév                                                                    |
-| `--vignette`          | Jelző    | Engedélyezve        | Vignettakorrekció engedélyezése                                                             |
-| `--no-vignette`       | Jelző    | -              | Vignettakorrekció letiltása                                                            |
+| `--vignette`          | Jelző    | Engedélyezve        | Vignettázás-korrekció engedélyezése                                                             |
+| `--no-vignette`       | Jelző    | -              | Vignettázás-korrekció letiltása                                                            |
 | `--reflectance`       | Jelző    | Engedélyezve        | Reflektancia kalibrálás engedélyezése                                                         |
 | `--no-reflectance`    | Jelző    | -              | Reflektancia kalibrálás letiltása                                                        |
 | `--ppk`               | Jelző    | Letiltva       | PPK-korrekciók alkalmazása a .daq fényérzékelő adatai alapján                                      |
@@ -211,7 +211,7 @@ chloros-cli export-status
 chloros-cli export-status
 ```
 
-**Használati eset:** Hívja meg ezt a parancsot a feldolgozás futása közben az exportálás előrehaladásának ellenőrzéséhez.
+**Használati eset:** Hívja meg ezt a parancsot a feldolgozás futása közben az export előrehaladásának ellenőrzéséhez.
 
 ***
 
@@ -339,9 +339,9 @@ chloros-cli get-project-folder
 
 ***
 
-### `reset-project-folder` - Visszaállítás alapértelmezett értékre
+### `reset-project-folder` - Alapértelmezett értékre visszaállítás
 
-A projektmappa visszaállítása az alapértelmezett helyre.
+A projektmappa alapértelmezett helyére állítja vissza.
 
 **Szintaxis:**
 
@@ -405,7 +405,7 @@ Az CLI alapértelmezésként és ajánlott debayer algoritmusként a **High Qual
 
 ### Vignette-korrekció
 
-**Működése:** Korrigálja a kép szélein jelentkező fénycsökkenést (a fényképezőgépeknél gyakori sötétebb sarkok).
+**Működése:** Korrigálja a kép szélein jelentkező fénycsökkenést (a kameraképeken gyakori sötétebb sarkok).
 
 * **Alapértelmezés szerint engedélyezve** – A legtöbb felhasználónak ezt engedélyezve kell hagynia.
 * Az `--no-vignette` használatával letiltható.
@@ -419,7 +419,7 @@ Az CLI alapértelmezésként és ajánlott debayer algoritmusként a **High Qual
 A kalibrációs panelek segítségével a nyers érzékelőértékeket szabványosított reflektancia százalékokra konvertálja.
 
 * **Alapértelmezés szerint engedélyezve** – Elengedhetetlen a növényzet elemzéséhez.
-* Kalibrációs célpanelek szükségesek a képeken.
+* Kalibrációs célpanelek szükségesek a képekben.
 * Az `--no-reflectance` használatával letiltható.
 
 {% hint style=&quot;info&quot; %}
@@ -442,7 +442,7 @@ A kalibrációs panelek segítségével a nyers érzékelőértékeket szabvány
 
 ### PowerShell kötegelt feldolgozás
 
-Több adatkészlet mappa automatikus feldolgozása:
+Több adatkészlet-mappa automatikus feldolgozása:
 
 ```powershell
 # process_all_datasets.ps1
@@ -581,7 +581,7 @@ if __name__ == '__main__':
 1. **Bemenet**: RAW/JPG képeket tartalmazó mappa
 2. **Felfedezés**: CLI automatikus keresés a támogatott képfájlok után
 3. **Feldolgozás**: Párhuzamos mód, amely a CPU magok számához igazodik (Chloros+)
-4. **Kimenet**: Feldolgozott képekkel ellátott kamera-modell almappák létrehozása
+4. **Kimenet**: Feldolgozott képeket tartalmazó, kameramodell szerinti almappák létrehozása
 
 ### Példa a kimeneti struktúrára
 
@@ -767,7 +767,7 @@ Iratkozzon fel: [https://cloud.mapir.camera/pricing](https://cloud.mapir.camera/
 
 ### K: Hol kerülnek mentésre a feldolgozott képek?
 
-**V:** Alapértelmezés szerint a feldolgozott képek **a bemeneti képekkel azonos mappában** kerülnek mentésre, a kamera modelljének almappáiban (pl. `Survey3N_RGN/`).
+**V:** Alapértelmezés szerint a feldolgozott képek a **bemeneti mappával megegyező mappába** kerülnek mentésre, a kamera modelljének almappáiba (pl. `Survey3N_RGN/`).
 
 Az `-o` opcióval más kimeneti mappát is megadhat:
 

@@ -20,7 +20,7 @@ A Sandbox a következőket biztosítja:
 * Azonnali visszajelzés
 * Kísérleti és iteratív
 * Nincs végleges változás a fájlokban
-* Tökéletes a felfedezéshez és teszteléshez
+* Tökéletes felfedezéshez és teszteléshez
 
 **Projektfeldolgozás (tömeges):**
 
@@ -31,7 +31,7 @@ A Sandbox a következőket biztosítja:
 * Legjobb, ha a beállítások véglegesek
 
 {% hint style=&quot;success&quot; %}
-**Legjobb munkafolyamat**: Használja a Sandboxot a kísérletezéshez és az optimális index- és LUT-beállítások megtalálásához, majd alkalmazza ezeket a beállításokat a projekt feldolgozás során az egész adatkészletre.
+**Legjobb munkafolyamat**: Használja a Sandboxot a kísérletezéshez és az optimális index- és LUT-beállítások megtalálásához, majd alkalmazza ezeket a beállításokat a projektfeldolgozás során az egész adatkészletre.
 {% endhint %}
 
 ***
@@ -49,12 +49,12 @@ A sandbox lehetővé teszi a következőket:
 * **A már kiszámított indexképek megtekintése**
 * **A pixelértékek ellenőrzése** minden nagyítási szinten
 
-### A Sandbox megnyitása
+### A sandbox megnyitása
 
-Az Index/LUT Sandbox az **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> oldalsáv fülén keresztül érhető el:
+Az Index/LUT sandbox az **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> oldalsáv fülén keresztül érhető el:
 
 1. Kattintson egy képre a fájlböngésző képrácsán, amely megnyílik a **Képmegjelenítő** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> fülön
-2. Kattintson a **Képnézegető** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> fülre, hogy megnyissa a bal oldali kiugró oldalsávot, ha még nem nyitott meg
+2. Kattintson a **Képmegjelenítő** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> fülre, hogy megnyissa a bal oldali kiugró oldalsávot, ha még nem nyitott meg
 
 ### Kép kiválasztása az index/LUT alkalmazásához
 
@@ -78,7 +78,7 @@ Miután a kép teljes képernyősre váltott, és a **Képmegjelenítő** <img s
 6. Mozgassa az egérmutatót, hogy megtekintse az egérmutató helyén található értékeket.
 7. Nagyítson rá az egyes pixelekre és a hozzájuk tartozó értékekre.
 
-Minden indexnek megvan a maga értékhatára és jelentése:
+Minden indexnek megvan a maga érték tartománya és jelentése:
 
 #### NDVI példa
 
@@ -96,7 +96,7 @@ Bare soil: 0.0 to 0.2
 Water: -0.1 to 0.1
 ```
 
-A teljes indexképlet dokumentációját lásd: [Multispectral Index Formulas](../project-settings/multispectral-index-formulas.md).
+A teljes indexképlet dokumentációját lásd: [Multispektrális indexképletek](../project-settings/multispectral-index-formulas.md).
 
 ***
 
@@ -108,15 +108,15 @@ A **Look-Up Table (LUT)** a numerikus indexértékeket színekhez rendeli a vizu
 
 * **Bemenet**: Index pixelérték (pl. NDVI 0,65)
 * **Kimenet**: RGB szín (pl. élénkzöld)
-* **Cél**: A minták könnyebb láthatósága és értelmezhetősége
+* **Cél**: A minták könnyebb láthatóságának és értelmezhetőségének biztosítása
 
-**Szürkeárnyalatos vs. színes LUT:**
+**Szürkeskálás és színes LUT:**
 
-* Szürkeárnyalatos: Tudományos és semleges, a nyers adatokat mutatja
+* Szürkeskálás: Tudományos és semleges, a nyers adatokat mutatja
 * Színes LUT: Intuitív és hatásos, kiemeli a mintákat és a különbségeket
 
 {% hint style=&quot;success&quot; %}
-**Vizualizációs teljesítmény**: A színes LUT alkalmazása a szürkeárnyalatos indexképre jelentősen megkönnyíti a minták, anomáliák és érdekes területek egy pillanat alatt történő azonosítását.
+**Vizualizációs teljesítmény**: A színes LUT szürkeárnyalatos indexképre való alkalmazása jelentősen megkönnyíti a minták, anomáliák és érdekes területek egy pillantásra történő azonosítását.
 {% endhint %}
 
 ### LUT alkalmazása indexképre
@@ -127,7 +127,7 @@ Ha már rendelkezik indexképpel, amelyen látható
 2. Válassza ki a színátmenetet
 3. Állítsa be a vágás minimális/maximális végpontjait
 4. Állítsa be a vágási módot
-5. Jelölje be az Index jelölőnégyzetet az **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> fül oldalsávjában az Index jelölőnégyzetet a LUT alkalmazásához.
+5. Jelölje be az Index négyzetet az **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> fül oldalsávjában az Index jelölőnégyzetet a LUT alkalmazásához.
 
 ### Színátmenet kiválasztása
 
@@ -135,20 +135,20 @@ Ha már rendelkezik indexképpel, amelyen látható
 
 1. A LUT panelen keresse meg a **színes színátmenet sávot**.
 2. Vigye az egérmutatót a sáv fölé a rendelkezésre álló színátmenet-beállítások megtekintéséhez.
-3. Válassza ki a kívánt színátmenetet.
-4. Az Index jelölőnégyzet bejelölésekor a kép **azonnal frissül** az új színekkel.
+3. Válassza ki a kívánt átmenetet
+4. Az **Index** jelölőnégyzet bejelölésével a kép **azonnal** frissül az új színekkel
 
 {% hint style=&quot;success&quot; %}
-**Bevált gyakorlat**: Az NDVI-hez hasonló vegetációs indexek esetében az Red-Sárga-Green színátmenet a leginkább intuitív, mert összhangban van a természetes színasszociációkkal (zöld=egészséges, sárga=mérsékelt, piros=stresszes).
+**Bevált gyakorlat**: Az NDVI-hez hasonló vegetációs indexek esetében az Red-Yellow-Green színátmenet a leginkább intuitív, mivel összhangban van a természetes színasszociációkkal (zöld = egészséges, sárga = közepes, piros = stresszes).
 {% endhint %}
 
 ### Színosztályok beállítása
 
-A **Classes control** (Osztályok vezérlő) határozza meg, hogy hány diszkrét színlépcső jelenik meg a gradiensben:
+A **Classes control** (Osztályok vezérlő) határozza meg, hogy hány különálló színlépcső jelenik meg a gradiensben:
 
 **Osztályszám opciók:**
 
-* **2-5 osztály**: Nagyon tág kategóriák, jól elkülöníthető zónák
+* **2-5 osztály**: Nagyon tág kategóriák, jól elkülönülő zónák
 * **6-10 osztály**: Kiegyensúlyozott, osztályozáshoz alkalmas
 * **11-20 osztály**: Sima színátmenetek, folytonos megjelenés
 * **20+ osztály**: Szinte folytonos, maximális simaság
@@ -169,29 +169,29 @@ A **Classes control** (Osztályok vezérlő) határozza meg, hogy hány diszkré
 **Mikor használható:**
 
 * **Kevés osztály (3-5)**: Prezentációs diák, osztályozási térképek, egyszerű jelentések
-* **Közepes osztályok (6-10)**: Általános elemzés, kiegyensúlyozott részletek, szabványos jelentések
-* **Sok osztály (15-20)**: Tudományos elemzés, részletes vizsgálat, publikálásra alkalmas eredmények
+* **Közepes osztályok (6-10)**: Általános elemzés, kiegyensúlyozott részletek, standard jelentések
+* **Sok osztály (15-20)**: Tudományos elemzés, részletes vizsgálat, publikálásra alkalmas kimenetek
 
 ### Értéktartományok finomhangolása
 
-Az **értéktartomány-vezérlők** határozzák meg, hogy az indexértékek a színátmenetben mely színekhez tartoznak:
+Az **értéktartomány-vezérlők** határozzák meg, hogy az indexértékek a színátmenetben mely színekhez rendelődnek:
 
 **Tartományvezérlők a LUT panelen:**
 
 * **Minimális érték**: A színskála alsó határa
 * **Maximális érték**: A színskála felső határa
-* **Közbenső értékek**: Automatikusan elosztva a min és max között (az osztályok száma alapján)
+* **Közbenső értékek**: Automatikusan elosztva a minimum és a maximum között (az osztályok száma alapján)
 
-#### Min/Max értékek beállítása
+#### A minimum/maximum értékek beállítása
 
-**Az érték tartományok beállítása:**
+**Az értékek tartományának beállítása:**
 
-1. A LUT panelen keresse meg a **Minimális érték** és **Maximális érték** beviteli mezőket
-2. Kattintson a **Minimális érték** mezőre.
-3. Írja be a kívánt minimális értéket (pl. `0.2`).
-4. Nyomja meg az **Enter** billentyűt, vagy kattintson a mezőn kívülre.
-5. Ismételje meg a **Maximális érték** mezővel (pl. `0.9`).
-6. A megjelenítés **azonnal frissül**.
+1. A LUT panelen keresse meg a **Minimális érték** és a **Maximális érték** beviteli mezőket
+2. Kattintson a **Minimális érték** mezőre
+3. Írja be a kívánt minimális értéket (pl. `0.2`)
+4. Nyomja meg az **Enter** gombot, vagy kattintson a mezőn kívülre
+5. Ismételje meg a **Maximális érték** mezővel (pl. `0.9`)
+6. A megjelenítés **azonnal frissül**
 
 {% hint style=&quot;info&quot; %}
 **Automatikus méretezés**: Amikor először alkalmazza a LUT-ot, az Chloros automatikusan beállítja a minimális/maximális értéket a kép tényleges adatsorozatára. Ezután szűkítheti ezt a tartományt, hogy az érdeklődésre számot tartó értékek tartományára összpontosítson.
@@ -199,31 +199,31 @@ Az **értéktartomány-vezérlők** határozzák meg, hogy az indexértékek a s
 
 **Példa NDVI tartománybeállításokra:**
 
-* **Teljes tartomány**: `-1.0` és `1.0` között (az összes lehetséges érték megjelenítése)
-* **Növényzetre fókuszált**: `0.2` és `0.9` között (kizárva a csupasz talaj és a víz)
+* **Teljes tartomány**: `-1.0` és `1.0` között (minden lehetséges érték megjelenítése)
+* **Növényzetre fókuszált**: `0.2`-tól `0.9`-ig (kizárva a csupasz talaj és a víz)
 * **Csak egészséges növényzet**: `0.5`-tól `0.9`-ig (csak az erőteljes növényeket emeli ki)
-* **Stresszérzékelés**: `0.2`-tól `0.5`-ig (kiemelje a problémás területeket)
+* **Stresszérzékelés**: `0.2`-tól `0.5`-ig (kiemeli a problémás területeket)
 * **Egyéni tartomány**: A megfigyelt pixelértékek alapján állítsa be
 
 **Miért érdemes beállítani a tartományokat?**
 
 * **Növelje a kontrasztot** a kívánt területen
-* **Kizárja az irreleváns értékeket** (pl. víztestek, csupasz talaj)
-* **Szabványosítsa a megjelenítést** több kép vagy dátum között
-* **Kiemelje a finom különbségeket** egy szűk értéktartományon belül
+* **Irreleváns értékek kizárása** (pl. víztestek, csupasz talaj)
+* **A vizualizáció egységesítése** több kép vagy dátum között
+* **Finom különbségek kiemelése** egy szűk értéktartományon belül
 
 ### A tartományon kívüli értékek kivágása
 
 Ha a pixelértékek a megadott minimális/maximális tartományon kívül esnek, a **kivágási módok** segítségével szabályozhatja azok megjelenítését.
 
-#### **Elérhető kivágási módok:**
+#### **Elérhető kivágási mód opciók:**
 
 #### 1. Minimum és maximum
 
 * **A minimum alatt** lévő pixelek → a színátmenet **első színével** (pl. piros) jelennek meg
-* **A maximális érték feletti** pixelek → a színátmenet **utolsó színével** (pl. zöld) jelennek meg
-* **Használati eset**: A szélsőségek kiemelése, a teljes adatsor telített színekkel a határokon
-* **Példa**: Az 0,2 alatti NDVI értékek mind pirosak, a 0,9 feletti értékek mind zöldek
+* **A maximum felett** lévő pixelek → a színátmenet **utolsó színével** (pl. zöld) jelennek meg
+* **Alkalmazási eset**: A szélsőségek kiemelése, a teljes adatsor telített színekkel a határokon
+* **Példa**: Az NDVI 0,2 alatti értékei pirosak, a 0,9 feletti értékei zöldek
 
 #### 2. Átlátszó háttér
 
@@ -241,14 +241,14 @@ Ha a pixelértékek a megadott minimális/maximális tartományon kívül esnek,
 * A **tartományon kívüli** pixelek **szürkeárnyalatúak** (nyers indexértékeket mutatnak)
 * A **tartományon belüli** pixelek **színátmenetet** mutatnak
 * **Használati eset**: Finom kiemelés, a kontextus megőrzése a figyelemre méltó területek kiemelése mellett
-* **Példa**: Színes kiemeléssel hangsúlyozza a növényzetet (NDVI 0,3-0,5), míg az egészséges területeket szürkével jeleníti meg
+* **Példa**: Színes kiemelés a stresszes növényzetnél (NDVI 0,3-0,5), míg az egészséges területek szürkével jelennek meg
 
 #### 4. Eredeti háttér
 
 * A **tartományon kívüli** pixelek **eredeti multispektrális képet** jelenítenek meg
-* A **tartományon belüli** pixelek **színátmenetet** mutatnak
-* **Használati eset**: A leginkább intuitív – ötvözi a természetes kép kontextusát az analitikus színréteggel
-* **Példa**: A tényleges mező/termés megjelenése színkódolt stresszes területekkel átfedve
+* A **tartományon belüli** pixelek **színátmenetet** mutatnak.
+* **Használati eset**: A leginkább intuitív – ötvözi a természetes kép kontextusát az analitikus színréteggel.
+* **Példa**: A tényleges mező/termés megjelenése színkódolt stresszterületekkel átfedve.
 
 ### A megfelelő kivágási mód kiválasztása
 
@@ -256,8 +256,8 @@ Ha a pixelértékek a megadott minimális/maximális tartományon kívül esnek,
 | -------------------------- | ------------------------------------------ | ---------------------------- |
 | **Minimum és maximum**    | Teljes adatmegjelenítés, tudományos elemzés     | Minden pixel színes           |
 | **Átlátszó háttér** | GIS-rétegek, meghatározott tartományok elkülönítése    | Szín a tartományon belül, üresen kívül |
-| **Index háttér**       | Finom hangsúlyozás, az adatok kontextusának megőrzése  | Szín a tartományon belül, szürke kívül  |
-| **Eredeti háttér**    | Jelentések, prezentációk, intuitív elemzés | Szín a tartományon belül, fotó kívül |
+| **Index háttér**       | Finom hangsúlyozás, az adatok kontextusának megőrzése  | Szín a tartományon belül, szürke azon túl  |
+| **Eredeti háttér**    | Jelentések, prezentációk, intuitív elemzés | Szín a tartományon belül, fotó azon túl |
 
 ### Egyéni LUT színek létrehozása
 
@@ -265,14 +265,14 @@ A vizualizáció teljes ellenőrzése érdekében **egyéni színátmenetek** ho
 
 **Egyéni színátmenet létrehozása:**
 
-1. A LUT panelen keresse meg a **színátmenet-előnézeti sávot**.
-2. Keresse meg a **színminták négyzeteit** a színátmenet alatt.
-3. **Kattintson egy színállásra** a kiválasztásához.
-4. Megnyílik a **színválasztó**.
+1. A LUT panelen keresse meg a **színátmenet-előnézeti sávot**
+2. Keresse meg a **színminták négyzeteit** a színátmenet alatt
+3. **Kattintson egy színstopra** a kiválasztásához
+4. Megnyílik a **színválasztó**
 5. Válasszon új színt a következők segítségével:
-   * **Színkerék**: Vizuális színválasztás.
-   * **RGB/HSV csúszkák**: Pontos színvezérlés.
-   * **Hex kód beírása**: Pontos színmeghatározás (pl. `#FF0000` a piroshoz).
+   * **Színkerék**: Vizuális színválasztás
+   * **RGB/HSV csúszkák**: Pontos színvezérlés
+   * **Hex kód beírása**: Pontos színmegadás (pl. `#FF0000` a piroshoz)
 6. Kattintson a színválasztó **mellett, hogy az új színt alkalmazza**
 7. A színátmenet **azonnal frissül** a képen
 
@@ -287,7 +287,7 @@ A vizualizáció teljes ellenőrzése érdekében **egyéni színátmenetek** ho
 * **Márka színei**: Illessze a jelentések színeit a szervezet színeinek palettájához
 * **Színvakok számára is megfelelő**: Használjon narancssárga-kék vagy lila-sárga kombinációkat
 * **Nyomtatás optimalizálása**: Válasszon olyan színeket, amelyek színes és szürkeárnyalatos nyomtatásban is jól mutatnak
-* **Több küszöbérték**: Használjon különböző színeket meghatározott értékküszöbértékeknél a besoroláshoz
+* **Több küszöbérték**: Használjon különböző színeket meghatározott értékküszöböknél a besoroláshoz
 
 {% hint style=&quot;info&quot; %}
 **Egyéni színátmenetek mentése**: Az egyéni színátmenetek menthetők és újra felhasználhatók. Kattintson a LUT panelen található mentés ikonra, hogy egyéni színsémáit elmentse későbbi felhasználás céljából.
@@ -308,7 +308,7 @@ A sandboxban végzett összes LUT-beállítás **azonnal és interaktív módon*
 * **Kivágás módosítása** → A háttér megjelenítése azonnal megváltozik
 * **Színek szerkesztése** → Az egyéni gradiens azonnal alkalmazásra kerül
 
-**Nincs szükség „Alkalmazás” gombra** – minden változás élőben és interaktív módon történik!
+**Nincs szükség „Alkalmazás” gombra** – minden változás valós idejű és interaktív!
 
 {% hint style=&quot;success&quot; %}
 **Élő visszajelzés**: Az azonnali vizuális visszajelzés lehetővé teszi, hogy gyorsan kipróbáljon különböző beállításokat, amíg meg nem találja az elemzési igényeinek leginkább megfelelő vizualizációt.
@@ -324,7 +324,7 @@ A sandboxban végzett összes LUT-beállítás **azonnal és interaktív módon*
 4. **Pixelértékek ellenőrzése** – Mozgassa a kurzort, jegyezze fel az értékek tartományait
 5. **Minimális/maximális értékek beállítása** – Szűkítse a növényzetre való fókuszáláshoz (pl. 0,2-től 0,9-ig)
 6. **Vágás kiválasztása** – Próbálja ki az „Eredeti háttér” lehetőséget a kontextushoz
-7. **Színek finomítása** – Szükség esetén testreszabhatja a gradienst a kívánt hangsúlyozáshoz
+7. **Színek finomítása** – Szükség esetén testreszabhatja a gradienst a hangsúlyozáshoz
 8. **Beállítások véglegesítése** – Dokumentálja a beállításokat, és másolja át a Projektbeállításokba az exportáláshoz
 
 ### Pixelértékek ellenőrzése
@@ -366,21 +366,21 @@ A pixelértékek ellenőrzése után állítsa be a LUT min/max értékeit ennek
 ### Egyéni indexképletek létrehozása
 
 {% hint style=&quot;info&quot; %}
-**Hol hozhatók létre**: Az egyéni indexek a feldolgozás előtt a **Projektbeállítások** menüpontban, valamint a Képmegjelenítő sandbox oldalsávján konfigurálhatók.
+**Hol hozható létre**: Az egyéni indexek a feldolgozás előtt a **Projektbeállítások** menüpontban, valamint a Képmegjelenítő sandbox oldalsávján konfigurálhatók.
 {% endhint %}
 
 **Egyéni index létrehozása:**
 
-1. **Nyissa meg a Projektbeállításokat** (a feldolgozás előtt) vagy a Képmegjelenítő sandbox oldalsávját.
-2. Keresse meg az **Index képlet legördülő menüt**.
-3. Keresse meg a **„Egyéni”** opciót (be kell jelentkeznie az Chloros+ licenccel).
-4. **Határozza meg a képletet** a sávváltozók segítségével:
+1. **Nyissa meg a Projektbeállításokat** (a feldolgozás előtt) vagy a Képmegjelenítő sandbox oldalsávját
+2. Keresse meg az **Index képlet legördülő menüt**
+3. Keresse meg a **„Egyéni”** opciót (be kell jelentkeznie az Chloros+ licenccel)
+4. **Határozza meg a képletet** sávváltozók használatával:
    * Sávnevek: `NIR`, `Red`, `Green`, `Blue`, `RedEdge` stb.
    * Operátorok: `+`, `-`, `*`, `/`, `^` (exponens)
    * Funkciók: `sqrt()`, `abs()` stb. (ha támogatott)
    * Zárójelek: `()` a műveletek sorrendjéhez
 5. **Nevezze el az indexet** (pl. „MyIndex” vagy „CustomNDVI”)
-6. **Mentse a konfigurációt**
+6. **Mentse el a konfigurációt**
 
 **Példák egyéni képletekre:**
 
@@ -399,7 +399,7 @@ Exponential index:
 ```
 
 {% hint style=&quot;warning&quot; %}
-**Képlet érvényesítése**: Győződjön meg arról, hogy a képlet a kamerájában elérhető sávokat használja. Például az RedEdge csak az RedEdge szűrővel rendelkező kamerákban érhető el.
+**Képlet érvényesítése**: Győződjön meg arról, hogy a képlete a kamerában rendelkezésre álló sávokat használja. Például az RedEdge csak az RedEdge szűrővel rendelkező kameráknál érhető el.
 {% endhint %}
 
 ***
@@ -408,12 +408,12 @@ Exponential index:
 
 Most, hogy megértette az Index/LUT Sandbox működését:
 
-* **Alkalmazás a feldolgozásra**: Használja a [Projektbeállítások](../project-settings/project-settings.md) menüpontban található beállításokat
-* **Tömeges feldolgozás**: Alkalmazza az optimalizált indexeket a teljes adatkészletekre
-* **További információk**: Olvassa el a [Multispektrális index képletek](../project-settings/multispectral-index-formulas.md) című részt
+* **Alkalmazás a feldolgozásra**: Használja a [Projektbeállítások](../project-settings/project-settings.md) menüpontban található beállításokat.
+* **Tömeges feldolgozás**: Alkalmazza az optimalizált indexeket a teljes adatkészletekre.
+* **További információk**: Olvassa el a [Multispektrális index képletek](../project-settings/multispectral-index-formulas.md) című részt.
 
 Kapcsolódó dokumentáció:
 
-* [**Képrétegek**](image-layers.md) – Rétegkezelés és megjelenítés
-* [**Kép teljes képernyős megnyitása**](opening-an-image-full-screen.md) – Képnézegető alapjai
-* [**Képek feldolgozása (GUI)**](../processing-images-gui/adding-files-to-a-project.md) – Teljes feldolgozási munkafolyamat
+* [**Képrétegek**](image-layers.md) - Rétegkezelés és megjelenítés
+* [**Kép teljes képernyős megnyitása**](opening-an-image-full-screen.md) - Képmegjelenítő alapjai
+* [**Képek feldolgozása (GUI)**](../processing-images-gui/adding-files-to-a-project.md) - Teljes feldolgozási munkafolyamat

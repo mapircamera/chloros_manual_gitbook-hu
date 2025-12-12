@@ -1,68 +1,89 @@
 # Támogatott nyelvek
 
-Az Chloros **38 nyelven** biztosít teljes interfész támogatást, így a világ minden táján elérhető a felhasználók számára. Az összes felületen azonnal válthat nyelvet: asztali számítógép, böngésző, CLI és Python SDK.
+Az Chloros **38 nyelven** biztosít teljes interfész-támogatást, így a világ minden táján elérhető a felhasználók számára. Az összes felületen azonnal válthat nyelvet: asztali számítógép, böngésző, CLI és Python SDK.
 
 Az Chloros a következő nyelveket támogatja:
 
-1. 🇺🇸 **angol**
-2. 🇪🇸 **Español** (spanyol)
-3. 🇵🇹 **Português** (portugál)
-4. 🇫🇷 **Français** (francia)
-5. 🇩🇪 **Deutsch** (német)
-6. 🇮🇹 **Italiano** (olasz)
-7. 🇯🇵 **日本語** (japán)
-8. 🇰🇷 **한국어** (koreai)
-9. 🇨🇳 **简体中文** (egyszerűsített kínai)
-10. 🇹🇼 **繁體中文** (hagyományos kínai)
-11. 🇷🇺 **Русский** (orosz)
-12. 🇳🇱 **Nederlands** (holland)
-13. 🇸🇦 **العربية** (arab)
-14. 🇵🇱 **Polski** (lengyel)
-15. 🇹🇷 **Türkçe** (török)
-16. 🇮🇳 **हिंदी** (hindi)
-17. 🇮🇩 **Bahasa Indonesia** (indonéz)
-18. 🇻🇳 **Tiếng Việt** (vietnámi)
-19. 🇹🇭 **ไทย** (thai)
-20. 🇸🇪 **Svenska** (svéd)
-21. 🇩🇰 **Dansk** (dán)
-22. 🇳🇴 **Norsk** (norvég)
-23. 🇫🇮 **Suomi** (finn)
-24. 🇬🇷 **Ελληνικά** (görög)
-25. 🇨🇿 **Čeština** (cseh)
-26. 🇭🇺 **Magyar** (magyar)
-27. 🇷🇴 **Română** (román)
-28. 🇺🇦 **Українська** (ukrán)
-29. 🇧🇷 **Português Brasileiro** (brazil portugál)
-30. 🇭🇰 **粵語** (kantoni)
-31. 🇲🇾 **Bahasa Melayu** (maláj)
-32. 🇸🇰 **Slovenčina** (szlovák)
-33. 🇧🇬 **Български** (bolgár)
-34. 🇭🇷 **Hrvatski** (horvát)
-35. 🇱🇹 **Lietuvių** (litván)
-36. 🇱🇻 **Latviešu** (lett)
-37. 🇪🇪 **Eesti** (észt)
-38. 🇸🇮 **Slovenščina** (szlovén)
+| # | Nyelv | Eredeti név | CLI kód |
+|---|----------|-------------|----------|
+| 1 | 🇺🇸 Angol | Angol | `en` |
+| 2 | 🇪🇸 Spanyol | Español | `es` |
+| 3 | 🇵🇹 Portugál | Português | `pt` |
+| 4 | 🇫🇷 Francia | Français | `fr` |
+| 5 | 🇩🇪 német | Deutsch | `de` |
+| 6 | 🇮🇹 olasz | Italiano | `it` |
+| 7 | 🇯🇵 japán | 日本語 | `ja` |
+| 8 | 🇰🇷 koreai | 한국어 | `ko` |
+| 9 | 🇨🇳 kínai (egyszerűsített) | 简体中文 | `zh` |
+| 10 | 🇹🇼 Kínai (hagyományos) | 繁體中文 | `zh-TW` |
+| 11 | 🇷🇺 Orosz | Русский | `ru` |
+| 12 | 🇳🇱 Holland | Nederlands | `nl` |
+| 13 | 🇸🇦 Arab | العربية | `ar` |
+| 14 | 🇵🇱 Lengyel | Polski | `pl` |
+| 15 | 🇹🇷 török | Türkçe | `tr` |
+| 16 | 🇮🇳 hindi | हिंदी | `hi` |
+| 17 | 🇮🇩 Indonéz | Bahasa Indonesia | `id` |
+| 18 | 🇻🇳 Vietnámi | Tiếng Việt | `vi` |
+| 19 | 🇹🇭 Thai | ไทย | `th` |
+| 20 | 🇸🇪 Svéd | Svenska | `sv` |
+| 21 | 🇩🇰 Dán | Dansk | `da` |
+| 22 | 🇳🇴 Norvég | Norsk | `no` |
+| 23 | 🇫🇮 Finn | Suomi | `fi` |
+| 24 | 🇬🇷 Görög | Ελληνικά | `el` |
+| 25 | 🇨🇿 Cseh | Čeština | `cs` |
+| 26 | 🇭🇺 Magyar | Magyar | `hu` |
+| 27 | 🇷🇴 Román | Română | `ro` |
+| 28 | 🇺🇦 Ukrán | Українська | `uk` |
+| 29 | 🇧🇷 Brazil portugál | Português Brasileiro | `pt-BR` |
+| 30 | 🇭🇰 Kantoni | 粵語 | `zh-HK` |
+| 31 | 🇲🇾 Maláj | Bahasa Melayu | `ms` |
+| 32 | 🇸🇰 Szlovák | Slovenčina | `sk` |
+| 33 | 🇧🇬 Bolgár | Български | `bg` |
+| 34 | 🇭🇷 Horvát | Hrvatski | `hr` |
+| 35 | 🇱🇹 Litván | Lietuvių | `lt` |
+| 36 | 🇱🇻 Lett | Latviešu | `lv` |
+| 37 | 🇪🇪 Észt | Eesti | `et` |
+| 38 | 🇸🇮 Szlovén | Slovenščina | `sl` |
 
 ## Hogyan lehet megváltoztatni a nyelvet
 
 ### Az Chloros asztali/böngészőben
 
-1. Nyissa meg az alkalmazás beállításait
-2. Keresse meg a nyelvválasztó menüt
-3. Válassza ki a kívánt nyelvet a listából
-4. A felület azonnal frissül
+1. Nyissa meg az alkalmazás beállításait.
+2. Keresse meg a nyelvválasztó menüt.
+3. Válassza ki a kívánt nyelvet a listából.
+4. A felület azonnal frissül.
 
 ### Az Chloros CLI alkalmazásban
 
-Használja a nyelvi paramétert a parancsokkal az interfész nyelvének beállításához.
+Az `language` paranccsal megtekintheti vagy megváltoztathatja az CLI felület nyelvét:
 
-### Chloros Python SDK
+```bash
+# View current language
+chloros-cli language
 
-Állítsa be a nyelvi paramétert az SDK inicializálásakor, hogy az üzeneteket és kimeneteket a kívánt nyelven kapja meg.
+# Change to Spanish
+chloros-cli language es
+
+# Change to Chinese (Simplified)
+chloros-cli language zh
+
+# Change to Brazilian Portuguese
+chloros-cli language pt-BR
+
+# List all available languages
+chloros-cli language --list
+```
+
+További részletekért lásd az [CLI dokumentációt](CLI.md).
+
+### Az Chloros Python SDK programokban
+
+Az SDK program inicializálásakor állítsa be a nyelvi paramétert, hogy az üzeneteket és kimeneteket a kívánt nyelven kapja meg.
 
 ## Lefedettség
 
-Mind a 38 nyelv teljes mértékben támogatott:
+Mind a 38 nyelv teljes mértékben támogatott a következő programokban:
 
 * **Chloros Desktop** - Teljes GUI fordítás
 * **Chloros Browser** - Webes felület minden nyelven

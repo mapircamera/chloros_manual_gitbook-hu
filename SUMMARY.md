@@ -1,34 +1,34 @@
-# Table of contents
+# Tartalomjegyzék
 
-* [Getting Started](README.md)
-* [GUI : Navigation](navigation.md)
-* [GUI : Projects](projects.md)
-* [CLI : Command Line](CLI.md)
-* [API : Python SDK](api-python-sdk.md)
-* [Supported Cameras](supported-cameras.md)
-* [Output Image Formats](output-image-formats.md)
-* [Chloros+ Login](chloros+-login.md)
-* [Calibration Targets](calibration-targets.md)
-* [Supported Languages](supported-languages.md)
-* [Download](download.md)
-* [FAQ](faq.md)
+* [Első lépések](README.md)
+* [GUI: Navigáció](navigation.md)
+* [GUI: Projektek](projects.md)
+* [CLI: Parancssor](CLI.md)
+* [API: Python SDK](api-python-sdk.md)
+* [Támogatott kamerák](supported-cameras.md)
+* [Kimeneti képformátumok](output-image-formats.md)
+* [Chloros+ Bejelentkezés](chloros+-login.md)
+* [Kalibrációs célok](calibration-targets.md)
+* [Támogatott nyelvek](supported-languages.md)
+* [Letöltés](download.md)
+* [GYIK](faq.md)
 
-## Processing Images (GUI)
+## Képek feldolgozása (GUI)
 
-* [Adjusting Project Settings](processing-images-gui/adjusting-project-settings.md)
-* [Adding Files to a Project](processing-images-gui/adding-files-to-a-project.md)
-* [Choosing Target Images](processing-images-gui/choosing-target-images.md)
-* [Starting the Processing](processing-images-gui/starting-the-processing.md)
-* [Monitoring the Processing](processing-images-gui/monitoring-the-processing.md)
-* [Finishing the Processing](processing-images-gui/finishing-the-processing.md)
+* [Projektbeállítások módosítása](processing-images-gui/adjusting-project-settings.md)
+* [Fájlok hozzáadása a projekthez](processing-images-gui/adding-files-to-a-project.md)
+* [Célképek kiválasztása](processing-images-gui/choosing-target-images.md)
+* [A feldolgozás elindítása](processing-images-gui/starting-the-processing.md)
+* [A feldolgozás figyelemmel kísérése](processing-images-gui/monitoring-the-processing.md)
+* [A feldolgozás befejezése](processing-images-gui/finishing-the-processing.md)
 
-## PROJECT SETTINGS
+## PROJEKTBEÁLLÍTÁSOK
 
-* [Project Settings](project-settings/project-settings.md)
-* [Multispectral Index Formulas](project-settings/multispectral-index-formulas.md)
+* [Projektbeállítások](project-settings/project-settings.md)
+* [Multispektrális index képletek](project-settings/multispectral-index-formulas.md)
 
-## IMAGE VIEWER (GUI)
+## KÉPMEGTEKINTŐ (GUI)
 
-* [Opening an Image Full Screen](image-viewer-gui/opening-an-image-full-screen.md)
-* [Image Layers](image-viewer-gui/image-layers.md)
+* [Kép teljes képernyős megnyitása](image-viewer-gui/opening-an-image-full-screen.md)
+* [Képrétegek](image-viewer-gui/image-layers.md)
 * [Index/LUT Sandbox](image-viewer-gui/index-lut-sandbox.md)

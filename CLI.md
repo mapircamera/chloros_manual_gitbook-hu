@@ -1,48 +1,46 @@
-# CLI : Command Line
+# CLI : Parancssor
 
-<figure><img src=".gitbook/assets/cli.JPG" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/cli.JPG" alt=""><figcaption></figcaption></figure>Az **Chloros CLI** hatékony parancssori hozzáférést biztosít az Chloros képfeldolgozó motorhoz, lehetővé téve az automatizálást, a szkriptelést és a headless működést a képalkotási munkafolyamatokhoz.
 
-The **Chloros CLI** provides powerful command-line access to the Chloros image processing engine, enabling automation, scripting, and headless operation for your imaging workflows.
+### Főbb jellemzők
 
-### Key Features
+* 🚀 **Automatizálás** – Több adatkészlet szkriptes kötegelt feldolgozása
+* 🔗 **Integráció** – Beágyazás meglévő munkafolyamatokba és folyamatokba
+* 💻 **Headless működés** – GUI nélkül futtatható
+* 🌍 **Többnyelvű** – 38 nyelv támogatása
+* ⚡ **Párhuzamos feldolgozás** – Dinamikusan skálázódik a CPU-hoz (akár 16 párhuzamos munkás)
 
-* 🚀 **Automation** - Script batch processing of multiple datasets
-* 🔗 **Integration** - Embed in existing workflows and pipelines
-* 💻 **Headless Operation** - Run without GUI
-* 🌍 **Multi-Language** - Support for 38 languages
-* ⚡ **Parallel Processing** - Dynamically scales to your CPU (up to 16 parallel workers)
+### Követelmények
 
-### Requirements
-
-| Requirement          | Details                                                             |
+| Követelmény          | Részletek                                                             |
 | -------------------- | ------------------------------------------------------------------- |
-| **Operating System** | Windows 10/11 (64-bit)                                              |
-| **License**          | Chloros+ ([paid plan required](https://cloud.mapir.camera/pricing)) |
-| **Memory**           | 8GB RAM minimum (16GB recommended)                                  |
-| **Internet**         | Required for license activation                                     |
-| **Disk Space**       | Varies by project size                                              |
+| **Operációs rendszer** | Windows 10/11 (64 bites)                                              |
+| **Licenc**          | Chloros+ ([fizetős csomag szükséges](https://cloud.mapir.camera/pricing)) |
+| **Memória**           | Minimum 8 GB RAM (16 GB ajánlott)                                  |
+| **Internet**         | A licenc aktiválásához szükséges                                     |
+| **Lemezterület**       | A projekt méretétől függ                                              |
 
-{% hint style="warning" %}
-**License Requirement**: The CLI requires a paid Chloros+ subscription. Standard (free) plans do not have CLI access. Visit [https://cloud.mapir.camera/pricing](https://cloud.mapir.camera/pricing) to upgrade.
+{% hint style=&quot;warning&quot; %}
+**Licenc követelmény**: Az CLI fizetős Chloros+ előfizetést igényel. A standard (ingyenes) csomagok nem biztosítanak hozzáférést az CLI-hez. A frissítéshez látogasson el az [https://cloud.mapir.camera/pricing](https://cloud.mapir.camera/pricing) oldalra.
 {% endhint %}
 
-## Quick Start
+## Gyors indítás
 
-### Installation
+### Telepítés
 
-The CLI is automatically included with the Chloros installer:
+Az CLI automatikusan része az Chloros telepítőnek:
 
-1. Download and run **Chloros Installer.exe**
-2. Complete the installation wizard
-3. CLI installed to: `C:\Program Files\Chloros\resources\cli\chloros-cli.exe`
+1. Töltse le és futtassa az **Chloros telepítőt.exe**.
+2. Végezze el a telepítő varázslót.
+3. CLI telepítve: `C:\Program Files\Chloros\resources\cli\chloros-cli.exe`
 
-{% hint style="success" %}
-The installer automatically adds `chloros-cli` to your system PATH. Restart your terminal after installation.
+{% hint style=&quot;success&quot; %}
+A telepítő automatikusan hozzáadja az `chloros-cli` fájlt a rendszer PATH könyvtárához. A telepítés után indítsa újra a terminált.
 {% endhint %}
 
-### First-Time Setup
+### Első beállítás
 
-Before using the CLI, activate your Chloros+ license:
+Az CLI használata előtt aktiválja az Chloros+ licencét:
 
 ```bash
 # Login with your Chloros+ account
@@ -55,9 +53,9 @@ chloros-cli status
 chloros-cli process "C:\Images\Dataset001"
 ```
 
-### Basic Usage
+### Alapvető használat
 
-Process a folder with default settings:
+Feldolgozza a mappát az alapértelmezett beállításokkal:
 
 ```powershell
 chloros-cli process "C:\Images\Dataset001"
@@ -65,9 +63,9 @@ chloros-cli process "C:\Images\Dataset001"
 
 ***
 
-## Command Reference
+## Parancsok
 
-### General Syntax
+### Általános szintaxis
 
 ```
 chloros-cli [global-options] <command> [command-options]
@@ -75,89 +73,87 @@ chloros-cli [global-options] <command> [command-options]
 
 ***
 
-## Commands
+## Parancsok
 
-### `process` - Process Images
+### `process` - Képek feldolgozása
 
-Process images in a folder with calibration.
+Képek feldolgozása egy mappában kalibrálással.
 
-**Syntax:**
+**Szintaxis:**
 
 ```bash
 chloros-cli process <input-folder> [options]
 ```
 
-**Example:**
+**Példa:**
 
 ```powershell
 chloros-cli process "C:\Datasets\Survey_001" --vignette --reflectance
 ```
 
-#### Process Command Options
+#### Feldolgozási parancs opciók
 
-| Option                | Type    | Default        | Description                                                                            |
+| Opció                | Típus    | Alapértelmezett        | Leírás                                                                            |
 | --------------------- | ------- | -------------- | -------------------------------------------------------------------------------------- |
-| `<input-folder>`      | Path    | _Required_     | Folder containing RAW/JPG multispectral images                                         |
-| `-o, --output`        | Path    | Same as input  | Output folder for processed images                                                     |
-| `-n, --project-name`  | String  | Auto-generated | Custom project name                                                                    |
-| `--vignette`          | Flag    | Enabled        | Enable vignette correction                                                             |
-| `--no-vignette`       | Flag    | -              | Disable vignette correction                                                            |
-| `--reflectance`       | Flag    | Enabled        | Enable reflectance calibration                                                         |
-| `--no-reflectance`    | Flag    | -              | Disable reflectance calibration                                                        |
-| `--ppk`               | Flag    | Disabled       | Apply PPK corrections from .daq light sensor data                                      |
-| `--format`            | Choice  | TIFF (16-bit)  | Output format: `TIFF (16-bit)`, `TIFF (32-bit, Percent)`, `PNG (8-bit)`, `JPG (8-bit)` |
-| `--min-target-size`   | Integer | Auto           | Minimum target size in pixels for calibration panel detection                          |
-| `--target-clustering` | Integer | Auto           | Target clustering threshold (0-100)                                                    |
-| `--exposure-pin-1`    | String  | None           | Lock exposure for camera model (Pin 1)                                                 |
-| `--exposure-pin-2`    | String  | None           | Lock exposure for camera model (Pin 2)                                                 |
-| `--recal-interval`    | Integer | Auto           | Recalibration interval in seconds                                                      |
-| `--timezone-offset`   | Integer | 0              | Timezone offset in hours                                                               |
+| `<input-folder>`      | Útvonal    | _Szükséges_     | RAW/JPG multispektrális képeket tartalmazó mappa                                         |
+| `-o, --output`        | Útvonal    | Megegyezik a bemenettel  | A feldolgozott képek kimeneti mappája                                                     |
+| `-n, --project-name`  | Karakterlánc  | Automatikusan generált | Egyéni projektnév                                                                    |
+| `--vignette`          | Jelző    | Engedélyezve        | Vignettakorrekció engedélyezése                                                             |
+| `--no-vignette`       | Jelző    | -              | Vignettakorrekció letiltása                                                            |
+| `--reflectance`       | Jelző    | Engedélyezve        | Reflektancia kalibrálás engedélyezése                                                         |
+| `--no-reflectance`    | Jelző    | -              | Reflektancia kalibrálás letiltása                                                        |
+| `--ppk`               | Jelző    | Letiltva       | PPK-korrekciók alkalmazása a .daq fényérzékelő adatai alapján                                      |
+| `--format`            | Választás  | TIFF (16 bites)  | Kimeneti formátum: `TIFF (16-bit)`, `TIFF (32-bit, Percent)`, `PNG (8-bit)`, `JPG (8-bit)` |
+| `--min-target-size`   | Egész szám | Automatikus           | A kalibrációs panel felismeréséhez szükséges minimális célméret pixelben                          |
+| `--target-clustering` | Egész szám | Automatikus           | Célcsoportosítási küszöbérték (0-100)                                                    |
+| `--exposure-pin-1`    | Karakterlánc  | Nincs           | Expozíció rögzítése a kamera modelljéhez (1. pin)                                                 |
+| `--exposure-pin-2`    | Karakterlánc  | Nincs           | Expozíció rögzítése a kamera modelljéhez (2. pin)                                                 |
+| `--recal-interval`    | Egész szám | Automatikus           | Újrakalibrálási intervallum másodpercben                                                      |
+| `--timezone-offset`   | Egész szám | 0              | Időzóna eltérés órában                                                               |
 
 ***
 
-### `login` - Authenticate Account
+### `login` - Fiók hitelesítése
 
-Login with your Chloros+ credentials to enable CLI processing.
+Jelentkezzen be Chloros+ hitelesítő adataival az CLI feldolgozás engedélyezéséhez.
 
-**Syntax:**
+**Szintaxis:**
 
 ```bash
 chloros-cli login <email> <password>
 ```
 
-**Example:**
+**Példa:**
 
 ```powershell
 chloros-cli login user@example.com 'MyP@ssw0rd123'
 ```
 
-{% hint style="warning" %}
-**Special Characters**: Use single quotes around passwords containing characters like `$`, `!`, or spaces.
+{% hint style=&quot;warning&quot; %}
+**Különleges karakterek**: Használjon egyszerű idézőjeleket az olyan karaktereket tartalmazó jelszavak körül, mint `$`, `!` vagy szóközök.
 {% endhint %}
 
-**Output:**
+**Kimenet:**
 
-<figure><img src=".gitbook/assets/cli login_w.JPG" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/cli login_w.JPG" alt=""><figcaption></figcaption></figure>***
 
-***
+### `logout` - Hitelesítő adatok törlése
 
-### `logout` - Clear Credentials
+Törölje a tárolt hitelesítő adatokat, és jelentkezzen ki fiókjából.
 
-Clear stored credentials and logout from your account.
-
-**Syntax:**
+**Szintaxis:**
 
 ```bash
 chloros-cli logout
 ```
 
-**Example:**
+**Példa:**
 
 ```powershell
 chloros-cli logout
 ```
 
-**Output:**
+**Kimenet:**
 
 ```
 ✓ Logout successful
@@ -166,23 +162,23 @@ chloros-cli logout
 
 ***
 
-### `status` - Check License Status
+### `status` - Licencállapot ellenőrzése
 
-Display current license and authentication status.
+A jelenlegi licenc és hitelesítési állapot megjelenítése.
 
-**Syntax:**
+**Szintaxis:**
 
 ```bash
 chloros-cli status
 ```
 
-**Example:**
+**Példa:**
 
 ```powershell
 chloros-cli status
 ```
 
-**Output:**
+**Kimenet:**
 
 ```
 ╔══════════════════════════════════════╗
@@ -197,31 +193,31 @@ chloros-cli status
 
 ***
 
-### `export-status` - Check Export Progress
+### `export-status` - Exportálás előrehaladásának ellenőrzése
 
-Monitor Thread 4 export progress during or after processing.
+A 4. szál exportálásának előrehaladását figyeli a feldolgozás alatt vagy után.
 
-**Syntax:**
+**Szintaxis:**
 
 ```bash
 chloros-cli export-status
 ```
 
-**Example:**
+**Példa:**
 
 ```powershell
 chloros-cli export-status
 ```
 
-**Use Case:** Call this command while processing is running to check export progress.
+**Használati eset:** Hívja meg ezt a parancsot a feldolgozás futása közben az exportálás előrehaladásának ellenőrzéséhez.
 
 ***
 
-### `language` - Manage Interface Language
+### `language` – Az interfész nyelvének kezelése
 
-View or change the CLI interface language.
+Az CLI felület nyelvének megtekintése vagy módosítása.
 
-**Syntax:**
+**Szintaxis:**
 
 ```bash
 # Show current language
@@ -234,7 +230,7 @@ chloros-cli language --list
 chloros-cli language <language-code>
 ```
 
-**Examples:**
+**Példák:**
 
 ```powershell
 # View current language
@@ -250,66 +246,66 @@ chloros-cli language es
 chloros-cli language ja
 ```
 
-#### Supported Languages (38 Total)
+#### Támogatott nyelvek (összesen 38)
 
-| Code    | Language              | Native Name      |
+| Kód    | Nyelv              | Eredeti név      |
 | ------- | --------------------- | ---------------- |
-| `en`    | English               | English          |
-| `es`    | Spanish               | Español          |
-| `pt`    | Portuguese            | Português        |
-| `fr`    | French                | Français         |
-| `de`    | German                | Deutsch          |
-| `it`    | Italian               | Italiano         |
-| `ja`    | Japanese              | 日本語              |
-| `ko`    | Korean                | 한국어              |
-| `zh`    | Chinese (Simplified)  | 简体中文             |
-| `zh-TW` | Chinese (Traditional) | 繁體中文             |
-| `ru`    | Russian               | Русский          |
-| `nl`    | Dutch                 | Nederlands       |
-| `ar`    | Arabic                | العربية          |
-| `pl`    | Polish                | Polski           |
-| `tr`    | Turkish               | Türkçe           |
+| `en`    | Angol               | English          |
+| `es`    | Spanyol               | Español          |
+| `pt`    | Portugál            | Português        |
+| `fr`    | Francia                | Français         |
+| `de`    | Német                | Deutsch          |
+| `it`    | Olasz               | Italiano         |
+| `ja`    | Japán              | 日本語              |
+| `ko`    | Koreai                | 한국어              |
+| `zh`    | Kínai (egyszerűsített)  | 简体中文             |
+| `zh-TW` | Kínai (hagyományos) | 繁體中文             |
+| `ru`    | Orosz               | Русский          |
+| `nl`    | Holland                 | Nederlands       |
+| `ar`    | Arab                | العربية          |
+| `pl`    | Lengyel                | Polski           |
+| `tr`    | Török               | Türkçe           |
 | `hi`    | Hindi                 | हिंदी            |
-| `id`    | Indonesian            | Bahasa Indonesia |
-| `vi`    | Vietnamese            | Tiếng Việt       |
+| `id`    | Indonéz            | Bahasa Indonesia |
+| `vi`    | Vietnámi            | Tiếng Việt       |
 | `th`    | Thai                  | ไทย              |
-| `sv`    | Swedish               | Svenska          |
-| `da`    | Danish                | Dansk            |
-| `no`    | Norwegian             | Norsk            |
-| `fi`    | Finnish               | Suomi            |
-| `el`    | Greek                 | Ελληνικά         |
-| `cs`    | Czech                 | Čeština          |
-| `hu`    | Hungarian             | Magyar           |
-| `ro`    | Romanian              | Română           |
-| `uk`    | Ukrainian             | Українська       |
-| `pt-BR` | Brazilian Portuguese  | Português Brasileiro |
-| `zh-HK` | Cantonese             | 粵語             |
-| `ms`    | Malay                 | Bahasa Melayu    |
-| `sk`    | Slovak                | Slovenčina       |
-| `bg`    | Bulgarian             | Български        |
-| `hr`    | Croatian              | Hrvatski         |
-| `lt`    | Lithuanian            | Lietuvių         |
-| `lv`    | Latvian               | Latviešu         |
-| `et`    | Estonian              | Eesti            |
-| `sl`    | Slovenian             | Slovenščina      |
+| `sv`    | Svéd               | Svenska          |
+| `da`    | Dán                | Dansk            |
+| `no`    | Norvég             | Norsk            |
+| `fi`    | Finn               | Suomi            |
+| `el`    | Görög                 | Ελληνικά         |
+| `cs`    | Cseh                 | Čeština          |
+| `hu`    | Magyar             | Magyar           |
+| `ro`    | Román              | Română           |
+| `uk`    | Ukrán             | Українська       |
+| `pt-BR` | Brazil portugál  | Português Brasileiro |
+| `zh-HK` | Kantoni             | 粵語             |
+| `ms`    | Maláj                 | Bahasa Melayu    |
+| `sk`    | Szlovák                | Slovenčina       |
+| `bg`    | Bolgár             | Български        |
+| `hr`    | Horvát              | Hrvatski         |
+| `lt`    | Litván            | Lietuvių         |
+| `lv`    | Lett               | Latviešu         |
+| `et`    | Észt              | Eesti            |
+| `sl`    | Szlovén             | Slovenščina      |
 
-{% hint style="success" %}
-**Automatic Persistence**: Your language preference is saved to `~/.chloros/cli_language.json` and persists across all sessions.
+{% hint style=&quot;success&quot; %}
+**Automatikus állandóság**: A nyelvi beállítások az `~/.chloros/cli_language.json` fájlba kerülnek mentésre, és minden munkamenetben megmaradnak.
 {% endhint %}
 
 ***
 
-### `set-project-folder` - Set Default Project Folder
+### `set-project-folder` - Alapértelmezett projektmappa beállítása
 
-Change the default project folder location (shared with GUI).
+Az alapértelmezett projektmappa helyének módosítása (a GUI-val megosztva).
 
-**Syntax:**
+**Szintaxis:**
 
 ```bash
 chloros-cli set-project-folder <folder-path>
 ```
 
-**Example:**
+**Példa:**
 
 ```powershell
 chloros-cli set-project-folder "C:\Projects\2025"
@@ -317,23 +313,23 @@ chloros-cli set-project-folder "C:\Projects\2025"
 
 ***
 
-### `get-project-folder` - Show Project Folder
+### `get-project-folder` - Projektmappa megjelenítése
 
-Display the current default project folder location.
+Az aktuális alapértelmezett projektmappa helyének megjelenítése.
 
-**Syntax:**
+**Szintaxis:**
 
 ```bash
 chloros-cli get-project-folder
 ```
 
-**Example:**
+**Példa:**
 
 ```powershell
 chloros-cli get-project-folder
 ```
 
-**Output:**
+**Kimenet:**
 
 ```
 ℹ Current project folder: C:\Projects\2025
@@ -341,11 +337,11 @@ chloros-cli get-project-folder
 
 ***
 
-### `reset-project-folder` - Reset to Default
+### `reset-project-folder` - Visszaállítás alapértelmezett értékre
 
-Reset the project folder to the default location.
+A projektmappa visszaállítása az alapértelmezett helyre.
 
-**Syntax:**
+**Szintaxis:**
 
 ```bash
 chloros-cli reset-project-folder
@@ -353,19 +349,19 @@ chloros-cli reset-project-folder
 
 ***
 
-## Global Options
+## Globális beállítások
 
-These options apply to all commands:
+Ezek a beállítások minden parancsra vonatkoznak:
 
-| Option          | Type    | Default       | Description                                      |
+| Beállítás          | Típus    | Alapértelmezett       | Leírás                                      |
 | --------------- | ------- | ------------- | ------------------------------------------------ |
-| `--backend-exe` | Path    | Auto-detected | Path to backend executable                       |
-| `--port`        | Integer | 5000          | Backend API port number                          |
-| `--restart`     | Flag    | -             | Force restart backend (kills existing processes) |
-| `--version`     | Flag    | -             | Show version information and exit                |
-| `--help`        | Flag    | -             | Show help information and exit                   |
+| `--backend-exe` | Útvonal    | Automatikus felismerés | A háttérprogram futtatható fájljának elérési útvonala                       |
+| `--port`        | Egész szám | 5000          | Háttérprogram API portszáma                          |
+| `--restart`     | Jelző    | -             | A háttérprogram erőltetett újraindítása (a meglévő folyamatok leállítása) |
+| `--version`     | Jelző    | -             | Verzióinformációk megjelenítése és kilépés                |
+| `--help`        | Jelző    | -             | Súgóinformációk megjelenítése és kilépés                   |
 
-**Example with Global Options:**
+**Példa globális opciókkal:**
 
 ```powershell
 chloros-cli --port 5001 process "C:\Datasets\Survey_001"
@@ -373,80 +369,78 @@ chloros-cli --port 5001 process "C:\Datasets\Survey_001"
 
 ***
 
-## Processing Settings Guide
+## Feldolgozási beállítások útmutatója
 
-### Parallel Processing
+### Párhuzamos feldolgozás
 
-Chloros+ CLI **automatically scales** parallel processing to match your computer's capabilities:
+Chloros+ CLI **automatikusan méretezi** a párhuzamos feldolgozást a számítógép teljesítményéhez igazodva:
 
-**How It Works:**
+**Hogyan működik:**
 
-* Detects your CPU cores and RAM
-* Allocates workers: **2× CPU cores** (uses hyperthreading)
-* **Maximum: 16 parallel workers** (for stability)
+* Felismeri a CPU magokat és a RAM-ot
+* Munkások kiosztása: **2× CPU mag** (hiperthreading használata)
+* **Maximum: 16 párhuzamos munkás** (a stabilitás érdekében)
 
-**System Tiers:**
+**Rendszer szintek:**
 
-| System Type   | CPU        | RAM      | Workers  | Performance     |
+| Rendszer típus   | CPU        | RAM      | Munkások  | Teljesítmény     |
 | ------------- | ---------- | -------- | -------- | --------------- |
-| **High-End**  | 16+ cores  | 32+ GB   | Up to 16 | Maximum speed   |
-| **Mid-Range** | 8-15 cores | 16-31 GB | 8-16     | Excellent speed |
-| **Low-End**   | 4-7 cores  | 8-15 GB  | 4-8      | Good speed      |
+| **High-End**  | 16+ mag  | 32+ GB   | Akár 16 | Maximális sebesség   |
+| **Közepes** | 8-15 mag | 16-31 GB | 8-16     | Kiváló sebesség |
+| **Alacsony**   | 4-7 mag  | 8-15 GB  | 4-8      | Jó sebesség      |
 
-{% hint style="success" %}
-**Automatic Optimization**: The CLI automatically detects your system specs and configures optimal parallel processing. No manual configuration needed!
+{% hint style=&quot;success&quot; %}
+**Automatikus optimalizálás**: Az CLI automatikusan felismeri a rendszer specifikációit és beállítja az optimális párhuzamos feldolgozást. Nincs szükség manuális konfigurálásra!
 {% endhint %}
 
-### Debayer Methods
+### Debayer módszerek
 
-The CLI uses **High Quality (Faster)** as the default and recommended debayer algorithm:
+Az CLI alapértelmezésként és ajánlott debayer algoritmusként a **High Quality (Faster)** (Kiváló minőség (gyorsabb)) módot használja:
 
-| Method                      | Quality | Speed | Description                                 |
+| Módszer                      | Minőség | Sebesség | Leírás                                 |
 | --------------------------- | ------- | ----- | ------------------------------------------- |
-| **High Quality (Faster)** ⭐ | ⭐⭐⭐⭐    | ⚡⚡⚡   | Edge-aware algorithm (default, recommended) |
+| **Magas minőség (gyorsabb)** ⭐ | ⭐⭐⭐⭐    | ⚡⚡⚡   | Élekkel számoló algoritmus (alapértelmezett, ajánlott) |
 
-### Vignette Correction
+### Vignette-korrekció
 
-**What it does:** Corrects light falloff at image edges (darker corners common in camera imagery).
+**Működése:** Korrigálja a kép szélein jelentkező fénycsökkenést (a fényképezőgépeknél gyakori sötétebb sarkok).
 
-* **Enabled by default** - Most users should keep this enabled
-* Use `--no-vignette` to disable
+* **Alapértelmezés szerint engedélyezve** – A legtöbb felhasználónak ezt engedélyezve kell hagynia.
+* Az `--no-vignette` használatával letiltható.
 
-{% hint style="success" %}
-**Recommendation**: Always enable vignette correction to ensure uniform brightness across the frame.
+{% hint style=&quot;success&quot; %}
+**Ajánlás**: Mindig engedélyezze a vignettázás korrekciót, hogy biztosítsa az egyenletes fényerőt a képkockán.
 {% endhint %}
 
-### Reflectance Calibration
+### Reflektancia kalibrálás
 
-Converts raw sensor values to standardized reflectance percentages using calibration panels.
+A kalibrációs panelek segítségével a nyers érzékelőértékeket szabványosított reflektancia százalékokra konvertálja.
 
-* **Enabled by default** - Essential for vegetation analysis
-* Requires calibration target panels in images
-* Use `--no-reflectance` to disable
+* **Alapértelmezés szerint engedélyezve** – Elengedhetetlen a növényzet elemzéséhez.
+* Kalibrációs célpanelek szükségesek a képeken.
+* Az `--no-reflectance` használatával letiltható.
 
-{% hint style="info" %}
-**Requirements**: Ensure calibration panels are properly exposed and visible in your images for accurate reflectance conversion.
+{% hint style=&quot;info&quot; %}
+**Követelmények**: A pontos reflektancia-átalakításhoz győződjön meg arról, hogy a kalibrációs panelek megfelelően vannak-e exponálva és láthatók-e a képeken.
 {% endhint %}
 
-### PPK Corrections
+### PPK-korrekciók
 
-**What it does:** Applies Post-Processed Kinematic corrections using DAQ-A-SD log data for improved GPS accuracy.
+**Működése:** A DAQ-A-SD naplóadatok felhasználásával utólagos kinematikai korrekciókat alkalmaz a GPS-pontosság javítása érdekében.
 
-* **Disabled by default**
-* Use `--ppk` to enable
-* Requires .daq files in project folder from MAPIR DAQ-A-SD light sensor.
+* **Alapértelmezés szerint letiltva**
+* Az engedélyezéshez használja az `--ppk` parancsot
+* Ehhez .daq fájlok szükségesek a projektmappában az MAPIR DAQ-A-SD fényérzékelőből.
 
-### Output Formats
+### Kimeneti formátumok
 
-<table><thead><tr><th width="197">Format</th><th width="130.20001220703125">Bit Depth</th><th width="116.5999755859375">File Size</th><th>Best For</th></tr></thead><tbody><tr><td><strong>TIFF (16-bit)</strong> ⭐</td><td>16-bit integer</td><td>Large</td><td>GIS analysis, photogrammetry (recommended)</td></tr><tr><td><strong>TIFF (32-bit, Percent)</strong></td><td>32-bit float</td><td>Very Large</td><td>Scientific analysis, research</td></tr><tr><td><strong>PNG (8-bit)</strong></td><td>8-bit integer</td><td>Medium</td><td>Visual inspection, web sharing</td></tr><tr><td><strong>JPG (8-bit)</strong></td><td>8-bit integer</td><td>Small</td><td>Quick preview, compressed output</td></tr></tbody></table>
+<table><thead><tr><th width="197">Formátum</th><th width="130.20001220703125">Bitmélység</th><th width="116.5999755859375">Fájlméret</th><th>Legalkalmasabb</th></tr></thead><tbody><tr><td><strong>TIFF (16 bites)</strong> ⭐</td><td>16 bites egész szám</td><td>Nagy</td><td>GIS-elemzés, fotogrammetria (ajánlott)</td></tr><tr><td><strong>TIFF (32 bites, százalék)</strong></td><td>32 bites lebegőpontos</td><td>Nagyon nagy</td><td>Tudományos elemzés, kutatás</td></tr><tr><td><strong>PNG (8 bites)</strong></td><td>8 bites egész</td><td>Közepes</td><td>Vizuális ellenőrzés, webes megosztás</td></tr><tr><td><strong>JPG (8 bites)</strong></td><td>8 bites egész szám</td><td>Kicsi</td><td>Gyors előnézet, tömörített kimenet</td></tr></tbody></table>***
 
-***
+## Automatizálás és szkriptelés
 
-## Automation & Scripting
+### PowerShell kötegelt feldolgozás
 
-### PowerShell Batch Processing
-
-Process multiple dataset folders automatically:
+Több adatkészlet mappa automatikus feldolgozása:
 
 ```powershell
 # process_all_datasets.ps1
@@ -470,9 +464,9 @@ foreach ($dataset in $datasets) {
 Write-Host "All datasets processed!" -ForegroundColor Green
 ```
 
-### Windows Batch Script
+### Windows kötegelt szkript
 
-Simple loop for batch processing:
+Egyszerű hurok kötegelt feldolgozáshoz:
 
 ```batch
 @echo off
@@ -497,9 +491,9 @@ echo All datasets processed!
 pause
 ```
 
-### Python Automation Script
+### Python automatizálási szkript
 
-Advanced automation with error handling:
+Fejlett automatizálás hiba kezeléssel:
 
 ```python
 import subprocess
@@ -578,16 +572,16 @@ if __name__ == '__main__':
 
 ***
 
-## Processing Workflow
+## Feldolgozási munkafolyamat
 
-### Standard Workflow
+### Standard munkafolyamat
 
-1. **Input**: Folder containing RAW/JPG image pairs
-2. **Discovery**: CLI auto-scans for supported image files
-3. **Processing**: Parallel mode scales to your CPU cores (Chloros+)
-4. **Output**: Creates camera-model subfolders with processed images
+1. **Bemenet**: RAW/JPG képeket tartalmazó mappa
+2. **Felfedezés**: CLI automatikus keresés a támogatott képfájlok után
+3. **Feldolgozás**: Párhuzamos mód, amely a CPU magok számához igazodik (Chloros+)
+4. **Kimenet**: Feldolgozott képekkel ellátott kamera-modell almappák létrehozása
 
-### Example Output Structure
+### Példa a kimeneti struktúrára
 
 ```
 MyProject/
@@ -600,72 +594,72 @@ MyProject/
     └── ...
 ```
 
-### Processing Time Estimates
+### Becsült feldolgozási idő
 
-Typical processing times for 100 images (12MP each):
+Tipikus feldolgozási idő 100 kép (egyenként 12 MP) esetén:
 
-| Mode              | Time      | Hardware                                     |
+| Mód              | Idő      | Hardver                                     |
 | ----------------- | --------- | -------------------------------------------- |
-| **Parallel Mode** | 5-10 min  | i7/Ryzen 7, 16GB RAM, SSD (up to 16 workers) |
-| **Parallel Mode** | 10-15 min | i5/Ryzen 5, 8GB RAM, HDD (up to 8 workers)   |
+| **Párhuzamos mód** | 5-10 perc  | i7/Ryzen 7, 16 GB RAM, SSD (legfeljebb 16 munkás) |
+| **Párhuzamos mód** | 10-15 perc | i5/Ryzen 5, 8 GB RAM, HDD (legfeljebb 8 munkás)   |
 
-{% hint style="info" %}
-**Performance Tip**: Processing time varies based on image count, resolution, and computer specs.
+{% hint style=&quot;info&quot; %}
+**Teljesítménytipp**: A feldolgozási idő a képek számától, felbontásától és a számítógép specifikációitól függ.
 {% endhint %}
 
 ***
 
-## Troubleshooting
+## Hibaelhárítás
 
-### CLI Not Found
+### CLI nem található
 
-**Error:**
+**Hiba:**
 
 ```
 'chloros-cli' is not recognized as an internal or external command
 ```
 
-**Solutions:**
+**Megoldások:**
 
-1. Verify installation location:
+1. Ellenőrizze a telepítés helyét:
 
 ```powershell
 dir "C:\Program Files\Chloros\resources\cli\chloros-cli.exe"
 ```
 
-2. Use full path if not in PATH:
+2. Ha nincs a PATH-ban, használja a teljes elérési utat:
 
 ```powershell
 "C:\Program Files\Chloros\resources\cli\chloros-cli.exe" process "C:\Datasets\Field_A"
 ```
 
-3. Add to PATH manually:
-   * Open System Properties → Environment Variables
-   * Edit PATH variable
-   * Add: `C:\Program Files\Chloros\resources\cli`
-   * Restart terminal
+3. Adja hozzá manuálisan a PATH-hoz:
+   * Nyissa meg a Rendszer tulajdonságait → Környezeti változók
+   * Szerkessze a PATH változót
+   * Adja hozzá: `C:\Program Files\Chloros\resources\cli`
+   * Indítsa újra a terminált.
 
 ***
 
-### Backend Failed to Start
+### A háttérprogram indítása sikertelen.
 
-**Error:**
+**Hiba:**
 
 ```
 Backend failed to start within 30 seconds
 ```
 
-**Solutions:**
+**Megoldások:**
 
-1. Check if backend already running (close it first)
-2. Check Windows Firewall is not blocking
-3. Try different port:
+1. Ellenőrizze, hogy a háttérprogram már fut-e (először zárja be).
+2. Ellenőrizze, hogy az Windows tűzfal nem blokkolja-e.
+3. Próbáljon ki egy másik portot:
 
 ```powershell
 chloros-cli --port 5001 process "C:\Datasets\Field_A"
 ```
 
-4. Force restart backend:
+4. Kényszerítse a háttérprogram újraindítását:
 
 ```powershell
 chloros-cli --restart process "C:\Datasets\Field_A"
@@ -673,71 +667,71 @@ chloros-cli --restart process "C:\Datasets\Field_A"
 
 ***
 
-### License / Authentication Issues
+### Licenc/hitelesítési problémák
 
-**Error:**
+**Hiba:**
 
 ```
 Chloros+ license required for CLI access
 ```
 
-**Solutions:**
+**Megoldások:**
 
-1. Verify you have an active Chloros+ subscription
-2. Login with your credentials:
+1. Ellenőrizze, hogy rendelkezik-e aktív Chloros+ előfizetéssel.
+2. Jelentkezzen be a hitelesítő adataival:
 
 ```powershell
 chloros-cli login user@example.com 'password'
 ```
 
-3. Check license status:
+3. Ellenőrizze a licenc állapotát:
 
 ```powershell
 chloros-cli status
 ```
 
-4. Contact support: info@mapir.camera
+4. Vegye fel a kapcsolatot az ügyfélszolgálattal: info@mapir.camera
 
 ***
 
-### No Images Found
+### Nincs kép található
 
-**Error:**
+**Hiba:**
 
 ```
 No images found in the specified folder
 ```
 
-**Solutions:**
+**Megoldások:**
 
-1. Verify folder contains supported formats (.RAW, .TIF, .JPG)
-2. Check folder path is correct (use quotes for paths with spaces)
-3. Ensure you have read permissions for the folder
-4. Check file extensions are correct
-
-***
-
-### Processing Stalls or Hangs
-
-**Solutions:**
-
-1. Check available disk space (ensure enough for output)
-2. Close other applications to free memory
-3. Reduce image count (process in batches)
+1. Ellenőrizze, hogy a mappa támogatott formátumokat tartalmaz-e (.RAW, .TIF, .JPG).
+2. Ellenőrizze, hogy a mappa elérési útja helyes-e (szóközökkel ellátott elérési utak esetén használjon idézőjeleket).
+3. Győződjön meg arról, hogy rendelkezik a mappa olvasási jogosultságával.
+4. Ellenőrizze, hogy a fájlkiterjesztések helyesek-e.
 
 ***
 
-### Port Already in Use
+### A feldolgozás leáll vagy lefagy
 
-**Error:**
+**Megoldások:**
+
+1. Ellenőrizze a rendelkezésre álló lemezterületet (győződjön meg arról, hogy elegendő a kimenethez).
+2. Zárjon be más alkalmazásokat a memória felszabadítása érdekében.
+3. Csökkentse a képek számát (folytassa a feldolgozást tételekben).
+
+***
+
+### A port már használatban van
+
+**Hiba:**
 
 ```
 Port 5000 is already in use
 ```
 
-**Solution:**
+**Megoldás:**
 
-Specify a different port:
+Adjon meg egy másik portot:
 
 ```powershell
 chloros-cli --port 5001 process "C:\Datasets\Field_A"
@@ -745,35 +739,35 @@ chloros-cli --port 5001 process "C:\Datasets\Field_A"
 
 ***
 
-## FAQ
+## GYIK
 
-### Q: Do I need a license for the CLI?
+### K: Szükségem van licencre az CLI használatához?
 
-**A:** Yes! The CLI requires a paid **Chloros+ license**.
+**V:** Igen! Az CLI használatához fizetős **Chloros+ licenc** szükséges.
 
-* ❌ Standard (free) plan: CLI disabled
-* ✅ Chloros+ (paid) plans: CLI fully enabled
+* ❌ Standard (ingyenes) csomag: CLI letiltva
+* ✅ Chloros+ (fizetős) csomagok: CLI teljes mértékben engedélyezve
 
-Subscribe at: [https://cloud.mapir.camera/pricing](https://cloud.mapir.camera/pricing)
-
-***
-
-### Q: Can I use the CLI on a server without GUI?
-
-**A:** Yes! The CLI runs completely headless. Requirements:
-
-* Windows Server 2016 or later
-* Visual C++ Redistributable installed
-* Sufficient RAM (8GB minimum, 16GB recommended)
-* One-time GUI license activation on any machine
+Iratkozzon fel: [https://cloud.mapir.camera/pricing](https://cloud.mapir.camera/pricing)
 
 ***
 
-### Q: Where are processed images saved?
+### K: Használhatom az CLI-et GUI nélküli szerveren?
 
-**A:** By default, processed images are saved in the **same folder as input** in camera-model subfolders (e.g., `Survey3N_RGN/`).
+**V:** Igen! Az CLI teljesen headless módon fut. Követelmények:
 
-Use `-o` option to specify different output folder:
+* Windows Server 2016 vagy újabb
+* Visual C++ Redistributable telepítve
+* Elegendő RAM (minimum 8 GB, ajánlott 16 GB)
+* Egyszeri GUI licenc aktiválás bármely gépen
+
+***
+
+### K: Hol kerülnek mentésre a feldolgozott képek?
+
+**V:** Alapértelmezés szerint a feldolgozott képek **a bemeneti képekkel azonos mappában** kerülnek mentésre, a kamera modelljének almappáiban (pl. `Survey3N_RGN/`).
+
+Az `-o` opcióval más kimeneti mappát is megadhat:
 
 ```powershell
 chloros-cli process "C:\Input" -o "D:\Output"
@@ -781,13 +775,13 @@ chloros-cli process "C:\Input" -o "D:\Output"
 
 ***
 
-### Q: Can I process multiple folders at once?
+### K: Több mappát is feldolgozhatok egyszerre?
 
-**A:** Not directly in one command, but you can use scripting to process folders sequentially. See [Automation & Scripting](CLI.md#automation--scripting) section.
+**V:** Egy parancsban nem, de szkript segítségével egymás után feldolgozhatja a mappákat. Lásd az [Automatizálás és szkriptelés](CLI.md#automation--scripting) részt.
 
 ***
 
-### Q: How do I save CLI output to a log file?
+### K: Hogyan menthetem az CLI kimenetet egy naplófájlba?
 
 **PowerShell:**
 
@@ -803,33 +797,33 @@ chloros-cli process "C:\Datasets\Field_A" > processing.log 2>&1
 
 ***
 
-### Q: What happens if I press Ctrl+C during processing?
+### K: Mi történik, ha a feldolgozás közben megnyomom a Ctrl+C billentyűkombinációt?
 
-**A:** The CLI will:
+**V:** Az CLI:
 
-1. Stop processing gracefully
-2. Shut down the backend
-3. Exit with code 130
+1. Megállítja a feldolgozást
+2. Leállítja a háttérprogramot
+3. 130-as kóddal lép ki
 
-Partially processed images may remain in the output folder.
-
-***
-
-### Q: Can I automate CLI processing?
-
-**A:** Absolutely! The CLI is designed for automation. See [Automation & Scripting](CLI.md#automation--scripting) for PowerShell, Batch, and Python examples.
+A részben feldolgozott képek a kimeneti mappában maradhatnak.
 
 ***
 
-### Q: How do I check the CLI version?
+### K: Automatizálhatom az CLI feldolgozást?
 
-**A:**
+**V:** Természetesen! Az CLI automatizálásra lett tervezve. Lásd az [Automatizálás és szkriptelés](CLI.md#automation--scripting) részt a PowerShell, Batch és Python példákért.
+
+***
+
+### K: Hogyan ellenőrizhetem az CLI verziót?
+
+**V:**
 
 ```powershell
 chloros-cli --version
 ```
 
-**Output:**
+**Kimenet:**
 
 ```
 Chloros CLI 1.0.2
@@ -837,11 +831,11 @@ Chloros CLI 1.0.2
 
 ***
 
-## Getting Help
+## Súgó
 
-### Command-Line Help
+### Parancssori súgó
 
-View help information directly in the CLI:
+A súgó információk közvetlenül az CLI programban tekinthetők meg:
 
 ```powershell
 # General help
@@ -853,19 +847,19 @@ chloros-cli login --help
 chloros-cli language --help
 ```
 
-### Support Channels
+### Támogatási csatornák
 
-* **Email**: info@mapir.camera
-* **Website**: [https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
-* **Pricing**: [https://cloud.mapir.camera/pricing](https://cloud.mapir.camera/pricing)
+* **E-mail**: info@mapir.camera
+* **Weboldal**: [https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
+* **Árak**: [https://cloud.mapir.camera/pricing](https://cloud.mapir.camera/pricing)
 
 ***
 
-## Complete Examples
+## Teljes példák
 
-### Example 1: Basic Processing
+### 1. példa: Alapvető feldolgozás
 
-Process with default settings (vignette, reflectance):
+Feldolgozás alapértelmezett beállításokkal (vignette, reflectance):
 
 ```powershell
 chloros-cli process "C:\Datasets\Field_A_2025_01_15"
@@ -873,9 +867,9 @@ chloros-cli process "C:\Datasets\Field_A_2025_01_15"
 
 ***
 
-### Example 2: High-Quality Scientific Output
+### 2. példa: Kiváló minőségű tudományos eredmény
 
-32-bit float TIFF:
+32 bites lebegőpontos TIFF:
 
 ```powershell
 chloros-cli process "C:\Datasets\Field_A" ^
@@ -886,9 +880,9 @@ chloros-cli process "C:\Datasets\Field_A" ^
 
 ***
 
-### Example 3: Fast Preview Processing
+### 3. példa: Gyors előnézeti feldolgozás
 
-8-bit PNG without calibration for quick review:
+8 bites PNG kalibrálás nélkül, gyors áttekintéshez:
 
 ```powershell
 chloros-cli process "C:\Datasets\Field_A" ^
@@ -899,9 +893,9 @@ chloros-cli process "C:\Datasets\Field_A" ^
 
 ***
 
-### Example 4: PPK-Corrected Processing
+### 4. példa: PPK-korrigált feldolgozás
 
-Apply PPK corrections with reflectance:
+PPK-korrekciók alkalmazása visszaverődéssel:
 
 ```powershell
 chloros-cli process "C:\Datasets\Field_A" ^
@@ -911,9 +905,9 @@ chloros-cli process "C:\Datasets\Field_A" ^
 
 ***
 
-### Example 5: Custom Output Location
+### 5. példa: Egyéni kimeneti hely
 
-Process to different drive with specific format:
+Feldolgozás különböző meghajtóra, meghatározott formátumban:
 
 ```powershell
 chloros-cli process "C:\Input\Raw_Images" ^
@@ -923,9 +917,9 @@ chloros-cli process "C:\Input\Raw_Images" ^
 
 ***
 
-### Example 6: Authentication Workflow
+### 6. példa: Hitelesítési munkafolyamat
 
-Complete authentication flow:
+Teljes hitelesítési folyamat:
 
 ```powershell
 # Step 1: Login
@@ -943,9 +937,9 @@ chloros-cli logout
 
 ***
 
-### Example 7: Multi-Language Usage
+### 7. példa: Többnyelvű használat
 
-Change interface language:
+A felület nyelvének megváltoztatása:
 
 ```powershell
 # List available languages

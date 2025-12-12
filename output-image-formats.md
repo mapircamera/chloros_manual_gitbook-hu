@@ -4,21 +4,21 @@ metaLinks:
     - https://app.gitbook.com/s/o044KN3Ws0uIDvOmSkcR/output-image-formats
 ---
 
-# Output Image Formats
+# Kimeneti képformátumok
 
-### TIFF (16-bit)
+### TIFF (16 bites)
 
-16-bit (pixel digital number 0 - 65535) TIFF (.tif) format output.
+16 bites (pixel digitális szám 0 - 65535) TIFF (.tif) formátumú kimenet.
 
-### TIFF (32-bit, Percent %)
+### TIFF (32 bites, százalék %)
 
-32-bit (pixel float 0.0 - 1.0) TIFF (.tif) format output. Pixel values represent reflectance percentages where 0.0 = 0% and 1.0 = 100%.
+32 bites (pixel float 0,0 – 1,0) TIFF (.tif) formátumú kimenet. A pixelértékek a visszaverődés százalékos arányát jelzik, ahol 0,0 = 0% és 1,0 = 100%.
 
-### **JPG (8-bit)**
+### **JPG (8 bites)**
 
-8-bit (pixel digital number 0 -255) JPG (.jpg) format output.
+8 bites (pixel digitális szám 0 -255) JPG (.jpg) formátumú kimenet.
 
-### **PNG (8-bit)**
+### **PNG (8 bites)**
 
-8-bit (pixel digital number 0 - 255) PNG (.png) format output. Lossless compression suitable for web viewing and visualization.
+8 bites (pixel digitális szám 0 - 255) PNG (.png) formátumú kimenet. Veszteségmentes tömörítés, alkalmas webes megtekintésre és megjelenítésre.
 

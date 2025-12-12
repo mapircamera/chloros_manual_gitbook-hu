@@ -1,86 +1,86 @@
 # Index/LUT Sandbox
 
-The Index/LUT Sandbox is an interactive workspace within the Chloros Image Viewer that allows you to experiment with multispectral index calculations and color visualizations in real-time. This powerful tool helps you test different indices, refine value ranges, and create publication-ready visualizations without reprocessing your entire dataset.
+Az Index/LUT Sandbox egy interaktív munkaterület az Chloros Image Viewer programon belül, amely lehetővé teszi, hogy valós időben kísérletezzen a multispektrális indexek kiszámításával és a színek vizualizálásával. Ez a hatékony eszköz segít különböző indexek tesztelésében, az értéktartományok finomításában és publikálásra kész vizualizációk létrehozásában anélkül, hogy az egész adatkészletet újra kellene feldolgozni.
 
-## What is the Index/LUT Sandbox?
+## Mi az Index/LUT Sandbox?
 
-### Purpose
+### Cél
 
-The Sandbox provides:
+A Sandbox a következőket biztosítja:
 
-* **Real-time index calculation** - Apply any vegetation index instantly
-* **Interactive LUT adjustment** - Fine-tune color gradients and ranges
-* **Workflow optimization** - Determine best settings before batch processing
+* **Valós idejű indexszámítás** – Bármely vegetációs index azonnali alkalmazása
+* **Interaktív LUT-beállítás** – Színátmenetek és tartományok finomhangolása
+* **Munkafolyamat-optimalizálás** – A legjobb beállítások meghatározása a kötegelt feldolgozás előtt
 
-### Sandbox vs. Project Processing
+### Sandbox vs. projektfeldolgozás
 
-**Index/LUT Sandbox (Interactive):**
+**Index/LUT Sandbox (interaktív):**
 
-* Single image at a time
-* Instant feedback
-* Experimental and iterative
-* No permanent changes to files
-* Perfect for exploring and testing
+* Egyszerre egy kép
+* Azonnali visszajelzés
+* Kísérleti és iteratív
+* Nincs végleges változás a fájlokban
+* Tökéletes a felfedezéshez és teszteléshez
 
-**Project Processing (Batch):**
+**Projektfeldolgozás (tömeges):**
 
-* Entire dataset at once
-* Pre-configured settings
-* Permanent output files
-* Time-intensive
-* Best when settings are finalized
+* Egész adatkészlet egyszerre
+* Előre konfigurált beállítások
+* Végleges kimeneti fájlok
+* Időigényes
+* Legjobb, ha a beállítások véglegesek
 
-{% hint style="success" %}
-**Best Workflow**: Use the Sandbox to experiment and find optimal index and LUT settings, then apply those settings during Project Processing for your entire dataset.
+{% hint style=&quot;success&quot; %}
+**Legjobb munkafolyamat**: Használja a Sandboxot a kísérletezéshez és az optimális index- és LUT-beállítások megtalálásához, majd alkalmazza ezeket a beállításokat a projekt feldolgozás során az egész adatkészletre.
 {% endhint %}
 
 ***
 
-## Working with the Index/LUT Sandbox
+## Munka az Index/LUT Sandboxszal
 
-### Understanding Pre-Calculated Indices
+### Az előre kiszámított indexek megértése
 
-In Chloros, indices can be applied during project processing. To determine which index and LUT settings you want to apply to exports it is easiest to use the image viewer sandbox.
+Az Chloros-ben az indexek a projekt feldolgozása során alkalmazhatók. Az exportáláshoz alkalmazni kívánt index- és LUT-beállítások meghatározásához a legegyszerűbb a képnézegető sandbox használata.
 
-The sandbox allows you to:
+A sandbox lehetővé teszi a következőket:
 
-* **Apply new index and color gradients (LUTs)** to visualize the data
-* **Adjust visualization settings** interactively
-* **View** already-calculated index images
-* **Inspect** pixel values at all zoom levels
+* **Új indexek és színátmenetek (LUT-ok) alkalmazása** az adatok vizualizálásához
+* **A vizualizációs beállítások interaktív módosítása**
+* **A már kiszámított indexképek megtekintése**
+* **A pixelértékek ellenőrzése** minden nagyítási szinten
 
-### Opening the Sandbox
+### A Sandbox megnyitása
 
-The Index/LUT Sandbox is accessed in the **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> sidebar tab:
+Az Index/LUT Sandbox az **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> oldalsáv fülén keresztül érhető el:
 
-1. Click an image in the file browser image grid, it opens in the **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> tab
-2. Click **the Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> tab to open the left pop-out sidebar if it's not already open
+1. Kattintson egy képre a fájlböngésző képrácsán, amely megnyílik a **Képmegjelenítő** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> fülön
+2. Kattintson a **Képnézegető** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> fülre, hogy megnyissa a bal oldali kiugró oldalsávot, ha még nem nyitott meg
 
-### Selecting an Image to Apply an Index/LUT to
+### Kép kiválasztása az index/LUT alkalmazásához
 
-To work with an index in the Image Viewer <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> sandbox:
+Az index kezeléséhez a Képmegjelenítő <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> sandboxban:
 
-1. **Open an image** from the main image grid by clicking on it
-2. The **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> tab will then open
-3. Click the **Layer dropdown** (top-right of viewer)
-4. Select the layer from the dropdown:
-   * RAW (Reflectance)
+1. **Nyissa meg a képet** a fő képrácsból, rákattintva
+2. Megnyílik az **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> fül megnyílik
+3. Kattintson a **Réteg legördülő menüre** (a néző jobb felső sarkában)
+4. Válassza ki a réteget a legördülő menüből:
+   * RAW (Reflektancia)
 
-### Applying an Index to an Image
+### Index alkalmazása egy képre
 
-Once the image is fullscreen and the **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> tab sidebar is open:
+Miután a kép teljes képernyősre váltott, és a **Képmegjelenítő** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> lap oldalsávja megnyílik:
 
-1. Check the Index box at the top of the sidebar
-2. Choose your camera's filter from the left dropdown
-3. Choose the desired index formula from the right dropdown
-4. Drag the filter channel color circles to the locations in the index formula below
-5. Once the formula is valid the image will update and show the index values
-6. Move your mouse cursor around to see the values at the cursor's location
-7. Zoom in to see individual pixels and their associated values
+1. Jelölje be az Index jelölőnégyzetet az oldalsáv tetején.
+2. Válassza ki a kamera szűrőjét a bal oldali legördülő menüből.
+3. Válassza ki a kívánt indexképletet a jobb oldali legördülő menüből.
+4. Húzza a szűrőcsatorna színes köröket az alábbi indexképletben szereplő helyekre.
+5. Ha a képlet érvényes, a kép frissül és megjeleníti az indexértékeket.
+6. Mozgassa az egérmutatót, hogy megtekintse az egérmutató helyén található értékeket.
+7. Nagyítson rá az egyes pixelekre és a hozzájuk tartozó értékekre.
 
-Each index has a specific value range and meaning:
+Minden indexnek megvan a maga értékhatára és jelentése:
 
-#### NDVI Example
+#### NDVI példa
 
 ```
 Formula: (NIR - Red) / (NIR + Red)
@@ -96,293 +96,293 @@ Bare soil: 0.0 to 0.2
 Water: -0.1 to 0.1
 ```
 
-For complete index formula documentation, see [Multispectral Index Formulas](../project-settings/multispectral-index-formulas.md).
+A teljes indexképlet dokumentációját lásd: [Multispectral Index Formulas](../project-settings/multispectral-index-formulas.md).
 
 ***
 
-## Working with LUTs (Look-Up Tables)
+## LUT-okkal (Look-Up Tables) való munka
 
-### What is a LUT?
+### Mi az a LUT?
 
-A **Look-Up Table (LUT)** maps numerical index values to colors for visualization:
+A **Look-Up Table (LUT)** a numerikus indexértékeket színekhez rendeli a vizualizáláshoz:
 
-* **Input**: Index pixel value (e.g., NDVI 0.65)
-* **Output**: RGB color (e.g., bright green)
-* **Purpose**: Make patterns easier to see and interpret
+* **Bemenet**: Index pixelérték (pl. NDVI 0,65)
+* **Kimenet**: RGB szín (pl. élénkzöld)
+* **Cél**: A minták könnyebb láthatósága és értelmezhetősége
 
-**Grayscale vs. Color LUT:**
+**Szürkeárnyalatos vs. színes LUT:**
 
-* Grayscale: Scientific and neutral, shows raw data
-* Color LUT: Intuitive and impactful, highlights patterns and differences
+* Szürkeárnyalatos: Tudományos és semleges, a nyers adatokat mutatja
+* Színes LUT: Intuitív és hatásos, kiemeli a mintákat és a különbségeket
 
-{% hint style="success" %}
-**Visualization Power**: Applying a color LUT to a grayscale index image makes it dramatically easier to identify patterns, anomalies, and areas of interest at a glance.
+{% hint style=&quot;success&quot; %}
+**Vizualizációs teljesítmény**: A színes LUT alkalmazása a szürkeárnyalatos indexképre jelentősen megkönnyíti a minták, anomáliák és érdekes területek egy pillanat alatt történő azonosítását.
 {% endhint %}
 
-### Applying a LUT to an Index Image
+### LUT alkalmazása indexképre
 
-Once you have an index image showing
+Ha már rendelkezik indexképpel, amelyen látható
 
-1. Click the <img src="../.gitbook/assets/image.png" alt="" data-size="line"> "+Add LUT" button
-2. Select the color gradient
-3. Adjust the clipping min/max end points
-4. Adjust the Clipping Mode
-5. Check the Index box in the **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> tab sidebar to apply the LUT
+1. Kattintson a <img src="../.gitbook/assets/image.png" alt="" data-size="line"> „+LUT hozzáadása” gombra
+2. Válassza ki a színátmenetet
+3. Állítsa be a vágás minimális/maximális végpontjait
+4. Állítsa be a vágási módot
+5. Jelölje be az Index jelölőnégyzetet az **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> fül oldalsávjában az Index jelölőnégyzetet a LUT alkalmazásához.
 
-### Choosing a Color Gradient
+### Színátmenet kiválasztása
 
-**Selecting a gradient:**
+**Színátmenet kiválasztása:**
 
-1. In the LUT panel, locate the **colored gradient bar**
-2. Hover your mouse over it to view available gradient presets
-3. Select desired gradient
-4. The image **updates immediately** with new colors when the Index box is checked
+1. A LUT panelen keresse meg a **színes színátmenet sávot**.
+2. Vigye az egérmutatót a sáv fölé a rendelkezésre álló színátmenet-beállítások megtekintéséhez.
+3. Válassza ki a kívánt színátmenetet.
+4. Az Index jelölőnégyzet bejelölésekor a kép **azonnal frissül** az új színekkel.
 
-{% hint style="success" %}
-**Best Practice**: For vegetation indices like NDVI, the Red-Yellow-Green gradient is most intuitive because it aligns with natural color associations (green=healthy, yellow=moderate, red=stressed).
+{% hint style=&quot;success&quot; %}
+**Bevált gyakorlat**: Az NDVI-hez hasonló vegetációs indexek esetében az Red-Sárga-Green színátmenet a leginkább intuitív, mert összhangban van a természetes színasszociációkkal (zöld=egészséges, sárga=mérsékelt, piros=stresszes).
 {% endhint %}
 
-### Adjusting Color Classes
+### Színosztályok beállítása
 
-The **Classes control** determines how many discrete color steps appear in your gradient:
+A **Classes control** (Osztályok vezérlő) határozza meg, hogy hány diszkrét színlépcső jelenik meg a gradiensben:
 
-**Class count options:**
+**Osztályszám opciók:**
 
-* **2-5 classes**: Very broad categories, distinct zones
-* **6-10 classes**: Balanced, good for classification
-* **11-20 classes**: Smooth gradients, continuous appearance
-* **20+ classes**: Near-continuous, maximum smoothness
+* **2-5 osztály**: Nagyon tág kategóriák, jól elkülöníthető zónák
+* **6-10 osztály**: Kiegyensúlyozott, osztályozáshoz alkalmas
+* **11-20 osztály**: Sima színátmenetek, folytonos megjelenés
+* **20+ osztály**: Szinte folytonos, maximális simaság
 
-**How to adjust:**
+**Beállítás módja:**
 
-1. In the LUT panel, locate the **color swatch squares below the gradient bar**
-2. Adjust the number of classes by adding with the + button
-3. Remove the number of classes by double clicking on a color swatch
-4. The gradient updates **in real-time** on the image
+1. A LUT panelen keresse meg a **színminták négyzeteit a színátmenet sáv alatt**
+2. A + gombbal növelje az osztályok számát.
+3. Kattintson duplán egy színmintára, hogy eltávolítsa az osztályok számát.
+4. A gradiens **valós időben** frissül a képen.
 
-**Effect on visualization:**
+**Hatása a megjelenítésre:**
 
-* **Fewer classes** (3-5): Creates distinct zones, simplified classification, easier to distinguish categories
-* **Medium classes** (6-10): Balanced approach, good for most applications
-* **More classes** (15-20): Smooth transitions, detailed variation, photographic appearance
+* **Kevesebb osztály** (3-5): Különálló zónákat hoz létre, egyszerűsíti a besorolást, könnyebb megkülönböztetni a kategóriákat.
+* **Közepes osztályok** (6-10): Kiegyensúlyozott megközelítés, a legtöbb alkalmazáshoz megfelelő
+* **Több osztály** (15-20): Sima átmenetek, részletes variáció, fotószerű megjelenés
 
-**When to use:**
+**Mikor használható:**
 
-* **Few classes (3-5)**: Presentation slides, classification maps, simple reports
-* **Medium classes (6-10)**: General analysis, balanced detail, standard reports
-* **Many classes (15-20)**: Scientific analysis, detailed inspection, publication-quality outputs
+* **Kevés osztály (3-5)**: Prezentációs diák, osztályozási térképek, egyszerű jelentések
+* **Közepes osztályok (6-10)**: Általános elemzés, kiegyensúlyozott részletek, szabványos jelentések
+* **Sok osztály (15-20)**: Tudományos elemzés, részletes vizsgálat, publikálásra alkalmas eredmények
 
-### Fine-Tuning Value Ranges
+### Értéktartományok finomhangolása
 
-The **value range controls** determine which index values map to which colors in your gradient:
+Az **értéktartomány-vezérlők** határozzák meg, hogy az indexértékek a színátmenetben mely színekhez tartoznak:
 
-**Range controls in LUT panel:**
+**Tartományvezérlők a LUT panelen:**
 
-* **Minimum value**: Lower bound of the color scale
-* **Maximum value**: Upper bound of the color scale
-* **Intermediate values**: Automatically distributed between min and max (based on class count)
+* **Minimális érték**: A színskála alsó határa
+* **Maximális érték**: A színskála felső határa
+* **Közbenső értékek**: Automatikusan elosztva a min és max között (az osztályok száma alapján)
 
-#### Adjusting Min/Max Values
+#### Min/Max értékek beállítása
 
-**To adjust value ranges:**
+**Az érték tartományok beállítása:**
 
-1. In the LUT panel, locate the **Min Value** and **Max Value** input fields
-2. Click the **Min Value** field
-3. Type the desired minimum value (e.g., `0.2`)
-4. Press **Enter** or click outside the field
-5. Repeat for **Max Value** field (e.g., `0.9`)
-6. The visualization **updates immediately**
+1. A LUT panelen keresse meg a **Minimális érték** és **Maximális érték** beviteli mezőket
+2. Kattintson a **Minimális érték** mezőre.
+3. Írja be a kívánt minimális értéket (pl. `0.2`).
+4. Nyomja meg az **Enter** billentyűt, vagy kattintson a mezőn kívülre.
+5. Ismételje meg a **Maximális érték** mezővel (pl. `0.9`).
+6. A megjelenítés **azonnal frissül**.
 
-{% hint style="info" %}
-**Auto-Scaling**: When you first apply a LUT, Chloros automatically sets the min/max to the actual data range in the image. You can then narrow this range to focus on specific value ranges of interest.
+{% hint style=&quot;info&quot; %}
+**Automatikus méretezés**: Amikor először alkalmazza a LUT-ot, az Chloros automatikusan beállítja a minimális/maximális értéket a kép tényleges adatsorozatára. Ezután szűkítheti ezt a tartományt, hogy az érdeklődésre számot tartó értékek tartományára összpontosítson.
 {% endhint %}
 
-**Example NDVI range adjustments:**
+**Példa NDVI tartománybeállításokra:**
 
-* **Full range**: `-1.0` to `1.0` (show all possible values)
-* **Vegetation-focused**: `0.2` to `0.9` (exclude bare soil and water)
-* **Healthy vegetation only**: `0.5` to `0.9` (highlight only vigorous plants)
-* **Stress detection**: `0.2` to `0.5` (emphasize problem areas)
-* **Custom range**: Adjust based on your observed pixel values
+* **Teljes tartomány**: `-1.0` és `1.0` között (az összes lehetséges érték megjelenítése)
+* **Növényzetre fókuszált**: `0.2` és `0.9` között (kizárva a csupasz talaj és a víz)
+* **Csak egészséges növényzet**: `0.5`-tól `0.9`-ig (csak az erőteljes növényeket emeli ki)
+* **Stresszérzékelés**: `0.2`-tól `0.5`-ig (kiemelje a problémás területeket)
+* **Egyéni tartomány**: A megfigyelt pixelértékek alapján állítsa be
 
-**Why adjust ranges?**
+**Miért érdemes beállítani a tartományokat?**
 
-* **Increase contrast** in your area of interest
-* **Exclude irrelevant values** (e.g., water bodies, bare soil)
-* **Standardize visualization** across multiple images or dates
-* **Emphasize subtle differences** within a narrow value range
+* **Növelje a kontrasztot** a kívánt területen
+* **Kizárja az irreleváns értékeket** (pl. víztestek, csupasz talaj)
+* **Szabványosítsa a megjelenítést** több kép vagy dátum között
+* **Kiemelje a finom különbségeket** egy szűk értéktartományon belül
 
-### Clipping Out-of-Range Values
+### A tartományon kívüli értékek kivágása
 
-When pixel values fall outside your defined min/max range, you can control how they're displayed using **clipping modes**.
+Ha a pixelértékek a megadott minimális/maximális tartományon kívül esnek, a **kivágási módok** segítségével szabályozhatja azok megjelenítését.
 
-#### **Available clipping mode options:**
+#### **Elérhető kivágási módok:**
 
-#### 1. Minimum and Maximum
+#### 1. Minimum és maximum
 
-* Pixels **below minimum** → display using the **first color** in gradient (e.g., red)
-* Pixels **above maximum** → display using the **last color** in gradient (e.g., green)
-* **Use case**: Emphasize extremes, show full data range with saturated colors at limits
-* **Example**: NDVI values below 0.2 all appear red, values above 0.9 all appear green
+* **A minimum alatt** lévő pixelek → a színátmenet **első színével** (pl. piros) jelennek meg
+* **A maximális érték feletti** pixelek → a színátmenet **utolsó színével** (pl. zöld) jelennek meg
+* **Használati eset**: A szélsőségek kiemelése, a teljes adatsor telített színekkel a határokon
+* **Példa**: Az 0,2 alatti NDVI értékek mind pirosak, a 0,9 feletti értékek mind zöldek
 
-#### 2. Transparent Background
+#### 2. Átlátszó háttér
 
-* Pixels **outside the range** become **fully transparent**
-* Only pixels **within range** show color gradient
-* **Use case**: GIS overlay, isolating specific value ranges, highlighting only areas of interest
-* **Example**: Show only NDVI 0.4-0.7 in color, everything else transparent
+* A **tartományon kívüli** pixelek **teljesen átlátszóvá** válnak
+* Csak a **tartományon belüli** pixelek mutatnak színátmenetet
+* **Használati eset**: GIS-átfedés, meghatározott értéktartományok elkülönítése, csak a érdekes területek kiemelése
+* **Példa**: Csak az NDVI 0,4–0,7 értéket színesen jeleníti meg, minden más átlátszó
 
-{% hint style="warning" %}
-**Transparency Limitation**: Transparent pixels will appear as the background color in the viewer. When exported during processing, transparency is preserved in PNG format but not in JPG.
+{% hint style=&quot;warning&quot; %}
+**Átlátszóság korlátozása**: Az átlátszó pixelek a nézőben háttérszínként jelennek meg. Feldolgozás közbeni exportáláskor az átlátszóság megmarad PNG formátumban, de JPG formátumban nem.
 {% endhint %}
 
-#### 3. Index Background
+#### 3. Index háttér
 
-* Pixels **outside range** display in **grayscale** (showing raw index values)
-* Pixels **within range** show **color gradient**
-* **Use case**: Subtle highlighting, maintain context while emphasizing areas of interest
-* **Example**: Color-highlight stressed vegetation (NDVI 0.3-0.5) while showing healthy areas in gray
+* A **tartományon kívüli** pixelek **szürkeárnyalatúak** (nyers indexértékeket mutatnak)
+* A **tartományon belüli** pixelek **színátmenetet** mutatnak
+* **Használati eset**: Finom kiemelés, a kontextus megőrzése a figyelemre méltó területek kiemelése mellett
+* **Példa**: Színes kiemeléssel hangsúlyozza a növényzetet (NDVI 0,3-0,5), míg az egészséges területeket szürkével jeleníti meg
 
-#### 4. Original Background
+#### 4. Eredeti háttér
 
-* Pixels **outside range** display the **original multispectral image**
-* Pixels **within range** show **color gradient**
-* **Use case**: Most intuitive - combines natural image context with analytical color overlay
-* **Example**: See the actual field/crop appearance with color-coded stress areas overlaid
+* A **tartományon kívüli** pixelek **eredeti multispektrális képet** jelenítenek meg
+* A **tartományon belüli** pixelek **színátmenetet** mutatnak
+* **Használati eset**: A leginkább intuitív – ötvözi a természetes kép kontextusát az analitikus színréteggel
+* **Példa**: A tényleges mező/termés megjelenése színkódolt stresszes területekkel átfedve
 
-### Choosing the Right Clipping Mode
+### A megfelelő kivágási mód kiválasztása
 
-| Clipping Mode              | Best For                                   | Visualization Style          |
+| Kivágási mód              | Legalkalmasabb                                   | Vizualizációs stílus          |
 | -------------------------- | ------------------------------------------ | ---------------------------- |
-| **Minimum and Maximum**    | Full data display, scientific analysis     | All pixels colored           |
-| **Transparent Background** | GIS overlays, isolating specific ranges    | Color on range, blank beyond |
-| **Index Background**       | Subtle emphasis, maintaining data context  | Color on range, gray beyond  |
-| **Original Background**    | Reports, presentations, intuitive analysis | Color on range, photo beyond |
+| **Minimum és maximum**    | Teljes adatmegjelenítés, tudományos elemzés     | Minden pixel színes           |
+| **Átlátszó háttér** | GIS-rétegek, meghatározott tartományok elkülönítése    | Szín a tartományon belül, üresen kívül |
+| **Index háttér**       | Finom hangsúlyozás, az adatok kontextusának megőrzése  | Szín a tartományon belül, szürke kívül  |
+| **Eredeti háttér**    | Jelentések, prezentációk, intuitív elemzés | Szín a tartományon belül, fotó kívül |
 
-### Creating Custom LUT Colors
+### Egyéni LUT színek létrehozása
 
-For full control over your visualization, you can create **custom color gradients** by editing individual color stops.
+A vizualizáció teljes ellenőrzése érdekében **egyéni színátmenetek** hozhatók létre az egyes színállások szerkesztésével.
 
-**To create a custom gradient:**
+**Egyéni színátmenet létrehozása:**
 
-1. In the LUT panel, locate the **gradient preview bar**
-2. Look for **color swatch squares** below the gradient
-3. **Click a color stop** to select it
-4. A **color picker** opens
-5. Choose a new color using:
-   * **Color wheel**: Visual color selection
-   * **RGB/HSV sliders**: Precise color control
-   * **Hex code entry**: Exact color specification (e.g., `#FF0000` for red)
-6. Click off the color picker **to apply the new color**
-7. The gradient **updates immediately** on the image
+1. A LUT panelen keresse meg a **színátmenet-előnézeti sávot**.
+2. Keresse meg a **színminták négyzeteit** a színátmenet alatt.
+3. **Kattintson egy színállásra** a kiválasztásához.
+4. Megnyílik a **színválasztó**.
+5. Válasszon új színt a következők segítségével:
+   * **Színkerék**: Vizuális színválasztás.
+   * **RGB/HSV csúszkák**: Pontos színvezérlés.
+   * **Hex kód beírása**: Pontos színmeghatározás (pl. `#FF0000` a piroshoz).
+6. Kattintson a színválasztó **mellett, hogy az új színt alkalmazza**
+7. A színátmenet **azonnal frissül** a képen
 
-**Adding or removing color stops:**
+**Színstopok hozzáadása vagy eltávolítása:**
 
-* **Add a stop**: Click the + icon to add a new swatch at the end
-* **Remove a stop**: Double click the color square to remove the swatch
+* **Stop hozzáadása**: Kattintson a + ikonra, hogy új színmintát adjon hozzá a végéhez
+* **Stop eltávolítása**: Kattintson duplán a színnégyzetre, hogy eltávolítsa a színmintát
 
-**Customization strategies:**
+**Testreszabási stratégiák:**
 
-* **Invert gradient**: Flip color order to reverse the meaning (e.g., green=low, red=high)
-* **Brand colors**: Match your organization's color palette for reports
-* **Colorblind-friendly**: Use orange-blue or purple-yellow combinations
-* **Print optimization**: Choose colors that work in both color and grayscale printing
-* **Multi-threshold**: Use distinct colors at specific value thresholds for classification
+* **Gradiens megfordítása**: Fordítsa meg a színek sorrendjét, hogy megfordítsa a jelentést (pl. zöld=alacsony, piros=magas)
+* **Márka színei**: Illessze a jelentések színeit a szervezet színeinek palettájához
+* **Színvakok számára is megfelelő**: Használjon narancssárga-kék vagy lila-sárga kombinációkat
+* **Nyomtatás optimalizálása**: Válasszon olyan színeket, amelyek színes és szürkeárnyalatos nyomtatásban is jól mutatnak
+* **Több küszöbérték**: Használjon különböző színeket meghatározott értékküszöbértékeknél a besoroláshoz
 
-{% hint style="info" %}
-**Saving Custom Gradients**: Custom gradients can be saved and reused. Click the save icon in the LUT panel to preserve your custom color schemes for future use.
+{% hint style=&quot;info&quot; %}
+**Egyéni színátmenetek mentése**: Az egyéni színátmenetek menthetők és újra felhasználhatók. Kattintson a LUT panelen található mentés ikonra, hogy egyéni színsémáit elmentse későbbi felhasználás céljából.
 {% endhint %}
 
 ***
 
-## Interactive Workflow
+## Interaktív munkafolyamat
 
-### Real-Time Updates
+### Valós idejű frissítések
 
-All LUT adjustments in the sandbox update the image **instantly and interactively**:
+A sandboxban végzett összes LUT-beállítás **azonnal és interaktív módon** frissíti a képet:
 
-* **Switch layer** → Image changes immediately
-* **Select gradient** → Colors update instantly
-* **Adjust value range** → Contrast changes in real-time
-* **Change classes** → Gradient smoothness updates immediately
-* **Modify clipping** → Background display changes instantly
-* **Edit colors** → Custom gradient applies immediately
+* **Réteg váltás** → A kép azonnal megváltozik
+* **Gradiens kiválasztása** → A színek azonnal frissülnek
+* **Értéktartomány beállítása** → A kontraszt valós időben változik
+* **Osztályok módosítása** → A gradiens simasága azonnal frissül
+* **Kivágás módosítása** → A háttér megjelenítése azonnal megváltozik
+* **Színek szerkesztése** → Az egyéni gradiens azonnal alkalmazásra kerül
 
-**No "Apply" button needed** - all changes are live and interactive!
+**Nincs szükség „Alkalmazás” gombra** – minden változás élőben és interaktív módon történik!
 
-{% hint style="success" %}
-**Live Feedback**: The instant visual feedback allows you to rapidly experiment with different settings until you find the optimal visualization for your analysis needs.
+{% hint style=&quot;success&quot; %}
+**Élő visszajelzés**: Az azonnali vizuális visszajelzés lehetővé teszi, hogy gyorsan kipróbáljon különböző beállításokat, amíg meg nem találja az elemzési igényeinek leginkább megfelelő vizualizációt.
 {% endhint %}
 
-### Iterative Refinement Workflow
+### Iteratív finomítási munkafolyamat
 
-**Typical LUT optimization workflow:**
+**Tipikus LUT-optimalizálási munkafolyamat:**
 
-1. **Select index layer** (e.g., RAW (Reflectance))
-2. **Apply index** - Choose camera filter and index formula, drag colored circles to appropriate location in the index formula
-3. **Apply LUT gradient** - Start with Red-Yellow-Green preset
-4. **Inspect pixel values** - Move cursor around, note value ranges
-5. **Adjust min/max** - Narrow to focus on vegetation (e.g., 0.2 to 0.9)
-6. **Choose clipping** - Try "Original Background" for context
-7. **Refine colors** - Customize gradient if needed for specific emphasis
-8. **Finalize settings** - Document settings and copy to Project Settings for export processing
+1. **Válassza ki az indexréteget** (pl. RAW (Reflectance))
+2. **Alkalmazzon indexet** – Válassza ki a kamera szűrőt és az indexképletet, húzza a színes köröket a megfelelő helyre az indexképletben
+3. **LUT gradiens alkalmazása** – Kezdje az Red-Yellow-Green előre beállított értékkel
+4. **Pixelértékek ellenőrzése** – Mozgassa a kurzort, jegyezze fel az értékek tartományait
+5. **Minimális/maximális értékek beállítása** – Szűkítse a növényzetre való fókuszáláshoz (pl. 0,2-től 0,9-ig)
+6. **Vágás kiválasztása** – Próbálja ki az „Eredeti háttér” lehetőséget a kontextushoz
+7. **Színek finomítása** – Szükség esetén testreszabhatja a gradienst a kívánt hangsúlyozáshoz
+8. **Beállítások véglegesítése** – Dokumentálja a beállításokat, és másolja át a Projektbeállításokba az exportáláshoz
 
-### Pixel Value Inspection
+### Pixelértékek ellenőrzése
 
-Understanding actual pixel values is crucial for setting effective LUT ranges:
+A tényleges pixelértékek megértése elengedhetetlen a hatékony LUT-tartományok beállításához:
 
-**How to inspect values:**
+**Az értékek ellenőrzése:**
 
-1. Pixel values show when the image has either the Index, or both the Index and LUT **boxes checked**.
-2. **Move your cursor** over different areas of the image
-3. **Observe pixel values** displayed in the legend as you hover
-4. Zoom in to see individual pixels highlighted with a floating value
-5. **Take notes** of value ranges for different features:
-   * **Healthy vegetation**: e.g., NDVI 0.55-0.85
-   * **Stressed vegetation**: e.g., NDVI 0.30-0.50
-   * **Bare soil**: e.g., NDVI 0.05-0.25
-   * **Water** (if present): e.g., NDVI -0.05 to 0.10
+1. A pixelértékek akkor jelennek meg, ha a képnél az Index vagy az Index és a LUT **négyzetek be vannak jelölve**.
+2. **Vigye a kurzort** a kép különböző területeire
+3. **Figyelje meg a pixelértékeket**, amelyek a legenda ablakban jelennek meg, amikor az egérmutatót rájuk helyezi
+4. Nagyítson rá, hogy megnézze az egyes pixeleket, amelyek lebegő értékkel vannak kiemelve
+5. **Jegyzetelje le** a különböző jellemzők értékhatárait:
+   * **Egészséges növényzet**: pl. NDVI 0,55–0,85
+   * **Stresszes növényzet**: pl. NDVI 0,30–0,50
+   * **Csupasz talaj**: pl. NDVI 0,05–0,25
+   * **Víz** (ha van): pl. NDVI -0,05–0,10
 
-**Using pixel values to set LUT ranges:**
+**Pixelértékek használata a LUT tartományok beállításához:**
 
-After inspecting pixel values, adjust your LUT min/max accordingly:
+A pixelértékek ellenőrzése után állítsa be a LUT min/max értékeit ennek megfelelően:
 
-**Example scenario:**
+**Példa:**
 
-* **Observation**: Soil values = 0.05-0.25, Stressed = 0.25-0.50, Healthy = 0.50-0.85
-* **Goal**: Visualize only plant health (exclude soil)
-* **LUT settings**: Min = `0.25`, Max = `0.85`
-* **Clipping**: "Original Background" to see soil in natural color
-* **Result**: Color gradient only applies to vegetation, soil shows as original image
+* **Megfigyelés**: Talajértékek = 0,05-0,25, Stresszes = 0,25-0,50, Egészséges = 0,50-0,85
+* **Cél**: Csak a növények egészségi állapotának megjelenítése (a talaj kizárása)
+* **LUT beállítások**: Min = `0.25`, Max = `0.85`
+* **Kivágás**: „Eredeti háttér” a talaj természetes színének megjelenítéséhez
+* **Eredmény**: A színátmenet csak a növényzetre vonatkozik, a talaj az eredeti képen látható
 
-{% hint style="info" %}
-**Dynamic Range**: Different crops, seasons, and growth stages will have different value ranges. Always inspect pixel values in your specific dataset before setting LUT ranges.
+{% hint style=&quot;info&quot; %}
+**Dinamikus tartomány**: A különböző növények, évszakok és növekedési szakaszok eltérő értéktartományokkal rendelkeznek. A LUT-tartományok beállítása előtt mindig ellenőrizze a konkrét adatkészlet pixelértékeit.
 {% endhint %}
 
 ***
 
-## Custom Indices (Chloros+)
+## Egyéni indexek (Chloros+)
 
-### Creating Custom Index Formulas
+### Egyéni indexképletek létrehozása
 
-{% hint style="info" %}
-**Where to Create**: Custom indices can be configured in **Project Settings** before processing, as well as in the Image Viewer sandbox sidebar.
+{% hint style=&quot;info&quot; %}
+**Hol hozhatók létre**: Az egyéni indexek a feldolgozás előtt a **Projektbeállítások** menüpontban, valamint a Képmegjelenítő sandbox oldalsávján konfigurálhatók.
 {% endhint %}
 
-**To create a custom index:**
+**Egyéni index létrehozása:**
 
-1. **Open Project Settings** (before processing) or Image Viewer sandbox sidebar
-2. Navigate to the **Index formula dropdown**
-3. Look for **"Custom"** option (must be logged in with Chloros+ license)
-4. **Define your formula** using band variables:
-   * Band names: `NIR`, `Red`, `Green`, `Blue`, `RedEdge`, etc.
-   * Operators: `+`, `-`, `*`, `/`, `^` (exponent)
-   * Functions: `sqrt()`, `abs()`, etc. (if supported)
-   * Parentheses: `()` for order of operations
-5. **Name your index** (e.g., "MyIndex" or "CustomNDVI")
-6. **Save the configuration**
+1. **Nyissa meg a Projektbeállításokat** (a feldolgozás előtt) vagy a Képmegjelenítő sandbox oldalsávját.
+2. Keresse meg az **Index képlet legördülő menüt**.
+3. Keresse meg a **„Egyéni”** opciót (be kell jelentkeznie az Chloros+ licenccel).
+4. **Határozza meg a képletet** a sávváltozók segítségével:
+   * Sávnevek: `NIR`, `Red`, `Green`, `Blue`, `RedEdge` stb.
+   * Operátorok: `+`, `-`, `*`, `/`, `^` (exponens)
+   * Funkciók: `sqrt()`, `abs()` stb. (ha támogatott)
+   * Zárójelek: `()` a műveletek sorrendjéhez
+5. **Nevezze el az indexet** (pl. „MyIndex” vagy „CustomNDVI”)
+6. **Mentse a konfigurációt**
 
-**Example custom formulas:**
+**Példák egyéni képletekre:**
 
 ```
 Modified NDVI with offset:
@@ -398,22 +398,22 @@ Exponential index:
 (NIR / Red) ^ 2
 ```
 
-{% hint style="warning" %}
-**Formula Validation**: Ensure your formula uses bands available in your camera. For example, RedEdge is only available on cameras with a RedEdge filter.
+{% hint style=&quot;warning&quot; %}
+**Képlet érvényesítése**: Győződjön meg arról, hogy a képlet a kamerájában elérhető sávokat használja. Például az RedEdge csak az RedEdge szűrővel rendelkező kamerákban érhető el.
 {% endhint %}
 
 ***
 
-## Next Steps
+## Következő lépések
 
-Now that you understand the Index/LUT Sandbox:
+Most, hogy megértette az Index/LUT Sandbox működését:
 
-* **Apply to processing**: Use discovered settings in [Project Settings](../project-settings/page-2.md)
-* **Batch process**: Apply optimized indices to full datasets
-* **Learn more**: Read [Multispectral Index Formulas](../project-settings/multispectral-index-formulas.md)
+* **Alkalmazás a feldolgozásra**: Használja a [Projektbeállítások](../project-settings/project-settings.md) menüpontban található beállításokat
+* **Tömeges feldolgozás**: Alkalmazza az optimalizált indexeket a teljes adatkészletekre
+* **További információk**: Olvassa el a [Multispektrális index képletek](../project-settings/multispectral-index-formulas.md) című részt
 
-Related documentation:
+Kapcsolódó dokumentáció:
 
-* [**Image Layers**](image-layers.md) - Layer management and visualization
-* [**Opening an Image Full Screen**](page-3.md) - Image Viewer basics
-* [**Processing Images (GUI)**](../processing-images-gui/page-1.md) - Full processing workflow
+* [**Képrétegek**](image-layers.md) – Rétegkezelés és megjelenítés
+* [**Kép teljes képernyős megnyitása**](opening-an-image-full-screen.md) – Képnézegető alapjai
+* [**Képek feldolgozása (GUI)**](../processing-images-gui/adding-files-to-a-project.md) – Teljes feldolgozási munkafolyamat

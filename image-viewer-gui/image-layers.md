@@ -1,352 +1,352 @@
-# Image Layers
+# Képlapok
 
-The Image Layers dropdown in the Chloros Image Viewer allows you to quickly switch between different versions of the same image - from the original captures to processed reflectance outputs and calculated index images.
+Az Chloros Image Viewer program Képlapok legördülő menüjével gyorsan válthat az ugyanazon kép különböző verziói között – az eredeti felvételektől a feldolgozott reflexiós kimenetekig és a számított indexképekig.
 
-## What are Image Layers?
+## Mik azok a képlapok?
 
-In Chloros, **layers** refer to the different image outputs available for a single source image. When you process images, Chloros creates multiple versions:
+Az Chloros programban a **rétegek** egy adott forrásképhez rendelkezésre álló különböző képkiadásokra utalnak. A képek feldolgozásakor az Chloros több változatot hoz létre:
 
-* **Original images** (JPG and RAW files from your camera)
-* **Reflectance calibrated** outputs (if reflectance calibration was enabled)
-* **Target images** (if the image contains calibration targets)
-* **Index images** (NDVI, NDRE, GNDVI, etc. if indices were configured)
+* **Eredeti képek** (a fényképezőgép JPG és RAW fájljai)
+* **Reflektancia-kalibrált** kimenetek (ha a reflektancia-kalibrálás engedélyezve volt)
+* **Célképek** (ha a kép kalibrációs célokat tartalmaz)
+* **Indexképek** (NDVI, NDRE, GNDVI stb., ha az indexek konfigurálva voltak)
 
-The **Layer Selector dropdown** in the top-right of the Image Viewer lets you instantly switch between these versions without leaving the viewer.
+A Képnézegető jobb felső sarkában található **Rétegválasztó legördülő menü** segítségével azonnal válthat ezek között a verziók között anélkül, hogy elhagyná a nézőt.
 
 ***
 
-## Available Layer Types
+## Elérhető réteg típusok
 
 ### JPG
 
-* The original JPG preview image from your camera
-* Always available for all images
-* Unprocessed, as captured by the camera
-* Fastest to load and display
+* A fényképezőgép eredeti JPG előnézeti képe
+* Mindig elérhető minden képhez
+* Feldolgozatlan, a fényképezőgép által rögzített formában
+* A leggyorsabban betölthető és megjeleníthető
 
-**When to view:**
+**Mikor érdemes megtekinteni:**
 
-* Quick preview of original capture
-* Checking image composition and framing
-* Verifying capture quality before processing
+* Az eredeti felvétel gyors előnézete
+* A kép kompozíciójának és keretezésének ellenőrzése
+* A felvétel minőségének ellenőrzése a feldolgozás előtt
 
-### RAW (Original)
+### RAW (eredeti)
 
-* The original RAW sensor data from your camera
-* Debayered with no post processing applied
-* Higher bit depth than JPG (typically 12-bit or 14-bit sensor data)
+* A fényképezőgép eredeti RAW érzékelő adatai
+* Debayered, utólagos feldolgozás nélkül
+* Magasabb bitmélység, mint a JPG (jellemzően 12 bites vagy 14 bites érzékelő adatok)
 
-**When to view:**
+**Mikor érdemes megtekinteni:**
 
-* Inspecting original sensor data quality
-* Checking for sensor issues or artifacts
-* Comparing before/after processing results
+* Az eredeti érzékelő adatok minőségének ellenőrzése
+* Érzékelő problémák vagy artefaktumok ellenőrzése
+* A feldolgozás előtti és utáni eredmények összehasonlítása
 
-### RAW (Target)
+### RAW (cél)
 
-* Only appears for images identified as containing calibration targets
-* Shows the original RAW image with target detected
-* Used to verify target detection was successful
+* Csak azoknál a képeknél jelenik meg, amelyek kalibrációs célpontokat tartalmaznak
+* Megjeleníti az eredeti RAW képet a felismert célponttal
+* A célpont felismerésének sikerességének ellenőrzésére szolgál
 
-**When to view:**
+**Mikor érdemes megtekinteni:**
 
-* Confirming calibration targets were detected correctly
-* Checking target image quality
-* Troubleshooting calibration issues
+* A kalibrációs célpontok helyes felismerésének ellenőrzése
+* A célpont képminőségének ellenőrzése
+* Kalibrációs problémák elhárítása
 
-{% hint style="info" %}
-**Target Layer**: This layer only appears in the dropdown for images that contain calibration targets. Regular capture images will not have this option.
+{% hint style=&quot;info&quot; %}
+**Célréteg**: Ez a réteg csak a kalibrációs célokat tartalmazó képek legördülő menüjében jelenik meg. A normál felvételeknél ez az opció nem elérhető.
 {% endhint %}
 
-### RAW (Reflectance)
+### RAW (reflektancia)
 
-* The calibrated reflectance output image
-* Vignette corrected (if enabled in processing)
-* Reflectance calibrated using target data (if enabled)
-* Multi-band TIFF with all camera channels
-* Pixel values represent percent reflectance (when using percent mode)
-* Ready to manipulate with the [Index/LUT Sandbox](index-lut-sandbox.md)
+* A kalibrált reflektancia kimeneti kép
+* Vignettázás korrigálva (ha a feldolgozás során engedélyezve van)
+* A céladatokkal kalibrált reflektancia (ha engedélyezve van)
+* Többsávos TIFF az összes kamera csatornával
+* A pixelértékek a reflektancia százalékát jelzik (ha százalékos módot használ)
+* Készen áll a [Index/LUT Sandbox](index-lut-sandbox.md) segítségével történő manipulálásra
 
-**When to view:**
+**Mikor érdemes megtekinteni:**
 
-* Inspecting calibrated results
-* Verifying calibration quality
-* Checking pixel values for scientific accuracy
-* Comparing with original to see calibration effects
+* Kalibrált eredmények ellenőrzése
+* Kalibráció minőségének ellenőrzése
+* Pixelértékek tudományos pontosságának ellenőrzése
+* Összehasonlítás az eredetivel a kalibráció hatásának megtekintése érdekében
 
-{% hint style="success" %}
-**Recommended**: Use RAW (Reflectance) layer when checking pixel values for scientific measurements and analysis.
+{% hint style=&quot;success&quot; %}
+**Ajánlott**: Használjon RAW (Reflectance) réteget, ha pixelértékeket ellenőriz tudományos mérések és elemzések céljából.
 {% endhint %}
 
-### RAW (NDVI Index)... and similar
+### RAW (NDVI Index)... és hasonló
 
-* Calculated vegetation index image (NDVI in this example)
-* The index name changes based on which index was configured during processing
-* Examples: RAW (NDVI Index), RAW (NDRE Index), RAW (GNDVI Index), etc.
-* Single-band grayscale image showing index calculation results
-* One layer appears for each index configured in Project Settings
+* Számított vegetációs index kép (ebben a példában NDVI)
+* Az index neve attól függően változik, hogy melyik indexet konfigurálták a feldolgozás során
+* Példák: RAW (NDVI Index), RAW (NDRE Index), RAW (GNDVI Index) stb.
+* Az index számítási eredményeit bemutató egysávos szürkeárnyalatos kép
+* A Projektbeállításokban konfigurált minden indexhez egy réteg jelenik meg
 
-**Possible index names:**
+**Lehetséges indexnevek:**
 
 * RAW (NDVI Index)
 * RAW (NDRE Index)
 * RAW (GNDVI Index)
-* RAW (OSAVI Index)
-* RAW (EVI Index)
-* RAW (SAVI Index)
-* And many more... (see [Multispectral Index Formulas](../project-settings/multispectral-index-formulas.md))
+* RAW (OSAVI index)
+* RAW (EVI index)
+* RAW (SAVI index)
+* És még sok más... (lásd [Multispektrális index képletek](../project-settings/multispectral-index-formulas.md))
 
-**When to view:**
+**Mikor érdemes megtekinteni:**
 
-* Examining index calculation results
-* Checking index value ranges
-* Identifying areas of interest
-* Verifying index images before using in GIS or analysis
-
-***
-
-## Using the Layer Selector
-
-### Opening the Dropdown
-
-1. Open an image in fullscreen mode (click any thumbnail in the Image Viewer)
-2. Locate the **layer dropdown** in the top-right corner of the viewer
-3. The dropdown shows the currently selected layer (e.g., "JPG")
-4. Click the dropdown to see all available layers
-
-### Switching Layers
-
-1. Click the layer dropdown to open the list
-2. All available layers for the current image are shown
-3. Click any layer name to switch to that version
-4. The image updates immediately to show the selected layer
-
-**Quick switching:**
-
-* The dropdown remembers your last selection
-* When navigating to the next image, Chloros attempts to show the same layer type
-* If that layer doesn't exist on the next image, it defaults to JPG
-
-### Layer Availability
-
-Not all layers are available for every image:
-
-**Always available:**
-
-* ✅ JPG (every image has a JPG preview)
-
-**Conditionally available:**
-
-* ⚠️ RAW (Original) - Only if image was captured in RAW or RAW+JPG mode
-* ⚠️ RAW (Target) - Only if image contains detected calibration targets
-* ⚠️ RAW (Reflectance) - Only after processing with reflectance calibration enabled
-* ⚠️ RAW (\[Index] Index) - Only after processing with indices configured
+* Az index számítási eredményeinek vizsgálata
+* Az indexértékek tartományainak ellenőrzése
+* Az érdeklődésre számot tartó területek azonosítása
+* Az indexképek ellenőrzése a GIS-ben vagy elemzésben való felhasználás előtt
 
 ***
 
-## Layer Persistence
+## A rétegválasztó használata
 
-### Navigating Between Images
+### A legördülő menü megnyitása
 
-When you navigate to a different image (using arrow keys or clicking thumbnails):
+1. Nyissa meg a képet teljes képernyős módban (kattintson bármelyik miniatűrre a Képmegjelenítőben)
+2. Keresse meg a **réteg legördülő menüt** a néző jobb felső sarkában
+3. A legördülő menü a jelenleg kiválasztott réteget mutatja (pl. „JPG”)
+4. Kattintson a legördülő menüre az összes elérhető réteg megtekintéséhez
 
-**Layer preference is preserved:**
+### Rétegek közötti váltás
 
-* If viewing "RAW (Reflectance)", next image shows "RAW (Reflectance)" (if available)
-* If viewing "RAW (NDVI Index)", next image shows "RAW (NDVI Index)" (if available)
-* If the same layer doesn't exist, defaults to JPG
+1. Kattintson a réteg legördülő menüre a lista megnyitásához
+2. A jelenlegi képhez elérhető összes réteg megjelenik
+3. Kattintson bármelyik réteg nevére az adott verzióra való váltáshoz
+4. A kép azonnal frissül, és megjeleníti a kiválasztott réteget.
 
-**Example workflow:**
+**Gyors váltás:**
 
-1. Open Image 1, switch to RAW (NDVI Index)
-2. Press → to view Image 2
-3. Image 2 automatically displays RAW (NDVI Index) layer
-4. Continue navigating - all images show NDVI layer
-5. Very efficient for reviewing index results across many images
+* A legördülő menü megjegyzi az utolsó választását.
+* A következő képhez való navigáláskor az Chloros megpróbálja megjeleníteni ugyanazt a réteg típust.
+* Ha az a réteg nem létezik a következő képen, akkor alapértelmezés szerint JPG lesz.
 
-***
+### Rétegek elérhetősége
 
-## Common Workflows
+Nem minden réteg elérhető minden képhez:
 
-### Workflow 1: Before/After Comparison
+**Mindig elérhető:**
 
-**Goal**: Compare original vs. calibrated image
+* ✅ JPG (minden képnek van JPG előnézete)
 
-1. Open processed image in Image Viewer
-2. Select **RAW (Original)** from dropdown
-3. Note the vignetting and uncalibrated values
-4. Switch to **RAW (Reflectance)** from dropdown
-5. Compare - vignetting removed, values calibrated
+**Feltételesen elérhető:**
 
-### Workflow 2: Index Review
-
-**Goal**: Quickly review NDVI results across dataset
-
-1. Open first processed image
-2. Select **RAW (NDVI Index)** from dropdown
-3. Use → arrow key to navigate to next image
-4. NDVI layer persists automatically
-5. Continue through all images, checking NDVI patterns
-6. Switch to **RAW (NDRE Index)** to compare
-
-### Workflow 3: Target Verification
-
-**Goal**: Verify all target images were detected correctly
-
-1. Navigate to a target image
-2. Select **RAW (Target)** from dropdown
-3. Verify calibration targets are clearly visible and detected
-4. Navigate to next target image
-5. Repeat verification for all targets
-
-### Workflow 4: Pixel Value Inspection
-
-**Goal**: Check reflectance values for scientific accuracy
-
-1. Open processed image
-2. Select **RAW (Reflectance)** layer
-3. Enable **Pixel Percent** mode (button in top-right toolbar)
-4. Move cursor over vegetation areas
-5. Verify pixel values are in expected ranges (30-70% for NIR, 5-15% for Red)
-6. Check soil and water areas for appropriate values
+* ⚠️ RAW (eredeti) – Csak akkor, ha a kép RAW vagy RAW+JPG módban lett rögzítve
+* ⚠️ RAW (cél) – Csak akkor, ha a kép észlelt kalibrációs célokat tartalmaz
+* ⚠️ RAW (Reflektancia) – Csak reflektancia kalibrálás engedélyezése után
+* ⚠️ RAW (\[Index] Index) – Csak indexek konfigurálása után
 
 ***
 
-## Understanding Pixel Values by Layer
+## Réteg állandóság
 
-Different layers show different pixel value ranges:
+### Képek közötti navigálás
 
-### JPG Layer
+Ha egy másik képre navigál (nyílgombokkal vagy a miniatűrökre kattintva):
 
-* **Range**: 0-255 (8-bit)
-* **Meaning**: Display values, gamma-corrected
-* **Use**: Visual inspection only, not for scientific measurement
+**A rétegbeállítások megmaradnak:**
 
-### RAW (Original)
+* Ha „RAW (Reflektancia)” nézetet használ, a következő kép „RAW (Reflektancia)” nézetet jelenít meg (ha elérhető)
+* Ha „RAW (NDVI Index)” nézetet használ, a következő kép „RAW (NDVI Index)” nézetet jelenít meg (ha elérhető)
+* Ha ugyanaz a réteg nem létezik, akkor alapértelmezés szerint JPG
 
-* **Range**: 0-65535 (16-bit)
-* **Meaning**: Raw sensor digital numbers
-* **Use**: Checking sensor performance, not calibrated
+**Példa a munkafolyamatra:**
 
-### RAW (Reflectance)
-
-* **Range**: 0-65,535 (16-bit TIFF) or 0.0-1.0 (32-bit Percent)
-* **Meaning**: Calibrated percent reflectance
-* **Use**: Scientific measurements and analysis
-
-**For 16-bit TIFF:** Divide by 65,535 to get percent reflectance **For 32-bit Percent:** Values directly represent percent (0.5 = 50% reflectance)
-
-### RAW (Index Images)
-
-* **Range**: Varies by index (typically -1.0 to +1.0 for normalized indices)
-* **Meaning**: Index calculation result
-* **Examples**:
-  * NDVI: -1 to +1 (vegetation typically 0.4 to 0.9)
-  * NDRE: -1 to +1 (stress detection)
-  * EVI: 0 to 1 (enhanced vegetation)
+1. Nyissa meg az 1. képet, váltson át a RAW (NDVI Index) rétegre.
+2. Nyomja meg a → gombot a 2. kép megtekintéséhez.
+3. A 2. kép automatikusan megjeleníti a RAW (NDVI Index) réteget.
+4. Folytassa a navigálást – az összes kép NDVI réteget jelenít meg
+5. Nagyon hatékony a sok kép indexeredményeinek áttekintéséhez
 
 ***
 
-## Tips and Best Practices
+## Gyakori munkafolyamatok
 
-### Efficient Layer Switching
+### 1. munkafolyamat: Előtte/utána összehasonlítás
 
-* **Keyboard shortcut awareness**: While there's no keyboard shortcut for layers, navigation arrows (←/→) work across all layers
-* **Consistent workflows**: Pick one layer (e.g., NDVI) and review entire dataset before switching to another
-* **Quick comparisons**: Toggle between Original and Reflectance to verify processing quality
+**Cél**: Az eredeti és a kalibrált kép összehasonlítása
 
-### Performance Considerations
+1. Nyissa meg a feldolgozott képet a Képmegjelenítőben
+2. Válassza ki a **RAW (Eredeti)** lehetőséget a legördülő menüből
+3. Vegye figyelembe a vignettálást és a nem kalibrált értékeket
+4. Váltson át a **RAW (Reflektancia)** lehetőségre a legördülő menüből
+5. Összehasonlítás – a vignettálás eltávolítva, az értékek kalibrálva
 
-* **JPG loads fastest**: Use for quick navigation through many images
-* **RAW layers load slower**: Higher resolution and bit depth
-* **Index layers**: Similar speed to Reflectance layers
-* **First load is slowest**: Subsequent views of same layer are cached and faster
+### 2. munkafolyamat: Index áttekintése
 
-### Quality Verification
+**Cél**: Az NDVI eredmények gyors áttekintése az adatkészletben
 
-* **Always check RAW (Original)**: Verify source data quality before trusting processed outputs
-* **Compare layers**: Use layer switching to validate processing worked correctly
-* **Check index ranges**: Use Pixel Percent mode with index layers to verify values are reasonable
+1. Nyissa meg az első feldolgozott képet
+2. Válassza ki a legördülő menüből a **RAW (NDVI Index)** lehetőséget
+3. A → nyíl gombbal lépjen a következő képre
+4. Az NDVI réteg automatikusan megmarad
+5. Folytassa az összes kép áttekintését, ellenőrizve az NDVI mintákat
+6. Váltson át a **RAW (NDRE Index)**-re az összehasonlításhoz.
 
-***
+### 3. munkafolyamat: Célpontok ellenőrzése
 
-## Troubleshooting
+**Cél**: Ellenőrizze, hogy az összes célpont kép helyesen lett-e felismerve.
 
-### Layer Not Available
+1. Keresse meg a célpont képet.
+2. Válassza ki a **RAW (Target)** lehetőséget a legördülő menüből.
+3. Ellenőrizze, hogy a kalibrációs célpontok jól láthatóak és felismerhetők-e.
+4. Keresse meg a következő célképet
+5. Ismételje meg az ellenőrzést minden cél esetében
 
-**Problem**: Expected layer doesn't appear in dropdown
+### 4. munkafolyamat: Pixelérték-ellenőrzés
 
-**Possible causes:**
+**Cél**: Ellenőrizze a visszaverődési értékek tudományos pontosságát
 
-* Image wasn't processed (only JPG and RAW (Original) available)
-* Reflectance calibration was disabled during processing
-* Specific index wasn't configured in Project Settings
-* Image is a target-only image (no indices generated for targets)
-
-**Solutions:**
-
-1. Verify image was processed (check output folder for processed files)
-2. Check Project Settings to confirm indices were configured
-3. Reprocess with desired indices enabled
-
-### Wrong Layer Shown
-
-**Problem**: Image opens in unexpected layer
-
-**Cause**: Layer preference from previous image carried forward, but that layer doesn't exist on current image
-
-**Solution**: Chloros automatically falls back to JPG when preferred layer unavailable - this is normal behavior
-
-### Can't See Calibration Targets
-
-**Problem**: RAW (Target) layer doesn't show target detection
-
-**Possible causes:**
-
-* Targets weren't detected during processing
-* Image doesn't actually contain targets
-* Target detection settings too strict
-
-**Solutions:**
-
-1. Check Debug Log for "Target found" messages
-2. Verify image actually contains visible calibration targets
-3. Adjust target detection settings in Project Settings
-4. See [Choosing Target Images](../processing-images-gui/choosing-target-images.md)
+1. Nyissa meg a feldolgozott képet
+2. Válassza ki a **RAW (Reflectance)** réteget
+3. Engedélyezze a **Pixel Percent** módot (gomb a jobb felső eszköztáron)
+4. Vigye a kurzort a növényzet területére
+5. Ellenőrizze, hogy a pixelértékek a várt tartományban vannak-e (30-70% az NIR esetében, 5-15% az Red esetében)
+6. Ellenőrizze, hogy a talaj és a vízterületek értékei megfelelőek-e
 
 ***
 
-## Related Features
+## A pixelértékek rétegenkénti értelmezése
 
-### Image Viewer Tools
+A különböző rétegek különböző pixelérték-tartományokat mutatnak:
 
-When viewing any layer, you can use:
+### JPG réteg
 
-* **Zoom controls**: Magnify to inspect details
-* **Pan**: Click and drag to move around zoomed image
-* **Pixel value inspection**: See values at cursor location
-* **Navigation arrows**: Move between images while maintaining layer
-* **Pixel Percent mode**: Toggle between DN and percent display
+* **Tartomány**: 0-255 (8 bites)
+* **Jelentés**: Kijelzett értékek, gamma-korrigált
+* **Használat**: Csak vizuális ellenőrzéshez, nem tudományos méréshez
 
-See [Opening an Image Full Screen](page-3.md) for complete Image Viewer documentation.
+### RAW (eredeti)
+
+* **Tartomány**: 0-65535 (16 bites)
+* **Jelentés**: Nyers szenzor digitális számok
+* **Használat**: A szenzor teljesítményének ellenőrzése, nem kalibrált
+
+### RAW (Reflektancia)
+
+* **Tartomány**: 0-65 535 (16 bites TIFF) vagy 0,0-1,0 (32 bites százalék)
+* **Jelentés**: Kalibrált százalékos visszaverődés
+* **Használat**: Tudományos mérések és elemzések
+
+**16 bites TIFF esetén:** Ossza el 65 535-tel a százalékos visszaverődés kiszámításához **32 bites százalék esetén:** Az értékek közvetlenül a százalékot jelzik (0,5 = 50% visszaverődés)
+
+### RAW (indexképek)
+
+* **Tartomány**: Indexenként változik (normálisan -1,0 és +1,0 között a normalizált indexek esetében)
+* **Jelentés**: Index számítási eredmény
+* **Példák**:
+  * NDVI: -1 és +1 között (növényzet általában 0,4 és 0,9 között)
+  * NDRE: -1 és +1 között (stresszérzékelés)
+  * EVI: 0 és 1 között (továbbfejlesztett növényzet)
+
+***
+
+## Tippek és bevált gyakorlatok
+
+### Hatékony rétegváltás
+
+* **Billentyűparancsok ismerete**: Nincs billentyűparancs a rétegekhez, de a navigációs nyilak (←/→) minden rétegen működnek
+* **Következetes munkafolyamatok**: Válasszon ki egy réteget (pl. NDVI), és tekintse át a teljes adatkészletet, mielőtt másikra váltana
+* **Gyors összehasonlítás**: Váltson az Eredeti és a Reflektancia között a feldolgozás minőségének ellenőrzéséhez.
+
+### Teljesítményre vonatkozó szempontok
+
+* **A JPG a leggyorsabban töltődik be**: Használja a sok kép közötti gyors navigáláshoz.
+* **A RAW rétegek lassabban töltődnek be**: Magasabb felbontás és bitmélység.
+* **Index rétegek**: Hasonló sebességűek, mint a Reflektancia rétegek.
+* **Az első betöltés a leglassabb**: Az azonos réteg későbbi megtekintései gyorsítótárba kerülnek, és gyorsabbak.
+
+### Minőségellenőrzés
+
+* **Mindig ellenőrizze a RAW (eredeti) fájlt**: Ellenőrizze a forrásadatok minőségét, mielőtt megbízna a feldolgozott kimenetekben.
+* **Rétegek összehasonlítása**: Használja a rétegváltást a feldolgozás helyességének ellenőrzéséhez.
+* **Index tartományok ellenőrzése**: Használja a Pixel Percent módot az index rétegekkel, hogy ellenőrizze, hogy az értékek ésszerűek-e.
+
+***
+
+## Hibaelhárítás
+
+### Réteg nem elérhető
+
+**Probléma**: A várt réteg nem jelenik meg a legördülő menüben.
+
+**Lehetséges okok:**
+
+* A kép nem lett feldolgozva (csak JPG és RAW (eredeti) formátumok állnak rendelkezésre).
+* A feldolgozás során a reflektancia kalibrálás le volt tiltva.
+* A projektbeállításokban nem lett konfigurálva a konkrét index.
+* A kép csak célkép (a célokhoz nem lettek generálva indexek).
+
+**Megoldások:**
+
+1. Ellenőrizze, hogy a kép feldolgozásra került-e (ellenőrizze a feldolgozott fájlok kimeneti mappáját).
+2. Ellenőrizze a projektbeállításokat, hogy az indexek konfigurálva lettek-e.
+3. Feldolgozza újra a kívánt indexek engedélyezésével.
+
+### Rossz réteg jelenik meg
+
+**Probléma**: A kép váratlan rétegben nyílik meg.
+
+**Ok**: Az előző kép rétegbeállításai átkerültek, de az a réteg nem létezik a jelenlegi képen.
+
+**Megoldás:** Az Chloros automatikusan JPG-re vált, ha a preferált réteg nem elérhető – ez normális viselkedés.
+
+### A kalibrációs célpontok nem láthatók
+
+**Probléma:** A RAW (célpont) réteg nem jeleníti meg a célpontok észlelését.
+
+**Lehetséges okok:**
+
+* A célpontok feldolgozás közben nem lettek észlelve.
+* A kép valójában nem tartalmaz célpontokat.
+* A célpont-felismerési beállítások túl szigorúak
+
+**Megoldások:**
+
+1. Ellenőrizze a hibakeresési naplóban, hogy vannak-e „Célpont megtalálva” üzenetek.
+2. Ellenőrizze, hogy a kép valóban tartalmaz-e látható kalibrációs célpontokat.
+3. Állítsa be a célpont-felismerési beállításokat a Projektbeállításokban.
+4. Lásd: [Célképek kiválasztása](../processing-images-gui/choosing-target-images.md)
+
+***
+
+## Kapcsolódó funkciók
+
+### Képmegjelenítő eszközök
+
+Bármely réteg megtekintésekor használhatja a következőket:
+
+* **Zoom vezérlők**: Nagyítás a részletek megtekintéséhez
+* **Panoráma**: Kattintson és húzza az egérrel a nagyított kép mozgatásához
+* **Pixelérték-ellenőrzés**: Az értékek megtekintése a kurzor helyén
+* **Navigációs nyilak**: Képek közötti mozgás a réteg megtartása mellett
+* **Pixel százalékos mód**: Váltás DN és százalékos kijelzés között
+
+A képnézegető teljes dokumentációját lásd a [Kép teljes képernyős megnyitása](opening-an-image-full-screen.md) című részben.
 
 ### Index/LUT Sandbox
 
-For interactive index testing and visualization:
+Interaktív index tesztelés és vizualizálás:
 
-* **Real-time index calculation**: Test different index formulas
-* **LUT color mapping**: Apply color gradients to grayscale indices
-* **Export visualizations**: Save colored index images
+* **Valós idejű index számítás**: Különböző index képletek tesztelése
+* **LUT szín leképezés**: Színátmenetek alkalmazása szürkeárnyalatos indexekre
+* **Vizualizációk exportálása**: Színes index képek mentése
 
-See [Index/LUT Sandbox](index-lut-sandbox.md) for details.
+A részleteket lásd az [Index/LUT Sandbox](index-lut-sandbox.md) című dokumentumban.
 
 ***
 
-## Next Steps
+## Következő lépések
 
-Now that you understand image layers:
+Most, hogy már ismeri a képrétegeket:
 
-* [**Opening an Image Full Screen**](page-3.md) - Complete Image Viewer guide
-* [**Index/LUT Sandbox**](index-lut-sandbox.md) - Interactive index visualization
-* [**Multispectral Index Formulas**](../project-settings/multispectral-index-formulas.md) - Available indices reference
-* [**Finishing the Processing**](../processing-images-gui/finishing-the-processing.md) - Understanding processed outputs
+* [**Kép teljes képernyős megnyitása**](opening-an-image-full-screen.md) – Teljes Image Viewer útmutató
+* [**Index/LUT Sandbox**](index-lut-sandbox.md) – Interaktív index vizualizáció
+* [**Multispektrális index képletek**](../project-settings/multispectral-index-formulas.md) – Elérhető indexek referencia
+* [**A feldolgozás befejezése**](../processing-images-gui/finishing-the-processing.md) – A feldolgozott kimenetek megértése

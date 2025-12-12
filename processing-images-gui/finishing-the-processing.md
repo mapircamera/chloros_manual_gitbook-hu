@@ -1,306 +1,306 @@
-# Finishing the Processing
+# A feldolgozás befejezése
 
-Once Chloros completes processing, it's time to review your results, verify output quality, and prepare your processed images for use in your workflow. This page guides you through the final steps and next actions.
+Miután az Chloros befejezte a feldolgozást, itt az ideje áttekinteni az eredményeket, ellenőrizni a kimeneti minőséget, és előkészíteni a feldolgozott képeket a munkafolyamatban való felhasználásra. Ez az oldal végigvezeti Önt a végső lépéseken és a következő teendőken.
 
-## Processing Complete Indication
+## A feldolgozás befejezésének jelzése
 
-When processing finishes successfully, you'll see several indicators:
+A feldolgozás sikeres befejezése után több jelző is megjelenik:
 
-* ✅ **Progress bar**: Reaches 100% completion
-* ✅ **Debug Log**: Shows "Processing Complete" message
-* ✅ **Start button**: Becomes enabled again (ready for next processing run)
-* ✅ **Output files**: All processed images saved to camera model subfolder
-
-***
-
-## Locating Your Processed Images
-
-### Opening the Output Folder
-
-1. Click the **Main Menu** <img src="../.gitbook/assets/image (1) (1).png" alt="" data-size="line"> icon (top left)
-2. Select **"Open Project Folder"**
-3. Your file explorer opens to the project directory
-4. Locate your project by name
+* ✅ **Haladási sáv**: Eléri a 100%-os befejezést
+* ✅ **Hibakeresési napló**: Megjelenik a „Feldolgozás befejezve” üzenet
+* ✅ **Start gomb**: Ismét engedélyezetté válik (kész a következő feldolgozási futtatásra)
+* ✅ **Kimeneti fájlok**: Az összes feldolgozott kép a kamera modell alkönyvtárába kerül
 
 ***
 
-## Reviewing Processed Images
+## A feldolgozott képek megkeresése
 
-### Quick Preview in File Explorer
+### A kimeneti mappa megnyitása
 
-**Windows built-in preview:**
-
-1. Navigate to camera model subfolder
-2. Select an image file
-3. Preview appears in Windows Explorer preview pane
-4. Use arrow keys to browse through images
-
-### Preview in External Image Viewers
-
-**Recommended viewers:**
-
-* **QGIS** - Free GIS software (best for georeferenced multispectral analysis)
-* **IrfanView** - Fast, lightweight image viewer (supports TIFF)
-* **Adobe Photoshop** - Professional editing (TIFF support)
-* **GIMP** - Free alternative to Photoshop
-* **Windows Photos** - Basic viewing (may not support 16-bit TIFF)
-
-### Preview in Chloros Image Viewer
-
-Use Chloros's built-in Image Viewer for advanced visualization:
-
-1. Click an image thumbnail in the File Browser
-2. Image opens in the main preview area
-3. Click **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> tab in left sidebar
-4. Use [Index/LUT Sandbox](../image-viewer-gui/index-lut-sandbox.md) for interactive analysis
-
-See [Image Viewer](../image-viewer-gui/page-3.md) for detailed instructions.
+1. Kattintson a **Főmenü** <img src="../.gitbook/assets/image (1) (1).png" alt="" data-size="line"> ikonra (bal felső sarokban)
+2. Válassza a **„Projektmappa megnyitása”** lehetőséget
+3. A fájlkezelő megnyitja a projekt könyvtárát
+4. Keresse meg a projektet a neve alapján
 
 ***
 
-## Reviewing the Debug Log
+## A feldolgozott képek áttekintése
 
-### Check for Warnings or Errors
+### Gyors előnézet a fájlkezelőben
 
-1. Open **Debug Log** <img src="../.gitbook/assets/icon_log.JPG" alt="" data-size="line"> tab
-2. Scroll through messages
-3. Look for yellow warnings or red errors
-4. Review any issues noted
-5. Contact MAPIR support for assistance
+**Windows beépített előnézet:**
 
-### Saving the Log
+1. Keresse meg a kamera modell alkönyvtárát
+2. Válasszon ki egy képfájlt
+3. Az előnézet megjelenik az Windows Explorer előnézeti ablakában
+4. A nyílgombokkal böngészhet a képek között
 
-To keep a record of processing or to send to MAPIR Support:
+### Előnézet külső képnézegetőkben
 
-1. Click **"Copy"** or **"Download"** button
-2. Save as text file in project folder
-3. Include with project documentation
-4. Send to MAPIR support if issues encountered
+**Ajánlott nézegetők:**
 
-***
+* **QGIS** – Ingyenes GIS szoftver (legalkalmasabb georeferált multispektrális elemzéshez)
+* **IrfanView** – Gyors, könnyű képnézegető (támogatja az TIFF-et)
+* **Adobe Photoshop** – professzionális szerkesztés (TIFF támogatás)
+* **GIMP** – ingyenes alternatíva a Photoshophoz
+* **Windows Photos** – alapvető megtekintés (lehet, hogy nem támogatja a 16 bites TIFF-et)
 
-## Common Output Issues and Solutions
+### Előnézet az Chloros Képnézegetőben
 
-### Issue: Missing Output Files
+Használja az Chloros beépített Képnézegetőjét a fejlett megjelenítéshez:
 
-**Possible causes:**
+1. Kattintson egy kép miniatűrjére a Fájlböngészőben
+2. A kép megnyílik a fő előnézeti területen
+3. Kattintson a **Képnézegető** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> fülre a bal oldali sávban.
+4. Használja az [Index/LUT Sandbox](../image-viewer-gui/index-lut-sandbox.md) funkciót az interaktív elemzéshez.
 
-* Files didn't meet processing criteria
-* Target-only images (excluded from export)
-* Disk space ran out during export
-* File corruption during processing
-
-**Solutions:**
-
-1. Check Debug Log for skip/error messages
-2. Verify disk space was sufficient
-3. Count files: Should match (original count - target count) × (indices + 1)
-4. Re-import and reprocess any missing files
-
-### Issue: Dark or Bright Edges (Vignetting Still Visible)
-
-**Possible causes:**
-
-* Vignette correction disabled
-* Camera/lens not in Chloros profile database
-* Extreme vignetting beyond correction capability
-
-**Solutions:**
-
-1. Verify vignette correction was enabled in Project Settings
-2. Check camera model correctly detected
-3. Contact MAPIR support if vignetting persists
-
-### Issue: Incorrect Colors or Values
-
-**Possible causes:**
-
-* No calibration targets detected
-* Wrong calibration target model selected
-* Reflectance calibration disabled
-* Poor quality target images
-
-**Solutions:**
-
-1. Verify reflectance calibration was enabled
-2. Check "Target found" messages in Debug Log
-3. Review target image quality
-4. Reprocess with proper targets marked
-
-### Issue: NDVI Values Seem Wrong
-
-**Expected NDVI ranges:**
-
-* **Water, rocks, soil**: -0.1 to 0.2
-* **Sparse/unhealthy vegetation**: 0.2 to 0.4
-* **Moderate vegetation**: 0.4 to 0.6
-* **Healthy, dense vegetation**: 0.6 to 0.9
-
-**If values are outside these ranges:**
-
-1. Verify reflectance calibration was applied
-2. Verify light sensor log was included
-3. Check calibration targets were detected
-4. Ensure correct camera model was detected
-5. Review target image capture timing and conditions
+Részletes utasításokat az [Image Viewer](../image-viewer-gui/opening-an-image-full-screen.md) oldalon talál.
 
 ***
 
-## Using Your Processed Images
+## A hibakeresési napló áttekintése
 
-### For Photogrammetry / Orthomosaic Creation
+### Figyeljen a figyelmeztetésekre és hibákra
 
-**Recommended workflow:**
+1. Nyissa meg a **Hibakeresési napló** <img src="../.gitbook/assets/icon_log.JPG" alt="" data-size="line"> fület
+2. Görgessen végig az üzeneteken
+3. Keresse meg a sárga figyelmeztetéseket vagy a piros hibákat
+4. Tekintse át a megjegyzett problémákat
+5. Forduljon az MAPIR támogatáshoz segítségért
 
-1. **Import calibrated reflectance images** into photogrammetry software:
+### A napló mentése
+
+A feldolgozás rögzítéséhez vagy az MAPIR támogatáshoz való elküldéshez:
+
+1. Kattintson a **„Másolás”** vagy **„Letöltés”** gombra.
+2. Mentse szövegfájlként a projektmappába.
+3. Csatolja a projekt dokumentációjához.
+4. Problémák esetén küldje el az MAPIR ügyfélszolgálatnak.
+
+***
+
+## Gyakori kimeneti problémák és megoldások
+
+### Probléma: Hiányzó kimeneti fájlok
+
+**Lehetséges okok:**
+
+* A fájlok nem feleltek meg a feldolgozási kritériumoknak.
+* Csak célképek (kizárva az exportálásból).
+* Az exportálás során elfogyott a lemezterület.
+* A feldolgozás során a fájlok megsérültek.
+
+**Megoldások:**
+
+1. Ellenőrizze a hibakeresési naplóban, hogy vannak-e kihagyási/hibajelentések.
+2. Ellenőrizze, hogy elegendő lemezterület állt-e rendelkezésre.
+3. Számolja meg a fájlokat: Meg kell egyeznie (eredeti szám – célszám) × (indexek + 1)
+4. Importálja újra és dolgozza fel újra a hiányzó fájlokat.
+
+### Probléma: Sötét vagy világos élek (a vignettálás továbbra is látható)
+
+**Lehetséges okok:**
+
+* A vignettálás-korrekció ki van kapcsolva.
+* A kamera/objektív nincs az Chloros profil adatbázisban.
+* A vignettálás túlzott mértékű, a korrekciós képességet meghaladja.
+
+**Megoldások:**
+
+1. Ellenőrizze, hogy a vignettázás korrekció engedélyezve van-e a Projektbeállításokban.
+2. Ellenőrizze, hogy a kamera modellje helyesen lett-e felismerve.
+3. Ha a vignettázás továbbra is fennáll, vegye fel a kapcsolatot az MAPIR ügyfélszolgálattal.
+
+### Probléma: Helytelen színek vagy értékek
+
+**Lehetséges okok:**
+
+* Nincs kalibrációs célpont felismerve.
+* Helytelen kalibrációs célpont modell lett kiválasztva.
+* A reflektancia kalibráció le van tiltva.
+* Rossz minőségű célpont képek.
+
+**Megoldások:**
+
+1. Ellenőrizze, hogy a reflektancia kalibrálás engedélyezve van-e.
+2. Ellenőrizze a „Célpont megtalálva” üzeneteket a hibakeresési naplóban.
+3. Ellenőrizze a célképek minőségét.
+4. Ismételje meg a feldolgozást a megfelelő célpontok megjelölésével.
+
+### Probléma: Az NDVI értékek helytelennek tűnnek.
+
+**Várható NDVI tartományok:**
+
+* **Víz, sziklák, talaj**: -0,1 és 0,2 között
+* **Ritka/egészségtelen növényzet**: 0,2 és 0,4 között
+* **Közepes növényzet**: 0,4 és 0,6 között
+* **Egészséges, sűrű növényzet**: 0,6 és 0,9 között
+
+**Ha az értékek nem esnek ezekbe a tartományokba:**
+
+1. Ellenőrizze, hogy a reflektancia kalibrálása megtörtént-e.
+2. Ellenőrizze, hogy a fényérzékelő naplója szerepel-e.
+3. Ellenőrizze, hogy a kalibrációs célpontok felismerésre kerültek-e.
+4. Győződjön meg arról, hogy a megfelelő kameramodell lett felismerve.
+5. Ellenőrizze a célképek rögzítésének időzítését és feltételeit.
+
+***
+
+## A feldolgozott képek használata
+
+### Fotogrammetria / ortomosaik készítéshez
+
+**Ajánlott munkafolyamat:**
+
+1. **Importálja a kalibrált visszaverődési képeket** a fotogrammetriai szoftverbe:
    * Pix4Dmapper
    * Agisoft Metashape
    * DroneDeploy
    * WebODM
-2. **Keep EXIF metadata**: Ensure GPS data preserved for geotagging
-3. **Calibrated workflows**: Use reflectance images for scientific accuracy
-4. **Process index mosaics**: Create NDVI orthomosaics from individual index images
-5. **Export georeferenced GeoTIFF**: For use in GIS applications
+2. **Tartsa meg az EXIF metaadatokat**: Győződjön meg arról, hogy a GPS-adatok megmaradtak a földrajzi címkézéshez.
+3. **Kalibrált munkafolyamatok**: Használjon visszaverődési képeket a tudományos pontosság érdekében.
+4. **Indexmozaikok feldolgozása**: Készítsen NDVI ortomosaikokat az egyes indexképekből
+5. **Exportálja a georeferált GeoTIFF**-et: GIS-alkalmazásokban való felhasználáshoz
 
-### For GIS Analysis
+### GIS-elemzéshez
 
-**Recommended workflow:**
+**Ajánlott munkafolyamat:**
 
-1. **Load into QGIS, ArcGIS, or similar**
-2. **Use 16-bit TIFF** reflectance images for multi-band analysis
-3. **Use index images** (NDVI, NDRE) as ready-to-use vegetation layers
-4. **Raster calculator**: Combine bands for custom analysis
-5. **Export**: Create classification maps, change detection, vegetation health maps
+1. **Töltse be a QGIS, ArcGIS vagy hasonló programba**
+2. **Használjon 16 bites TIFF** reflektancia képeket többsávos elemzéshez
+3. **Használjon index képeket** (NDVI, NDRE) használatra kész növényzet rétegekként
+4. **Raszter számológép**: Kombinálja a sávokat egyéni elemzéshez
+5. **Exportálás**: osztályozási térképek, változásérzékelés, növényzet-egészségügyi térképek létrehozása
 
-### For Direct Analysis / Reporting
+### Közvetlen elemzéshez / jelentéskészítéshez
 
-**Recommended workflow:**
+**Ajánlott munkafolyamat:**
 
-1. **Use index images with LUT colors** for visual reports
-2. **Extract statistics**: Mean NDVI per field/plot
-3. **Time series**: Compare indices across multiple sessions
-4. **Generate reports**: Include maps, statistics, and visualizations
-
-***
-
-## Archiving and Backup
-
-### Recommended Backup Strategy
-
-**What to save:**
-
-* ✅ **Original RAW/JPG images** - Archive on separate drive/cloud
-* ✅ **Processed outputs** - Keep calibrated images and indices
-* ✅ **Project file** - Contains all settings for reprocessing if needed
-* ✅ **Debug Log** - Documents processing details
-* ✅ **Calibration target images** - For verification and reprocessing
-
-**Storage recommendations:**
-
-* **Immediate backup**: External hard drive
-* **Long-term archive**: Cloud storage (Google Drive, Dropbox, etc.)
-* **Critical data**: Keep 2-3 copies in different locations
+1. **Használjon indexképeket LUT színekkel** vizuális jelentésekhez
+2. **Statisztikák kivonása**: Átlagos NDVI mezőnként/parcellánként
+3. **Idősorok**: indexek összehasonlítása több munkamenet között
+4. **Jelentések létrehozása**: térképek, statisztikák és vizualizációk beépítése
 
 ***
 
-## Next Processing Runs
+## Archiválás és biztonsági mentés
 
-### Reusing Project Settings
+### Ajánlott biztonsági mentési stratégia
 
-If processing similar datasets in the future:
+**Mit kell menteni:**
 
-1. **Save Project Template** (if not already done)
-2. **Create new project** using saved template
-3. **Import new images**
-4. **Process** with identical settings for consistency
+* ✅ **Eredeti RAW/JPG képek** – archiválás külön meghajtón/felhőben
+* ✅ **Feldolgozott kimenetek** – Kalibrált képek és indexek megőrzése
+* ✅ **Projektfájl** – Szükség esetén tartalmazza az újrafeldolgozáshoz szükséges összes beállítást
+* ✅ **Hibakeresési napló** – Dokumentálja a feldolgozás részleteit
+* ✅ **Kalibrációs célképek** – Ellenőrzés és újrafeldolgozás céljára
 
-### Batch Processing Multiple Sessions
+**Tárolási ajánlások:**
 
-For multiple sessions/datasets:
-
-**Option 1: GUI - Multiple Projects**
-
-* Create separate project for each session
-* Use consistent template settings
-* Process one at a time
-
-**Option 2: Chloros CLI (Chloros+ only)**
-
-* Automate batch processing
-* Process multiple folders with scripts
-* See [CLI Documentation](../CLI.md)
-
-**Option 3: Python SDK (Chloros+ only)**
-
-* Programmatic control
-* Integration with analysis pipelines
-* See [API Documentation](../api-python-sdk.md)
+* **Azonnali biztonsági mentés**: Külső merevlemez
+* **Hosszú távú archiválás**: Felhőalapú tárolás (Google Drive, Dropbox stb.)
+* **Kritikus adatok**: 2-3 másolatot tároljon különböző helyeken
 
 ***
 
-## Troubleshooting Post-Processing
+## Következő feldolgozási futtatások
 
-### Re-Processing with Different Settings
+### A projektbeállítások újrahasznosítása
 
-If results aren't satisfactory:
+Ha a jövőben hasonló adatkészleteket dolgoz fel:
 
-1. Keep original images (never delete)
-2. Open same project in Chloros
-3. Adjust settings in Project Settings panel
-4. Process again - outputs will overwrite previous results
+1. **Projekt sablon mentése** (ha még nem tette meg)
+2. **Új projekt létrehozása** a mentett sablon felhasználásával
+3. **Új képek importálása**
+4. **Feldolgozás** azonos beállításokkal a konzisztencia érdekében
 
-### Processing Subset of Images
+### Több munkamenet kötegelt feldolgozása
 
-To reprocess only specific images:
+Több munkamenet/adatkészlet esetén:
 
-1. Create new project
-2. Import only the images needing reprocessing
-3. Use same settings template
-4. Process smaller dataset
+**1. lehetőség: GUI – Több projekt**
 
-### Getting Help
+* Hozzon létre külön projektet minden munkamenethez
+* Használjon konzisztens sablonbeállításokat
+* Feldolgozás egyenként
 
-If you encounter issues:
+**2. lehetőség: Chloros CLI (csak Chloros+)**
 
-* 📧 **Email**: info@mapir.camera (include Debug Log)
-* 🌐 **Support**: [https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
-* 📚 **FAQ**: [Frequently Asked Questions](../faq.md)
-* 📖 **Documentation**: [Chloros Manual](../)
+* Automatizálja a kötegelt feldolgozást
+* Feldolgozás több mappában szkriptekkel
+* Lásd [CLI dokumentáció](../CLI.md)
 
-***
+**3. lehetőség: Python SDK (csak Chloros+)**
 
-## Summary: Complete Workflow
-
-You've now completed the full Chloros processing workflow:
-
-1. ✅ **Created project** - See [Projects](../projects.md)
-2. ✅ **Added files** - See [Adding Files](page-1.md)
-3. ✅ **Adjusted settings** - See [Adjusting Project Settings](adjusting-project-settings.md)
-4. ✅ **Marked targets** - See [Choosing Target Images](choosing-target-images.md)
-5. ✅ **Started processing** - See [Starting the Processing](starting-the-processing.md)
-6. ✅ **Monitored progress** - See [Monitoring the Processing](monitoring-the-processing.md)
-7. ✅ **Reviewed results** - This page
-
-**Your calibrated, reflectance-corrected multispectral images are ready for analysis!**
+* Programozási vezérlés
+* Integráció az elemzési folyamatokkal
+* Lásd [API dokumentáció](../api-python-sdk.md)
 
 ***
 
-## Additional Resources
+## Hibaelhárítás Utómunka
 
-### Advanced Features
+### Újrafeldolgozás különböző beállításokkal
 
-* [**Image Viewer**](../image-viewer-gui/page-3.md) - Interactive visualization and analysis
-* [**Index/LUT Sandbox**](../image-viewer-gui/index-lut-sandbox.md) - Custom index testing
-* [**Multispectral Index Formulas**](../project-settings/multispectral-index-formulas.md) - Complete index reference
+Ha az eredmények nem kielégítőek:
 
-### Automation & Integration
+1. Tartsa meg az eredeti képeket (soha ne törölje őket)
+2. Nyissa meg ugyanazt a projektet az Chloros programban
+3. Állítsa be a beállításokat a Projektbeállítások panelen
+4. Futtassa újra a feldolgozást – az eredmények felülírják a korábbi eredményeket
 
-* [**CLI Documentation**](../CLI.md) - Command-line batch processing
-* [**Python SDK**](../api-python-sdk.md) - Programmatic automation
-* [**Chloros+ Features**](../#chloros) - Advanced processing capabilities
+### Képek részhalmazának feldolgozása
 
-### Support & Learning
+Csak bizonyos képek újrafeldolgozásához:
 
-* [**FAQ**](../faq.md) - Common questions answered
-* [**Calibration Targets**](../calibration-targets.md) - Understanding reflectance calibration
-* [**Supported Cameras**](../supported-cameras.md) - Compatible hardware
+1. Hozzon létre egy új projektet
+2. Csak az újrafeldolgozásra szoruló képeket importálja
+3. Használja ugyanazt a beállítási sablont
+4. Feldolgozza a kisebb adathalmazt
+
+### Segítség
+
+Ha problémát tapasztal:
+
+* 📧 **E-mail**: info@mapir.camera (tartalmazza a hibakeresési naplót)
+* 🌐 **Támogatás**: [https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
+* 📚 **GYIK**: [Gyakran ismételt kérdések](../faq.md)
+* 📖 **Dokumentáció**: [Chloros kézikönyv](../)
+
+***
+
+## Összefoglalás: Teljes munkafolyamat
+
+Most már teljesítette a teljes Chloros feldolgozási munkafolyamatot:
+
+1. ✅ **Projekt létrehozása** - Lásd [Projektek](../projects.md)
+2. ✅ **Fájlok hozzáadása** - Lásd [Fájlok hozzáadása](adding-files-to-a-project.md)
+3. ✅ **Beállítások módosítása** – Lásd: [Projektbeállítások módosítása](adjusting-project-settings.md)
+4. ✅ **Célok megjelölése** – Lásd: [Célképek kiválasztása](choosing-target-images.md)
+5. ✅ **Feldolgozás elindítása** – Lásd: [A feldolgozás elindítása](starting-the-processing.md)
+6. ✅ **Figyelt előrehaladás** - Lásd [A feldolgozás figyelése](monitoring-the-processing.md)
+7. ✅ **Ellenőrzött eredmények** - Ez az oldal
+
+**A kalibrált, reflektancia-korrigált multispektrális képei készen állnak az elemzésre!**
+
+***
+
+## További források
+
+### Speciális funkciók
+
+* [**Képmegjelenítő**](../image-viewer-gui/opening-an-image-full-screen.md) - Interaktív megjelenítés és elemzés
+* [**Index/LUT Sandbox**](../image-viewer-gui/index-lut-sandbox.md) - Egyéni index tesztelés
+* [**Multispektrális index képletek**](../project-settings/multispectral-index-formulas.md) – Teljes index referencia
+
+### Automatizálás és integráció
+
+* [**CLI dokumentáció**](../CLI.md) – Parancssori kötegelt feldolgozás
+* [**Python SDK**](../api-python-sdk.md) – Programozási automatizálás
+* [**Chloros+ funkciók**](../#chloros) – Fejlett feldolgozási képességek
+
+### Támogatás és tanulás
+
+* [**GYIK**](../faq.md) – Gyakori kérdések és válaszok
+* [**Kalibrációs célok**](../calibration-targets.md) – A visszaverődés kalibrálásának megértése
+* [**Támogatott kamerák**](../supported-cameras.md) – Kompatibilis hardver

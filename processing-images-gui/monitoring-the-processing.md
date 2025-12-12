@@ -1,165 +1,165 @@
-# Monitoring the Processing
+# A feldolgozás figyelemmel kísérése
 
-Once processing has started, Chloros provides several ways to monitor progress, check for issues, and understand what's happening with your dataset. This page explains how to track your processing and interpret the information Chloros provides.
+A feldolgozás megkezdése után az Chloros többféle lehetőséget kínál a folyamat figyelemmel kísérésére, a problémák ellenőrzésére és az adatkészletben zajló események megértésére. Ez az oldal elmagyarázza, hogyan lehet nyomon követni a feldolgozást és értelmezni az Chloros által nyújtott információkat.
 
-## Progress Bar Overview
+## A haladási sáv áttekintése
 
-The progress bar in the top header shows real-time processing status and completion percentage.
+A fejlécben található haladási sáv valós időben mutatja a feldolgozás állapotát és a befejezés százalékos arányát.
 
-### Free Mode Progress Bar
+### Ingyenes mód haladási sávja
 
-For users without Chloros+ license:
+Chloros+ licenccel nem rendelkező felhasználók számára:
 
-**2-Stage Progress Display:**
+**Kétlépcsős haladási kijelzés:**
 
-1. **Target Detect** - Finding calibration targets in images
-2. **Processing** - Applying corrections and exporting
+1. **Célpont felismerés** – Kalibrációs célpontok keresése a képeken
+2. **Feldolgozás** – Korrekciók alkalmazása és exportálás
 
-**Progress bar shows:**
+**A haladási sáv a következőket jeleníti meg:**
 
-* Overall completion percentage (0-100%)
-* Current stage name
-* Simple horizontal bar visualization
+* Átfogó befejezési százalék (0-100%)
+* Aktuális szakasz neve
+* Egyszerű vízszintes sávos megjelenítés
 
-### Chloros+ Progress Bar
+### Chloros+ haladási sáv
 
-For users with Chloros+ license:
+Chloros+ licenccel rendelkező felhasználók számára:
 
-**4-Stage Progress Display:**
+**4 lépcsős haladási kijelzés:**
 
-1. **Detecting** - Finding calibration targets
-2. **Analyzing** - Examining images and preparing pipeline
-3. **Calibrating** - Applying vignette and reflectance corrections
-4. **Exporting** - Saving processed files
+1. **Észlelés** – Kalibrációs célpontok keresése
+2. **Elemzés** – Képek vizsgálata és folyamat előkészítése
+3. **Kalibrálás** – Vignettázás és fényvisszaverődés korrekciók alkalmazása
+4. **Exportálás** – Feldolgozott fájlok mentése
 
-**Interactive Features:**
+**Interaktív funkciók:**
 
-* **Hover over** progress bar to see expanded 4-stage panel
-* **Click** progress bar to freeze/pin the expanded panel
-* **Click again** to unfreeze and auto-hide on mouse leave
-* Each stage shows individual progress (0-100%)
-
-***
-
-## Understanding Each Processing Stage
-
-### Stage 1: Detecting (Target Detection)
-
-**What's happening:**
-
-* Chloros scans images marked with Target checkbox
-* Computer vision algorithms identify the 4 calibration panels
-* Reflectance values extracted from each panel
-* Target timestamps recorded for proper calibration scheduling
-
-**Duration:**
-
-* With marked targets: 10-60 seconds
-* Without marked targets: 5-30+ minutes (scans all images)
-
-**Progress indicator:**
-
-* Detecting: 0% → 100%
-* Number of images scanned
-* Targets found count
-
-**What to watch for:**
-
-* Should complete quickly if targets properly marked
-* If taking too long, targets may not be marked
-* Check Debug Log for "Target found" messages
-
-### Stage 2: Analyzing
-
-**What's happening:**
-
-* Reading image EXIF metadata (timestamps, exposure settings)
-* Determining calibration strategy based on target timestamps
-* Organizing image processing queue
-* Preparing parallel processing workers (Chloros+ only)
-
-**Duration:** 5-30 seconds
-
-**Progress indicator:**
-
-* Analyzing: 0% → 100%
-* Fast stage, usually completes quickly
-
-**What to watch for:**
-
-* Should progress steadily without pauses
-* Warnings about missing metadata will appear in Debug Log
-
-### Stage 3: Calibrating
-
-**What's happening:**
-
-* **Debayering**: Converting RAW Bayer pattern to 3 channels
-* **Vignette correction**: Removing lens edge darkening
-* **Reflectance calibration**: Normalizing with target values
-* **Index calculation**: Computing multispectral indices
-* Processing each image through the full pipeline
-
-**Duration:** Majority of total processing time (60-80%)
-
-**Progress indicator:**
-
-* Calibrating: 0% → 100%
-* Current image being processed
-* Images completed / Total images
-
-**Processing behavior:**
-
-* **Free mode**: Processes one image at a time sequentially
-* **Chloros+ mode**: Processes up to 16 images simultaneously
-* **GPU acceleration**: Significantly speeds up this stage
-
-**What to watch for:**
-
-* Steady progress through image count
-* Check Debug Log for per-image completion messages
-* Warnings about image quality or calibration issues
-
-### Stage 4: Exporting
-
-**What's happening:**
-
-* Writing calibrated images to disk in selected format
-* Exporting multispectral index images with LUT colors
-* Creating camera model subfolders
-* Preserving original filenames with appropriate suffixes
-
-**Duration:** 10-20% of total processing time
-
-**Progress indicator:**
-
-* Exporting: 0% → 100%
-* Files being written
-* Export format and destination
-
-**What to watch for:**
-
-* Disk space warnings
-* File write errors
-* Completion of all configured outputs
+* **Vigye az egérmutatót** a haladási sávra a kibővített 4 szakaszos panel megjelenítéséhez
+* **Kattintson** a haladási sávra a kibővített panel befagyasztásához/rögzítéséhez
+* **Kattintson újra** a befagyasztás feloldásához és az egér elmozdításakor az automatikus elrejtéshez
+* Minden szakasz az egyéni haladást mutatja (0-100%)
 
 ***
 
-## Debug Log Tab
+## Az egyes feldolgozási szakaszok megértése
 
-The Debug Log provides detailed information about processing progress and any issues encountered.
+### 1. szakasz: Észlelés (célpontok észlelése)
 
-### Accessing the Debug Log
+**Mi történik:**
 
-1. Click the **Debug Log** <img src="../.gitbook/assets/icon_log.JPG" alt="" data-size="line"> icon in the left sidebar
-2. Log panel opens showing real-time processing messages
-3. Auto-scrolls to show latest messages
+* Az Chloros beolvassa a Cél jelölőnégyzettel megjelölt képeket
+* A számítógépes látás algoritmusok azonosítják a 4 kalibrációs panelt
+* Az egyes panelekből kivont visszaverődési értékek
+* A megfelelő kalibrációs ütemezéshez rögzített cél időbélyegek
 
-### Understanding Log Messages
+**Időtartam:**
 
-#### Information Messages (White/Gray)
+* Megjelölt célokkal: 10-60 másodperc
+* Megjelölt célok nélkül: 5-30+ perc (az összes kép beolvasása)
 
-Normal processing updates:
+**Haladásjelző:**
+
+* Észlelés: 0% → 100%
+* Beolvasott képek száma
+* Megtalált célok száma
+
+**Mire kell figyelni:**
+
+* Ha a célok megfelelően vannak megjelölve, a folyamat gyorsan befejeződik.
+* Ha túl sokáig tart, előfordulhat, hogy a célok nincsenek megjelölve.
+* Ellenőrizze a hibakeresési naplóban a „Cél megtalálva” üzeneteket.
+
+### 2. szakasz: Elemzés
+
+**Mi történik:**
+
+* A kép EXIF metaadatainak olvasása (időbélyegek, expozíciós beállítások)
+* A cél időbélyegei alapján a kalibrációs stratégia meghatározása
+* A képfeldolgozási sor rendezése
+* Párhuzamos feldolgozó munkások előkészítése (csak Chloros+)
+
+**Időtartam:** 5-30 másodperc
+
+**Haladásjelző:**
+
+* Elemzés: 0% → 100%
+* Gyors szakasz, általában gyorsan befejeződik
+
+**Mire kell figyelni:**
+
+* A folyamatnak szünet nélkül, egyenletesen kell haladnia
+* A hiányzó metaadatokra vonatkozó figyelmeztetések a hibakeresési naplóban jelennek meg
+
+### 3. szakasz: Kalibrálás
+
+**Mi történik:**
+
+* **Debayering**: RAW Bayer-minta konvertálása 3 csatornára
+* **Vignette-korrekció**: A lencse szélének elsötétülésének eltávolítása
+* **Reflektancia-kalibrálás**: Normalizálás a célértékekkel
+* **Index számítás**: Multispektrális indexek kiszámítása
+* Minden kép feldolgozása a teljes folyamaton keresztül
+
+**Időtartam:** A teljes feldolgozási idő nagy része (60-80%)
+
+**Haladásjelző:**
+
+* Kalibrálás: 0% → 100%
+* Jelenleg feldolgozott kép
+* Befejezett képek / Összes kép
+
+**Feldolgozási viselkedés:**
+
+* **Szabad mód**: Egyszerre egy képet dolgoz fel egymás után
+* **Chloros+ mód**: Egyszerre legfeljebb 16 képet dolgoz fel
+* **GPU-gyorsítás**: Jelentősen felgyorsítja ezt a szakaszt
+
+**Mire kell figyelni:**
+
+* A képek számának folyamatos előrehaladása
+* Ellenőrizze a hibakeresési naplót a képek befejezéséről szóló üzenetekért
+* Figyelmeztetések a képminőségről vagy a kalibrálási problémákról
+
+### 4. szakasz: Exportálás
+
+**Mi történik:**
+
+* A kalibrált képek írása a lemezre a kiválasztott formátumban
+* Multispektrális indexképek exportálása LUT színekkel
+* Kamera modell alkönyvtárak létrehozása
+* Az eredeti fájlnevek megőrzése a megfelelő kiterjesztésekkel
+
+**Időtartam:** A teljes feldolgozási idő 10-20%-a
+
+**Haladásjelző:**
+
+* Exportálás: 0% → 100%
+* Fájlok írása
+* Export formátum és célhely
+
+**Mire kell figyelni:**
+
+* Lemezterület figyelmeztetések
+* Fájl írási hibák
+* Az összes konfigurált kimenet befejezése
+
+***
+
+## Debug Log fül
+
+A Debug Log részletes információkat nyújt a feldolgozás előrehaladásáról és az esetleges problémákról.
+
+### A Debug Log elérés
+
+1. Kattintson a **Debug Log** <img src="../.gitbook/assets/icon_log.JPG" alt="" data-size="line"> ikonra a bal oldali sávban.
+2. Megnyílik a napló panel, amely valós idejű feldolgozási üzeneteket jelenít meg.
+3. Automatikusan görget, hogy a legújabb üzeneteket mutassa.
+
+### A naplóüzenetek értelmezése
+
+#### Információs üzenetek (fehér/szürke)
+
+Normál feldolgozási frissítések:
 
 ```
 [INFO] Processing started
@@ -169,9 +169,9 @@ Normal processing updates:
 [INFO] Processing complete
 ```
 
-#### Warning Messages (Yellow)
+#### Figyelmeztető üzenetek (sárga)
 
-Non-critical issues that don't stop processing:
+Nem kritikus problémák, amelyek nem állítják le a feldolgozást:
 
 ```
 [WARN] No GPS data found in IMG_0145.RAW
@@ -179,11 +179,11 @@ Non-critical issues that don't stop processing:
 [WARN] Low contrast in calibration panel - results may vary
 ```
 
-**Action:** Review warnings after processing, but don't interrupt
+**Teendő:** A feldolgozás után ellenőrizze a figyelmeztetéseket, de ne szakítsa meg a feldolgozást.
 
-#### Error Messages (Red)
+#### Hibaüzenetek (Red)
 
-Critical issues that may cause processing to fail:
+Kritikus problémák, amelyek a feldolgozás meghibásodását okozhatják:
 
 ```
 [ERROR] Cannot write file - disk full
@@ -191,202 +191,202 @@ Critical issues that may cause processing to fail:
 [ERROR] No targets detected - enable reflectance calibration or mark target images
 ```
 
-**Action:** Stop processing, resolve error, restart
+**Teendő:** Állítsa le a feldolgozást, oldja meg a hibát, indítsa újra.
 
-### Common Log Messages
+### Általános naplóüzenetek
 
-| Message                          | Meaning                                | Action Needed                                         |
+| Üzenet                          | Jelentés                                | Szükséges teendő                                         |
 | -------------------------------- | -------------------------------------- | ----------------------------------------------------- |
-| "Target detected in \[filename]" | Calibration target found successfully  | None - normal                                         |
-| "Processing image X of Y"        | Current progress update                | None - normal                                         |
-| "No targets found"               | No calibration targets detected        | Mark target images or disable reflectance calibration |
-| "Insufficient disk space"        | Not enough storage for output          | Free up disk space                                    |
-| "Skipping corrupted file"        | Image file is damaged                  | Re-copy file from SD card                             |
-| "PPK data applied"               | GPS corrections from .daq file applied | None - normal                                         |
+| „Célpont észlelve a \[filename] fájlban” | Kalibrációs célpont sikeresen megtalálva  | Nincs – normális                                         |
+| „Y kép X feldolgozása”        | Aktuális előrehaladás frissítése                | Nincs – normális                                         |
+| „Célpontok nem találtak”               | Kalibrációs célpontok nem észleltek        | Jelölje meg a célpontképeket, vagy tiltsa le a visszaverődés kalibrálását |
+| „Nincs elegendő lemezterület”        | Nincs elegendő tárhely a kimenethez          | Szabadítson fel lemezterületet                                    |
+| „Sérült fájl kihagyása”        | A képfájl sérült                  | Másolja át a fájlt az SD-kártyáról                             |
+| „PPK-adatok alkalmazva”               | A .daq fájlból származó GPS-korrekciók alkalmazva | Nincs - normál                                         |
 
-### Copying Log Data
+### Naplóadatok másolása
 
-To copy log for troubleshooting or support:
+A napló másolása hibaelhárítás vagy támogatás céljából:
 
-1. Open Debug Log panel
-2. Click **"Copy Log"** button (or right-click → Select All)
-3. Paste into text file or email
-4. Send to MAPIR support if needed
-
-***
-
-## System Resource Monitoring
-
-### CPU Usage
-
-**Free Mode:**
-
-* 1 CPU core at \~100%
-* Other cores idle or available
-* System remains responsive
-
-**Chloros+ Parallel Mode:**
-
-* Multiple cores at 80-100% (up to 16 cores)
-* High overall CPU utilization
-* System may feel less responsive
-
-**To monitor:**
-
-* Windows Task Manager (Ctrl+Shift+Esc)
-* Performance tab → CPU section
-* Look for "Chloros" or "chloros-backend" processes
-
-### Memory (RAM) Usage
-
-**Typical usage:**
-
-* Small projects (< 100 images): 2-4 GB
-* Medium projects (100-500 images): 4-8 GB
-* Large projects (500+ images): 8-16 GB
-* Chloros+ parallel mode uses more RAM
-
-**If memory is low:**
-
-* Process smaller batches
-* Close other applications
-* Upgrade RAM if regularly processing large datasets
-
-### GPU Usage (Chloros+ with CUDA)
-
-When GPU acceleration is enabled:
-
-* NVIDIA GPU shows high utilization (60-90%)
-* VRAM usage increases (requires 4GB+ VRAM)
-* Calibrating stage is significantly faster
-
-**To monitor:**
-
-* NVIDIA System Tray icon
-* Task Manager → Performance → GPU
-* GPU-Z or similar monitoring tool
-
-### Disk I/O
-
-**What to expect:**
-
-* High disk read during Analyzing stage
-* High disk write during Exporting stage
-* SSD significantly faster than HDD
-
-**Performance tip:**
-
-* Use SSD for project folder when possible
-* Avoid network drives for large datasets
-* Ensure disk isn't near capacity (affects write speed)
+1. Nyissa meg a Debug Log panelt.
+2. Kattintson a **„Copy Log”** gombra (vagy kattintson a jobb gombbal → Select All).
+3. Illessze be egy szövegfájlba vagy e-mailbe.
+4. Szükség esetén küldje el az MAPIR támogatásnak.
 
 ***
 
-## Detecting Problems During Processing
+## Rendszererőforrás-figyelés
 
-### Warning Signs
+### CPU-használat
 
-**Progress stalls (no change for 5+ minutes):**
+**Szabad mód:**
 
-* Check Debug Log for errors
-* Verify disk space available
-* Check Task Manager to ensure Chloros is running
+* 1 CPU-mag ~100%-os kihasználtsággal
+* A többi mag üresjáratban vagy rendelkezésre áll
+* A rendszer továbbra is reagál
 
-**Error messages appear frequently:**
+**Chloros+ párhuzamos mód:**
 
-* Stop processing and review errors
-* Common causes: disk space, corrupted files, memory issues
-* See Troubleshooting section below
+* Több mag 80-100%-os kihasználtsággal (legfeljebb 16 mag)
+* Magas általános CPU-kihasználtság
+* A rendszer kevésbé reagál
 
-**System becomes unresponsive:**
+**Felügyelet:**
 
-* Chloros+ parallel mode using too many resources
-* Consider reducing concurrent tasks or upgrading hardware
-* Free mode is less resource-intensive
+* Windows Feladatkezelő (Ctrl+Shift+Esc)
+* Teljesítmény fül → CPU szakasz
+* Keresse meg az „Chloros” vagy „chloros-backend” folyamatokat
 
-### When to Stop Processing
+### Memória (RAM) használat
 
-Stop processing if you see:
+**Tipikus használat:**
 
-* ❌ "Disk full" or "Cannot write file" errors
-* ❌ Repeated image file corruption errors
-* ❌ System completely frozen (not responding)
-* ❌ Realized wrong settings were configured
-* ❌ Wrong images imported
+* Kis projektek (&lt; 100 kép): 2-4 GB
+* Közepes projektek (100-500 kép): 4-8 GB
+* Nagy projektek (500+ kép): 8-16 GB
+* Az Chloros+ párhuzamos mód több RAM-ot használ
 
-**How to stop:**
+**Ha kevés a memória:**
 
-1. Click **Stop/Cancel button** (replaces Start button)
-2. Processing halts, progress is lost
-3. Fix issues and restart from beginning
+* Kisebb adagokat dolgozzon fel
+* Zárjon be más alkalmazásokat
+* Ha rendszeresen nagy adathalmazokat dolgoz fel, bővítse a RAM-ot
 
-***
+### GPU-használat (Chloros+ CUDA-val)
 
-## Troubleshooting During Processing
+Ha a GPU-gyorsítás engedélyezve van:
 
-### Processing is Very Slow
+* Az NVIDIA GPU magas kihasználtságot mutat (60-90%)
+* A VRAM-használat növekszik (4 GB+ VRAM szükséges)
+* A kalibrálási szakasz jelentősen gyorsabb
 
-**Possible causes:**
+**Figyelemmel kísérés:**
 
-* Unmarked target images (scanning all images)
-* HDD instead of SSD storage
-* Insufficient system resources
-* Many indices configured
-* Network drive access
+* NVIDIA tálcaikon
+* Feladatkezelő → Teljesítmény → GPU
+* GPU-Z vagy hasonló figyelő eszköz
 
-**Solutions:**
+### Lemez I/O
 
-1. If just started and in Detecting stage: Cancel, mark targets, restart
-2. For future: Use SSD, reduce indices, upgrade hardware
-3. Consider CLI for batch processing large datasets
+**Mire számíthat:**
 
-### "Disk Space" Warnings
+* Magas lemezolvasási sebesség az elemzési szakaszban
+* Magas lemezírási sebesség az exportálási szakaszban
+* Az SSD jelentősen gyorsabb, mint a HDD
 
-**Solutions:**
+**Teljesítménytipp:**
 
-1. Free up disk space immediately
-2. Move project to drive with more space
-3. Reduce number of indices to export
-4. Use JPG format instead of TIFF (smaller files)
-
-### Frequent "Corrupted File" Messages
-
-**Solutions:**
-
-1. Re-copy images from SD card to ensure integrity
-2. Test SD card for errors
-3. Remove corrupted files from project
-4. Continue processing remaining images
-
-### System Overheating / Throttling
-
-**Solutions:**
-
-1. Ensure adequate ventilation
-2. Clean dust from computer vents
-3. Reduce processing load (use Free mode instead of Chloros+)
-4. Process during cooler times of day
+* Ha lehetséges, használjon SSD-t a projektmappához
+* Kerülje a hálózati meghajtókat nagy adathalmazok esetén
+* Győződjön meg arról, hogy a lemez nem közelíti meg a kapacitáshatárt (ez befolyásolja az írási sebességet)
 
 ***
 
-## Processing Complete Notification
+## Problémák észlelése a feldolgozás során
 
-When processing finishes:
+### Figyelmeztető jelek
 
-* Progress bar reaches 100%
-* **"Processing Complete"** message appears in Debug Log
-* Start button becomes enabled again
-* All output files are in camera model subfolder
+**A folyamat leáll (5 percnél hosszabb ideig nincs változás):**
+
+* Ellenőrizze a hibakeresési naplót hibák után
+* Ellenőrizze a rendelkezésre álló lemezterületet
+* Ellenőrizze a Feladatkezelőt, hogy az Chloros fut-e
+
+**Gyakran jelennek meg hibaüzenetek:**
+
+* Állítsa le a feldolgozást, és ellenőrizze a hibákat
+* Gyakori okok: lemezterület, sérült fájlok, memóriaproblémák
+* Lásd az alábbi Hibaelhárítás részt
+
+**A rendszer nem reagál:**
+
+* Az Chloros+ párhuzamos mód túl sok erőforrást használ
+* Fontolja meg az egyidejű feladatok számának csökkentését vagy a hardver frissítését
+* A szabad mód kevésbé erőforrás-igényes
+
+### Mikor kell leállítani a feldolgozást
+
+Állítsa le a feldolgozást, ha a következőket látja:
+
+* ❌ „Lemez megtelt” vagy „Nem lehet fájlt írni” hibák
+* ❌ Ismétlődő képfájl-sérülési hibák
+* ❌ A rendszer teljesen lefagyott (nem reagál)
+* ❌ Rájött, hogy rossz beállításokat konfigurált
+* ❌ Rossz képeket importált
+
+**Hogyan állítsa le:**
+
+1. Kattintson a **Stop/Cancel gombra** (a Start gomb helyett)
+2. A feldolgozás leáll, az előrehaladás elveszik
+3. Javítsa ki a problémákat, és indítsa újra az elejétől
 
 ***
 
-## Next Steps
+## Hibaelhárítás a feldolgozás során
 
-Once processing completes:
+### A feldolgozás nagyon lassú
 
-1. **Review results** - See [Finishing the Processing](finishing-the-processing.md)
-2. **Check output folder** - Verify all files exported correctly
-3. **Review Debug Log** - Check for any warnings or errors
-4. **Preview processed images** - Use Image Viewer or external software
+**Lehetséges okok:**
 
-For information about reviewing and using your processed results, see [Finishing the Processing](finishing-the-processing.md).
+* Nem jelölt célképek (az összes kép beolvasása)
+* HDD SSD-tároló helyett
+* Nem elegendő rendszererőforrás
+* Sok index konfigurálva
+* Hálózati meghajtóhoz való hozzáférés
+
+**Megoldások:**
+
+1. Ha csak most indult és az Észlelés szakaszban van: Mégse, jelölje meg a célokat, indítsa újra
+2. A jövőben: Használjon SSD-t, csökkentse az indexek számát, frissítse a hardvert
+3. Fontolja meg az CLI használatát nagy adathalmazok kötegelt feldolgozásához
+
+### „Lemezterület” figyelmeztetések
+
+**Megoldások:**
+
+1. Azonnal szabadítson fel lemezterületet
+2. Helyezze át a projektet egy nagyobb lemezterületű meghajtóra
+3. Csökkentse az exportálandó indexek számát.
+4. Használjon JPG formátumot TIFF helyett (kisebb fájlok).
+
+### Gyakori „Sérült fájl” üzenetek
+
+**Megoldások:**
+
+1. Másolja át újra a képeket az SD-kártyáról az integritás biztosítása érdekében.
+2. Ellenőrizze az SD-kártyát hibák szempontjából.
+3. Távolítsa el a sérült fájlokat a projektből.
+4. Folytassa a többi kép feldolgozását.
+
+### A rendszer túlmelegedése / fojtása
+
+**Megoldások:**
+
+1. Gondoskodjon megfelelő szellőzésről.
+2. Tisztítsa meg a számítógép szellőzőnyílásait a portól.
+3. Csökkentse a feldolgozási terhelést (használja a Free módot az Chloros+ helyett).
+4. A nap hűvösebb óráiban végezze a feldolgozást.
+
+***
+
+## A feldolgozás befejezéséről szóló értesítés
+
+A feldolgozás befejezésekor:
+
+* A haladási sáv eléri a 100%-ot.
+* A **„Feldolgozás befejezve”** üzenet megjelenik a hibakeresési naplóban.
+* A Start gomb újra aktiválódik.
+* Az összes kimeneti fájl a kamera modell alkönyvtárában található.
+
+***
+
+## Következő lépések
+
+A feldolgozás befejezése után:
+
+1. **Ellenőrizze az eredményeket** – Lásd: [A feldolgozás befejezése](finishing-the-processing.md)
+2. **Ellenőrizze a kimeneti mappát** – Ellenőrizze, hogy minden fájl helyesen lett-e exportálva
+3. **Tekintse át a hibakeresési naplót** – Ellenőrizze, hogy nincs-e figyelmeztetés vagy hiba
+4. **Tekintse meg a feldolgozott képeket** – Használja a Képnézegetőt vagy külső szoftvert
+
+A feldolgozott eredmények áttekintésével és használatával kapcsolatos információkat lásd: [A feldolgozás befejezése](finishing-the-processing.md).

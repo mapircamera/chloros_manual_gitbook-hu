@@ -1,204 +1,204 @@
-# Adding Files to a Project
+# Fájlok hozzáadása egy projekthez
 
-Once you've created or opened a project in Chloros, the next step is to add your multispectral images to begin processing. The File Browser<img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line"> tab makes it easy to import images and manage your dataset.
+Miután létrehozott vagy megnyitott egy projektet az Chloros programban, a következő lépés a multispektrális képek hozzáadása a feldolgozás megkezdéséhez. A Fájlböngésző<img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line"> fül segítségével könnyedén importálhat képeket és kezelheti adatkészletét.
 
-## Accessing the File Browser
+## A Fájlböngésző elérés
 
-1. Open or create a project in Chloros
-2. Click the **File Browser** <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line"> icon in the left sidebar
-3. The File Browser panel will display your project's file list
+1. Nyisson meg vagy hozzon létre egy projektet az Chloros programban
+2. Kattintson a **Fájlböngésző** <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line"> ikonra a bal oldali sávban.
+3. A Fájlböngésző panel megjeleníti a projekt fájljainak listáját.
 
-{% hint style="info" %}
-**Supported File Types**: Chloros supports RAW+JPG and JPG image files from MAPIR Survey3W and Survey3N cameras. Only RAW+JPG are recommended.
+{% tipp style=&quot;info&quot; %}
+**Támogatott fájltípusok**: Az Chloros támogatja az MAPIR Survey3W és Survey3N kamerák RAW+JPG és JPG képfájljait. Csak a RAW+JPG formátumot ajánljuk.
 {% endhint %}
 
 ***
 
-## Adding Images to Your Project
+## Képek hozzáadása a projekthez
 
-There are two primary ways to add images to your project:
+Két fő módszer létezik a képek hozzáadására a projekthez:
 
-### Method 1: Add Files
+### 1. módszer: Fájlok hozzáadása
 
-Use this option to import individual image files or a small selection of files.
+Ezzel az opcióval egyedi képfájlokat vagy egy kis fájlválogatást importálhat.
 
-1. Click the **"Add Files"** button at the top of the File Browser panel
-2. Navigate to the folder containing your images
-3. Select one or more image files (hold **Ctrl** to select multiple files)
-4. Click **"Open"** to import the selected files
+1. Kattintson a **„Fájlok hozzáadása”** gombra a Fájlböngésző panel tetején.
+2. Keresse meg a képeket tartalmazó mappát.
+3. Válasszon ki egy vagy több képfájlt (több fájl kiválasztásához tartsa lenyomva a **Ctrl** billentyűt).
+4. Kattintson az **„Megnyitás”** gombra a kiválasztott fájlok importálásához.
 
-### Method 2: Add Folder
+### 2. módszer: Mappa hozzáadása
 
-Use this option to import all images from a folder at once.
+Ezzel az opcióval egyszerre importálhatja az összes képet egy mappából.
 
-1. Click the **"Add Folder"** button at the top of the File Browser panel
-2. Navigate to and select the folder containing your capture session images
-3. Click **"Select Folder"** to import all supported images from that folder
-
-***
-
-## Understanding the File Browser Table
-
-Once images are imported, they appear in a table with the following columns:
-
-### Thumbnail
-
-* Small preview of each image
-* Click thumbnail to view full image in the main preview area
-
-### File Name
-
-* Original filename from the camera
-* Maintains camera naming convention (e.g., IMG\_0001.RAW)
-
-### Timestamp
-
-* Date and time the image was captured
-* Extracted from image EXIF metadata
-* Used for PPK synchronization and calibration target detection
-
-### Camera Model
-
-* Automatically detected camera and filter configuration
-* Examples: Survey3W\_RGN, Survey3N\_OCN, Survey3W\_RGB
-* Used to apply correct processing profiles
-
-### Target Column (Checkbox)
-
-* Check this box for images that contain calibration targets
-* Greatly speeds up target detection during processing
-* See [Choosing Target Images](choosing-target-images.md) for details
+1. Kattintson a Fájlböngésző panel tetején található **„Mappa hozzáadása”** gombra.
+2. Keresse meg és válassza ki a rögzített képeket tartalmazó mappát.
+3. Kattintson a **„Mappa kiválasztása”** gombra a mappában található összes támogatott kép importálásához.
 
 ***
 
-## Managing Files in Your Project
+## A fájlböngésző táblázat megértése
 
-### Removing Files
+A képek importálása után azok a következő oszlopokkal rendelkező táblázatban jelennek meg:
 
-To remove unwanted images from your project:
+### Miniatűr
 
-1. Select one or more images in the File Browser table
-2. Click the **"Remove Selected"** button
-3. Confirm removal (files are not deleted from disk, only removed from the project)
+* Az egyes képek kicsinyített előnézete.
+* Kattintson a miniatűrre a teljes kép megtekintéséhez a fő előnézeti területen.
 
-### Sorting and Filtering
+### Fájlnév
 
-* **Sort by column**: Click any column header to sort images
-* **Timestamp sort**: Useful for organizing chronological capture sequences
-* **Camera model filter**: Group images by camera type if using multiple cameras
+* A fényképezőgép eredeti fájlneve.
+* Megőrzi a fényképezőgép névadási konvencióját (pl. IMG\_0001.RAW).
 
-***
+### Időbélyeg
 
-## Image Preview
+* A kép rögzítésének dátuma és időpontja.
+* A kép EXIF metaadataiból kivonva.
+* PPK szinkronizáláshoz és kalibrációs célpontok észleléséhez használatos
 
-### Viewing Full Image
+### Kamera modell
 
-Click any image thumbnail in the File Browser to display it in the main preview area:
+* Automatikusan észlelt kamera és szűrő konfiguráció
+* Példák: Survey3W\_RGN, Survey3N\_OCN, Survey3W\_RGB
+* A megfelelő feldolgozási profilok alkalmazásához használatos
 
-1. Image appears in the center preview panel
-2. Use zoom controls to inspect image details
-3. Navigate between images using arrow keys
+### Cél oszlop (jelölőnégyzet)
 
-### Quick Navigation
-
-* **Previous Image**: Click left arrow or press ← key
-* **Next Image**: Click right arrow or press → key
-* **Zoom In/Out**: Use mouse wheel or zoom buttons
-* **Pan**: Click and drag on image when zoomed in
+* Jelölje be ezt a jelölőnégyzetet a kalibrációs célokat tartalmazó képeknél
+* Jelentősen felgyorsítja a célok felismerését a feldolgozás során
+* A részleteket lásd a [Célképek kiválasztása](choosing-target-images.md) című részben.
 
 ***
 
-## Duplicate File Handling
+## Fájlok kezelése a projektben
 
-Chloros automatically detects and ignores duplicate files:
+### Fájlok eltávolítása
 
-* Files with identical filenames are skipped
-* Prevents accidental double-processing
-* Warning message displayed when duplicates are detected
+A nem kívánt képek eltávolítása a projektből:
 
-{% hint style="warning" %}
-**Important**: Do not rename or modify your original image files before importing. Chloros relies on original filenames and metadata for proper processing.
+1. Válasszon ki egy vagy több képet a Fájlböngésző táblázatban
+2. Kattintson a **„Kiválasztottak eltávolítása”** gombra
+3. Erősítse meg az eltávolítást (a fájlok nem kerülnek törlésre a lemezről, csak eltávolításra a projektből)
+
+### Rendezés és szűrés
+
+* **Oszlop szerinti rendezés**: Kattintson bármely oszlopfejlécre a képek rendezéséhez
+* **Időbélyeg szerinti rendezés**: Hasznos a kronológiai felvételi sorozatok rendezéséhez.
+* **Kameramodell szűrő**: Több kamera használata esetén csoportosítsa a képeket kameratípus szerint.
+
+***
+
+## Képek előnézete
+
+### Teljes kép megtekintése
+
+Kattintson bármelyik kép miniatűrjére a Fájlböngészőben, hogy azt a fő előnézeti területen megjelenítsék:
+
+1. A kép megjelenik a középső előnézeti panelen.
+2. A nagyítás vezérlőivel megtekintheti a kép részleteit.
+3. A nyílgombokkal navigálhat a képek között
+
+### Gyors navigáció
+
+* **Előző kép**: Kattintson a bal nyílra vagy nyomja meg a ← gombot
+* **Következő kép**: Kattintson a jobb nyílra vagy nyomja meg a → gombot
+* **Nagyítás/kicsinyítés**: Használja az egérgörgőt vagy a nagyító gombokat
+* **Panoráma**: Nagyításkor kattintson a képre és húzza el
+
+***
+
+## Duplikált fájlok kezelése
+
+Az Chloros automatikusan felismeri és figyelmen kívül hagyja az ismétlődő fájlokat:
+
+* Az azonos fájlnévvel rendelkező fájlokat kihagyja.
+* Megakadályozza a véletlen kettős feldolgozást.
+* Figyelmeztető üzenet jelenik meg, ha ismétlődő fájlokat észlel.
+
+{% hint style=&quot;warning&quot; %}
+**Fontos**: Az importálás előtt ne nevezze át és ne módosítsa az eredeti képfájlokat. Chloros a megfelelő feldolgozáshoz az eredeti fájlnevekre és metaadatokra támaszkodik.
 {% endhint %}
 
 ***
 
-## Mixed Camera Datasets
+## Vegyes kameraadatkészletek
 
-If your project contains images from multiple MAPIR cameras:
+Ha a projekt több MAPIR kamerából származó képeket tartalmaz:
 
-1. Chloros automatically detects each camera model
-2. Each camera type is processed with its appropriate calibration profile
-3. File Browser displays camera model in the Camera Model column
-4. Processing applies correct settings for each camera type
+1. Az Chloros automatikusan felismeri az egyes kameramodelleket.
+2. Az egyes kameratípusokat a megfelelő kalibrációs profillal dolgozza fel.
+3. A Fájlböngésző a Kameramodell oszlopban jeleníti meg a kameramodellt.
+4. A feldolgozás minden kameratípusra a megfelelő beállításokat alkalmazza.
 
-**Example scenario**: Survey3W RGN + Survey3N OCN dual-camera setup
-
-***
-
-## Best Practices
-
-### Organize Before Import
-
-* Keep calibration target images in the same folder as survey images
-* Maintain original folder structure from your camera/SD card
-* Don't mix datasets from different sessions in one project
-
-### File Naming
-
-* Preserve original camera filenames (IMG\_0001.RAW, etc.)
-* Don't rename files before import
-* Original names contain important metadata
-
-### Calibration Target Images
-
-* Always include 1-2 calibration target images per session
-* Capture targets before and after the capture session
-* Place targets in the same lighting conditions as capture area
-* Mark target images using the Target checkbox to speed up processing
+**Példa**: Survey3W RGN + Survey3N OCN kettős kamera beállítás
 
 ***
 
-## Common Issues and Solutions
+## Bevált gyakorlatok
 
-### Images Not Appearing After Import
+### Importálás előtti szervezés
 
-**Possible causes:**
+* A kalibrációs célképeket tartsa ugyanabban a mappában, mint a felmérési képeket.
+* Tartsa meg a kamera/SD-kártya eredeti mappaszerkezetét.
+* Ne keverje össze a különböző munkamenetek adatállományait egy projektben.
 
-* File format not supported (only RAW+JPG and JPG from MAPIR cameras)
-* Images are from non-MAPIR cameras (see [Supported Cameras](../supported-cameras.md))
-* File corruption or incomplete transfer from SD card
+### Fájlnevezés
 
-**Solution**: Verify file format and camera model compatibility
+* Tartsa meg a kamera eredeti fájlneveit (IMG\_0001.RAW stb.).
+* Ne nevezze át a fájlokat importálás előtt.
+* Az eredeti nevek fontos metaadatokat tartalmaznak.
 
-### Camera Model Not Detected
+### Kalibrációs célképek
 
-**Possible causes:**
-
-* Modified EXIF metadata
-* Images edited in external software
-* Incomplete file transfer
-
-**Solution**: Re-import original, unmodified files from camera/SD card
-
-### Missing Timestamps
-
-**Possible causes:**
-
-* Camera clock not set correctly
-* EXIF data stripped by external software
-
-**Solution**: Verify camera time settings were correct during capture
+* Minden munkamenethez mindig csatoljon 1-2 kalibrációs célképet.
+* A célképeket a felvételek előtt és után készítse el.
+* A célképeket ugyanolyan fényviszonyok között helyezze el, mint a felvételi területet.
+* A feldolgozás gyorsítása érdekében jelölje meg a célképeket a Cél jelölőnégyzet segítségével.
 
 ***
 
-## Next Steps
+## Gyakori problémák és megoldások
 
-Once your files are imported:
+### A képek nem jelennek meg az importálás után
 
-1. **Review the file list** - Ensure all images loaded correctly
-2. **Check camera models** - Verify correct camera detection
-3. **Mark target images** - See [Choosing Target Images](choosing-target-images.md)
-4. **Adjust settings** - Configure processing options in [Project Settings](adjusting-project-settings.md)
-5. **Start processing** - See [Starting the Processing](starting-the-processing.md)
+**Lehetséges okok:**
 
-For detailed information about project configuration, see [Adjusting Project Settings](adjusting-project-settings.md).
+* A fájlformátum nem támogatott (csak RAW+JPG és JPG fájlok MAPIR kamerákból)
+* A képek nem MAPIR kamerákból származnak (lásd [Támogatott kamerák](../supported-cameras.md))
+* A fájl sérült vagy az SD-kártyáról nem sikerült teljes mértékben átmásolni
+
+**Megoldás**: Ellenőrizze a fájlformátum és a fényképezőgép modell kompatibilitását.
+
+### A fényképezőgép modellje nem ismerhető fel
+
+**Lehetséges okok:**
+
+* Módosított EXIF metaadatok
+* Külső szoftverrel szerkesztett képek
+* Hiányos fájlátvitel
+
+**Megoldás**: Importálja újra az eredeti, módosítatlan fájlokat a fényképezőgépből/SD-kártyáról.
+
+### Hiányzó időbélyegek
+
+**Lehetséges okok:**
+
+* A kamera órája nincs megfelelően beállítva
+* Az EXIF-adatok külső szoftver által törölve
+
+**Megoldás**: Ellenőrizze, hogy a kamera időbeállításai a felvétel készítése során helyesek voltak-e.
+
+***
+
+## Következő lépések
+
+A fájlok importálása után:
+
+1. **Ellenőrizze a fájllistát** – Győződjön meg arról, hogy minden kép megfelelően töltődött be.
+2. **Ellenőrizze a kamera modelleket** – Ellenőrizze a kamera megfelelő felismerését.
+3. **Jelölje meg a célképeket** – Lásd: [Célképek kiválasztása](choosing-target-images.md)
+4. **Állítsa be a beállításokat** – Konfigurálja a feldolgozási opciókat a [Projektbeállítások](adjusting-project-settings.md) menüpontban
+5. **Indítsa el a feldolgozást** – Lásd: [A feldolgozás elindítása](starting-the-processing.md)
+
+A projekt konfigurációjával kapcsolatos részletes információkat a [Projektbeállítások módosítása](adjusting-project-settings.md) című részben talál.

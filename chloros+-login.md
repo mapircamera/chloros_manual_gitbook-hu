@@ -1,43 +1,39 @@
-# Chloros+ Login
+# Chloros+ Bejelentkezés
 
-## Chloros and Chloros (Browser) Login
+## Chloros és Chloros (böngésző) Bejelentkezés
 
-The user <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line"> sidebar menu allows you to log into your Chloros+ account and unlock additional features.
+A felhasználói <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line"> oldalsáv menü lehetővé teszi, hogy bejelentkezzen az Chloros+ fiókjába, és további funkciókat nyisson meg.
 
-When logged in your account details will be shown:
+Bejelentkezés után a fiók adatait jeleníti meg:
 
-<figure><img src=".gitbook/assets/user_account.JPG" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/user_account.JPG" alt="" width="375"><figcaption></figcaption></figure>## CLI Bejelentkezés
 
-## CLI Login
+Jelentkezzen be Chloros+ hitelesítő adataival, hogy engedélyezze az CLI feldolgozást.
 
-Login with your Chloros+ credentials to enable CLI processing.
-
-**Syntax:**
+**Szintaxis:**
 
 ```bash
 chloros-cli login <email> <password>
 ```
 
-**Example:**
+**Példa:**
 
 ```powershell
 chloros-cli login user@example.com 'MyP@ssw0rd123'
 ```
 
-{% hint style="warning" %}
-**Special Characters**: Use single quotes around passwords containing characters like `$`, `!`, or spaces.
+{% hint style=&quot;warning&quot; %}
+**Különleges karakterek**: Használjon egyszerű idézőjeleket az olyan karaktereket tartalmazó jelszavak körül, mint `$`, `!` vagy szóközök.
 {% endhint %}
 
-**Output:**
+**Kimenet:**
 
-<figure><img src=".gitbook/assets/cli login_w.JPG" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/cli login_w.JPG" alt=""><figcaption></figcaption></figure>### A terv lejárati ideje
 
-### Plan Expiration
+A GUI-ban látható a terv lejárati ideje, amely azt mutatja, hogy mikor válik érvénytelenné a licenc. Havi előfizetések esetén a lejárati idő a hónap végén van. Éves előfizetések esetén a lejárati idő az előfizetés megkezdésétől számított egy év. A licenc ellenőrzéséhez havi internetkapcsolat szükséges, 30 napos türelmi idővel.
 
-The plan expiration in the GUI shows when your license will become invalid. For recurring monthly subscriptions the expiration is at the end of the month. For yearly subscriptions it is a year after you started the subscription. The license check requires a monthly internet connection to verify, with a 30 day grace period.
+### Eszközkorlát
 
-### Device Limit
+Minden Chloros+ terv különböző számú regisztrált eszközt kínál. Minden eszköz, amelyre Chloros+ fiókkal jelentkezik be, beleszámít a regisztrált eszközök számába. Az MAPIR Cloud fiókoldalon átnevezheti és eltávolíthatja az eszközöket.
 
-Each Chloros+ plan offers a different number of registered devices. Each device you log into with a Chloros+ account will count towards your number of registered devices. You can rename and remove a device on your MAPIR Cloud account page.
-
-<table><thead><tr><th width="168.5999755859375" align="right">Chloros+ Plan</th><th align="center">COPPER</th><th align="center">BRONZE</th><th align="center">SILVER</th><th align="center">GOLD</th></tr></thead><tbody><tr><td align="right">Devices Supported</td><td align="center">2</td><td align="center">2</td><td align="center">5</td><td align="center">10</td></tr></tbody></table>
+<table><thead><tr><th width="168.5999755859375" align="right">Chloros+ csomag</th><th align="center">COPPER</th><th align="center">BRONZ</th><th align="center">SILVER</th><th align="center">ARANY</th></tr></thead><tbody><tr><td align="right">Támogatott eszközök</td><td align="center">2</td><td align="center">2</td><td align="center">5</td><td align="center">10</td></tr></tbody></table>

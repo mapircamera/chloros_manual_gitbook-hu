@@ -1,234 +1,234 @@
-# Adjusting Project Settings
+# Projektbeállítások módosítása
 
-Before processing your images, it's important to configure your project settings to match your workflow requirements. The Project Settings <img src="../.gitbook/assets/icon_project-settings.JPG" alt="" data-size="line"> panel provides comprehensive control over calibration, processing options, multispectral indices, and export formats.
+A képek feldolgozása előtt fontos, hogy a projektbeállításokat a munkafolyamat követelményeinek megfelelően konfigurálja. A Projektbeállítások <img src="../.gitbook/assets/icon_project-settings.JPG" alt="" data-size="line"> panel átfogó ellenőrzést biztosít a kalibrálás, a feldolgozási opciók, a multispektrális indexek és az exportformátumok felett.
 
-## Accessing Project Settings
+## A projektbeállítások elérés
 
-1. Open your project in Chloros
-2. Click the **Project Settings** <img src="../.gitbook/assets/icon_project-settings.JPG" alt="" data-size="line"> icon in the left sidebar
-3. The Project Settings panel displays all configuration options
+1. Nyissa meg a projektet az Chloros programban
+2. Kattintson a **Projektbeállítások** <img src="../.gitbook/assets/icon_project-settings.JPG" alt="" data-size="line"> ikonra a bal oldali sávban
+3. A Projektbeállítások panel minden konfigurációs opciót megjeleníti
 
-{% hint style="info" %}
-**Settings are saved automatically** with your project. When you reopen a project, all settings are restored.
+{% hint style=&quot;info&quot; %}
+**A beállítások automatikusan mentésre kerülnek** a projekttel együtt. Amikor újra megnyitja a projektet, az összes beállítás visszaáll.
 {% endhint %}
 
 ***
 
-## Quick Setup for Common Workflows
+## Gyors beállítás a gyakori munkafolyamatokhoz
 
-### Default Settings (Recommended for Most Users)
+### Alapértelmezett beállítások (a legtöbb felhasználó számára ajánlott)
 
-For typical MAPIR Survey3 camera workflows, the default settings work well:
+A tipikus MAPIR Survey3 kamera munkafolyamatokhoz az alapértelmezett beállítások jól működnek:
 
-* ✅ **Vignette correction**: Enabled
-* ✅ **Reflectance calibration**: Enabled (requires images of MAPIR targets)
-* ✅ **Debayer method**: High Quality (Faster)
-* ✅ **Export format**: TIFF (16-bit)
+* ✅ **Vignette korrekció**: Engedélyezve
+* ✅ **Reflektancia kalibrálás**: Engedélyezve (MAPIR célok képei szükségesek)
+* ✅ **Debayer-módszer**: Kiváló minőség (gyorsabb)
+* ✅ **Export formátum**: TIFF (16 bites)
 
-Simply import your images and start processing with these defaults.
-
-***
-
-## Project Settings Overview
-
-The Project Settings panel is organized into several categories. Below is a summary of each section. For complete documentation, see [Project Settings](../project-settings/page-2.md).
-
-### Target Detection
-
-Controls how Chloros identifies calibration targets in your images.
-
-**Key settings:**
-
-* **Minimum calibration sample area**: Size threshold for target detection (default: 25 pixels)
-* **Minimum target clustering**: Similarity threshold for grouping target regions (default: 60)
-
-**When to adjust:**
-
-* Increase sample area if getting false detections
-* Decrease if targets aren't being detected
-* Adjust clustering if targets are being split into multiple detections
-
-### Processing
-
-Main image processing and calibration options.
-
-**Key settings:**
-
-* **Vignette correction**: Compensates for lens darkening at edges ✅ Recommended
-* **Reflectance calibration**: Normalizes values using calibration targets ✅ Recommended
-* **Debayer method**: Algorithm for converting RAW to 3-channels multi-spectral
-* **Minimum recalibration interval**: Time between using calibration targets (0 = use all)
-
-**Advanced settings:**
-
-* **Light sensor timezone offset**: For PPK time synchronization (default: 0)
-* **Apply PPK corrections**: Uses GPS/exposure pin data from .daq files
-* **Exposure Pin 1/2**: Assigns cameras to exposure pins for dual-camera setups
-
-### Index (Multispectral Indices)
-
-Configure which vegetation indices to calculate and export.
-
-**How to add indices:**
-
-1. Click **"Add index"** button
-2. Select an index from the dropdown menu (NDVI, NDRE, GNDVI, etc.)
-3. Configure visualization settings (LUT colors, value ranges)
-4. Add multiple indices as needed
-
-**Popular indices:**
-
-* **NDVI**: General vegetation health (most common)
-* **NDRE**: Early stress detection with RedEdge
-* **GNDVI**: Chlorophyll concentration sensitive
-* **OSAVI**: Works well with visible soil
-* **EVI**: High leaf area index (LAI) regions
-
-**Custom formulas (Chloros+ only):**
-
-* Create custom multispectral index formulas
-* Use band math with all image channels
-* Save custom formulas for reuse
-
-For all available indices and formulas, see [Multispectral Index Formulas](../project-settings/multispectral-index-formulas.md).
-
-### Export
-
-Controls output file format and quality.
-
-**Available formats:**
-
-* **TIFF (16-bit)**: Recommended for GIS and scientific analysis (0-65,535 range)
-* **TIFF (32-bit, Percent)**: Floating-point reflectance values (0.0-1.0 range)
-* **PNG (8-bit)**: Lossless compression for visualization (0-255 range)
-* **JPG (8-bit)**: Smallest files, lossy compression (0-255 range)
+Egyszerűen importálja a képeket, és kezdje el a feldolgozást ezekkel az alapértelmezett beállításokkal.
 
 ***
 
-## Saving and Loading Settings
+## Projektbeállítások áttekintése
 
-### Save Project Template
+A Projektbeállítások panel több kategóriára van felosztva. Az alábbiakban összefoglaljuk az egyes szakaszokat. A teljes dokumentációt lásd a [Projektbeállítások](../project-settings/project-settings.md) alatt.
 
-Create reusable templates for consistent workflows:
+### Célfelismerés
 
-1. Configure all desired settings in the Project Settings panel
-2. Scroll to **"Save Project Template"** section at the bottom
-3. Enter a descriptive template name (e.g., "Survey3N\_RGN\_Agriculture")
-4. Click the save icon
+Ez szabályozza, hogy az Chloros hogyan azonosítja a kalibrációs célokat a képeken.
 
-**Benefits:**
+**Főbb beállítások:**
 
-* Apply identical settings across multiple projects
-* Share configurations with team members
-* Maintain consistency for repeated surveys
+* **Minimális kalibrációs minta terület**: A célfelismerés méretküszöbértéke (alapértelmezett: 25 pixel)
+* **Minimális célcsoportosítás**: A célterületek csoportosításának hasonlósági küszöbértéke (alapértelmezett: 60)
 
-### Load Template on New Project
+**Mikor kell módosítani:**
 
-When creating a new project:
+* Növelje a minta területét, ha téves felismerések történnek.
+* Csökkentse, ha a célok nem kerülnek felismerésre.
+* Módosítsa a csoportosítást, ha a célok több felismerésre oszlanak.
 
-1. Select **"New Project"** from main menu
-2. Choose **"Load from template"** option
-3. Select your saved template
-4. All settings are automatically applied
+### Feldolgozás
 
-### Working Directory
+Fő képfeldolgozási és kalibrálási beállítások.
 
-The **"Save Project Folder"** setting specifies where new projects are created by default:
+**Főbb beállítások:**
 
-* **Default location**: `C:\Users\[Username]\Chloros Projects`
-* **Change location**: Click edit icon and select new folder
-* **When to change**:
-  * Network drive for team collaboration
-  * Different drive with more storage space
-  * Organized folder structure by year/client
+* **Vignette-korrekció**: Kompenzálja a lencse sötétedését a széleken ✅ Ajánlott
+* **Reflektancia-kalibrálás**: Normalizálja az értékeket a kalibrálási célok segítségével ✅ Ajánlott
+* **Debayer-módszer**: Algoritmus a RAW 3-csatornás multispektrális formátumba konvertálásához
+* **Minimális újrakalibrálási intervallum**: A kalibrációs célok használata közötti idő (0 = mindet használja)
+
+**Speciális beállítások:**
+
+* **Fényérzékelő időzóna eltolása**: PPK időszinkronizáláshoz (alapértelmezett: 0)
+* **PPK korrekciók alkalmazása**: A .daq fájlokból származó GPS/expozíciós pin adatokat használja
+* **Expozíciós pin 1/2**: kamerákat rendel az expozíciós pinekhez kettős kamera beállítások esetén
+
+### Index (multispektrális indexek)
+
+Állítsa be, mely növényzetindexeket kívánja kiszámítani és exportálni.
+
+**Indexek hozzáadása:**
+
+1. Kattintson az **„Index hozzáadása”** gombra
+2. Válasszon egy indexet a legördülő menüből (NDVI, NDRE, GNDVI stb.)
+3. Konfigurálja a megjelenítési beállításokat (LUT színek, értéktartományok)
+4. Szükség szerint adjon hozzá több indexet
+
+**Népszerű indexek:**
+
+* **NDVI**: Általános növényállomány-egészség (leggyakoribb)
+* **NDRE**: Korai stresszfelismerés az RedEdge segítségével
+* **GNDVI**: Klorofillkoncentrációra érzékeny
+* **OSAVI**: Jól működik látható talajjal
+* **EVI**: Magas levélterületi indexű (LAI) régiók
+
+**Egyéni képletek (csak Chloros+):**
+
+* Egyedi multispektrális index képletek létrehozása
+* Sávmatematika használata az összes képcsatornával
+* Egyedi képletek mentése újrafelhasználás céljából
+
+Az összes elérhető index és képlet megtalálható a [Multispektrális index képletek](../project-settings/multispectral-index-formulas.md) oldalon.
+
+### Exportálás
+
+A kimeneti fájl formátumának és minőségének vezérlése.
+
+**Elérhető formátumok:**
+
+* **TIFF (16 bites)**: Ajánlott GIS és tudományos elemzésekhez (0–65 535 tartomány)
+* **TIFF (32 bites, százalék)**: Lebegőpontos visszaverődési értékek (0,0–1,0 tartomány)
+* **PNG (8 bites)**: Veszteségmentes tömörítés vizualizáláshoz (0–255 tartomány)
+* **JPG (8 bites)**: Legkisebb fájlok, veszteséges tömörítés (0–255 tartomány)
 
 ***
 
-## PPK (Post-Processed Kinematic) Setup
+## Beállítások mentése és betöltése
 
-If using MAPIR DAQ recorders with GPS for precise geolocation:
+### Projekt sablon mentése
 
-### Prerequisites
+Hozzon létre újrafelhasználható sablonokat az egységes munkafolyamatokhoz:
 
-* MAPIR DAQ with GPS (GNSS) module
-* .daq log file with exposure pin entries
-* Camera connected to DAQ exposure pins during capture session
+1. Konfigurálja az összes kívánt beállítást a Projektbeállítások panelen.
+2. Görgessen le az alján található **„Projekt sablon mentése”** szakaszhoz.
+3. Adjon meg egy leíró sablonnevet (pl. „Survey3N\_RGN\_Agriculture”).
+4. Kattintson a mentés ikonra.
 
-### Configuration Steps
+**Előnyök:**
 
-1. Place the .daq log file in your project folder
-2. In Project Settings, enable **"Apply PPK corrections"** checkbox
-3. Set **"Light sensor timezone offset"** if needed (default: 0 for UTC)
-4. Assign cameras to exposure pins:
-   * **Single camera**: Automatically assigned to Pin 1
-   * **Dual cameras**: Manually assign each camera to correct pin
+* Azonos beállítások alkalmazása több projektben
+* A konfigurációk megosztása a csapat tagjaival
+* Az ismételt felmérések konzisztenciájának fenntartása
 
-**Exposure Pin Assignment:**
+### Sablon betöltése új projektbe
 
-* **Exposure Pin 1**: Select camera model from dropdown
-* **Exposure Pin 2**: Select second camera or "Do Not Use"
-* Same camera cannot be assigned to both pins
+Új projekt létrehozásakor:
 
-{% hint style="warning" %}
-**Important**: Exposure pins must be correctly assigned to their respective cameras. Incorrect assignment will result in wrong geolocation data.
+1. Válassza a főmenüből az **„Új projekt”** lehetőséget.
+2. Válassza a **„Betöltés sablonból”** lehetőséget.
+3. Válassza ki a mentett sablont.
+4. Az összes beállítás automatikusan alkalmazásra kerül.
+
+### Munkakönyvtár
+
+A **„Projektmappa mentése”** beállítás meghatározza, hogy alapértelmezés szerint hol jönnek létre az új projektek:
+
+* **Alapértelmezett hely**: `C:\Users\[Username]\Chloros Projects`
+* **Hely megváltoztatása**: Kattintson a szerkesztés ikonra, és válassza ki az új mappát.
+* **Mikor érdemes megváltoztatni**:
+  * Hálózati meghajtó a csapatmunkához
+  * Másik meghajtó, amely több tárhelyet biztosít
+  * Év/ügyfél szerint rendezett mappaszerkezet
+
+***
+
+## PPK (utólagos kinematikai feldolgozás) beállítás
+
+Ha MAPIR DAQ rögzítőket használ GPS-szel a pontos földrajzi helymeghatározáshoz:
+
+### Előfeltételek
+
+* MAPIR DAQ GPS (GNSS) modullal
+* .daq naplófájl expozíciós pin bejegyzésekkel
+* A felvételkészítés során a kamera csatlakoztatva van a DAQ expozíciós csapjaihoz
+
+### Konfigurációs lépések
+
+1. Helyezze a .daq naplófájlt a projektmappájába.
+2. A Projektbeállításokban jelölje be az **„PPK-korrekciók alkalmazása”** jelölőnégyzetet.
+3. Szükség esetén állítsa be a **„Fényérzékelő időzóna eltolása”** értéket (alapértelmezett: 0 UTC esetén).
+4. Rendelje hozzá a kamerákat az expozíciós csapokhoz:
+   * **Egyetlen kamera**: Automatikusan hozzárendelve az 1. csaphoz
+   * **Két kamera**: Manuálisan rendelje hozzá az egyes kamerákat a megfelelő csapokhoz
+
+**Expozíciós csapok hozzárendelése:**
+
+* **Expozíciós csap 1**: Válassza ki a kamera modellt a legördülő menüből
+* **Expozíciós csap 2**: Válassza ki a második kamerát vagy a „Ne használja” opciót
+* Ugyanaz a kamera nem rendelhető hozzá mindkét csaphoz
+
+{% hint style=&quot;warning&quot; %}
+**Fontos**: Az expozíciós csapokat helyesen kell hozzárendelni a megfelelő kamerákhoz. A helytelen hozzárendelés hibás földrajzi helyadatokhoz vezet.
 {% endhint %}
 
 ***
 
-## Advanced Scenarios
+## Haladó forgatókönyvek
 
-### Multi-Camera Projects
+### Többkamerás projektek
 
-When processing images from multiple MAPIR cameras in one project:
+Ha egy projektben több MAPIR kamera képét dolgozza fel:
 
-1. Chloros automatically detects each camera model
-2. Each camera gets appropriate processing profile
-3. PPK: Manually assign each camera to correct exposure pin
-4. All cameras use same export format and indices
+1. Chloros automatikusan felismeri az egyes kameramodelleket
+2. Minden kamera megkapja a megfelelő feldolgozási profilt
+3. PPK: Manuálisan rendelje hozzá az egyes kamerákat a megfelelő expozíciós csaphoz
+4. Az összes kamera ugyanazt az exportformátumot és indexeket használja
 
-**Example**: Survey3W RGN + Survey3N OCN dual-camera rig
+**Példa**: Survey3W RGN + Survey3N OCN kettős kamerás szerelvény
 
-### Time-Lapse or Multi-Date Surveys
+### Idősoros vagy több dátumú felmérések
 
-For repeated surveys of the same area over time:
+Ugyanazon terület időbeli ismételt felméréseihez:
 
-1. Create a template with your standard settings
-2. Use consistent calibration target setup each session
-3. Process each date as a separate project
-4. Use identical settings for comparable results
-5. Export in same format for temporal analysis
+1. Hozzon létre egy sablont a standard beállításaival.
+2. Minden munkamenetben használjon konzisztens kalibrációs célbeállítást.
+3. Minden dátumot külön projektként dolgozzon fel.
+4. Az összehasonlítható eredmények érdekében használjon azonos beállításokat.
+5. Az időbeli elemzéshez ugyanabban a formátumban exportáljon.
 
-### Large Datasets
+### Nagy adatállományok
 
-For projects with many images (500+):
+Sok képet (500+) tartalmazó projektek esetén:
 
-* Consider breaking into smaller projects by date or area
-* Use Chloros+ parallel processing for faster results
-* Consider CLI or API for batch automation
-* Adjust minimum recalibration interval to reduce target detection time
-
-***
-
-## Verifying Your Settings
-
-Before starting to process, review these key settings:
-
-* [ ] Camera model correctly detected in File Browser
-* [ ] Vignette correction enabled
-* [ ] Reflectance calibration enabled
-* [ ] At least one calibration target image imported
-* [ ] Desired multispectral indices added
-* [ ] Export format appropriate for your workflow
-* [ ] PPK settings configured (if using .daq with expposure events)
+* Fontolja meg a projektek kisebb projektekre bontását dátum vagy terület szerint.
+* Használja az Chloros+ párhuzamos feldolgozást a gyorsabb eredmények érdekében.
+* Fontolja meg az CLI vagy az API használatát a kötegelt automatizáláshoz.
+* Állítsa be a minimális újrakalibrálási intervallumot a célpontok észlelési idejének csökkentése érdekében.
 
 ***
 
-## Next Steps
+## A beállítások ellenőrzése
 
-Once your settings are configured:
+A feldolgozás megkezdése előtt ellenőrizze a következő fontos beállításokat:
 
-1. **Mark calibration target images** - See [Choosing Target Images](choosing-target-images.md)
-2. **Start processing** - See [Starting the Processing](starting-the-processing.md)
-3. **Monitor progress** - See [Monitoring the Processing](monitoring-the-processing.md)
+* [ ] A kamera modellje helyesen lett felismerve a Fájlkezelőben
+* [ ] A vignettázás korrekció engedélyezve
+* [ ] A visszaverődés kalibrálása engedélyezve
+* [ ] Legalább egy kalibrációs célkép importálva
+* [ ] A kívánt multispektrális indexek hozzáadva
+* [ ] A munkafolyamatához megfelelő exportformátum
+* [ ] PPK beállítások konfigurálva (ha .daq fájlt használ expozíciós eseményekkel)
 
-For complete details on all available settings, see the [Project Settings](../project-settings/page-2.md) reference documentation.
+***
+
+## Következő lépések
+
+A beállítások konfigurálása után:
+
+1. **Jelölje meg a kalibrációs célképeket** – Lásd: [Célképek kiválasztása](choosing-target-images.md)
+2. **Indítsa el a feldolgozást** – Lásd: [A feldolgozás elindítása](starting-the-processing.md)
+3. **Figyelje a folyamatot** – Lásd: [A feldolgozás figyelése](monitoring-the-processing.md)
+
+Az összes rendelkezésre álló beállítás részletes leírását lásd a [Projektbeállítások](../project-settings/project-settings.md) referencia dokumentációban.

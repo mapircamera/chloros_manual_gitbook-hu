@@ -1,255 +1,255 @@
-# Project Settings
+# Projektbeállítások
 
-The Project Settings <img src="../.gitbook/assets/icon_project-settings.JPG" alt="" data-size="line"> sidebar in Chloros allows you to configure all aspects of image processing, calibration target detection, multispectral index calculations, and export options for your project. These settings are saved with your project and can be saved as templates for reuse across multiple projects.
+A Projektbeállítások <img src="../.gitbook/assets/icon_project-settings.JPG" alt="" data-size="line"> oldalsáv lehetővé teszi a képfeldolgozás, a kalibrációs célpontok felismerése, a multispektrális indexek számítása és az exportálási beállítások minden aspektusának konfigurálását a projektben. Ezek a beállítások a projekttel együtt kerülnek mentésre, és sablonként is elmenthetők, hogy több projektben is újra felhasználhatók legyenek.
 
-## Accessing Project Settings
+## A projektbeállítások eléréséhez
 
-To access Project Settings:
+A projektbeállítások eléréséhez:
 
-1. Open a project in Chloros
-2. Click the **Project Settings**  <img src="../.gitbook/assets/icon_project-settings.JPG" alt="" data-size="line"> tab in the left sidebar
-3. The settings panel will display all available configuration options organized by category
-
-***
-
-## Target Detection
-
-These settings control how Chloros detects and processes calibration targets in your images.
-
-### Minimum calibration sample area (px)
-
-* **Type**: Number
-* **Range**: 0 to 10,000 pixels
-* **Default**: 25 pixels
-* **Description**: Sets the minimum area (in pixels) required for a detected region to be considered a valid calibration target sample. Smaller values will detect smaller targets but may increase false positives. Larger values require bigger, clearer target regions for detection.
-* **When to adjust**:
-  * Increase if you're getting false detections on small image artifacts
-  * Decrease if your calibration targets appear small in your images and are not being detected
-
-### Minimum Target Clustering (0-100)
-
-* **Type**: Number
-* **Range**: 0 to 100
-* **Default**: 60
-* **Description**: Controls the clustering threshold for grouping similar colored regions when detecting calibration targets. Higher values require more similar colors to be grouped together, resulting in more conservative target detection. Lower values allow more color variation within a target group.
-* **When to adjust**:
-  * Increase if calibration targets are being split into multiple detections
-  * Decrease if calibration targets with color variation are not being fully detected
+1. Nyisson meg egy projektet az Chloros programban
+2. Kattintson a **Projektbeállítások**  <img src="../.gitbook/assets/icon_project-settings.JPG" alt="" data-size="line"> fülre a bal oldali sávban.
+3. A beállítások panelen minden elérhető konfigurációs opció kategóriák szerint rendezve megjelenik.
 
 ***
 
-## Processing
+## Célpontok észlelése
 
-These settings control how Chloros processes and calibrates your images.
+Ezek a beállítások szabályozzák, hogy az Chloros hogyan észleli és dolgozza fel a képeken található kalibrációs célpontokat.
 
-### Vignette correction
+### Minimális kalibrációs minta terület (px)
 
-* **Type**: Checkbox
-* **Default**: Enabled (checked)
-* **Description**: Applies vignette correction to compensate for lens darkening at the edges of images. Vignetting is a common optical phenomenon where the corners and edges of an image appear darker than the center due to lens characteristics.
-* **When to disable**: Only disable if your camera/lens combination has already applied vignette correction, or if you want to manually correct vignetting in post-processing.
+* **Típus**: Szám
+* **Tartomány**: 0–10 000 pixel
+* **Alapértelmezett**: 25 pixel
+* **Leírás**: Beállítja a minimális területet (pixelben), amely szükséges ahhoz, hogy egy észlelt régió érvényes kalibrációs célminta-mintának minősüljön. A kisebb értékek kisebb célokat észlelnek, de növelhetik a téves pozitív eredmények számát. A nagyobb értékek nagyobb, tisztább célrégiókat igényelnek az észleléshez.
+* **Mikor kell módosítani**:
+  * Növelje, ha hamis észleléseket kap kis képalkotó eszközökön.
+  * Csökkentse, ha a kalibrációs célpontok kicsinek tűnnek a képeken, és nem kerülnek észlelésre.
 
-### Reflectance calibration / white balance
+### Minimális célpont-csoportosítás (0-100)
 
-* **Type**: Checkbox
-* **Default**: Enabled (checked)
-* **Description**: Enables automatic reflectance calibration using detected calibration targets in your images. This normalizes the reflectance values across your dataset and ensures consistent measurements regardless of lighting conditions.
-* **When to disable**: Disable only if you want to process raw, uncalibrated images or if you're using a different calibration workflow.
+* **Típus**: Szám
+* **Tartomány**: 0–100
+* **Alapértelmezett**: 60
+* **Leírás**: A kalibrációs célok észlelésekor a hasonló színű régiók csoportosításának küszöbértékét szabályozza. Magasabb értékek esetén több hasonló színű régiót kell csoportosítani, ami konzervatívabb célészlelést eredményez. Alacsonyabb értékek esetén több színváltozatot engedélyez a célcsoporton belül.
+* **Mikor kell beállítani**:
+  * Növelje, ha a kalibrációs célpontok több észlelésre oszlanak.
+  * Csökkentse, ha a színváltozással rendelkező kalibrációs célpontok nem kerülnek teljes mértékben észlelésre.
 
-### Debayer method
+***
 
-* **Type**: Dropdown selection
-* **Options**:
-  * High Quality (Faster) - Currently the only option available
-* **Default**: High Quality (Faster)
-* **Description**: Selects the demosaicing algorithm used to convert raw Bayer pattern sensor data into full-color images. The "High Quality (Faster)" method provides an optimal balance between processing speed and image quality.
-* **Note**: Additional debayer methods may be added in future versions of Chloros.
+## Feldolgozás
 
-### Minimum recalibration interval
+Ezek a beállítások szabályozzák, hogy az Chloros hogyan dolgozza fel és kalibrálja a képeket.
 
-* **Type**: Number
-* **Range**: 0 to 3,600 seconds
-* **Default**: 0 seconds
-* **Description**: Sets the minimum time interval (in seconds) between using calibration targets. When set to 0, Chloros will use every detected calibration target. When set to a higher value, Chloros will only use calibration targets that are separated by at least this many seconds, reducing processing time for datasets with frequent calibration target captures.
-* **When to adjust**:
-  * Set to 0 for maximum calibration accuracy when lighting conditions vary
-  * Increase (e.g., to 60-300 seconds) for faster processing when lighting is consistent and you have frequent calibration target images
+### Vignettázás korrekció
 
-### Light sensor timezone offset
+* **Típus**: Jelölőnégyzet
+* **Alapértelmezett**: Engedélyezve (bejelölve)
+* **Leírás**: Vignettázás-korrekciót alkalmaz a képek széleinél fellépő lencse elsötétülés kompenzálására. A vignettázás egy gyakori optikai jelenség, amelynek során a kép sarkai és szélei a lencse jellemzői miatt sötétebbnek tűnnek, mint a közepe.
+* **Mikor kell kikapcsolni**: Csak akkor kapcsolja ki, ha a fényképezőgép/lencse kombinációja már alkalmazott vignettázás-korrekciót, vagy ha a vignettázást utólagosan, manuálisan szeretné korrigálni.
 
-* **Type**: Number
-* **Range**: -12 to +12 hours
-* **Default**: 0 hours
-* **Description**: Specifies the timezone offset (in hours from UTC) for light sensor data timestamps. This is used when processing PPK (Post-Processed Kinematic) data files to ensure correct time synchronization between image captures and GPS data.
-* **When to adjust**: Set this to your local timezone offset if your PPK data uses local time instead of UTC. For example:
-  * Pacific Time: -8 or -7 (depending on DST)
-  * Eastern Time: -5 or -4 (depending on DST)
-  * Central European Time: +1 or +2 (depending on DST)
+### Reflektancia kalibrálás / fehéregyensúly
 
-### Apply PPK corrections
+* **Típus**: Jelölőnégyzet
+* **Alapértelmezett**: Engedélyezve (bejelölve)
+* **Leírás**: Engedélyezi az automatikus reflektancia kalibrálást a képeken észlelt kalibrálási célpontok felhasználásával. Ez normalizálja a reflektancia értékeket az adatkészletben, és biztosítja a konzisztens méréseket a fényviszonyoktól függetlenül.
+* **Mikor kell letiltani**: Csak akkor tiltsa le, ha nyers, nem kalibrált képeket szeretne feldolgozni, vagy ha más kalibrációs munkafolyamatot használ.
 
-* **Type**: Checkbox
-* **Default**: Disabled (unchecked)
-* **Description**: Enables the use of Post-Processed Kinematic (PPK) corrections from MAPIR DAQ recorders containing a GPS (GNSS). When enabled, Chloros will use any .daq log files containing exposure pin data in your project directory and apply precise geolocation corrections to your images.
-* **Requirement**: .daq log file with exposure pin entries must be present in your project directory
-* **When to enable**: It is recommended to always enable PPK correction if you have exposure feedback entries in your .daq log file.
+### Debayer-módszer
 
-### Exposure Pin 1
+* **Típus**: Legördülő menü
+* **Opciók**:
+  * Kiváló minőség (gyorsabb) – Jelenleg ez az egyetlen elérhető opció
+* **Alapértelmezett**: Kiváló minőség (gyorsabb)
+* **Leírás**: Kiválasztja a nyers Bayer-mintázatú érzékelőadatok teljes színes képekké történő konvertálásához használt demosaicing algoritmust. A „Magas minőség (gyorsabb)” módszer optimális egyensúlyt biztosít a feldolgozási sebesség és a képminőség között.
+* **Megjegyzés**: A Chloros jövőbeli verzióiban további debayer módszerek is hozzáadódhatnak.
 
-* **Type**: Dropdown selection
-* **Visibility**: Only visible when "Apply PPK corrections" is enabled AND exposure data is available for Pin 1
-* **Options**:
-  * Camera model names detected in the project
-  * "Do Not Use" - Ignore this exposure pin
-* **Default**: Auto-selected based on project configuration
-* **Description**: Assigns a specific camera to Exposure Pin 1 for PPK time synchronization. The exposure pin records the exact timing when the camera shutter is triggered, which is critical for accurate PPK geolocation.
-* **Auto-selection behavior**:
-  * Single camera + single pin: Automatically selects the camera
-  * Single camera + two pins: Pin 1 automatically assigned to the camera
-  * Multiple cameras: Manual selection required
+### Minimális újrakalibrálási intervallum
 
-### Exposure Pin 2
+* **Típus**: Szám
+* **Tartomány**: 0–3600 másodperc
+* **Alapértelmezett**: 0 másodperc
+* **Leírás**: Beállítja a kalibrációs célok használata közötti minimális időintervallumot (másodpercben). Ha 0-ra van állítva, az Chloros minden észlelt kalibrációs célt felhasznál. Ha magasabb értékre állítja, az Chloros csak azokat a kalibrációs célokat fogja használni, amelyek között legalább ennyi másodperc telt el, csökkentve ezzel a gyakori kalibrációs célok rögzítésével járó adatfeldolgozási időt.
+* **Mikor kell beállítani**:
+  * Állítsa 0-ra a maximális kalibrációs pontosság érdekében, ha a fényviszonyok változnak.
+  * Növelje (pl. 60-300 másodpercre) a gyorsabb feldolgozás érdekében, ha a fényviszonyok állandóak és gyakori kalibrációs célképek állnak rendelkezésre.
 
-* **Type**: Dropdown selection
-* **Visibility**: Only visible when "Apply PPK corrections" is enabled AND exposure data is available for Pin 2
-* **Options**:
-  * Camera model names detected in the project
-  * "Do Not Use" - Ignore this exposure pin
-* **Default**: Auto-selected based on project configuration
-* **Description**: Assigns a specific camera to Exposure Pin 2 for PPK time synchronization when using a dual-camera setup.
-* **Auto-selection behavior**:
-  * Single camera + single pin: Pin 2 automatically set to "Do Not Use"
-  * Single camera + two pins: Pin 2 automatically set to "Do Not Use"
-  * Multiple cameras: Manual selection required
-* **Note**: The same camera cannot be assigned to both Pin 1 and Pin 2 simultaneously.
+### Fényérzékelő időzóna eltolása
+
+* **Típus**: Szám
+* **Tartomány**: -12 és +12 óra között
+* **Alapértelmezett**: 0 óra
+* **Leírás**: Meghatározza az időzóna eltolását (órákban az UTC-től) a fényérzékelő adatainak időbélyegeihez. Ezt a PPK (utólag feldolgozott kinematikai) adatfájlok feldolgozásakor használják, hogy biztosítsák a képek rögzítése és a GPS-adatok közötti helyes időszinkronizálást.
+* **Mikor kell beállítani**: Állítsa be a helyi időzóna eltolását, ha a PPK-adatok UTC helyett helyi időt használnak. Például:
+  * Csendes-óceáni idő: -8 vagy -7 (a nyári időszámítástól függően)
+  * Keleti idő: -5 vagy -4 (a nyári időszámítástól függően)
+  * Közép-európai idő: +1 vagy +2 (a nyári időszámítástól függően)
+
+### PPK-korrekciók alkalmazása
+
+* **Típus**: Jelölőnégyzet
+* **Alapértelmezett**: Letiltva (nem jelölve)
+* **Leírás**: Engedélyezi a GPS-t (GNSS) tartalmazó MAPIR DAQ felvevők utólagos kinematikus (PPK) korrekcióinak használatát. Ha engedélyezve van, az Chloros a projektkönyvtárában található, expozíciós pin adatokat tartalmazó .daq naplófájlokat használja, és pontos földrajzi helymeghatározási korrekciókat alkalmaz a képeire.
+* **Követelmény**: A projektkönyvtárban jelen kell lennie egy .daq naplófájlnak, amely tartalmaz expozíciós pin bejegyzéseket.
+* **Mikor engedélyezhető**: Javasoljuk, hogy mindig engedélyezze a PPK korrekciót, ha a .daq naplófájl tartalmaz expozíciós visszajelzési bejegyzéseket.
+
+### 1. expozíciós pin
+
+* **Típus**: Legördülő menü
+* **Láthatóság**: Csak akkor látható, ha a „PPK-korrekciók alkalmazása” engedélyezve van, ÉS a 1. pinhez expozíciós adatok állnak rendelkezésre.
+* **Opciók**:
+  * A projektben észlelt kameramodellek nevei
+  * „Ne használd” – Ez az expozíciós pin figyelmen kívül hagyható
+* **Alapértelmezett**: A projekt konfigurációja alapján automatikusan kiválasztva
+* **Leírás**: Egy adott kamerát rendel az 1. expozíciós csaphoz a PPK időszinkronizáláshoz. Az expozíciós csap rögzíti a kamera zárjának pontos időzítését, ami elengedhetetlen a pontos PPK földrajzi helymeghatározáshoz.
+* **Automatikus kiválasztás**:
+  * Egy kamera + egy csap: A kamera automatikus kiválasztása
+  * Egy kamera + két csap: Az 1. csap automatikusan a kamerához van rendelve
+  * Több kamera: Kézi kiválasztás szükséges
+
+### 2. expozíciós pin
+
+* **Típus**: Legördülő menüből választható
+* **Láthatóság**: Csak akkor látható, ha a „PPK-korrekciók alkalmazása” be van kapcsolva, ÉS a 2. pinhez expozíciós adatok állnak rendelkezésre
+* **Opciók**:
+  * A projektben észlelt kameramodellek nevei
+  * „Ne használd” – Figyelmen kívül hagyja ezt az expozíciós csapot
+* **Alapértelmezett**: A projekt konfigurációja alapján automatikusan kiválasztva
+* **Leírás**: Kettős kamera beállítás használata esetén egy adott kamerát rendel az expozíciós 2. csaphoz a PPK időszinkronizáláshoz.
+* **Automatikus kiválasztás**:
+  * Egy kamera + egy csap: A 2. csap automatikusan „Ne használd” beállításra kerül
+  * Egy kamera + két pin: A 2. pin automatikusan „Ne használd” értékre áll
+  * Több kamera: Kézi kiválasztás szükséges
+* **Megjegyzés**: Ugyanaz a kamera nem rendelhető egyszerre a 1. és a 2. pinhez.
 
 ***
 
 ## Index
 
-These settings allow you to configure multispectral indices for analysis and visualization.
+Ezekkel a beállításokkal konfigurálhatod a multispektrális indexeket az elemzéshez és a megjelenítéshez.
 
-### Add index
+### Index hozzáadása
 
-* **Type**: Special index configuration panel
-* **Description**: Opens an interactive panel where you can select and configure multispectral vegetation indices (NDVI, NDRE, EVI, etc.) to calculate during image processing. You can add multiple indices, each with its own visualization settings.
-* **Available indices**: The system includes 30+ pre-defined multispectral indices including:
-  * NDVI (Normalized Difference Vegetation Index)
-  * NDRE (Normalized Difference RedEdge)
-  * EVI (Enhanced Vegetation Index)
+* **Típus**: Speciális index konfigurációs panel
+* **Leírás**: Megnyit egy interaktív panelt, ahol kiválaszthatja és konfigurálhatja a multispektrális vegetációs indexeket (NDVI, NDRE, EVI stb.), amelyeket a képfeldolgozás során számításba vesz. Több indexet is hozzáadhat, mindegyikhez saját megjelenítési beállításokkal.
+* **Elérhető indexek**: A rendszer több mint 30 előre definiált multispektrális indexet tartalmaz, többek között:
+  * NDVI (normalizált növényzetindex)
+  * NDRE (Normalizált különbség RedEdge)
+  * EVI (Továbbfejlesztett vegetációs index)
   * GNDVI, SAVI, OSAVI, MSAVI2
-  * And many more (see [Multispectral Index Formulas](multispectral-index-formulas.md) for complete list)
-* **Features**:
-  * Select from pre-defined index formulas
-  * Configure visualization color gradients (LUT - Look-Up Tables)
-  * Set threshold values for analysis
-  * Create custom index formulas
+  * És még sok más (a teljes listaért lásd [Multispektrális index képletek](multispectral-index-formulas.md))
+* **Funkciók**:
+  * Válasszon az előre definiált indexképletek közül
+  * Konfigurálja a vizualizációs színátmenetek (LUT - Look-Up Tables)
+  * Állítsa be az elemzés küszöbértékeit
+  * Hozzon létre egyéni indexképleteket
 
-### Custom Formulas (Chloros+ Feature)
+### Egyéni képletek (Chloros+ funkció)
 
-* **Type**: Array of custom formula definitions
-* **Description**: Allows you to create and save custom multispectral index formulas using band math. Custom formulas are saved with your project settings and can be used just like built-in indices.
-* **How to create**:
-  1. In the Index configuration panel, look for the custom formula option
-  2. Define your formula using band identifiers (e.g., NIR, Red, Green, Blue)
-  3. Save the formula with a descriptive name
-* **Formula syntax**: Standard mathematical operations are supported, including:
-  * Arithmetic: `+`, `-`, `*`, `/`
-  * Parentheses for order of operations
-  * Band references: NIR, Red, Green, Blue, RedEdge, Cyan, Orange, NIR1, NIR2
-
-***
-
-## Export
-
-These settings control the format and quality of exported processed images.
-
-### Calibrated image format
-
-* **Type**: Dropdown selection
-* **Options**:
-  * **TIFF (16-bit)** - Uncompressed 16-bit TIFF format
-  * **TIFF (32-bit, Percent)** - 32-bit floating-point TIFF with reflectance values as percentages
-  * **PNG (8-bit)** - Compressed 8-bit PNG format
-  * **JPG (8-bit)** - Compressed 8-bit JPEG format
-* **Default**: TIFF (16-bit)
-* **Description**: Selects the file format for saving processed and calibrated images.
-* **Format recommendations**:
-  * **TIFF (16-bit)**: Recommended for scientific analysis and professional workflows. Preserves maximum data quality with no compression artifacts. Best for multispectral analysis and further processing in GIS software.
-  * **TIFF (32-bit, Percent)**: Best for workflows that require reflectance values as percentages (0-100%). Offers maximum precision for radiometric measurements.
-  * **PNG (8-bit)**: Good for web viewing and general visualization. Smaller file sizes with lossless compression, but reduced dynamic range.
-  * **JPG (8-bit)**: Smallest file sizes, best for previews and web display only. Uses lossy compression which is not suitable for scientific analysis.
+* **Típus**: Egyéni képletdefiníciók tömbje
+* **Leírás**: Lehetővé teszi egyéni multispektrális indexképletek létrehozását és mentését sávmatematika segítségével. Az egyéni képletek a projektbeállításokkal együtt mentésre kerülnek, és ugyanúgy használhatók, mint a beépített indexek.
+* **Létrehozás**:
+  1. Az Index konfigurációs panelen keresse meg az egyéni képlet opciót.
+  2. Határozza meg a képletet sávazonosítók segítségével (pl. NIR, Red, Green, Blue).
+  3. Mentse el a képletet egy leíró névvel.
+* **Képlet szintaxisa**: A szabványos matematikai műveletek támogatottak, beleértve:
+  * Aritmetika: `+`, `-`, `*`, `/`
+  * Zárójelek a műveletek sorrendjéhez
+  * Sávhivatkozások: NIR, Red, Green, Blue, RedEdge, Cyan, Orange, NIR1, NIR2
 
 ***
 
-## Save Project Template
+## Exportálás
 
-This feature allows you to save your current project settings as a reusable template.
+Ezek a beállítások szabályozzák az exportált feldolgozott képek formátumát és minőségét.
 
-* **Type**: Text input + Save button
-* **Description**: Enter a descriptive name for your settings template and click the save icon. The template will store all your current project settings (target detection, processing options, indices, and export format) for easy reuse in future projects.
-* **Use cases**:
-  * Create templates for different camera systems (RGB, multispectral, NIR)
-  * Save standard configurations for specific crop types or analysis workflows
-  * Share consistent settings across a team
-* **How to use**:
-  1. Configure all your desired project settings
-  2. Enter a template name (e.g., "RedEdge Survey3 NDVI Standard")
-  3. Click the save icon
-  4. The template can now be loaded when creating new projects
+### Kalibrált képformátum
 
-***
-
-## Save Project Folder
-
-This setting specifies where new projects are saved by default.
-
-* **Type**: Directory path display + Edit button
-* **Default**: `C:\Users\[Username]\Chloros Projects`
-* **Description**: Shows the current default directory where new Chloros projects are created. Click the edit icon to select a different directory.
-* **When to change**:
-  * Set to a network drive for team collaboration
-  * Change to a drive with more storage space for large datasets
-  * Organize projects by year, client, or project type in different folders
-* **Note**: Changing this setting only affects NEW projects. Existing projects remain in their original locations.
+* **Típus**: Legördülő menü
+* **Opciók**:
+  * **TIFF (16 bites)** - Tömörítetlen 16 bites TIFF formátum
+  * **TIFF (32 bites, százalék)** - 32 bites lebegőpontos TIFF, amelyben a visszaverődési értékek százalékban vannak megadva
+  * **PNG (8 bites)** - Tömörített 8 bites PNG formátum
+  * **JPG (8 bites)** - Tömörített 8 bites JPEG formátum
+* **Alapértelmezett**: TIFF (16 bites)
+* **Leírás**: Kiválasztja a feldolgozott és kalibrált képek mentéséhez használt fájlformátumot.
+* **Formátumajánlások**:
+  * **TIFF (16 bites)**: Tudományos elemzésekhez és professzionális munkafolyamatokhoz ajánlott. Megőrzi a maximális adatminőséget, tömörítési artefaktumok nélkül. Legalkalmasabb multispektrális elemzéshez és további feldolgozáshoz GIS szoftverben.
+  * **TIFF (32 bites, százalék)**: Legalkalmasabb olyan munkafolyamatokhoz, amelyek százalékos (0–100%) visszaverődési értékeket igényelnek. Maximális pontosságot biztosít radiometrikus mérésekhez.
+  * **PNG (8 bites)**: Webes megtekintéshez és általános vizualizációhoz alkalmas. Kisebb fájlméret veszteségmentes tömörítéssel, de csökkentett dinamikatartománnyal.
+  * **JPG (8 bites)**: A legkisebb fájlméret, csak előnézetekhez és webes megjelenítéshez alkalmas. Veszteséges tömörítést használ, amely nem alkalmas tudományos elemzésekhez.
 
 ***
 
-## Settings Persistence
+## Projekt sablon mentése
 
-All project settings are automatically saved with your project file (`.mapir` project format). When you reopen a project, all settings are restored exactly as you left them.
+Ez a funkció lehetővé teszi a jelenlegi projektbeállítások újrafelhasználható sablonként való mentését.
 
-### Settings Hierarchy
-
-Settings are applied in the following order:
-
-1. **System defaults** - Built-in defaults defined by Chloros
-2. **Template settings** - If you load a template when creating a project
-3. **Saved project settings** - Settings saved with the project file
-4. **Manual adjustments** - Any changes you make during the current session
-
-### Settings and Image Processing
-
-Most settings changes (especially in Processing and Export categories) will trigger reprocessing of images to reflect the new settings. However, some settings are "export-only" and don't require immediate reprocessing:
-
-* Save Project Template
-* Working Directory
-* Calibrated image format (applies when exporting)
+* **Típus**: Szövegbeviteli mező + Mentés gomb
+* **Leírás**: Adjon meg egy leíró nevet a beállítási sablonhoz, majd kattintson a mentés ikonra. A sablon az összes jelenlegi projektbeállítást (célfelismerés, feldolgozási opciók, indexek és exportformátum) tárolja, hogy azokat a jövőbeni projektekben könnyen újra felhasználhassa.
+* **Használati esetek**:
+  * Sablonok létrehozása különböző kamerarendszerekhez (RGB, multispektrális, NIR)
+  * Standard konfigurációk mentése meghatározott növénytípusokhoz vagy elemzési munkafolyamatokhoz
+  * Egységes beállítások megosztása a csapat tagjai között
+* **Használata**:
+  1. Konfigurálja az összes kívánt projektbeállítást
+  2. Adjon meg egy sablonnevet (pl. „RedEdge Survey3 NDVI Standard”)
+  3. Kattintson a mentés ikonra
+  4. A sablon mostantól betölthető új projektek létrehozásakor
 
 ***
 
-## Best Practices
+## Projektmappa mentése
 
-1. **Start with defaults**: The default settings work well for most MAPIR camera systems and typical workflows.
-2. **Create templates**: Once you've optimized settings for a specific workflow or camera, save them as a template to ensure consistency across projects.
-3. **Test before full processing**: When experimenting with new settings, test on a small subset of images before processing your entire dataset.
-4. **Document your settings**: Use descriptive template names that indicate the camera system, processing type, and intended use (e.g., "Survey3\_RGB\_NDVI\_Agriculture").
-5. **Export format selection**: Choose your export format based on your end use:
-   * Scientific analysis → TIFF (16-bit or 32-bit)
-   * GIS processing → TIFF (16-bit)
-   * Quick visualization → PNG (8-bit)
-   * Web sharing → JPG (8-bit)
+Ez a beállítás határozza meg, hogy az új projektek alapértelmezés szerint hová kerülnek mentésre.
+
+* **Típus**: Könyvtár elérési útjának megjelenítése + Szerkesztés gomb
+* **Alapértelmezett**: `C:\Users\[Username]\Chloros Projects`
+* **Leírás**: Megjeleníti az aktuális alapértelmezett könyvtárat, ahová az új Chloros projektek kerülnek létrehozásra. Kattintson a szerkesztés ikonra, ha másik könyvtárat szeretne kiválasztani.
+* **Mikor kell módosítani**:
+  * Csapatmunkához állítsa be hálózati meghajtóra.
+  * Nagy adatállományok esetén váltson nagyobb tárhelyű meghajtóra.
+  * Rendezze a projekteket év, ügyfél vagy projekt típus szerint különböző mappákba.
+* **Megjegyzés**: A beállítás módosítása csak az ÚJ projekteket érinti. A meglévő projektek az eredeti helyükön maradnak.
 
 ***
 
-For more information on multispectral indices in Chloros, see [Multispectral Index Formulas](multispectral-index-formulas.md) page.
+## Beállítások megőrzése
+
+Az összes projektbeállítás automatikusan elmentésre kerül a projektfájllal együtt (`.mapir` projektformátum). Amikor újra megnyit egy projektet, az összes beállítás pontosan úgy áll vissza, ahogyan elmentette.
+
+### Beállítások hierarchiája
+
+A beállítások a következő sorrendben kerülnek alkalmazásra:
+
+1. **Rendszer alapértelmezések** - Az Chloros által meghatározott beépített alapértelmezések
+2. **Sablonbeállítások** - Ha sablont tölt be a projekt létrehozásakor
+3. **Mentett projektbeállítások** - A projektfájllal együtt mentett beállítások
+4. **Kézi beállítások** – A jelenlegi munkamenet során végzett bármilyen módosítás
+
+### Beállítások és képfeldolgozás
+
+A legtöbb beállításmódosítás (különösen a Feldolgozás és Exportálás kategóriákban) a képek újrafeldolgozását indítja el, hogy az új beállítások megjelenjenek. Néhány beállítás azonban „csak exportáláskor” érvényes, és nem igényel azonnali újrafeldolgozást:
+
+* Projekt sablon mentése
+* Munkakönyvtár
+* Kalibrált képformátum (exportáláskor érvényes)
+
+***
+
+## Bevált gyakorlatok
+
+1. **Kezdje az alapértelmezett beállításokkal**: Az alapértelmezett beállítások a legtöbb MAPIR kamerarendszer és tipikus munkafolyamat esetében jól működnek.
+2. **Sablonok létrehozása**: Miután optimalizálta a beállításokat egy adott munkafolyamat vagy kamera számára, mentse őket sablonként, hogy biztosítsa a projektek közötti konzisztenciát.
+3. **Tesztelje a teljes feldolgozás előtt**: Ha új beállításokkal kísérletezik, tesztelje azokat egy kis képkészleten, mielőtt az egész adatkészletet feldolgozná.
+4. **Dokumentálja a beállításait**: Használjon leíró sablonneveket, amelyek jelzik a kamerarendszert, a feldolgozás típusát és a tervezett felhasználást (pl. „Survey3\_RGB\_NDVI\_Agriculture”).
+5. **Exportformátum kiválasztása**: Válassza ki az exportformátumot a végső felhasználás alapján:
+   * Tudományos elemzés → TIFF (16 bites vagy 32 bites)
+   * GIS-feldolgozás → TIFF (16 bites)
+   * Gyors megjelenítés → PNG (8 bites)
+   * Webes megosztás → JPG (8 bites)
+
+***
+
+Az Chloros multispektrális indexeiről további információkat az [Multispektrális indexek képletei](multispectral-index-formulas.md) oldalon talál.

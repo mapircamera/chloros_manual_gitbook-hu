@@ -4,169 +4,165 @@ metaLinks:
     - https://app.gitbook.com/s/o044KN3Ws0uIDvOmSkcR/download
 ---
 
-# Download
+# Letöltés
 
-Download the latest version of Chloros for Windows to get started with multispectral image processing.
+Töltse le az Chloros legújabb verzióját az Windows-hez, hogy elindulhasson a multispektrális képfeldolgozás.
 
-### System Requirements
+### Rendszerkövetelmények
 
-| Requirement          | Minimum                         | Recommended                     |
+| Követelmény          | Minimális                         | Ajánlott                     |
 | -------------------- | ------------------------------- | ------------------------------- |
-| **Operating System** | Windows 10 (64-bit)             | Windows 11 (64-bit)             |
-| **Processor**        | Intel Core i5 or equivalent     | Intel Core i7 or better         |
-| **Memory (RAM)**     | 8GB                             | 16GB or more                    |
-| **Graphics Card**    | DirectX 11 compatible           | NVIDIA GPU with 4GB+ VRAM       |
-| **Storage**          | 2GB free space                  | SSD with 10GB+ free space       |
-| **Display**          | 1920x1080                       | 2560x1440 or higher             |
-| **Internet**         | Required for license activation | Required for license activation |
+| **Operációs rendszer** | Windows 10 (64 bites)             | Windows 11 (64 bites)             |
+| **Processzor**        | Intel Core i5 vagy azzal egyenértékű     | Intel Core i7 vagy annál jobb         |
+| **Memória (RAM)**     | 8 GB                             | 16 GB vagy több                    |
+| **Grafikus kártya**    | DirectX 11 kompatibilis           | NVIDIA GPU 4 GB+ VRAM-mal       |
+| **Tárolókapacitás**          | 2 GB szabad hely                  | SSD 10 GB+ szabad hellyel       |
+| **Kijelző**          | 1920x1080                       | 2560x1440 vagy nagyobb             |
+| **Internet**         | Szükséges a licenc aktiválásához | Szükséges a licenc aktiválásához |
 
-{% hint style="info" %}
-**GPU Acceleration**: Chloros+ users with NVIDIA GPUs (4GB+ VRAM) can use CUDA acceleration for significantly faster processing.
+{% hint style=&quot;info&quot; %}
+**GPU-gyorsítás**: Az NVIDIA GPU-val (4 GB+ VRAM) rendelkező Chloros+ felhasználók a CUDA-gyorsítást használhatják a jelentősen gyorsabb feldolgozás érdekében.
 {% endhint %}
 
 ***
 
-## Download Chloros
+## Chloros letöltése
 
-### <a href="https://drive.google.com/file/d/1HjwrUY4M7HGxDbMybO7iPe_6JoHnUGr4/view?usp=drive_link" class="button primary">Download Chloros Here</a>
+### <a href="https://drive.google.com/file/d/1HjwrUY4M7HGxDbMybO7iPe_6JoHnUGr4/view?usp=drive_link" class="button primary">Chloros letöltése itt</a>
 
-### Latest Stable Release
+### Legújabb stabil kiadás
 
-**Chloros Installer for Windows**
+**Chloros telepítő Windows-hez**
 
-* **Version**: 1.0.3
-* **Release Date**: December ?, 2025
-* **File Size**: 1.6GB
-* **File Type**: .exe (Windows Installer)
+* **Verzió**: 1.0.3
+* **Kiadás dátuma**: 2025. december ?
+* **Fájlméret**: 1,6 GB
+* **Fájltípus**: .exe (Windows telepítő)
 
-#### **Installation Steps:**
+#### **Telepítési lépések:**
 
-1. Download the `CHLOROS INSTALLER - CURRENT VERSION.exe` file
-2. Double-click the installer to begin installation
-3. Follow the installation wizard prompts
-4. Choose installation directory (default: `C:\Program Files\Chloros\`)
-5. Complete installation and launch Chloros
-6. Sign in with your MAPIR Cloud Chloros+ account (or continue with free version)
+1. Töltse le az `CHLOROS INSTALLER - CURRENT VERSION.exe` fájlt.
+2. Kattintson duplán a telepítőre a telepítés megkezdéséhez.
+3. Kövesse a telepítő varázsló utasításait.
+4. Válassza ki a telepítési könyvtárat (alapértelmezett: `C:\Program Files\Chloros\`).
+5. Fejezze be a telepítést, és indítsa el az Chloros programot.
+6. Jelentkezzen be MAPIR Cloud Chloros+ fiókjával (vagy folytassa az ingyenes verzióval).
 
-{% hint style="success" %}
-The installer automatically adds `chloros-cli` to your system PATH for command-line access.
+{% hint style=&quot;success&quot; %}
+A telepítő automatikusan hozzáadja az `chloros-cli` programot a rendszer PATH-jéhez a parancssori hozzáféréshez.
 {% endhint %}
 
 ***
 
-## Additional Resources
+## További források
 
 ### Python SDK
 
-For developers and automation workflows, install the Chloros Python SDK:
+Fejlesztők és automatizált munkafolyamatok esetén telepítse az Chloros Python SDK programot:
 
 ```bash
 pip install chloros-sdk
 ```
 
-**Documentation**: [API: Python SDK](api-python-sdk.md)
+**Dokumentáció**: [API: Python SDK](api-python-sdk.md)
 
-**Requirements**: Chloros Desktop must be installed, Chloros+ license required
-
-***
-
-## What's Included
-
-The Chloros installation includes:
-
-* ✅ **Chloros Desktop GUI** - Full-featured graphical interface
-* ✅ **Chloros (Browser)** - Web-based interface for lower-spec systems
-* ✅ **Chloros CLI** - Command-line interface (requires Chloros+ license)
-* ✅ **Backend Engine** - Image processing pipeline
-* ✅ **Camera Profiles** - Pre-configured MAPIR camera templates
+**Követelmények**: Chloros Desktop telepítése szükséges, Chloros+ licenc szükséges.
 
 ***
 
-## Upgrade to Chloros+
+## Tartalom
 
-Unlock advanced features with a Chloros+ subscription:
+Az Chloros telepítés tartalmazza:
 
-* 🚀 **Multi-threaded Processing** - Process images in parallel
-* ⚡ **GPU (CUDA) Acceleration** - Leverage NVIDIA GPU power
-* 💻 **CLI Access** - Automate with command-line tools
-* 🐍 **Python SDK** - Programmatic API access
-* 📱 **Multiple Devices** - Use on 2-10+ devices (plan dependent)
-* 🧮 **Custom Formulas** - Create custom multispectral indices
-
-<p align="center"><a href="https://cloud.mapir.camera/pricing" class="button primary">View Chloros+ Plans &#x26; Pricing</a></p>
+* ✅ **Chloros Desktop GUI** - Teljes funkcionalitású grafikus felület
+* ✅ **Chloros (böngésző)** - Webalapú felület alacsonyabb specifikációjú rendszerekhez
+* ✅ **Chloros CLI** - Parancssori felület (Chloros+ licenc szükséges)
+* ✅ **Háttérmotor** - Képfeldolgozó folyamat
+* ✅ **Kameraprofilok** - Előre konfigurált MAPIR kamera sablonok
 
 ***
 
-## Installation Help
+## Frissítés Chloros+ verzióra
 
-### Troubleshooting
+Fejlett funkciók elérése Chloros+ előfizetéssel:
 
-**Installation fails with error message:**
+* 🚀 **Többszálas feldolgozás** - Képek párhuzamos feldolgozása
+* ⚡ **GPU (CUDA) gyorsítás** - Használja ki az NVIDIA GPU teljesítményét
+* 💻 **CLI hozzáférés** - Automatizálás parancssori eszközökkel
+* 🐍 **Python SDK** - Programozható API hozzáférés
+* 📱 **Több eszköz** - 2-10+ eszközön használható (a csomagtól függően)
+* 🧮 **Egyedi képletek** - Egyedi multispektrális indexek létrehozása
 
-* Ensure you have administrator rights
-* Temporarily disable antivirus software
-* Check that you meet minimum system requirements
+<p align="center"><a href="https://cloud.mapir.camera/pricing" class="button primary">Chloros+ csomagok és árak megtekintése</a></p>***
 
-**Application won't start:**
+## Telepítési segítség
 
-* Try Chloros (Browser) version
-* Verify Windows 10/11 (64-bit) is installed
-* Update graphics drivers
-* Check Windows Event Viewer for error details
-* Contact support with error logs
+### Hibaelhárítás
 
-**License activation issues:**
+**A telepítés hibaüzenettel meghiúsul:**
 
-* Ensure internet connection is active
-* Verify credentials at [https://cloud.mapir.camera](https://cloud.mapir.camera)
-* Check firewall isn't blocking Chloros
-* See [Chloros+ Login](chloros+-login.md) for detailed instructions
+* Győződjön meg arról, hogy rendelkezik rendszergazdai jogokkal.
+* Ideiglenesen tiltsa le a víruskereső szoftvert.
+* Ellenőrizze, hogy megfelel-e a minimális rendszerkövetelményeknek.
 
-### Getting Support
+**Az alkalmazás nem indul el:**
 
-Need help with installation or setup?
+* Próbálja ki az Chloros (böngésző) verziót
+* Ellenőrizze, hogy az Windows 10/11 (64 bites) telepítve van-e
+* Frissítse a grafikus illesztőprogramokat
+* Ellenőrizze az Windows Eseménynaplóban a hiba részleteit
+* Vegye fel a kapcsolatot az ügyfélszolgálattal a hibanaplóval
 
-* 📧 **Email**: info@mapir.camera
-* 🌐 **Website**: [https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
-* 📚 **Documentation**: [Getting Started](./)
-* ❓ **FAQ**: [Frequently Asked Questions](faq.md)
+**Licencaktiválási problémák:**
+
+* Ellenőrizze, hogy az internetkapcsolat aktív-e
+* Ellenőrizze a hitelesítő adatokat a [https://cloud.mapir.camera](https://cloud.mapir.camera) oldalon
+* Ellenőrizze, hogy a tűzfal nem blokkolja-e az Chloros alkalmazást
+* Részletes utasításokat a [Chloros+ Bejelentkezés](chloros+-login.md) oldalon talál.
+
+### Támogatás
+
+Segítségre van szüksége a telepítéssel vagy a beállítással kapcsolatban?
+
+* 📧 **E-mail**: info@mapir.camera
+* 🌐 **Weboldal**: [https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
+* 📚 **Dokumentáció**: [Első lépések](./)
+* ❓ **GYIK**: [Gyakran ismételt kérdések](faq.md)
 
 ***
 
-## Change Log
+## Változásnapló
 
 <details>
 
-<summary>Version 1.0.3</summary>
+<summary>1.0.3 verzió</summary>
 
-### **Release Date**: December ?, 2025
+### **Kiadás dátuma**: 2025. december ?
 
-#### New Features
+#### Új funkciók
 
-* Initial Launch
+* Első kiadás
 
-#### Improvements
+#### Javítások
 
-* Initial Launch
+* Első kiadás
 
-#### Bug Fixes
+#### Hiba javítások
 
-* Initial Launch
+* Első kiadás
 
-#### Known Issues
+#### Ismert problémák
 
-* Initial Launch
+* Első kiadás
 
-</details>
+</details>***
 
-***
+## Licencszerződés
 
-## License Agreement
+**Saját fejlesztésű szoftver** – Copyright (c) 2025 MAPIR Inc.
 
-**Proprietary Software** - Copyright (c) 2025 MAPIR Inc.
+A jogosulatlan használat, terjesztés vagy módosítás tilos.
 
-Unauthorized use, distribution, or modification is prohibited.
+**Ingyenes verzió**: Személyes és kereskedelmi használatra elérhető, funkciók korlátozásával.
 
-**Free Version**: Available for personal and commercial use with feature limitations
-
-**Chloros+**: Subscription-based license for advanced features and commercial deployments
+**Chloros+**: Előfizetéses licenc fejlett funkciókhoz és kereskedelmi felhasználáshoz.

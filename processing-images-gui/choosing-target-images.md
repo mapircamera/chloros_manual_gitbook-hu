@@ -1,221 +1,221 @@
-# Choosing Target Images
+# Célképek kiválasztása
 
-Marking which images contain calibration targets is a crucial step that significantly speeds up the Chloros processing pipeline. By pre-selecting target images, you eliminate the need for Chloros to scan every image in your dataset for calibration targets.
+A kalibrációs célokat tartalmazó képek megjelölése egy fontos lépés, amely jelentősen felgyorsítja az Chloros feldolgozási folyamatot. A célképek előzetes kiválasztásával elkerülhető, hogy az Chloros az adatkészlet minden képét átvizsgálja a kalibrációs célok keresése érdekében.
 
-## Why Mark Target Images?
+## Miért érdemes megjelölni a célképeket?
 
-### Processing Speed
+### Feldolgozási sebesség
 
-Without marking target images, Chloros must:
+A célképek megjelölése nélkül az Chloros-nek:
 
-* Scan every single image in your project
-* Run target detection algorithms on each image
-* Check hundreds or thousands of images unnecessarily
+* át kell vizsgálnia a projektben található összes képet,
+* célfelismerő algoritmusokat kell futtatnia minden képen,
+* feleslegesen több száz vagy ezer képet kell ellenőriznie.
 
-**Result**: Processing can take significantly longer, especially for large datasets.
+**Eredmény**: A feldolgozás jelentősen hosszabb ideig tarthat, különösen nagy adatkészletek esetén.
 
-### With Marked Target Images
+### Megjelölt célképekkel
 
-When you check the Target column for specific images:
+Ha a Cél oszlopban megjelöl bizonyos képeket:
 
-* Chloros only scans the checked images for targets
-* Target detection completes much faster
-* Overall processing time is greatly reduced
+* Az Chloros csak a megjelölt képeket vizsgálja meg célok után kutatva
+* A célfelismerés sokkal gyorsabban befejeződik
+* Az általános feldolgozási idő jelentősen csökken
 
-{% hint style="success" %}
-**Speed Improvement**: Marking 2-3 target images in a 500-image dataset can reduce target detection time from 30+ minutes to under 1 minute.
+{% hint style=&quot;success&quot; %}
+**Sebességjavulás**: 500 képből álló adathalmazban 2-3 célkép megjelölésével a célfelismerés ideje 30 percről 1 perc alá csökkenhet.
 {% endhint %}
 
 ***
 
-## How to Mark Target Images
+## Hogyan jelölje meg a célképeket
 
-### Step 1: Identify Your Target Images
+### 1. lépés: Azonosítsa a célképeket
 
-Look through your imported images in the File Browser and identify which images contain calibration targets.
+Nézze át az importált képeket a Fájlböngészőben, és azonosítsa, mely képek tartalmaznak kalibrációs célokat.
 
-**Common scenarios:**
+**Gyakori esetek:**
 
-* **Pre-capture target**: Captured before starting the session
-* **Post-capture target**: Captured after completing the session
-* **In-field targets**: Targets placed within the capture area
-* **Multiple targets**: 2-3 target images per session (recommended)
+* **Felvétel előtti cél**: A munkamenet megkezdése előtt rögzített
+* **Felvétel utáni cél**: A munkamenet befejezése után rögzített
+* **Terepi célok**: A felvételi területen elhelyezett célok
+* **Több cél**: 2-3 célkép munkamenetenként (ajánlott)
 
-### Step 2: Check the Target Column
+### 2. lépés: Ellenőrizze a Cél oszlopot
 
-For each image containing a calibration target:
+Minden kalibrációs célt tartalmazó kép esetében:
 
-1. Locate the image in the File Browser table
-2. Find the **Target** column (rightmost column)
-3. Click the checkbox in the Target column for that image
-4. Repeat for all images containing targets
+1. Keresse meg a képet a Fájlböngésző táblázatában.
+2. Keresse meg a **Cél** oszlopot (a legjobbra lévő oszlop).
+3. Kattintson a Cél oszlopban az adott kép jelölőnégyzetére.
+4. Ismételje meg az összes célt tartalmazó kép esetében.
 
-### Step 3: Verify Your Selection
+### 3. lépés: Ellenőrizze a kiválasztást
 
-Before processing, double-check:
+A feldolgozás előtt ellenőrizze:
 
-* [ ] All images with calibration targets are checked
-* [ ] No non-target images are accidentally checked
-* [ ] Targets are clearly visible in checked images
-
-***
-
-## Best Practices for Target Images
-
-### Target Capture Guidelines
-
-**Timing:**
-
-* Capture target images immediately before and throughout your capture session
-* Within the same lighting conditions as your DAQ light sensor
-* Ideally capture target images as often as possible for the best results. Otherwise, the light sensor data will be used to adjust the calibration over time.
-
-**Camera Position:**
-
-* Hold camera above target such that is is centered and fills around 40-60% of the image center.
-* Keep camera parallel/nadir to target surface
-
-**Lighting:**
-
-* Same ambient lighting as your DAQ light sensor
-* Avoid shadows on the target surfaces
-* Don't block your light source with your body, vehicle or vegetation
-* Overcast conditions provide most consistent results
-
-**Target Condition:**
-
-* Keep target panels clean and dry
-* All 4 panels should be clearly visible and unobstructed
-* Targets perpendicular/nadir to the light source if possible
-
-### How Many Target Images?
-
-**Minimum:** 1 target image per session. **Recommended:** 3-5 target images per session.
-
-**Best practice schedule:**
-
-* 3-5 images captured shortly after the light sensor is recording
-* Rotate the camera between captures for the best results
-* Optional: periodically mid-session if lighting conditions change constantly
+* [ ] Minden kalibrációs célt tartalmazó kép be van jelölve.
+* [ ] Nincs véletlenül bejelölve olyan kép, amely nem tartalmaz célt.
+* [ ] A célok jól láthatóak a bejelölt képeken.
 
 ***
 
-## Working with Multiple Cameras
+## A célképek legjobb gyakorlata
 
-### Dual-Camera Setups
+### Célképek rögzítésére vonatkozó irányelvek
 
-If using two MAPIR cameras simultaneously (e.g., Survey3W RGN + Survey3N OCN):
+**Időzítés:**
 
-1. Capture target images with **both cameras** at the same time
-2. Use the **same physical target** for both cameras
-3. Mark target images for **both camera types** in the File Browser
-4. Chloros will use appropriate targets for each camera's calibration
+* A célképeket közvetlenül a rögzítési munkamenet előtt és annak során rögzítse.
+* A DAQ fényérzékelőjével megegyező fényviszonyok között.
+* A legjobb eredmények elérése érdekében ideális esetben a lehető leggyakrabban rögzítse a célképeket. Ellenkező esetben a fényérzékelő adatai alapján kerül sor a kalibrálás időbeli kiigazítására.
 
-### Camera Model Column
+**Kamera pozíciója:**
 
-The **Camera Model** column helps identify which images came from which camera:
+* Tartsa a kamerát a cél felett úgy, hogy az középen legyen és a kép közepének körülbelül 40-60%-át kitöltse.
+* Tartsa a kamerát párhuzamosan/nadírban a cél felületével
+
+**Világítás:**
+
+* Ugyanaz a környezeti megvilágítás, mint a DAQ fényérzékelőjének.
+* Kerülje az árnyékokat a célfelületeken.
+* Ne takarja el a fényforrást testével, járművel vagy növényzettel.
+* A felhős időjárás biztosítja a legkonzisztensebb eredményeket.
+
+**Célállapot:**
+
+* Tartsa a célpaneleket tisztán és szárazon.
+* Mind a 4 panelnek jól láthatónak és akadálymentesnek kell lennie.
+* A célok lehetőség szerint merőlegesek/nadír a fényforráshoz képest.
+
+### Hány célképet?
+
+**Minimum:** 1 célkép munkamenetenként. **Ajánlott:** 3-5 célkép munkamenetenként.
+
+**A legjobb gyakorlat ütemezése:**
+
+* 3-5 kép rögzítése röviddel a fényérzékelő felvételének megkezdése után
+* A legjobb eredmények elérése érdekében forgassa el a kamerát a felvételek között
+* Opcionális: rendszeresen a munkamenet közepén, ha a fényviszonyok folyamatosan változnak
+
+***
+
+## Több kamerával való munka
+
+### Kétkamerás beállítások
+
+Ha két MAPIR kamerát használ egyszerre (pl. Survey3W RGN + Survey3N OCN):
+
+1. Készítse el a célképeket **mindkét kamerával** egyszerre
+2. Használja **ugyanazt a fizikai célt** mindkét kamerához
+3. Jelölje meg a célképeket **mindkét kameratípushoz** a Fájlböngészőben
+4. Az Chloros minden kamera kalibrálásához a megfelelő célokat fogja használni
+
+### Kamera modell oszlop
+
+A **Kamera modell** oszlop segít azonosítani, hogy melyik képek melyik kamerából származnak:
 
 * Survey3W\_RGN
 * Survey3N\_OCN
 * Survey3W\_RGB
-* etc.
+* stb.
 
-Use this column to verify you've marked targets for each camera type in your project.
-
-***
-
-## Target Detection Settings
-
-### Adjusting Detection Sensitivity
-
-If Chloros isn't detecting your targets correctly, adjust these settings in [Project Settings](adjusting-project-settings.md):
-
-**Minimum calibration sample area:**
-
-* **Default**: 25 pixels
-* **Increase** if getting false detections on small artifacts
-* **Decrease** if targets aren't being detected
-
-**Minimum target clustering:**
-
-* **Default**: 60
-* **Increase** if targets are being split into multiple detections
-* **Decrease** if targets with color variation aren't fully detected
+Ezzel az oszloppal ellenőrizheti, hogy a projektben minden kameratípushoz megjelölte-e a célpontokat.
 
 ***
 
-## Common Target Image Issues
+## Célpont-felismerési beállítások
 
-### Problem: No Targets Detected
+### A felismerés érzékenységének beállítása
 
-**Possible causes:**
+Ha az Chloros nem ismeri fel megfelelően a célpontokat, állítsa be ezeket a beállításokat a [Projektbeállítások](adjusting-project-settings.md) menüpontban:
 
-* Target images not marked in File Browser
-* Target too small in frame (< 30% of image)
-* Poor lighting (shadows, glare)
-* Target detection settings too strict
+**Minimális kalibrációs mintaterület:**
 
-**Solutions:**
+* **Alapértelmezett**: 25 pixel
+* **Növelje**, ha kis tárgyaknál téves észlelések történnek.
+* **Csökkentse**, ha a célpontok nem kerülnek észlelésre.
 
-1. Verify Target column is checked for correct images
-2. Review target image quality in preview
-3. Recapture targets if quality is poor
-4. Adjust target detection settings if needed
+**Minimális célpont-csoportosítás:**
 
-### Problem: False Target Detections
-
-**Possible causes:**
-
-* White buildings, vehicles, or ground cover mistaken for targets
-* Bright patches in vegetation
-* Detection sensitivity too low
-
-**Solutions:**
-
-1. Mark only actual target images to limit detection scope
-2. Increase minimum calibration sample area
-3. Increase minimum target clustering value
-4. Ensure target images show only the target (minimal background clutter)
+* **Alapértelmezett**: 60
+* **Növelje**, ha a célpontok több felismerésre oszlanak
+* **Csökkentse**, ha a színváltozású célpontok nem kerülnek teljes mértékben felismerésre
 
 ***
 
-## Verification Checklist
+## Gyakori célkép-problémák
 
-Before starting processing, verify your target image selection:
+### Probléma: Nincs felismert célpont
 
-* [ ] At least 1 target image marked per session
-* [ ] Target column checkboxes are checked for all target images
-* [ ] Target images captured within same timeframe as survey
-* [ ] Targets clearly visible in preview when clicked
-* [ ] All 4 calibration panels visible in each target image
-* [ ] No shadows or obstructions on targets
-* [ ] For dual-camera: Targets marked for both camera types
+**Lehetséges okok:**
+
+* A célképek nincsenek megjelölve a Fájlkezelőben
+* A célpont túl kicsi a keretben (a kép &lt; 30%-a)
+* Rossz megvilágítás (árnyékok, tükröződés)
+* A célfelismerési beállítások túl szigorúak
+
+**Megoldások:**
+
+1. Ellenőrizze, hogy a Cél oszlopban a megfelelő képek vannak-e bejelölve.
+2. Ellenőrizze a célképek minőségét az előnézetben.
+3. Ha a minőség rossz, rögzítse újra a célokat.
+4. Szükség esetén módosítsa a célfelismerési beállításokat.
+
+### Probléma: Hamis célfelismerések
+
+**Lehetséges okok:**
+
+* Fehér épületek, járművek vagy talajborítás tévesen célpontnak minősülnek
+* Világos foltok a növényzetben
+* Túl alacsony felismerési érzékenység
+
+**Megoldások:**
+
+1. Csak a tényleges célképeket jelölje meg, hogy korlátozza a felismerés hatókörét
+2. Növelje a minimális kalibrációs mintaterületet
+3. Növelje a minimális célcsoportosítási értéket
+4. Győződjön meg arról, hogy a célképek csak a célpontot mutatják (minimális háttérzavar)
 
 ***
 
-## Target-Free Processing
+## Ellenőrzési ellenőrzőlista
 
-### Processing Without Calibration Targets
+A feldolgozás megkezdése előtt ellenőrizze a célképek kiválasztását:
 
-While not recommended for scientific work, you can process without targets:
+* [ ] Legalább 1 célkép megjelölve munkamenetenként
+* [ ] A cél oszlop jelölőnégyzetei be vannak jelölve az összes célképnél
+* [ ] A célképek a felméréssel azonos időintervallumban készültek
+* [ ] A célok kattintáskor jól láthatóak az előnézetben
+* [ ] Mind a 4 kalibrációs panel látható az egyes célképeken
+* [ ] Nincsenek árnyékok vagy akadályok a célpontokon
+* [ ] Kettős kamera esetén: mindkét kameratípushoz megjelölt célpontok
 
-1. Leave all Target column checkboxes unchecked
-2. **Disable** "Reflectance calibration" in Project Settings
-3. Vignette correction will still be applied
-4. Output will not be calibrated for absolute reflectance
+***
 
-{% hint style="warning" %}
-**Not Recommended**: Without reflectance calibration, pixel values represent relative brightness only, not scientific reflectance measurements. Use calibration targets for accurate, repeatable results.
+## Célpont nélküli feldolgozás
+
+### Kalibrációs célpontok nélküli feldolgozás
+
+Bár tudományos munkához nem ajánlott, célpontok nélkül is elvégezhető a feldolgozás:
+
+1. Hagyja bejelölés nélkül az összes célpont oszlop jelölőnégyzetét
+2. **Kapcsolja ki** a „Reflektancia kalibráció” opciót a Projekt beállításokban
+3. A vignettázás korrekció továbbra is alkalmazásra kerül.
+4. A kimenet nem lesz kalibrálva az abszolút reflektancia tekintetében.
+
+{% hint style=&quot;warning&quot; %}
+**Nem ajánlott**: Reflektancia-kalibrálás nélkül a pixelértékek csak a relatív fényerőt jelzik, nem pedig tudományos reflektancia-méréseket. A pontos, megismételhető eredmények érdekében használjon kalibrációs célokat.
 {% endhint %}
 
 ***
 
-## Next Steps
+## Következő lépések
 
-Once you've marked your target images:
+Miután megjelölte a célképeket:
 
-1. **Review your settings** - See [Adjusting Project Settings](adjusting-project-settings.md)
-2. **Start processing** - See [Starting the Processing](starting-the-processing.md)
-3. **Monitor progress** - See [Monitoring the Processing](monitoring-the-processing.md)
+1. **Ellenőrizze a beállításokat** – Lásd: [A projektbeállítások módosítása](adjusting-project-settings.md)
+2. **Indítsa el a feldolgozást** - Lásd: [A feldolgozás elindítása](starting-the-processing.md)
+3. **Figyelje a folyamatot** - Lásd: [A feldolgozás figyelése](monitoring-the-processing.md)
 
-For more information about calibration targets themselves, see [Calibration Targets](../calibration-targets.md).
+A kalibrációs célokról további információkat a [Kalibrációs célok](../calibration-targets.md) című részben talál.

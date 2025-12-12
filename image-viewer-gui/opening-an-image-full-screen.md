@@ -1,247 +1,247 @@
-# Opening an Image Full Screen
+# Kép teljes képernyős megnyitása
 
-The Chloros Image Viewer provides a dedicated full-screen interface for viewing, analyzing, and manipulating your multispectral images. Whether viewing original images or processed outputs, the Image Viewer offers powerful tools for inspection and analysis.
+Az Chloros Image Viewer egy speciális teljes képernyős felületet biztosít a multispektrális képek megtekintéséhez, elemzéséhez és szerkesztéséhez. Akár eredeti képeket, akár feldolgozott kimeneteket tekint meg, az Image Viewer hatékony eszközöket kínál a vizsgálathoz és elemzéshez.
 
-## Accessing the Image Viewer
+## Hozzáférés a képnézegetőhöz
 
-### From the File Browser
+### A fájlböngészőből
 
-The most common way to open an image in the Image Viewer:
+A képnézegetőben a kép megnyitásának leggyakoribb módja:
 
-1. Ensure you're in the **File Browser** tab <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line">
-2. Click any **image thumbnail** in the image grid
-3. The image opens in the **main preview area** (center of screen)
-4. The image is now loaded and ready for full-screen viewing
+1. Győződjön meg arról, hogy a **Fájlböngésző** fülön van. <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line">
+2. Kattintson bármelyik **képminiatűrre** a képrácsban.
+3. A kép megnyílik a **fő előnézeti területen** (a képernyő közepén).
+4. A kép most már betöltődött és készen áll a teljes képernyős megtekintésre.
 
-### Opening the Image Viewer Tab
+### Az Image Viewer fül megnyitása
 
-Once an image is loaded in the preview area:
+Miután a kép betöltődött az előnézeti területen:
 
-1. Click the **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> icon in the left sidebar
-2. The Image Viewer tab opens, displaying the selected image full-screen
-3. Advanced viewing and analysis tools become available in the left sidebar
-
-***
-
-## Image Viewer Interface Overview
-
-### Main Display Area
-
-The largest portion of the screen shows your image:
-
-* **Full resolution**: Images displayed at native resolution
-* **Zoomable**: Use controls or mouse wheel to zoom
-* **Pannable**: Click and drag to move around when zoomed
-* **Aspect ratio maintained**: Images scale proportionally
+1. Kattintson az **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> ikonra a bal oldali sávban.
+2. Megnyílik a Képmegjelenítő fül, amely teljes képernyős nézetben jeleníti meg a kiválasztott képet.
+3. A bal oldali sávban megjelennek a fejlett megtekintési és elemzési eszközök.
 
 ***
 
-## Viewing Options
+## A Képmegjelenítő felületének áttekintése
 
-### Basic Image Navigation
+### Fő megjelenítési terület
 
-#### Browse Through Images
+A képernyő legnagyobb részén a kép látható:
 
-Navigate through your image set using keyboard shortcuts or buttons:
-
-* **Next image**: Click → button or press **→** (Right Arrow) key
-* **Previous image**: Click ← button or press **←** (Left Arrow) key
-* **Jump to specific image**: Return to File Browser and click desired thumbnail
-
-#### Zoom Controls
-
-Adjust magnification to inspect image details:
-
-**Zoom In:**
-
-* Click **+** (Plus) button
-* Press **+** or **=** key
-* Scroll mouse wheel **up**
-
-**Zoom Out:**
-
-* Click **−** (Minus) button
-* Press **−** (Minus) key
-* Scroll mouse wheel **down**
-
-**Fit to Screen:**
-
-* Click **↔** (Fit) button
-* Press **0** (Zero) key
-* Double-click on image
-
-#### Pan When Zoomed
-
-When zoomed in beyond screen size:
-
-1. Move mouse cursor over image
-2. Click and **hold left mouse button**
-3. **Drag** to move image around
-4. Release to stop panning
-
-**Alternative**: Use arrow keys to pan in small increments
+* **Teljes felbontás**: A képek natív felbontásban jelennek meg.
+* **Nagyítható**: A nagyításhoz használja a vezérlőket vagy az egérgörgőt
+* **Pánasztható**: Nagyításkor kattintson és húzza az egérrel a képet
+* **Képarány megőrzése**: A képek arányosan méretezhetők
 
 ***
 
-## Pixel Value Inspection
+## Megtekintési beállítások
 
-### Viewing Pixel Values at Cursor
+### Alapvető képnavigáció
 
-As you move your mouse cursor over the image, pixel values display in real-time:
+#### Képek böngészése
 
-**Value display location:**
+A képek között billentyűparancsokkal vagy gombokkal navigálhat:
 
-* **Floating number and red line in right side index LUT gradient legend**
-* **When zoomed in further, floating value near cursor and highlighted pixel**
-* Shows values for pixel **under cursor or highlighted**
-* Updates as you move mouse
+* **Következő kép**: Kattintson a → gombra, vagy nyomja meg a **→** (jobb nyíl) billentyűt
+* **Előző kép**: Kattintson a ← gombra, vagy nyomja meg a **←** (bal nyíl) billentyűt
+* **Ugrás egy adott képre**: Térjen vissza a Fájlböngészőbe, és kattintson a kívánt miniatűrre
 
-***
+#### Nagyítási vezérlők
 
-## Image Types You Can View
+Állítsa be a nagyítást a kép részleteinek megtekintéséhez:
 
-### Original Images (Pre-Processing)
+**Nagyítás:**
 
-**RAW + JPG images from camera:**
+* Kattintson a **+** (plusz) gombra.
+* Nyomja meg a **+** vagy **=** billentyűt.
+* Görgessen az egérkerékkel **felfelé**.
 
-* Display RAW data as previewed
-* Show original, uncorrected values
-* Useful for checking image quality before processing
+**Kicsinyítés:**
 
-### Calibrated Reflectance Images
+* Kattintson a **−** (mínusz) gombra.
+* Nyomja meg a **−** (mínusz) billentyűt.
+* Görgessen az egérkerékkel **lefelé**.
 
-**After processing:**
+**Képernyőhöz igazítás:**
 
-* Vignette corrected
-* Reflectance calibrated
-* Multi-band TIFF (Red, Green, NIR, etc.)
-* Scientific data ready for analysis
+* Kattintson a **↔** (Igazítás) gombra.
+* Nyomja meg a **0** (nulla) billentyűt.
+* Kattintson duplán a képre.
 
-### Index Images
+#### Nagyításkor történő pásztázás
 
-**NDVI, NDRE, GNDVI, etc. (\_NDVI.tif files):**
+Ha a képet a képernyő méretén túl nagyítja:
 
-* Single-band grayscale images
-* Pixel values represent index calculation results
-* Range typically -1 to +1 for normalized indices
-* Can apply color LUTs for visualization
+1. Vigye az egérmutatót a kép fölé.
+2. Kattintson, és **tartsa lenyomva a bal egérgombot**.
+3. **Húzza** a képet a mozgatáshoz
+4. Engedje el a gombot a pásztázás leállításához
 
-***
-
-## Index and LUT Application
-
-Apply multispectral indices and color Look-Up Tables:
-
-1. Locate **Index/LUT Sandbox** in **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> sidebar
-2. Select vegetation index (NDVI, NDRE, etc.)
-3. Select multispectral formula, or create your own custom one (Chloros+ only)
-4. Apply color LUT gradient for visualization
-5. Adjust value ranges and thresholds
-
-See [Index/LUT Sandbox](index-lut-sandbox.md) for detailed instructions.
+**Alternatíva**: A nyílgombokkal apránként pásztázhat
 
 ***
 
-## Keyboard Shortcuts
+## Pixelértékek ellenőrzése
 
-### Navigation
+### Pixelértékek megtekintése a kurzor alatt
 
-* **→** (Right Arrow): Next image
-* **←** (Left Arrow): Previous image
-* **Home**: First image in list
-* **End**: Last image in list
+Amikor az egérmutatót a kép fölé viszi, a pixelértékek valós időben jelennek meg:
 
-### Zoom
+**Az értékek megjelenítési helye:**
 
-* **+** or **=**: Zoom in
-* **−**: Zoom out
-* **0** (Zero): Fit to screen
-* **Mouse Wheel**: Zoom in/out
-
-### View Controls
-
-* **P**: Toggle pixel percent mode
-* **L**: Toggle layers panel
-* **Esc**: Close full-screen or return to File Browser
-
-### Other
-
-* **Ctrl+S**: Save current image
-* **F**: Full-screen mode (if available)
+* **Lebegő szám és piros vonal a jobb oldali index LUT gradiens legenda**
+* **További nagyítás esetén a kurzor közelében lebegő érték és kiemelt pixel**
+* Megjeleníti a kurzor **alatti vagy kiemelt** pixel értékeit
+* Az egér mozgatásával frissül
 
 ***
 
-### Verifying Index Calculations
+## Megtekinthető képtípusok
 
-Check that indices calculated correctly:
+### Eredeti képek (előfeldolgozás)
 
-1. Open NDVI or other index image
-2. Check vegetation areas:
-   * **NDVI**: Should show 0.4-0.9 for healthy plants
-   * **NDRE**: Higher values for vigorous growth
-   * **GNDVI**: Similar to NDVI but chlorophyll-sensitive
-3. Check non-vegetation:
-   * **Soil**: Near 0 or slightly negative
-   * **Water**: Negative values (-0.5 to 0)
+**RAW + JPG képek a fényképezőgépről:**
 
-***
+* A RAW adatok előnézetként való megjelenítése
+* Eredeti, korrigálatlan értékek megjelenítése
+* Hasznos a képminőség ellenőrzéséhez feldolgozás előtt
 
-## Troubleshooting Viewing Issues
+### Kalibrált reflektancia képek
 
-### Image Won't Open
+**Feldolgozás után:**
 
-**Possible causes:**
+* Vignette korrigálva
+* Reflektancia kalibrálva
+* Többsávos TIFF (Red, Green, NIR stb.)
+* Tudományos adatok elemzésre készen
 
-* File corrupted during processing
-* Unsupported file format
-* Insufficient memory for large image
+### Indexképek
 
-**Solutions:**
+**NDVI, NDRE, GNDVI stb. (\_NDVI.tif fájlok):**
 
-1. Try opening in external viewer to verify file integrity
-2. Check file format matches expected type
-3. Close other applications to free memory
-4. Try smaller/different image
-
-### Black or White Image Display
-
-**Possible causes:**
-
-* Value range outside display capability
-* 32-bit float image with unusual values
-* Index calculation error
-
-**Solutions:**
-
-1. Check pixel values - if all very low or very high, adjust display range
-2. Try opening in QGIS or similar with auto-range adjustment
-3. Check Debug Log from processing for errors
-
-### Pixel Values Seem Wrong
-
-**Possible causes:**
-
-* Viewing wrong image (original vs processed)
-* Calibration didn't apply correctly
-* Light sensor data wasn't included in input
-* Percent mode toggled incorrectly
-
-**Solutions:**
-
-1. Verify you're viewing processed output (check filename suffix)
-2. Check percent mode button state
-3. Compare with known-good images from same dataset
+* Egycsatornás szürkeárnyalatos képek
+* A pixelértékek az index számítási eredményeit jelzik
+* A normalizált indexek tartománya általában -1 és +1 között van
+* Színes LUT-ok alkalmazhatók a vizualizáláshoz
 
 ***
 
-## Next Steps
+## Index és LUT alkalmazás
 
-Now that you can view images full-screen:
+Többspektrális indexek és színes Look-Up táblák alkalmazása:
 
-* [**Image Layers**](image-layers.md) - Learn about multi-band visualization
-* [**Index/LUT Sandbox**](index-lut-sandbox.md) - Apply custom indices and color mapping
-* [**Multispectral Index Formulas**](../project-settings/multispectral-index-formulas.md) - Understand available indices
+1. Keresse meg az **Index/LUT Sandbox** elemet az **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> oldalsávban
+2. Válassza ki a vegetációs indexet (NDVI, NDRE stb.)
+3. Válassza ki a multispektrális képletet, vagy hozzon létre saját egyéni képletet (csak Chloros+)
+4. Alkalmazzon szín LUT gradienst a vizualizáláshoz
+5. Állítsa be az értéktartományokat és a küszöbértékeket
 
-For processing workflow, see:
+Részletes utasításokat lásd az [Index/LUT Sandbox](index-lut-sandbox.md) oldalon.
 
-* [**Processing Images (GUI)**](../processing-images-gui/page-1.md) - Complete processing guide
+***
+
+## Billentyűparancsok
+
+### Navigáció
+
+* **→** (jobb nyíl): Következő kép
+* **←** (bal nyíl): Előző kép
+* **Home**: Az első kép a listában
+* **End**: Utolsó kép a listában
+
+### Nagyítás
+
+* **+** vagy **=**: Nagyítás
+* **−**: Kicsinyítés
+* **0** (Nulla): Képernyőhöz igazítás
+* **Egérkerék**: Nagyítás/kicsinyítés
+
+### Megjelenítés vezérlése
+
+* **P**: Pixel százalékos mód váltása
+* **L**: Rétegek panel váltása
+* **Esc**: Teljes képernyő bezárása vagy visszatérés a Fájl böngészőhöz
+
+### Egyéb
+
+* **Ctrl+S**: Aktuális kép mentése
+* **F**: Teljes képernyős mód (ha elérhető)
+
+***
+
+### Indexszámítások ellenőrzése
+
+Ellenőrizze, hogy az indexek helyesen lettek-e kiszámítva:
+
+1. Nyissa meg az NDVI vagy más indexképet.
+2. Ellenőrizze a növényzet területeit:
+   * **NDVI**: Egészséges növények esetén 0,4–0,9 értéket kell mutatnia.
+   * **NDRE**: Erőteljes növekedés esetén magasabb értékek
+   * **GNDVI**: Hasonló az NDVI-hez, de klorofillérzékeny
+3. Ellenőrizze a nem növényzetet:
+   * **Talaj**: 0 közelében vagy enyhén negatív
+   * **Víz**: Negatív értékek (-0,5 és 0 között)
+
+***
+
+## Hibaelhárítás Megjelenítési problémák
+
+### A kép nem nyílik meg
+
+**Lehetséges okok:**
+
+* A fájl feldolgozás közben megsérült
+* Nem támogatott fájlformátum
+* Nincs elegendő memória a nagy képekhez
+
+**Megoldások:**
+
+1. Próbálja meg megnyitni egy külső nézőprogrammal, hogy ellenőrizze a fájl integritását.
+2. Ellenőrizze, hogy a fájlformátum megfelel-e a várt típusnak.
+3. Zárjon be más alkalmazásokat, hogy memóriát szabadítson fel.
+4. Próbáljon kisebb/másik képet.
+
+### Fekete vagy fehér kép megjelenítése
+
+**Lehetséges okok:**
+
+* Az érték tartománya meghaladja a kijelző képességeit.
+* 32 bites lebegőpontos kép szokatlan értékekkel.
+* Indexszámítási hiba.
+
+**Megoldások:**
+
+1. Ellenőrizze a pixelértékeket – ha mind nagyon alacsonyak vagy nagyon magasak, állítsa be a kijelzési tartományt.
+2. Próbálja meg megnyitni a QGIS-ben vagy hasonló programban az automatikus tartománybeállítással.
+3. Ellenőrizze a feldolgozás hibakeresési naplóját.
+
+### A pixelértékek helytelennek tűnnek
+
+**Lehetséges okok:**
+
+* Helytelen kép megtekintése (eredeti vs. feldolgozott)
+* A kalibrálás nem történt meg helyesen
+* A fényérzékelő adatai nem kerültek be a bemenetbe
+* A százalékos mód helytelenül váltott
+
+**Megoldások:**
+
+1. Ellenőrizze, hogy a feldolgozott kimenetet nézi-e (ellenőrizze a fájlnév kiterjesztését)
+2. Ellenőrizze a százalékos mód gomb állapotát
+3. Hasonlítsa össze ugyanazon adatkészletből származó, ismert jó képekkel
+
+***
+
+## Következő lépések
+
+Most, hogy teljes képernyőn tudja megtekinteni a képeket:
+
+* [**Képlapok**](image-layers.md) – Ismerje meg a többsávos vizualizációt
+* [**Index/LUT Sandbox**](index-lut-sandbox.md) – Alkalmazzon egyéni indexeket és színleképezést
+* [**Multispektrális index képletek**](../project-settings/multispectral-index-formulas.md) – Ismerje meg a rendelkezésre álló indexeket
+
+A feldolgozási munkafolyamatot lásd:
+
+* [**Képek feldolgozása (GUI)**](../processing-images-gui/adding-files-to-a-project.md) – Teljes feldolgozási útmutató

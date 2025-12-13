@@ -1,5 +1,5 @@
 ---
-description: Panels measured in the laboratory used to calibrate captured data in post-processing
+description: Laboratóriumban mért panelek, amelyeket a rögzített adatok utólagos feldolgozásához kalibrálnak
 metaLinks:
   alternates:
     - https://app.gitbook.com/s/o044KN3Ws0uIDvOmSkcR/calibration-targets

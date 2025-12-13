@@ -1,38 +1,37 @@
 ---
-description: This page lists some multispectral indices that Chloros uses
+description: This page lists some multispectral indices that Chloros uses.
 metaLinks:
   alternates:
     - >-
       https://app.gitbook.com/s/o044KN3Ws0uIDvOmSkcR/multispectral-index-formulas
 ---
-
 # Multispektrális index képletek
 
 Az alábbi index képletek az Survey3 szűrő átlagos átviteli tartományainak kombinációját használják:
 
 <table><thead><tr><th align="center">Survey3 szűrő színe</th><th width="196.199951171875" align="center">Survey3 szűrő neve</th><th width="159.800048828125" align="center">Átviteli tartomány (FWHM)</th><th align="center">Átlagos átviteli tartomány</th></tr></thead><tbody><tr><td align="center">Blue</td><td align="center">NGB - Blue</td><td align="center">468-483 nm</td><td align="center">475 nm</td></tr><tr><td align="center">Cyan</td><td align="center">OCN- Cyan</td><td align="center">476-512 nm</td><td align="center">494 nm</td></tr><tr><td align="center">Green</td><td align="center">RGN | NGB - Green</td><td align="center">543-558 nm</td><td align="center">547 nm</td></tr><tr><td align="center">Orange</td><td align="center">OCN - Orange</td><td align="center">598-640 nm</td><td align="center">619 nm</td></tr><tr><td align="center">Red</td><td align="center">RGN - Red</td><td align="center">653-668 nm</td><td align="center">661 nm</td></tr><tr><td align="center">RedEdge</td><td align="center">Re - RedEdge</td><td align="center">712-735 nm</td><td align="center">724 nm</td></tr><tr><td align="center">NIR1</td><td align="center">OCN - NIR1</td><td align="center">798-848 nm</td><td align="center">823 nm</td></tr><tr><td align="center">NIR2</td><td align="center">RGN | NGB | NIR - NIR2</td><td align="center">835-865 nm</td><td align="center">850 nm</td></tr></tbody></table>
 
-Ezen képletek használata esetén a név végződhet „\_1” vagy „\_2” karakterekkel, amelyek azt jelzik, hogy melyik NIR szűrőt használták, azaz az NIR1 vagy az NIR2 szűrőt.
+Ezen képletek használata esetén a név végződhet „\_1” vagy „\_2” karakterekkel, amelyek az NIR szűrőnek, az NIR1 vagy az NIR2 szűrőnek felelnek meg.
 
 ***
 
 ## EVI – Továbbfejlesztett vegetációs index
 
-Ezt az indexet eredetileg az MODIS adatokhoz fejlesztették ki, az NDVI továbbfejlesztéseként, a magas levélterületi indexű (LAI) területeken a vegetációs jel optimalizálásával. Leginkább olyan magas LAI régiókban hasznos, ahol az NDVI telítettséget érhet el. A kék reflexiós tartományt használja a talaj háttérjelek korrekciójára és a légköri hatások, beleértve az aeroszolszórás csökkentésére.
+Ezt az indexet eredetileg az MODIS adatokhoz fejlesztették ki, az NDVI továbbfejlesztéseként, a magas levélterületi indexű (LAI) területeken a vegetációs jel optimalizálásával. Leginkább olyan magas LAI régiókban hasznos, ahol az NDVI telítettséget okozhat. A kék reflexiós tartományt használja a talaj háttérjelek korrekciójára és a légköri hatások, beleértve az aeroszolszórás csökkentésére.
 
 $$
 EVI = 2.5 *  {(NIR - Red) \over (NIR + 6 * Red - 7.5 * Blue + 1)}
 $$
 
-Az EVI értékeknek 0 és 1 között kell lenniük a növényzet pixelek esetében. A felhők és fehér épületekhez hasonló világos elemek, valamint a vízhez hasonló sötét elemek rendellenes pixelértékeket eredményezhetnek egy EVI képen. Az EVI kép létrehozása előtt el kell fedni a felhőket és a fényes elemeket a visszaverődési képről, és opcionálisan a pixelértékeket 0 és 1 között kell küszöbértékkel ellátni.
+Az EVI értékeknek 0 és 1 között kell lenniük a növényzet pixelek esetében. A fényes elemek, mint például a felhők és a fehér épületek, valamint a sötét elemek, mint például a víz, rendellenes pixelértékeket eredményezhetnek egy EVI képen. Az EVI kép létrehozása előtt el kell fedni a felhőket és a világos elemeket a visszaverődési képről, és opcionálisan a pixelértékeket 0 és 1 között kell küszöbértékkel ellátni.
 
-_Hivatkozás: Huete, A. et al. „Az MODIS növényzetindexek radiometrikus és biofizikai teljesítményének áttekintése.” Remote Sensing of Environment 83 (2002):195–213._
+_Hivatkozás: Huete, A. et al. „Az MODIS vegetációs indexek radiometrikus és biofizikai teljesítményének áttekintése.” Remote Sensing of Environment 83 (2002):195–213._
 
 ***
 
 ## FCI1 – Erdőborítás-index 1
 
-Ez az index a vörös szélső sávot is magában foglaló multispektrális visszaverődési képek segítségével különbözteti meg az erdő lombkoronáját más típusú növényzettől.
+Ez az index a vörös szélső sávot is tartalmazó multispektrális visszaverődési képek segítségével különbözteti meg az erdő lombkoronáját más típusú növényzettől.
 
 $$
 FCI1 = Red * RedEdge
@@ -46,7 +45,7 @@ _Hivatkozás: Becker, Sarah J., Craig S.T. Daughtry és Andrew L. Russ. „Robus
 
 ## FCI2 – Erdőborítási index 2
 
-Ez az index a vörös szélű sávot nem tartalmazó multispektrális visszaverődési képek segítségével különbözteti meg az erdő lombkoronáját más típusú növényzettől.
+Ez az index megkülönbözteti az erdő lombkoronáját más típusú növényzettől multispektrális visszaverődési képek segítségével, amelyek nem tartalmaznak vörös szélső sávot.
 
 $$
 FCI2 = Red * NIR
@@ -60,7 +59,7 @@ _Hivatkozás: Becker, Sarah J., Craig S.T. Daughtry és Andrew L. Russ. „Robus
 
 ## GEMI – Globális környezeti monitoring index
 
-Ezt a nemlineáris vegetációs indexet műholdas képek alapján végzett globális környezeti monitoringhoz használják, és célja a légköri hatások korrekciója. Hasonló az NDVI indexhez, de kevésbé érzékeny a légköri hatásokra. Hatással van rá a csupasz talaj, ezért ritkás vagy közepesen sűrű növényzetű területeken nem ajánlott használni.
+Ez a nemlineáris vegetációs index műholdas képek alapján globális környezeti monitoringra szolgál, és megkísérli korrigálni a légköri hatásokat. Hasonló az NDVI-hez, de kevésbé érzékeny a légköri hatásokra. Hatással van rá a csupasz talaj, ezért nem ajánlott ritka vagy közepesen sűrű vegetációjú területeken használni.
 
 $$
 GEMI = eta (1 - 0.25 * eta) - {Red - 0.125 \over 1 - Red}
@@ -76,7 +75,7 @@ _Hivatkozás: Pinty, B. és M. Verstraete. GEMI: nemlineáris index a globális 
 
 ***
 
-## GARI - Green Légköri ellenálló index
+## GARI - Green Légköri ellenállási index
 
 Ez az index érzékenyebb a klorofillkoncentrációk széles tartományára és kevésbé érzékeny a légköri hatásokra, mint az NDVI.
 
@@ -84,13 +83,13 @@ $$
 GARI = {NIR - [Green - \gamma(Blue - Red)] \over NIR + [Green - \gamma(Blue - Red)]   }
 $$
 
-A gamma-állandó egy súlyozó függvény, amely a légkörben található aeroszolok állapotától függ. Az ENVI 1,7-es értéket használ, amely Gitelson, Kaufman és Merzylak (1996, 296. oldal) által ajánlott érték.
+A gamma-állandó egy súlyozási függvény, amely a légkörben található aeroszolok állapotától függ. Az ENVI 1,7-es értéket használ, amely Gitelson, Kaufman és Merzylak (1996, 296. oldal) által ajánlott érték.
 
 _Hivatkozás: Gitelson, A., Y. Kaufman és M. Merzylak. „A Green csatorna használata a globális növényzet távérzékelésében az EOS-MODIS segítségével.” Remote Sensing of Environment 58 (1996): 289-298._
 
 ***
 
-## GCI – Green klorofillindex
+## GCI – Green Klorofillindex
 
 Ez az index a levelek klorofilltartalmának becslésére szolgál számos növényfaj esetében.
 
@@ -98,13 +97,13 @@ $$
 GCI = {NIR \over Green} - 1
 $$
 
-A széles NIR és zöld hullámhosszok jobb előrejelzést tesznek lehetővé a klorofilltartalomra vonatkozóan, miközben nagyobb érzékenységet és magasabb jel-zaj arányt biztosítanak.
+A széles NIR és zöld hullámhosszok jobb előrejelzést tesznek lehetővé a klorofilltartalomra vonatkozóan, miközben nagyobb érzékenységet és jobb jel-zaj arányt biztosítanak.
 
-_Hivatkozás: Gitelson, A., Y. Gritz és M. Merzlyak. „A levél klorofilltartalma és a spektrális visszaverődés közötti kapcsolatok, valamint algoritmusok a magasabb rendű növények leveleinek roncsolásmentes klorofilltartalom-meghatározásához.” Journal of Plant Physiology 160 (2003): 271-282._
+_Hivatkozás: Gitelson, A., Y. Gritz és M. Merzlyak. „A levélklorofill-tartalom és a spektrális visszaverődés közötti kapcsolatok, valamint algoritmusok a magasabb rendű növények leveleinek roncsolásmentes klorofill-értékeléséhez.” Journal of Plant Physiology 160 (2003): 271-282._
 
 ***
 
-## GLI – Green Levélindex
+## GLI – Green levélindex
 
 Ezt az indexet eredetileg digitális RGB kamerával való használatra tervezték a búza borításának mérésére, ahol a piros, zöld és kék digitális számok (DN-ek) 0 és 255 között mozognak.
 
@@ -138,7 +137,7 @@ $$
 GOSAVI = {NIR - Green \over NIR + Green + 0.16)  }
 $$
 
-_Hivatkozás: Sripada, R., et al. „A kukorica szezonbeli nitrogénigényének meghatározása légi színes infravörös fényképezéssel.” Ph.D. disszertáció, Észak-Karolina Állami Egyetem, 2005._
+_Hivatkozás: Sripada, R., et al. „A kukorica szezonbeli nitrogénigényének meghatározása légi színes infravörös fényképezés segítségével.” Ph.D. disszertáció, Észak-Karolina Állami Egyetem, 2005._
 
 ***
 
@@ -150,13 +149,13 @@ $$
 GRVI = {NIR \over Green }
 $$
 
-_Hivatkozás: Sripada, R. et al. „Légi színes infravörös fényképezés a kukorica korai nitrogénigényének meghatározásához.” Agronomy Journal 98 (2006): 968-977._
+_Hivatkozás: Sripada, R. et al. „Légi színes infravörös fényképezés a kukorica szezonbeli korai nitrogénigényének meghatározásához.” Agronomy Journal 98 (2006): 968-977._
 
 ***
 
 ## GSAVI - Green Talajhoz igazított vegetációs index
 
-Ezt az indexet eredetileg színes infravörös fényképezéssel tervezték a kukorica nitrogénigényének előrejelzésére. Hasonló az SAVI-hez, de a zöld sávot pirosra cseréli.
+Ezt az indexet eredetileg színes infravörös fényképezéssel tervezték a kukorica nitrogénigényének előrejelzésére. Hasonló az SAVI indexhez, de a zöld sávot pirosra cseréli.
 
 $$
 GSAVI = 1.5 * {(NIR - Green) \over (NIR + Green + 0.5)  }
@@ -168,7 +167,7 @@ _Hivatkozás: Sripada, R., et al. „A kukorica szezonbeli nitrogénigényének 
 
 ## LAI – Levélterület-index
 
-Ez az index a lombborítás becslésére, valamint a növény növekedésének és hozamának előrejelzésére szolgál. Az ENVI a zöld LAI értéket Boegh et al (2002) következő empirikus képlete alapján számítja ki:
+Ez az index a lombborítás becslésére, valamint a termés növekedésének és hozamának előrejelzésére szolgál. Az ENVI a zöld LAI értéket Boegh et al (2002) következő empirikus képlete alapján számítja ki:
 
 $$
 LAI = 3.618 * EVI - 0.118
@@ -180,9 +179,9 @@ $$
 EVI = 2.5 *  {(NIR - Red) \over (NIR + 6 * Red - 7.5 * Blue + 1)}
 $$
 
-A magas LAI értékek általában 0 és 3,5 között mozognak. Ha azonban a kép felhőket és más fényes elemeket tartalmaz, amelyek telített pixeleket eredményeznek, az LAI értékek meghaladhatják a 3,5-öt. Ideális esetben a felhőket és a fényes elemeket el kell fedni a képről, mielőtt LAI képet készít.
+A magas LAI értékek általában 0 és 3,5 között mozognak. Ha azonban a kép felhőket és más fényes elemeket tartalmaz, amelyek telített pixeleket eredményeznek, az LAI értékek meghaladhatják a 3,5-öt. Ideális esetben az LAI kép létrehozása előtt el kell fedni a felhőket és a fényes elemeket a jelenetből.
 
-_Hivatkozás: Boegh, E., H. Soegaard, N. Broge, C. Hasager, N. Jensen, K. Schelde és A. Thomsen. „Légi multispektrális adatok a levélterület-index, a nitrogénkoncentráció és a fotoszintézis hatékonyságának számszerűsítéséhez a mezőgazdaságban.” Remote Sensing of Environment 81, no. 2-3 (2002): 179-193._
+_Hivatkozás: Boegh, E., H. Soegaard, N. Broge, C. Hasager, N. Jensen, K. Schelde és A. Thomsen. „Légi multispektrális adatok a levélterület-index, a nitrogénkoncentráció és a fotoszintézis hatékonyságának számszerűsítésére a mezőgazdaságban.” Remote Sensing of Environment 81, 2-3. sz. (2002): 179-193._
 
 ***
 
@@ -194,7 +193,7 @@ $$
 LCI = {NIR2 - RedEdge \over NIR2 + Red}
 $$
 
-_Hivatkozás: Datt, B. „Az eukaliptuszlevelek víztartalmának távérzékelése.” Journal of Plant Physiology 154, 1. sz. (1999): 30-36._
+_Hivatkozás: Datt, B. „Eukaliptuszlevelek víztartalmának távérzékelése.” Journal of Plant Physiology 154, 1. sz. (1999): 30–36._
 
 ***
 
@@ -212,7 +211,7 @@ _Hivatkozás: Yang, Z., P. Willis és R. Mueller. „A sávarány-javított AWIF
 
 ## MSAVI2 – Módosított talajhoz igazított vegetációs index 2
 
-Ez az index a Qi és társai (1994) által javasolt MSAVI index egyszerűbb változata, amely javítja a talajhoz igazított vegetációs indexet (SAVI). Csökkenti a talaj zaját és növeli a vegetációs jel dinamikus tartományát. Az MSAVI2 egy induktív módszeren alapul, amely nem használ állandó _L_ értéket (mint az SAVI) az egészséges vegetáció kiemeléséhez.
+Ez az index a Qi és társai (1994) által javasolt MSAVI index egyszerűbb változata, amely javítja a talajhoz igazított vegetációs indexet (SAVI). Csökkenti a talaj zaját és növeli a vegetációs jel dinamikus tartományát. Az MSAVI2 egy induktív módszeren alapul, amely nem használ állandó _L_ értéket (mint az SAVI) az egészséges vegetáció kiemelésére.
 
 $$
 MSAVI2 = {2 * NIR + 1 - \sqrt{(2 * NIR + 1)^{2} - 8(NIR - Red)} \over 2}
@@ -234,7 +233,7 @@ $$
 
 ## NDVI – Normalizált növényzetindex
 
-Ez az index az egészséges, zöld növényzet mértékét jelzi. A normalizált különbség képlete és a klorofill legmagasabb abszorpciós és reflexiós tartományainak kombinációja széles körű feltételek mellett is megbízhatóvá teszi. Sűrű növényzet esetén azonban telítetté válhat, amikor az LAI magas értéket ér el.
+Ez az index az egészséges, zöld növényzet mértékét jelzi. A normalizált különbség képlete és a klorofill legmagasabb abszorpciós és reflexiós régióinak használata kombinációja széles körű feltételek mellett is megbízhatóvá teszi. Azonban sűrű növényzet esetén telítetté válhat, amikor az LAI magas értéket ér el.
 
 $$
 NDVI = {NIR - Red \over NIR + Red  }
@@ -242,7 +241,7 @@ $$
 
 Az index értéke -1 és 1 között mozog. A zöld növényzet esetében a szokásos tartomány 0,2 és 0,8 között van.
 
-_Hivatkozás: Rouse, J., R. Haas, J. Schell és D. Deering. A növényzet rendszereinek figyelemmel kísérése a Nagy Síkságon az ERTS segítségével. Harmadik ERTS szimpózium, NASA (1973): 309-317._
+_Hivatkozás: Rouse, J., R. Haas, J. Schell és D. Deering. A növényzetrendszerek figyelemmel kísérése a Nagy-síkságon az ERTS segítségével. Harmadik ERTS szimpózium, NASA (1973): 309-317._
 
 ***
 
@@ -284,7 +283,7 @@ _Hivatkozás: Roujean, J. és F. Breon. „A növényzet által elnyelt PAR becs
 
 ## SAVI – Talajjal korrigált növényzetindex
 
-Ez az index hasonló az NDVI-hez, de elnyomja a talajpixelek hatását. A lombkorona háttérkorrekciós tényezőjét, _L_ használja, amely a növényzet sűrűségének függvénye, és gyakran előzetes ismeretet igényel a növényzet mennyiségéről. Huete (1988) az _L_=0,5 optimális értéket javasolja az elsőrendű talajháttér-változások figyelembevételére. Ez az index leginkább olyan területeken használható, ahol a növényzet viszonylag ritka, és a talaj a lombkorona alatt látható.
+Ez az index hasonló az NDVI-hez, de elnyomja a talajpixelek hatását. A lombkorona háttérkorrekciós tényezőjét, _L_ használja, amely a növényzet sűrűségének függvénye, és gyakran megköveteli a növényzet mennyiségének előzetes ismeretét. Huete (1988) az _L_=0,5 optimális értéket javasolja az elsőrendű talajháttér-változások figyelembevételére. Ez az index leginkább olyan területeken használható, ahol a növényzet viszonylag ritka, és a talaj a lombkorona alatt látható.
 
 $$
 SAVI = {1.5 * (NIR- Red) \over (NIR + Red + 0.5)  }
@@ -296,13 +295,13 @@ _Hivatkozás: Huete, A. „Talajhoz igazított vegetációs index (SAVI).” Rem
 
 ## TDVI – Transzformált különbség vegetációs index
 
-Ez az index hasznos a városi környezet vegetációs borításának figyelemmel kíséréséhez. Nem telítődik, mint az NDVI és az SAVI.
+Ez az index hasznos a városi környezetben található növényzet fedettségének figyelemmel kíséréséhez. Nem telítődik, mint az NDVI és az SAVI.
 
 $$
 TDVI = 1.5 * {(NIR- Red) \over \sqrt{NIR^{2} + Red + 0.5}  }
 $$
 
-_Hivatkozás: Bannari, A., H. Asalhi és P. Teillet. „Transformed Difference Vegetation Index (TDVI) for Vegetation Cover Mapping” (Transzformált növényzetindex (TDVI) a növényzet lefedettségének feltérképezéséhez) In Proceedings of the Geoscience and Remote Sensing Symposium, IGARSS &#x27;02, IEEE International, 5. kötet (2002)._
+_Hivatkozás: Bannari, A., H. Asalhi és P. Teillet. „Transformed Difference Vegetation Index (TDVI) for Vegetation Cover Mapping” (Transzformált növényzetindex (TDVI) a növényzetborítás térképezéséhez) In Proceedings of the Geoscience and Remote Sensing Symposium, IGARSS &#x27;02, IEEE International, 5. kötet (2002)._
 
 ***
 
@@ -314,13 +313,13 @@ $$
 VARI = {Green - Red \over Green + Red - Blue  }
 $$
 
-_Hivatkozás: Gitelson, A. et al. „Vegetation and Soil Lines in Visible Spectral Space: A Concept and Technique for Remote Estimation of Vegetation Fraction. International Journal of Remote Sensing 23 (2002): 2537−2562._
+_Hivatkozás: Gitelson, A., et al. „Vegetáció és talajvonalak a látható spektrális térben: koncepció és technika a vegetáció arányának távbecsléséhez. International Journal of Remote Sensing 23 (2002): 2537−2562._
 
 ***
 
 ## WDRVI – Széles dinamikatartományú vegetációs index
 
-Ez az index hasonló az NDVI-hez, de súlyozási együtthatót (_a_) használ a közeli infravörös és vörös jelek NDVI-hez való hozzájárulásának eltérésének csökkentésére. Az WDRVI különösen hatékony olyan jelenetekben, ahol a növényzet sűrűsége közepes vagy magas, és az NDVI meghaladja a 0,6-ot. Az NDVI általában kiegyenlítődik, amikor a növényzet aránya és a levélterületi index (LAI) növekszik, míg az WDRVI érzékenyebb a növényzet arányának szélesebb tartományára és az LAI változásaira.
+Ez az index hasonló az NDVI-hez, de súlyozási együtthatót (_a_) használ, hogy csökkentse a közeli infravörös és a vörös jelek hozzájárulásának eltérését az NDVI-hez. Az WDRVI különösen hatékony olyan jelenetekben, ahol a növényzet sűrűsége közepes vagy magas, és az NDVI meghaladja a 0,6-ot. Az NDVI általában kiegyenlítődik, amikor a növényzet aránya és a levélterületi index (LAI) növekszik, míg az WDRVI érzékenyebb a növényzet arányának szélesebb tartományára és az LAI változásaira.
 
 $$
 WDRVI = {(\alpha * NIR- Red) \over (\alpha * NIR + Red)}
@@ -330,6 +329,6 @@ A súlyozási együttható (_a_) értéke 0,1 és 0,2 között lehet. Henebry, V
 
 _Hivatkozások_
 
-_Gitelson, A. „Széles dinamikatartományú vegetációs index a vegetáció biofizikai jellemzőinek távoli számszerűsítéséhez.” Journal of Plant Physiology 161, 2. szám (2004): 165–173._
+_Gitelson, A. „Wide Dynamic Range Vegetation Index for Remote Quantification of Biophysical Characteristics of Vegetation” (Széles dinamikatartományú vegetációs index a vegetáció biofizikai jellemzőinek távoli számszerűsítéséhez). Journal of Plant Physiology 161, 2. szám (2004): 165–173._
 
-_Henebry, G., A. Viña és A. Gitelson. „A széles dinamikus tartományú vegetációs index és annak potenciális hasznossága a hiányelemzésben.” Gap Analysis Bulletin 12: 50-56._
+_Henebry, G., A. Viña és A. Gitelson. „A széles dinamikatartományú vegetációs index és annak potenciális hasznossága a hiányelemzésben.” Gap Analysis Bulletin 12: 50-56._

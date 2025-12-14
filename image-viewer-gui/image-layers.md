@@ -1,17 +1,17 @@
-# Képlapok
+# Képrétegek
 
-Az Chloros Image Viewer program Képlapok legördülő menüjével gyorsan válthat az ugyanazon kép különböző verziói között – az eredeti felvételektől a feldolgozott reflexiós kimenetekig és a kiszámított indexképekig.
+Az Chloros Image Viewer program Képrétegek legördülő menüjével gyorsan válthat az ugyanazon kép különböző verziói között – az eredeti felvételektől a feldolgozott reflexiós kimenetekig és a számított indexképekig.
 
 ## Mik azok a kép rétegek?
 
 Az Chloros programban a **rétegek** egy adott forrásképhez rendelkezésre álló különböző kép kimeneteket jelentenek. A képek feldolgozásakor az Chloros több változatot hoz létre:
 
 * **Eredeti képek** (a fényképezőgép JPG és RAW fájljai)
-* **Reflektancia kalibrált** kimenetek (ha a reflektancia kalibrálás engedélyezve volt)
+* **Reflektancia-kalibrált** kimenetek (ha a reflektancia-kalibrálás engedélyezve volt)
 * **Célképek** (ha a kép kalibrációs célokat tartalmaz)
 * **Indexképek** (NDVI, NDRE, GNDVI stb., ha az indexek konfigurálva voltak)
 
-A **Layer Selector dropdown** (Rétegválasztó legördülő menü) a Image Viewer (Képnézegető) jobb felső sarkában lehetővé teszi, hogy a nézőt elhagyása nélkül azonnal válthasson ezek között a verziók között.
+A Képnézegető jobb felső sarkában található **Rétegválasztó legördülő menü** segítségével azonnal válthat ezek között a verziók között anélkül, hogy elhagyná a nézőt.
 
 ***
 
@@ -33,13 +33,13 @@ A **Layer Selector dropdown** (Rétegválasztó legördülő menü) a Image View
 ### RAW (eredeti)
 
 * A fényképezőgép eredeti RAW érzékelő adatai
-* Debayered, utólagos feldolgozás nélkül
-* Magasabb bitmélység, mint a JPG (általában 12 bites vagy 14 bites érzékelő adatok)
+* Debayerezve, utólagos feldolgozás nélkül
+* Magasabb bitmélység, mint a JPG (jellemzően 12 bites vagy 14 bites érzékelő adatok)
 
 **Mikor érdemes megtekinteni:**
 
-* Az eredeti szenzoradatok minőségének ellenőrzése
-* Szenzorproblémák vagy artefaktok ellenőrzése
+* Az eredeti érzékelő adatok minőségének ellenőrzése
+* Érzékelő problémák vagy artefaktok ellenőrzése
 * A feldolgozás előtti és utáni eredmények összehasonlítása
 
 ### RAW (cél)
@@ -50,7 +50,7 @@ A **Layer Selector dropdown** (Rétegválasztó legördülő menü) a Image View
 
 **Mikor érdemes megtekinteni:**
 
-* A kalibrációs célok helyes észlelésének ellenőrzése
+* A kalibrációs célok helyes felismerésének ellenőrzése
 * A célkép minőségének ellenőrzése
 * Kalibrációs problémák elhárítása
 
@@ -61,21 +61,21 @@ A **Layer Selector dropdown** (Rétegválasztó legördülő menü) a Image View
 ### RAW (reflektancia)
 
 * A kalibrált reflektancia kimeneti kép
-* Vignette-korrekció (ha engedélyezve van a feldolgozás során)
+* Vignette-korrekció (ha a feldolgozás során engedélyezve van)
 * A céladatokkal kalibrált reflektancia (ha engedélyezve van)
 * Többsávos TIFF az összes kamera csatornával
-* A pixelértékek a visszaverődés százalékos arányát jelzik (százalékos mód használata esetén)
+* A pixelértékek a reflektancia százalékát jelzik (ha százalékos módot használ)
 * Készen áll a [Index/LUT Sandbox](index-lut-sandbox.md) segítségével történő manipulálásra
 
-**Megtekintés ideje:**
+**Mikor érdemes megtekinteni:**
 
-* A kalibrált eredmények ellenőrzése
-* A kalibrálás minőségének ellenőrzése
-* A pixelértékek tudományos pontosságának ellenőrzése
-* Összehasonlítás az eredetivel a kalibrálás hatásának megtekintése érdekében
+* Kalibrált eredmények ellenőrzése
+* Kalibráció minőségének ellenőrzése
+* Pixelértékek tudományos pontosságának ellenőrzése
+* Összehasonlítás az eredetivel a kalibráció hatásának megtekintése érdekében
 
 {% hint style=&quot;success&quot; %}
-**Ajánlott**: Használja a RAW (Reflectance) réteget, amikor a pixelértékeket tudományos mérések és elemzések céljából ellenőrzi.
+**Ajánlott**: Tudományos mérések és elemzések esetén a pixelértékek ellenőrzéséhez használja a RAW (Reflectance) réteget.
 {% endhint %}
 
 ### RAW (NDVI Index)... és hasonló
@@ -83,7 +83,7 @@ A **Layer Selector dropdown** (Rétegválasztó legördülő menü) a Image View
 * Számított vegetációs index kép (ebben a példában NDVI)
 * Az index neve attól függően változik, hogy melyik indexet konfigurálták a feldolgozás során
 * Példák: RAW (NDVI Index), RAW (NDRE Index), RAW (GNDVI Index) stb.
-* Az index számítási eredményeit bemutató egysávos szürkeárnyalatos kép
+* Az index számítási eredményeit bemutató egyszínű szürkeárnyalatos kép
 * A Projektbeállításokban konfigurált minden indexhez egy réteg jelenik meg
 
 **Lehetséges indexnevek:**
@@ -99,7 +99,7 @@ A **Layer Selector dropdown** (Rétegválasztó legördülő menü) a Image View
 **Mikor érdemes megtekinteni:**
 
 * Az index számítási eredményeinek vizsgálata
-* Az indexértékek tartományainak ellenőrzése
+* Az indexértékek tartományának ellenőrzése
 * Az érdeklődésre számot tartó területek azonosítása
 * Az indexképek ellenőrzése a GIS-ben vagy elemzésben való felhasználás előtt
 
@@ -114,10 +114,10 @@ A **Layer Selector dropdown** (Rétegválasztó legördülő menü) a Image View
 3. A legördülő menü a jelenleg kiválasztott réteget mutatja (pl. „JPG”)
 4. Kattintson a legördülő menüre az összes elérhető réteg megtekintéséhez
 
-### Rétegek közötti váltás
+### Rétegek váltása
 
 1. Kattintson a réteg legördülő menüre a lista megnyitásához
-2. A jelenlegi képhez elérhető összes réteg megjelenik
+2. Az aktuális képhez elérhető összes réteg megjelenik
 3. Kattintson bármelyik réteg nevére az adott verzióra való váltáshoz
 4. A kép azonnal frissül, és megjeleníti a kiválasztott réteget.
 
@@ -148,12 +148,12 @@ Nem minden réteg elérhető minden képhez:
 
 ### Képek közötti navigálás
 
-Ha egy másik képre navigál (nyílgombokkal vagy a miniatűrökre kattintva):
+Ha másik képre navigál (nyílgombokkal vagy a miniatűrökre kattintva):
 
 **A rétegbeállítások megmaradnak:**
 
-* Ha „RAW (Reflektancia)” nézetet használ, a következő kép „RAW (Reflektancia)” nézetet jelenít meg (ha elérhető)
-* Ha „RAW (NDVI Index)” nézetet használ, a következő kép „RAW (NDVI Index)” nézetet jelenít meg (ha elérhető)
+* Ha „RAW (Reflektancia)” nézetben van, a következő kép „RAW (Reflektancia)” nézetben jelenik meg (ha elérhető)
+* Ha „RAW (NDVI Index)” nézetben van, a következő kép „RAW (NDVI Index)” nézetben jelenik meg (ha elérhető)
 * Ha ugyanaz a réteg nem létezik, akkor alapértelmezés szerint JPG
 
 **Példa a munkafolyamatra:**
@@ -173,21 +173,21 @@ Ha egy másik képre navigál (nyílgombokkal vagy a miniatűrökre kattintva):
 **Cél**: Az eredeti és a kalibrált kép összehasonlítása.
 
 1. Nyissa meg a feldolgozott képet a Képmegjelenítőben.
-2. Válassza ki a **RAW (Eredeti)** lehetőséget a legördülő menüből.
-3. Vegye figyelembe a vignettálást és a nem kalibrált értékeket.
-4. Váltson át a **RAW (Reflektancia)** lehetőségre a legördülő menüből.
-5. Hasonlítsa össze – a vignettálás eltűnt, az értékek kalibrálva lettek.
+2. Válassza a **RAW (Eredeti)** lehetőséget a legördülő menüből.
+3. Vegye figyelembe a vignettálást és a nem kalibrált értékeket
+4. Váltson a legördülő menüből **RAW (Reflectance)**-ra
+5. Összehasonlítás – a vignettálás eltávolítva, az értékek kalibrálva
 
 ### 2. munkafolyamat: Index áttekintése
 
-**Cél**: Az NDVI eredmények gyors áttekintése az adatkészletben.
+**Cél**: Az NDVI eredmények gyors áttekintése az adatkészletben
 
 1. Nyissa meg az első feldolgozott képet
 2. Válassza ki a legördülő menüből a **RAW (NDVI Index)** lehetőséget
 3. A → nyíl gombbal lépjen a következő képre
 4. Az NDVI réteg automatikusan megmarad
 5. Folytassa az összes kép áttekintését, ellenőrizve az NDVI mintákat
-6. Váltson **RAW (NDRE Index)**-re az összehasonlításhoz.
+6. Váltson át a **RAW (NDRE Index)**-re az összehasonlításhoz.
 
 ### 3. munkafolyamat: Célpontok ellenőrzése
 
@@ -196,37 +196,37 @@ Ha egy másik képre navigál (nyílgombokkal vagy a miniatűrökre kattintva):
 1. Keresse meg a célpont képet.
 2. Válassza ki a **RAW (Target)** lehetőséget a legördülő menüből.
 3. Ellenőrizze, hogy a kalibrációs célpontok jól láthatóak és felismerhetők-e.
-4. Keresse meg a következő célképet.
-5. Ismételje meg az ellenőrzést minden cél esetében.
+4. Keresse meg a következő célképet
+5. Ismételje meg az ellenőrzést minden cél esetében
 
 ### 4. munkafolyamat: Pixelérték-ellenőrzés
 
-**Cél**: Ellenőrizze a visszaverődési értékek tudományos pontosságát.
+**Cél**: Ellenőrizze a visszaverődési értékek tudományos pontosságát
 
-1. Nyissa meg a feldolgozott képet.
-2. Válassza ki a **RAW (Reflectance)** réteget.
-3. Engedélyezze a **Pixel Percent** módot (gomb a jobb felső eszköztáron).
-4. Vigye a kurzort a növényzet területére.
-5. Ellenőrizze, hogy a pixelértékek a várt tartományban vannak-e (30–70% az NIR esetében, 5–15% az Red esetében).
-6. Ellenőrizze, hogy a talaj- és vízterületek értékei megfelelőek-e.
+1. Nyissa meg a feldolgozott képet
+2. Válassza ki a **RAW (Reflectance)** réteget
+3. Engedélyezze a **Pixel Percent** módot (gomb a jobb felső eszköztáron)
+4. Vigye a kurzort a növényzet területére
+5. Ellenőrizze, hogy a pixelértékek a várt tartományban vannak-e (30-70% az NIR esetében, 5-15% az Red esetében).
+6. Ellenőrizze, hogy a talaj és a vízterületek értékei megfelelőek-e.
 
 ***
 
-## A pixelértékek rétegek szerinti értelmezése
+## A pixelértékek rétegenkénti értelmezése
 
-A különböző rétegek különböző pixelértéktartományokat mutatnak:
+A különböző rétegek különböző pixelérték-tartományokat mutatnak:
 
 ### JPG réteg
 
 * **Tartomány**: 0-255 (8 bites)
 * **Jelentés**: Kijelzett értékek, gamma-korrigált
-* **Használat**: Csak vizuális ellenőrzéshez, nem tudományos méréshez
+* **Használat**: Csak vizuális ellenőrzéshez, nem tudományos mérésekhez
 
 ### RAW (eredeti)
 
 * **Tartomány**: 0-65535 (16 bites)
-* **Jelentés**: Nyers szenzor digitális számok
-* **Használat**: A szenzor teljesítményének ellenőrzése, nem kalibrált
+* **Jelentés**: Nyers szenzoros digitális számok
+* **Használat**: Az érzékelő teljesítményének ellenőrzése, nem kalibrált
 
 ### RAW (Reflektancia)
 
@@ -257,10 +257,10 @@ A különböző rétegek különböző pixelértéktartományokat mutatnak:
 
 ### Teljesítményre vonatkozó szempontok
 
-* **A JPG a leggyorsabban töltődik be**: Használja a sok kép közötti gyors navigáláshoz.
-* **A RAW rétegek lassabban töltődnek be**: Magasabb felbontás és bitmélység.
-* **Index rétegek**: Hasonló sebességűek, mint a Reflektancia rétegek.
-* **Az első betöltés a leglassabb**: Az azonos réteg későbbi megtekintései gyorsítótárba kerülnek, és gyorsabbak.
+* **A JPG formátum töltődik be a leggyorsabban**: használja a sok kép közötti gyors navigáláshoz.
+* **A RAW rétegek lassabban töltődnek be**: nagyobb felbontás és bitmélység.
+* **Index rétegek**: hasonló sebességűek, mint a reflektancia rétegek.
+* **Az első betöltés a leglassabb**: az ugyanazon réteg későbbi megtekintései gyorsítótárba kerülnek, és gyorsabbak.
 
 ### Minőségellenőrzés
 
@@ -279,13 +279,13 @@ A különböző rétegek különböző pixelértéktartományokat mutatnak:
 **Lehetséges okok:**
 
 * A kép nem lett feldolgozva (csak JPG és RAW (eredeti) formátumok állnak rendelkezésre)
-* A feldolgozás során a reflektancia kalibrálása le volt tiltva
+* A feldolgozás során a visszaverődés-kalibrálás le volt tiltva
 * A projektbeállításokban nem lett konfigurálva a konkrét index
-* A kép csak célkép (nem lettek generálva indexek a célokhoz)
+* A kép csak célkép (a célokhoz nem lettek generálva indexek)
 
 **Megoldások:**
 
-1. Ellenőrizze, hogy a kép feldolgozásra került-e (ellenőrizze a feldolgozott fájlok kimeneti mappáját).
+1. Ellenőrizze, hogy a kép feldolgozásra került-e (ellenőrizze a feldolgozott fájlokat a kimeneti mappában).
 2. Ellenőrizze a projektbeállításokat, hogy az indexek konfigurálva lettek-e.
 3. Feldolgozza újra a kívánt indexek engedélyezésével.
 
@@ -295,24 +295,24 @@ A különböző rétegek különböző pixelértéktartományokat mutatnak:
 
 **Ok**: Az előző kép rétegbeállításai átkerültek, de az a réteg nem létezik a jelenlegi képen.
 
-**Megoldás:** Az Chloros automatikusan JPG-re vált, ha a preferált réteg nem elérhető – ez normális viselkedés.
+**Megoldás**: Az Chloros automatikusan JPG-re vált, ha a kívánt réteg nem elérhető – ez normális viselkedés.
 
-### A kalibrációs célpontok nem láthatók
+### Nem láthatók a kalibrációs célok
 
-**Probléma:** A RAW (célpont) réteg nem jeleníti meg a célpontok észlelését.
+**Probléma**: A RAW (cél) réteg nem jeleníti meg a célfelismerést.
 
 **Lehetséges okok:**
 
-* A célok feldolgozás közben nem kerültek felismerésre
-* A kép valójában nem tartalmaz célokat
-* A célfelismerési beállítások túl szigorúak
+* A célok feldolgozás közben nem kerültek felismerésre.
+* A kép valójában nem tartalmaz célokat.
+* A célfelismerési beállítások túl szigorúak.
 
 **Megoldások:**
 
-1. Ellenőrizze a hibakeresési naplóban, hogy szerepel-e „Cél megtalálva” üzenet
-2. Ellenőrizze, hogy a kép valóban tartalmaz-e látható kalibrációs célokat
-3. Állítsa be a célfelismerési beállításokat a Projektbeállításokban
-4. Lásd [Célképek kiválasztása](../processing-images-gui/choosing-target-images.md)
+1. Ellenőrizze a hibakeresési naplóban, hogy szerepel-e „Cél megtalálva” üzenet.
+2. Ellenőrizze, hogy a kép valóban tartalmaz-e látható kalibrációs célokat.
+3. Állítsa be a célfelismerési beállításokat a Projektbeállítások menüpontban.
+4. Lásd: [Célképek kiválasztása](../processing-images-gui/choosing-target-images.md)
 
 ***
 
@@ -322,11 +322,11 @@ A különböző rétegek különböző pixelértéktartományokat mutatnak:
 
 Bármely réteg megtekintésekor használhatja a következőket:
 
-* **Nagyításvezérlők**: Nagyítson a részletek megtekintéséhez
+* **Nagyításvezérlők**: Nagyítás a részletek megtekintéséhez
 * **Panoráma**: Kattintson és húzza az egérrel a nagyított kép mozgatásához
-* **Pixelérték-ellenőrzés**: A kurzor helyén láthatók az értékek.
-* **Navigációs nyilak**: A réteg megtartása mellett mozoghat a képek között.
-* **Pixel százalékos mód**: Válthat a DN és a százalékos kijelzés között.
+* **Pixelérték-ellenőrzés**: az értékek megtekintése a kurzor helyén
+* **Navigációs nyilak**: képek közötti mozgás a réteg megtartása mellett
+* **Pixel százalékos mód**: váltás DN és százalékos kijelzés között
 
 A képnézegető teljes dokumentációját lásd a [Kép teljes képernyős megnyitása](opening-an-image-full-screen.md) című részben.
 
@@ -338,7 +338,7 @@ Interaktív index tesztelés és vizualizálás:
 * **LUT szín leképezés**: Színátmenetek alkalmazása szürkeárnyalatos indexekre
 * **Vizualizációk exportálása**: Színes index képek mentése
 
-A részleteket lásd az [Index/LUT Sandbox](index-lut-sandbox.md) című dokumentumban.
+A részleteket lásd az [Index/LUT Sandbox](index-lut-sandbox.md) című részben.
 
 ***
 
@@ -346,7 +346,7 @@ A részleteket lásd az [Index/LUT Sandbox](index-lut-sandbox.md) című dokumen
 
 Most, hogy már ismeri a képrétegeket:
 
-* [**Kép teljes képernyős megnyitása**](opening-an-image-full-screen.md) – Teljes Image Viewer útmutató
-* [**Index/LUT Sandbox**](index-lut-sandbox.md) – Interaktív index vizualizáció
-* [**Multispektrális index képletek**](../project-settings/multispectral-index-formulas.md) – Elérhető indexek referencia
-* [**A feldolgozás befejezése**](../processing-images-gui/finishing-the-processing.md) – A feldolgozott kimenetek megértése
+* [**Kép teljes képernyős megnyitása**](opening-an-image-full-screen.md) – Teljes képnézegető útmutató
+* [**Index/LUT Sandbox**](index-lut-sandbox.md) - Interaktív index vizualizáció
+* [**Multispektrális index képletek**](../project-settings/multispectral-index-formulas.md) - Elérhető indexek referencia
+* [**A feldolgozás befejezése**](../processing-images-gui/finishing-the-processing.md) - A feldolgozott kimenetek megértése

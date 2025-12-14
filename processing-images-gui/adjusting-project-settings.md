@@ -39,8 +39,8 @@ Ez szabályozza, hogy az Chloros hogyan azonosítja a kalibrációs célokat a k
 
 **Főbb beállítások:**
 
-* **Minimális kalibrációs minta terület**: A célfelismerés méretküszöbértéke (alapértelmezett: 25 pixel)
-* **Minimális célcsoportosítás**: A célterületek csoportosításának hasonlósági küszöbértéke (alapértelmezett: 60)
+* **Minimális kalibrációs minta terület**: A célfelismerés méretküszöbe (alapértelmezett: 25 pixel)
+* **Minimális célcsoportosítás**: A célterületek csoportosításának hasonlósági küszöbe (alapértelmezett: 60)
 
 **Mikor kell módosítani:**
 
@@ -55,13 +55,13 @@ Fő képfeldolgozási és kalibrálási beállítások.
 **Főbb beállítások:**
 
 * **Vignette-korrekció**: Kompenzálja a lencse sötétedését a széleken ✅ Ajánlott
-* **Reflektancia-kalibrálás**: Normalizálja az értékeket kalibrációs célok segítségével ✅ Ajánlott
+* **Reflektancia-kalibrálás**: Normalizálja az értékeket a kalibrálási célok segítségével ✅ Ajánlott
 * **Debayer-módszer**: Algoritmus a RAW 3-csatornás multispektrális formátumba konvertálásához
 * **Minimális újrakalibrálási intervallum**: A kalibrációs célok használata közötti idő (0 = mindet használja)
 
 **Speciális beállítások:**
 
-* **Fényérzékelő időzóna eltolása**: PPK időszinkronizáláshoz (alapértelmezett: 0)
+* **Fényérzékelő időzóna eltolás**: PPK időszinkronizáláshoz (alapértelmezett: 0)
 * **PPK korrekciók alkalmazása**: A .daq fájlokból származó GPS/expozíciós pin adatokat használja
 * **Expozíciós pin 1/2**: kamerákat rendel az expozíciós pinekhez kettős kamera beállítások esetén
 
@@ -72,13 +72,13 @@ Konfigurálja, mely növényzetindexeket kívánja kiszámítani és exportálni
 **Indexek hozzáadása:**
 
 1. Kattintson az **„Index hozzáadása”** gombra
-2. Válasszon egy indexet a legördülő menüből (NDVI, NDRE, GNDVI stb.)
+2. Válasszon ki egy indexet a legördülő menüből (NDVI, NDRE, GNDVI stb.)
 3. Konfigurálja a megjelenítési beállításokat (LUT színek, értéktartományok)
 4. Szükség szerint adjon hozzá több indexet
 
 **Népszerű indexek:**
 
-* **NDVI**: Általános növényállomány-egészség (leggyakoribb)
+* **NDVI**: Általános növényállomány-egészség (a leggyakoribb)
 * **NDRE**: Korai stresszfelismerés az RedEdge segítségével
 * **GNDVI**: Klorofillkoncentrációra érzékeny
 * **OSAVI**: Jól működik látható talajjal
@@ -126,7 +126,7 @@ Hozzon létre újrafelhasználható sablonokat a konzisztens munkafolyamatokhoz:
 
 Új projekt létrehozásakor:
 
-1. Válassza a **„Új projekt”** lehetőséget a főmenüből.
+1. Válassza a főmenüből az **„Új projekt”** lehetőséget.
 2. Válassza a **„Betöltés sablonból”** lehetőséget.
 3. Válassza ki a mentett sablont.
 4. Az összes beállítás automatikusan alkalmazásra kerül.
@@ -140,7 +140,7 @@ A **„Projektmappa mentése”** beállítás meghatározza, hogy alapértelmez
 * **Mikor érdemes megváltoztatni**:
   * Hálózati meghajtó a csapatmunkához
   * Másik meghajtó, amely több tárhelyet biztosít
-  * Év/ügyfél szerint rendezett mappaszerkezet
+  * Év/ügyfél szerint szervezett mappaszerkezet
 
 ***
 
@@ -158,7 +158,7 @@ Ha MAPIR DAQ rögzítőket használ GPS-szel a pontos földrajzi helymeghatároz
 
 1. Helyezze a .daq naplófájlt a projektmappájába.
 2. A Projektbeállításokban jelölje be az **„PPK-korrekciók alkalmazása”** jelölőnégyzetet.
-3. Szükség esetén állítsa be a **„Fényérzékelő időzóna eltolása”** értéket (alapértelmezett: 0 az UTC esetében).
+3. Szükség esetén állítsa be a **„Fényérzékelő időzóna eltolása”** értéket (alapértelmezett: 0 UTC esetén).
 4. Rendelje hozzá a kamerákat az expozíciós csapokhoz:
    * **Egyetlen kamera**: Automatikusan hozzárendelve az 1. csaphoz
    * **Két kamera**: Manuálisan rendelje hozzá az egyes kamerákat a megfelelő csapokhoz

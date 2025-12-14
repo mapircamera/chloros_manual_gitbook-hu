@@ -3,7 +3,6 @@ metaLinks:
   alternates:
     - https://app.gitbook.com/s/o044KN3Ws0uIDvOmSkcR/download
 ---
-
 # Letöltés
 
 Töltse le az Chloros legújabb verzióját az Windows-hez, hogy elindulhasson a multispektrális képfeldolgozás.
@@ -16,7 +15,7 @@ Töltse le az Chloros legújabb verzióját az Windows-hez, hogy elindulhasson a
 | **Processzor**        | Intel Core i5 vagy azzal egyenértékű     | Intel Core i7 vagy annál jobb         |
 | **Memória (RAM)**     | 8 GB                             | 16 GB vagy több                    |
 | **Grafikus kártya**    | DirectX 11 kompatibilis           | NVIDIA GPU 4 GB+ VRAM-mal       |
-| **Tárolókapacitás**          | 2 GB szabad hely                  | SSD 10 GB+ szabad hellyel       |
+| **Tárolóhely**          | 2 GB szabad hely                  | SSD 10 GB+ szabad hellyel       |
 | **Kijelző**          | 1920x1080                       | 2560x1440 vagy nagyobb             |
 | **Internet**         | Szükséges a licenc aktiválásához | Szükséges a licenc aktiválásához |
 
@@ -49,7 +48,7 @@ Töltse le az Chloros legújabb verzióját az Windows-hez, hogy elindulhasson a
 6. Jelentkezzen be MAPIR Cloud Chloros+ fiókjával (vagy folytassa az ingyenes verzióval).
 
 {% hint style=&quot;success&quot; %}
-A telepítő automatikusan hozzáadja az `chloros-cli` programot a rendszer PATH környezeti változójához a parancssori hozzáférés érdekében.
+A telepítő automatikusan hozzáadja az `chloros-cli` programot a rendszer PATH-jéhez a parancssori hozzáférés érdekében.
 {% endhint %}
 
 ***
@@ -58,7 +57,7 @@ A telepítő automatikusan hozzáadja az `chloros-cli` programot a rendszer PATH
 
 ### Python SDK
 
-Fejlesztők és automatizált munkafolyamatok esetén telepítse az Chloros Python SDK programot:
+Fejlesztők és automatizált munkafolyamatok számára telepítse az Chloros Python SDK programot:
 
 ```bash
 pip install chloros-sdk
@@ -76,8 +75,8 @@ Az Chloros telepítés a következőket tartalmazza:
 
 * ✅ **Chloros Desktop GUI** - Teljes funkcionalitású grafikus felület
 * ✅ **Chloros (böngésző)** - Webalapú felület alacsonyabb specifikációjú rendszerekhez
-* ✅ **Chloros CLI** - Parancssori felület (Chloros+ licenc szükséges)
-* ✅ **Háttérmotor** - Képfeldolgozó folyamat
+* ✅ **Chloros CLI** – Parancssori felület (Chloros+ licenc szükséges)
+* ✅ **Háttérmotor** – Képfeldolgozási folyamat
 * ✅ **Kameraprofilok** - Előre konfigurált MAPIR kamera sablonok
 
 ***
@@ -101,9 +100,9 @@ Fejlett funkciók elérése Chloros+ előfizetéssel:
 
 **A telepítés hibaüzenettel meghiúsul:**
 
-* Győződjön meg arról, hogy rendelkezik rendszergazdai jogokkal
-* Ideiglenesen tiltsa le a víruskereső szoftvert
-* Ellenőrizze, hogy megfelel-e a minimális rendszerkövetelményeknek
+* Győződjön meg arról, hogy rendelkezik rendszergazdai jogokkal.
+* Ideiglenesen tiltsa le a víruskereső szoftvert.
+* Ellenőrizze, hogy megfelel-e a minimális rendszerkövetelményeknek.
 
 **Az alkalmazás nem indul el:**
 
@@ -111,7 +110,7 @@ Fejlett funkciók elérése Chloros+ előfizetéssel:
 * Ellenőrizze, hogy az Windows 10/11 (64 bites) telepítve van-e
 * Frissítse a grafikus illesztőprogramokat
 * Ellenőrizze az Windows Eseménynaplóban a hiba részleteit
-* Vegye fel a kapcsolatot az ügyfélszolgálattal a hibanaplóval
+* Vegye fel a kapcsolatot az ügyfélszolgálattal a hibanaplókkal
 
 **Licencaktiválási problémák:**
 
@@ -166,3 +165,5 @@ A jogosulatlan használat, terjesztés vagy módosítás tilos.
 **Ingyenes verzió**: Személyes és kereskedelmi használatra elérhető, funkciók korlátozásával.
 
 **Chloros+**: Előfizetéses licenc fejlett funkciókhoz és kereskedelmi felhasználáshoz.
+
+<figure><img src=".gitbook/assets/t3-125_2.jpg" alt=""><figcaption></figcaption></figure>

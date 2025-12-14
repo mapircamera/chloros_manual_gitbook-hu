@@ -34,9 +34,9 @@ Chloros+ licenccel rendelkező felhasználók számára:
 
 **Interaktív funkciók:**
 
-* **Vigye az egérmutatót** a haladásjelző sávra a kibővített 4 szakaszos panel megjelenítéséhez
+* **Vigye az egérmutatót** a haladási sáv fölé a kibővített 4 szakaszos panel megjelenítéséhez
 * **Kattintson** a haladási sávra a kibővített panel befagyasztásához/rögzítéséhez
-* **Kattintson újra** a befagyasztás feloldásához és az egér elmozdításakor az automatikus elrejtéshez
+* **Kattintson újra** a befagyasztás feloldásához és az egér elmozdításakor történő automatikus elrejtéshez
 * Minden szakasz az egyéni haladást mutatja (0-100%)
 
 ***
@@ -98,7 +98,7 @@ Chloros+ licenccel rendelkező felhasználók számára:
 * **Vignette-korrekció**: A lencse szélének elsötétülésének eltávolítása
 * **Reflektancia-kalibrálás**: Normalizálás a célértékekkel
 * **Index számítás**: Multispektrális indexek kiszámítása
-* Minden kép feldolgozása a teljes folyamaton keresztül
+* Minden kép feldolgozása a teljes folyamat során
 
 **Időtartam:** A teljes feldolgozási idő nagy része (60-80%)
 
@@ -112,7 +112,7 @@ Chloros+ licenccel rendelkező felhasználók számára:
 
 * **Szabad mód**: Egyszerre egy képet dolgoz fel egymás után
 * **Chloros+ mód**: Egyszerre legfeljebb 16 képet dolgoz fel
-* **GPU-gyorsítás**: jelentősen felgyorsítja ezt a szakaszt
+* **GPU-gyorsítás**: Jelentősen felgyorsítja ezt a szakaszt
 
 **Mire kell figyelni:**
 
@@ -124,7 +124,7 @@ Chloros+ licenccel rendelkező felhasználók számára:
 
 **Mi történik:**
 
-* A kalibrált képek írása a kiválasztott formátumban a lemezre
+* A kalibrált képek írása a lemezre a kiválasztott formátumban
 * Multispektrális indexképek exportálása LUT színekkel
 * Kamera modell alkönyvtárak létrehozása
 * Az eredeti fájlnevek megőrzése a megfelelő kiterjesztésekkel
@@ -179,7 +179,7 @@ Nem kritikus problémák, amelyek nem állítják le a feldolgozást:
 [WARN] Low contrast in calibration panel - results may vary
 ```
 
-**Művelet:** A feldolgozás után ellenőrizze a figyelmeztetéseket, de ne szakítsa meg a feldolgozást.
+**Teendő:** A feldolgozás után ellenőrizze a figyelmeztetéseket, de ne szakítsa meg a feldolgozást.
 
 #### Hibaüzenetek (Red)
 
@@ -198,11 +198,11 @@ Kritikus problémák, amelyek a feldolgozás meghibásodását okozhatják:
 | Üzenet                          | Jelentés                                | Szükséges teendő                                         |
 | -------------------------------- | -------------------------------------- | ----------------------------------------------------- |
 | „Célpont észlelve a \[filename] fájlban” | Kalibrációs célpont sikeresen megtalálva  | Nincs – normális                                         |
-| „Y kép X feldolgozása”        | Aktuális előrehaladás frissítése                | Nincs – normális                                         |
+| „Y kép feldolgozása X”        | Aktuális előrehaladás frissítése                | Nincs – normális                                         |
 | „Nincs célpont”               | Nincs kalibrációs célpont észlelve        | Jelölje meg a célképeket, vagy tiltsa le a visszaverődés kalibrálását |
-| „Nincs elegendő lemezterület”        | Nincs elegendő tárhely a kimenethez          | Felszabadítson lemezterületet                                    |
+| „Nincs elegendő lemezterület”        | Nincs elegendő tárhely a kimenethez          | Szabadítson fel lemezterületet                                    |
 | „Sérült fájl kihagyása”        | A képfájl sérült                  | Másolja át a fájlt az SD-kártyáról                             |
-| „PPK-adatok alkalmazva”               | .daq fájlból származó GPS-korrekciók alkalmazva | Nincs - normális                                         |
+| „PPK-adatok alkalmazva”               | A .daq fájlból származó GPS-korrekciók alkalmazva | Nincs - normál                                         |
 
 ### Naplóadatok másolása
 
@@ -228,7 +228,7 @@ A napló másolása hibaelhárítás vagy támogatás céljából:
 **Chloros+ párhuzamos mód:**
 
 * Több mag 80-100% (legfeljebb 16 mag)
-* Magas általános CPU-kihasználtság
+* Magas általános CPU-kihasználás
 * A rendszer kevésbé reagálhat
 
 **Megfigyelés:**
@@ -262,7 +262,7 @@ Ha a GPU-gyorsítás engedélyezve van:
 
 **Megfigyelés:**
 
-* NVIDIA tálcaikon
+* NVIDIA rendszer tálca ikon
 * Feladatkezelő → Teljesítmény → GPU
 * GPU-Z vagy hasonló megfigyelő eszköz
 
@@ -278,7 +278,7 @@ Ha a GPU-gyorsítás engedélyezve van:
 
 * Ha lehetséges, SSD-t használjon a projektmappához
 * Kerülje a hálózati meghajtókat nagy adathalmazok esetén
-* Győződjön meg arról, hogy a lemez nem közelíti meg a kapacitását (ez befolyásolja az írási sebességet)
+* Győződjön meg arról, hogy a lemez kapacitása nem közelíti meg a telítettséget (ez befolyásolja az írási sebességet)
 
 ***
 
@@ -311,12 +311,12 @@ Ha a GPU-gyorsítás engedélyezve van:
 * ❌ „Lemez megtelt” vagy „Nem lehet fájlt írni” hibák
 * ❌ Ismétlődő képfájl-sérülési hibák
 * ❌ A rendszer teljesen lefagyott (nem reagál)
-* ❌ Rossz beállítások konfigurálása
-* ❌ Rossz képek importálása
+* ❌ Rájött, hogy rossz beállításokat konfigurált
+* ❌ Rossz képeket importált
 
-**A leállítás módja:**
+**Hogyan állítsa le:**
 
-1. Kattintson a **Stop/Cancel (Leállítás/Mégse) gombra** (a Start gomb helyett)
+1. Kattintson a **Stop/Cancel gombra** (a Start gomb helyett)
 2. A feldolgozás leáll, az előrehaladás elveszik
 3. Javítsa ki a problémákat, és indítsa újra az elejétől
 
@@ -354,7 +354,7 @@ Ha a GPU-gyorsítás engedélyezve van:
 **Megoldások:**
 
 1. Másolja át újra a képeket az SD-kártyáról az integritás biztosítása érdekében.
-2. Ellenőrizze az SD-kártyát hibákra.
+2. Ellenőrizze az SD-kártyát hibák szempontjából.
 3. Távolítsa el a sérült fájlokat a projektből.
 4. Folytassa a többi kép feldolgozását.
 
@@ -365,7 +365,7 @@ Ha a GPU-gyorsítás engedélyezve van:
 1. Gondoskodjon megfelelő szellőzésről.
 2. Tisztítsa meg a számítógép szellőzőnyílásait a portól.
 3. Csökkentse a feldolgozási terhelést (használja a Free módot az Chloros+ helyett).
-4. A nap hűvösebb óráiban végezze a feldolgozást.
+4. A feldolgozást a nap hűvösebb óráiban végezze.
 
 ***
 
@@ -374,7 +374,7 @@ Ha a GPU-gyorsítás engedélyezve van:
 A feldolgozás befejezésekor:
 
 * A haladási sáv eléri a 100%-ot.
-* A **„Feldolgozás befejezve”** üzenet megjelenik a hibakeresési naplóban.
+* A **„Feldolgozás befejeződött”** üzenet megjelenik a hibakeresési naplóban.
 * A Start gomb újra aktiválódik.
 * Az összes kimeneti fájl a kamera modell alkönyvtárában található.
 

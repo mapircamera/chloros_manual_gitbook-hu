@@ -1,5 +1,5 @@
 ---
-description: Laboratóriumban mért panelek, amelyeket a rögzített adatok utólagos feldolgozásához kalibrálnak
+description: Panels measured in the laboratory used to calibrate captured data in post-processing
 metaLinks:
   alternates:
     - https://app.gitbook.com/s/o044KN3Ws0uIDvOmSkcR/calibration-targets
@@ -20,6 +20,6 @@ A visszaverődési grafikonon látható, hogy az értékek a hullámhossz (x-ten
 
 Ez azt jelenti, hogy minden, kameráinkkal készített képpel használhatja a fényvisszaverődési célpontjaink fényképét, például a [T4-R50](https://www.mapir.camera/collections/calibration-targets/products/diffuse-reflectance-standard-calibration-target-package-t3-r50) vagy a [T4-R125](https://www.mapir.camera/collections/multispectral-reflectance-reference-calibration-targets/products/diffuse-reflectance-standard-calibration-target-package-t4-r125) fényképet a képek fényvisszaverődésének kalibrálásához. A kalibrálás után a kép minden egyes képpontja egyenlő a visszaverődés százalékával.
 
-Ha a kalibrált képeket Chloros formátumban adja ki, mint a tipikus JPG vagy TIFF, akkor a visszaverődési százalékot a képpont értékének és a képformátum bitmélységének hányadosaként számítja ki. Tehát JPG esetén 255-tel, TIFF esetén pedig 65 535-tel kell osztani. Választhatja a PERCENT formátumú kimenetet is az Chloros-ben, és akkor minden pixel 0,0 és 1,0 közötti százalékos értéket fog kapni (0% és 100% közötti visszaverődés). Ne feledje, hogy egyes képszerkesztő programok nem fogadják el a százalékos (lebegőpontos) képeket, és ezek tárolási szempontból nagy méretűek.
+Ha a kalibrált képeket Chloros formátumban adja ki, mint a tipikus JPG vagy TIFF, akkor a visszaverődési százalékot a képpont értékének és a képformátum bitmélységének hányadosaként számítja ki. Tehát JPG esetén 255-tel, TIFF esetén pedig 65 535-tel kell osztani. Választhatja a PERCENT formátumú kimenetet is az Chloros formátumban, és akkor minden pixel 0,0 és 1,0 közötti százalékos értéket fog kapni (0% és 100% közötti visszaverődés). Ne feledje, hogy egyes képszerkesztő programok nem fogadják el a százalékos (lebegőpontos) képeket, és ezek tárolási szempontból nagy méretűek.
 
 <div><figure><img src=".gitbook/assets/t3-125.jpg" alt=""><figcaption><p>T4-R125</p></figcaption></figure> <figure><img src=".gitbook/assets/t3-125_2.jpg" alt=""><figcaption><p>T4-R125</p></figcaption></figure> <figure><img src=".gitbook/assets/t3-125_closed.jpg" alt=""><figcaption><p>T4-R125</p></figcaption></figure></div>

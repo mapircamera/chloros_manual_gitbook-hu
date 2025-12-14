@@ -3,7 +3,6 @@ metaLinks:
   alternates:
     - https://app.gitbook.com/s/o044KN3Ws0uIDvOmSkcR/output-image-formats
 ---
-
 # Kimeneti képformátumok
 
 ### TIFF (16 bites)
@@ -12,7 +11,7 @@ metaLinks:
 
 ### TIFF (32 bites, százalék %)
 
-32 bites (pixel float 0,0 – 1,0) TIFF (.tif) formátumú kimenet. A pixelértékek a visszaverődés százalékos arányát jelzik, ahol 0,0 = 0% és 1,0 = 100%.
+32 bites (pixel lebegőpontos 0,0–1,0) TIFF (.tif) formátumú kimenet. A pixelértékek a visszaverődés százalékos arányát jelzik, ahol 0,0 = 0% és 1,0 = 100%.
 
 ### **JPG (8 bites)**
 
@@ -20,5 +19,5 @@ metaLinks:
 
 ### **PNG (8 bites)**
 
-8 bites (pixel digitális szám 0 - 255) PNG (.png) formátumú kimenet. Veszteségmentes tömörítés, amely alkalmas webes megtekintésre és vizualizálásra.
+8 bites (pixel digitális szám 0 - 255) PNG (.png) formátumú kimenet. Veszteségmentes tömörítés, alkalmas webes megtekintésre és vizualizálásra.
 

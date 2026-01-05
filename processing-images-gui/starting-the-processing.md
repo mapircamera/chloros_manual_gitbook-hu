@@ -7,7 +7,7 @@ Miután importálta a képeket, megjelölte a kalibrációs célpontokat és kon
 Mielőtt rákattintana a Start gombra, ellenőrizze, hogy minden készen áll-e:
 
 * [ ] **Fájlok importálva** - Minden kép megjelenik a Fájlböngészőben
-* [ ] **Célképek megjelölve** - A Cél oszlopban bejelölve a kalibrációs képek
+* [ ] **Célképek megjelölve** - A Cél oszlop bejelölve a kalibrációs képekhez
 * [ ] **A kameramodellek felismerve** - A Kameramodell oszlopban a megfelelő kamerák jelennek meg
 * [ ] **Beállítások konfigurálva** - A projektbeállítások áttekintve és módosítva
 * [ ] **Indexek kiválasztva** - A kívánt multispektrális indexek hozzáadva (ha szükséges)
@@ -26,18 +26,18 @@ Mielőtt rákattintana a Start gombra, ellenőrizze, hogy minden készen áll-e:
 A Start/Lejátszás gomb az Chloros felső fejlécében található:
 
 * Hely: az ablak felső közepén
-* Ikon: **Lejátszás/Start gomb** <img src="../.gitbook/assets/image (2).png" alt="" data-size="line">
+* Ikon: **Lejátszás/Start gomb** <img src="../.gitbook/assets/image (2) (1).png" alt="" data-size="line">
 * Állapot: A gomb aktív (világos), ha készen áll a feldolgozásra
 
 ### Kattintson a Start gombra
 
 1. Kattintson a **Lejátszás/Start gombra** a felső fejlécben
 2. A feldolgozás azonnal megkezdődik
-3. A gomb a feldolgozás alatt inaktívvá válik (szürkén jelenik meg)
+3. A gomb a feldolgozás alatt inaktívvá válik (szürkés)
 4. A haladási sáv frissül, és megmutatja a feldolgozás állapotát
 
 {% hint style=&quot;success&quot; %}
-**Feldolgozás elindítva**: A gombra kattintás után az Chloros automatikusan elvégzi az összes feldolgozási lépést – célfelismerés, debayering, kalibrálás, index számítás és exportálás.
+**Feldolgozás elindítva**: A gombra kattintás után az Chloros automatikusan elvégzi az összes feldolgozási lépést – célfelismerés, debayering, kalibrálás, indexszámítás és exportálás.
 {% endhint %}
 
 ***
@@ -46,7 +46,7 @@ A Start/Lejátszás gomb az Chloros felső fejlécében található:
 
 Az Chloros a licencétől függően két különböző feldolgozási módban működik:
 
-### Ingyenes mód (szekvenciális feldolgozás)
+### Ingyenes mód (sorrendben történő feldolgozás)
 
 **Minden felhasználó számára elérhető**
 
@@ -56,12 +56,10 @@ Az Chloros a licencétől függően két különböző feldolgozási módban mű
 * Egy szálas működés.
 * Alacsonyabb memóriahasználat.
 
-**A haladásjelző sáv 2 szakaszt mutat:**
+**A haladási sáv 2 szakaszt mutat:**
 
-1. **Célfelismerés** – Kalibrációs célok keresése.
-2. **Feldolgozás** – Kalibráció alkalmazása és képek exportálása.
-
-**Feldolgozási idő:**
+1.**Célfelismerés** – Kalibrációs célok keresése.
+2. **Feldolgozás** – Kalibráció alkalmazása és képek exportálása.**Feldolgozási idő:**
 
 * Sokkal lassabb, mint az Chloros+ párhuzamos mód
 * Kis és közepes méretű adathalmazokhoz alkalmas (&lt; 200 kép)
@@ -79,21 +77,15 @@ Az Chloros a licencétől függően két különböző feldolgozási módban mű
 
 **A haladási sáv 4 szakaszt mutat:**
 
-1. **Észlelés** – Kalibrációs célok keresése
+1.**Észlelés** – Kalibrációs célok keresése
 2. **Elemzés** – A kép metaadatainak vizsgálata és a folyamat előkészítése
 3. **Kalibrálás** – Korrekciók és kalibrálások alkalmazása
-4. **Exportálás** – A feldolgozott képek és indexek mentése
-
-**A haladási sáv interakciója:**
-
-* **Vigye az egérmutatót** a sáv fölé, hogy megtekintse a részletes, 4 szakaszból álló legördülő panelt
+4. **Exportálás** – A feldolgozott képek és indexek mentése**A haladási sáv interakciója:*** **Vigye az egérmutatót** a sáv fölé, hogy megtekintse a részletes, 4 szakaszból álló legördülő panelt
 * **Kattintson** a haladási sávra, hogy a legördülő panelt a helyén rögzítse
-* **Kattintson újra**, hogy a panelt feloldja és elrejtse
-
-**Feldolgozási idő:**
+* **Kattintson újra**, hogy a panelt feloldja és elrejtse**Feldolgozási idő:**
 
 * Jelentősen gyorsabb, mint az ingyenes mód
-* A CPU magok számával arányosan skálázódik
+* A CPU magszámával arányosan skálázódik
 * A GPU-gyorsítás tovább javítja a sebességet
 
 {% hint style=&quot;info&quot; %}
@@ -109,28 +101,26 @@ Az Chloros a licencétől függően két különböző feldolgozási módban mű
 **Mit csinál az Chloros:**
 
 * Beolvassa a megjelölt célképeket (vagy az összes képet, ha nincs megjelölve)
-* Azonosítja a 4 kalibrációs panelt minden célban
+* Azonosítja a 4 kalibrációs panelt minden célpontban
 * Kivonja a visszaverődési értékeket a célpanelekből
-* Rögzíti a cél időbélyegzőit a kalibráció ütemezéséhez
+* Rögzíti a célpontok időbélyegeit a kalibráció ütemezéséhez
 
-**Időtartam:** 1-30 másodperc (megjelölt célok esetén), 5-30+ perc (megjelöletlen célok esetén)
+**Időtartam:** 1-30 másodperc (jelölt célpontok esetén), 5-30+ perc (jelöletlen célpontok esetén)
 
 ### 2. szakasz: Debayering (RAW konverzió)
 
 **Az Chloros funkciói:**
 
-* RAW Bayer-minta adatokat teljes RGB képekké konvertál
+* RAW Bayer-minta adatokat konvertál teljes RGB képekké
 * Kiváló minőségű demosaicing algoritmust alkalmaz
-* Maximális képminőséget és részletességet biztosít
+* Megőrzi a maximális képminőséget és részletességet
 
 **Időtartam:** A képek számától és a CPU sebességétől függően változik
 
 ### 3. szakasz: Kalibrálás
 
-**Az Chloros funkciói:**
-
-* **Vignette-korrekció**: Eltávolítja a lencse sötétedését a széleken
-* **Reflektancia-kalibrálás**: Normalizálja a célreflektancia-értékek felhasználásával
+**Az Chloros funkciói:*** **Vignette-korrekció**: eltávolítja a lencse sötétedését a széleken
+* **Reflektancia-kalibrálás**: normalizálja a célreflektancia-értékek felhasználásával
 * Korrekciókat alkalmaz minden sávon/csatornán
 * Az időbélyeg alapján minden képhez a megfelelő kalibrációs célt használja
 
@@ -155,9 +145,7 @@ Az Chloros a licencétől függően két különböző feldolgozási módban mű
 * A fájlokat a kamera modell alkönyvtáraiba írja
 * Megőrzi az eredeti fájlneveket a kiterjesztésekkel
 
-**Időtartam:** Az export formátumtól és a fájl méretétől függően változik
-
-***
+**Időtartam:** Az export formátum és a fájl mérete függvényében változik***
 
 ## Feldolgozási viselkedés
 
@@ -175,9 +163,9 @@ A folyamat elindítása után az egész folyamat automatikusan lefut:
 
 * Viszonylag alacsony CPU-használat (egyszálas)
 * A számítógép továbbra is reagál más feladatokra
-* Biztonságos az Chloros minimalizálása és más alkalmazásokban való munka
+* Biztonságos minimalizálni az Chloros programot és más alkalmazásokban dolgozni
 
-**Chloros+ Párhuzamos mód:**
+**Chloros+ párhuzamos mód:**
 
 * Magas CPU-használat (többszálas, akár 16 mag)
 * GPU-gyorsítással: magas GPU-használat
@@ -185,7 +173,7 @@ A folyamat elindítása után az egész folyamat automatikusan lefut:
 * Kerülje más CPU-igényes feladatok elindítását
 
 {% hint style=&quot;warning&quot; %}
-**Teljesítménytipp**: A legjobb Chloros+ teljesítmény érdekében zárjon be más alkalmazásokat, és hagyja, hogy az Chloros a teljes rendszer erőforrásait használja.
+**Teljesítménytipp**: A legjobb Chloros+ teljesítmény érdekében zárjon be más alkalmazásokat, és hagyja, hogy az Chloros a teljes rendszer erőforrásait felhasználja.
 {% endhint %}
 
 ### A feldolgozás nem állítható le
@@ -197,9 +185,7 @@ A folyamat elindítása után az egész folyamat automatikusan lefut:
 * A részleges eredmények nem kerülnek mentésre.
 * Törlés esetén az elejétől kell újrakezdeni.
 
-**Tervezési tipp:** Nagyon nagy projektek esetén fontolja meg a feldolgozás kötegekben történő elvégzését vagy az CLI használatát a jobb ellenőrzés érdekében.
-
-***
+**Tervezési tipp:** Nagyon nagy projektek esetén fontolja meg a feldolgozás köteges feldolgozását vagy az CLI használatát a jobb ellenőrzés érdekében.***
 
 ## A feldolgozás figyelemmel kísérése
 
@@ -222,23 +208,23 @@ Ha meg kell szakítania a feldolgozást:
 
 1. Keresse meg a **Stop/Cancel gombot** (a feldolgozás során ez helyettesíti a Start gombot)
 2. Kattintson a Stop gombra
-3. A feldolgozás azonnal leáll.
-4. A részleges eredmények elvetésre kerülnek.
+3. A feldolgozás azonnal leáll
+4. A részleges eredmények elvetésre kerülnek
 
-### Mikor kell megszakítani?
+### Mikor kell megszakítani
 
 **Érvényes okok a megszakításra:**
 
-* Rájött, hogy helytelen beállításokat használt.
-* Elfelejtette megjelölni a célképeket.
-* Rossz képeket importált.
-* A rendszer túl lassú vagy nem reagál.
+* Rájött, hogy helytelen beállításokat használt
+* Elfelejtette megjelölni a célképeket
+* Rossz képeket importált
+* A rendszer túl lassú vagy nem reagál
 
 **A megszakítás után:**
 
-* Ellenőrizze és javítsa ki az esetleges problémákat.
-* Szükség szerint módosítsa a beállításokat.
-* Indítsa újra a feldolgozást az elejétől.
+* Ellenőrizze és javítsa ki az esetleges problémákat
+* Szükség szerint módosítsa a beállításokat
+* Indítsa újra a feldolgozást az elejétől
 * A legtisztább élmény érdekében teljesen zárja be az Chloros programot, és indítsa újra.
 
 {% hint style=&quot;warning&quot; %}
@@ -260,7 +246,7 @@ A tényleges feldolgozási idő nagyban függ a következőktől:
 * Számítandó indexek száma
 * Export formátum komplexitása
 
-### Hozzávetőleges becslések (Chloros+, 12 MP-os képek, modern CPU)
+### Hozzávetőleges becslések (Chloros+, 12 MP-es képek, modern CPU)
 
 | Képek száma | Ingyenes mód | Chloros+ (CPU) | Chloros+ (GPU) |
 | ----------- | --------- | -------------- | -------------- |
@@ -284,14 +270,14 @@ A tényleges feldolgozási idő nagyban függ a következőktől:
 
 * Nincs importált kép
 * A háttérprogram nem indult el teljesen
-* A korábbi feldolgozás még fut
+* Az előző feldolgozás még fut
 * A projekt nem töltődött be teljesen
 
 **Megoldások:**
 
 1. Várja meg, amíg a háttérprogram teljesen inicializálódik (ellenőrizze a főmenü ikont)
 2. Ellenőrizze, hogy a képek importálva vannak-e a Fájlböngészőben
-3. Indítsa újra az Chloros programot, ha a gomb továbbra is letiltva marad
+3. Indítsa újra az Chloros programot, ha a gomb továbbra is letiltott marad
 4. Ellenőrizze a hibajelentéseket a hibakeresési naplóban
 
 ### A feldolgozás elindul, majd azonnal megszakad
@@ -316,7 +302,7 @@ A tényleges feldolgozási idő nagyban függ a következőktől:
 
 * Elfelejtette megjelölni a célképeket
 * A célképek nem tartalmaznak látható célpontokat
-* A célpont-felismerési beállítások túl szigorúak
+* A célpont-észlelési beállítások túl szigorúak
 
 **Megoldások:**
 
@@ -333,14 +319,14 @@ A tényleges feldolgozási idő nagyban függ a következőktől:
 
 1. **Először kis részhalmazzal teszteljen** – Feldolgozzon 10-20 képet a beállítások ellenőrzéséhez.
 2. **Ellenőrizze a rendelkezésre álló lemezterületet** – Gondoskodjon arról, hogy a adatállomány méretének 2-3-szorosának megfelelő szabad hely álljon rendelkezésre.
-3. **Zárjon be felesleges alkalmazásokat** – Szabadítson fel rendszererőforrásokat.
+3. **Zárjon be minden felesleges alkalmazást** – Szabadítson fel rendszererőforrásokat.
 4. **Ellenőrizze a célképeket** – Nézze meg a megjelölt célok előnézetét a minőség ellenőrzése érdekében.
 5. **Mentse el a projektet** – A projekt automatikusan mentésre kerül, de célszerű manuálisan is elmenteni.
 
 ### Feldolgozás közben
 
-1. **Kerülje a rendszer alvó állapotát** – Kapcsolja ki az energiatakarékos módokat.
-2. **Tartsa az Chloros programot előtérben** – Vagy legalábbis látható helyen a tálcán.
+1. **Kerülje a rendszer alvó módját** – Kapcsolja ki az energiatakarékos módokat.
+2. **Tartsa az Chloros programot az előtérben** – Vagy legalábbis látható helyen a tálcán.
 3. **Időnként ellenőrizze a folyamatot** – Ellenőrizze, hogy nincs-e figyelmeztetés vagy hiba.
 4. **Ne töltsön be más nagy terhelésű alkalmazásokat** – Különösen Chloros+ párhuzamos módban
 
@@ -363,4 +349,4 @@ A feldolgozás megkezdése után:
 2. **Várja meg a befejezést** – A feldolgozás automatikusan fut.
 3. **Ellenőrizze az eredményeket** – Lásd: [A feldolgozás befejezése](finishing-the-processing.md)
 
-A feldolgozás során teendőkről további információkat a [A feldolgozás figyelemmel kísérése](monitoring-the-processing.md) című részben talál.
+A feldolgozás során teendőkről további információkat a [A feldolgozás figyelése](monitoring-the-processing.md) című részben talál.

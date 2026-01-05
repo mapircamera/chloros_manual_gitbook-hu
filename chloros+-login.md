@@ -6,9 +6,7 @@ A felhasználói <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line
 
 Bejelentkezés után megjelennek a fiókadatok:
 
-<figure><img src=".gitbook/assets/user_account.JPG" alt="" width="375"><figcaption></figcaption></figure>
-
-## CLI Bejelentkezés
+<figure><img src=".gitbook/assets/user_account.JPG" alt="" width="375"><figcaption></figcaption></figure>## CLI Bejelentkezés
 
 Jelentkezzen be Chloros+ hitelesítő adataival, hogy engedélyezze az CLI feldolgozást.
 
@@ -17,6 +15,10 @@ Jelentkezzen be Chloros+ hitelesítő adataival, hogy engedélyezze az CLI feldo
 ```bash
 chloros-cli login <email> <password>
 ```
+
+{% hint style=&quot;info&quot; %}
+**SDK felhasználók**: Az Python SDK programozási `logout()` módszert is biztosít a gyorsítótárban tárolt hitelesítő adatok törléséhez. A részleteket lásd az [Python SDK dokumentációban](api-python-sdk.md#logout).
+{% endhint %}
 
 **Példa:**
 
@@ -30,11 +32,9 @@ chloros-cli login user@example.com 'MyP@ssw0rd123'
 
 **Kimenet:**
 
-<figure><img src=".gitbook/assets/cli login_w.JPG" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/cli login_w.JPG" alt=""><figcaption></figcaption></figure>### A terv lejárati ideje
 
-### A terv lejárati ideje
-
-A GUI-ban látható a terv lejárati ideje, amely jelzi, hogy mikor válik érvénytelenné a licenc. Havi előfizetések esetén a lejárat a hónap végén van. Éves előfizetések esetén a lejárat az előfizetés megkezdésétől számított egy év után van. A licenc ellenőrzéséhez havi internetkapcsolat szükséges, 30 napos türelmi idővel.
+A GUI-ban látható terv lejárati ideje azt mutatja, mikor válik érvénytelenné a licenc. Havi előfizetések esetén a lejárat a hónap végén van. Éves előfizetések esetén a lejárat az előfizetés megkezdésétől számított egy év után van. A licenc ellenőrzéséhez havi internetkapcsolat szükséges, 30 napos türelmi idővel.
 
 ### Eszközkorlát
 

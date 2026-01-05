@@ -19,7 +19,7 @@
 * [Fájlok hozzáadása a projekthez](processing-images-gui/adding-files-to-a-project.md)
 * [Célképek kiválasztása](processing-images-gui/choosing-target-images.md)
 * [A feldolgozás elindítása](processing-images-gui/starting-the-processing.md)
-* [A feldolgozás figyelése](processing-images-gui/monitoring-the-processing.md)
+* [A feldolgozás figyelemmel kísérése](processing-images-gui/monitoring-the-processing.md)
 * [A feldolgozás befejezése](processing-images-gui/finishing-the-processing.md)
 
 ## PROJEKTBEÁLLÍTÁSOK
@@ -27,8 +27,10 @@
 * [Projektbeállítások](project-settings/project-settings.md)
 * [Multispektrális index képletek](project-settings/multispectral-index-formulas.md)
 
-## KÉPMEGJELENÍTŐ (GUI)
+## KÉPMEGTEKINTŐ (GUI)
 
+* [Képrács](image-viewer-gui/image-grid.md)
 * [Kép teljes képernyős megnyitása](image-viewer-gui/opening-an-image-full-screen.md)
 * [Képrétegek](image-viewer-gui/image-layers.md)
-* [Index/LUT Sandbox](image-viewer-gui/index-lut-sandbox.md)
+* [Index/LUT homokozó](image-viewer-gui/index-lut-sandbox.md)
+* [Térképjelölők](image-viewer-gui/map-markers.md)

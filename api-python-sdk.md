@@ -15,12 +15,12 @@ Az **Chloros Python SDK** programozási hozzáférést biztosít az Chloros kép
 
 | Követelmény          | Részletek                                                             |
 | -------------------- | ------------------------------------------------------------------- |
-| **Chloros Desktop**  | Helyileg telepítve kell lennie                                           |
+| **Chloros Desktop**  | Helyileg kell telepíteni                                           |
 | **Licenc**          | Chloros+ ([fizetős csomag szükséges](https://cloud.mapir.camera/pricing)) |
 | **Operációs rendszer** | Windows 10/11 (64 bites)                                              |
 | **Python**           | Python 3.7 vagy újabb                                                |
 | **Memória**           | Minimum 8 GB RAM (16 GB ajánlott)                                  |
-| **Internet**         | Szükséges a licenc aktiválásához                                     |
+| **Internet**         | A licenc aktiválásához szükséges                                     |
 
 {% hint style=&quot;warning&quot; %}
 **Licenc követelmény**: Az Python SDK használatához fizetős Chloros+ előfizetés szükséges az API hozzáféréshez. A standard (ingyenes) csomagok nem biztosítanak hozzáférést az API/SDK-hez. A frissítéshez látogasson el az [https://cloud.mapir.camera/pricing](https://cloud.mapir.camera/pricing) oldalra.
@@ -37,12 +37,12 @@ pip install chloros-sdk
 ```
 
 {% hint style=&quot;info&quot; %}
-**Első beállítás**: Az SDK használata előtt aktiválja az Chloros+ licencét az Chloros, Chloros (böngésző) vagy Chloros CLI megnyitásával és a hitelesítő adatokkal való bejelentkezéssel. Ezt csak egyszer kell megtenni.
+**Első beállítás**: Az SDK használata előtt aktiválja az Chloros+ licencét az Chloros, Chloros (böngésző) vagy az Chloros CLI megnyitásával és a hitelesítő adataival való bejelentkezéssel. Ezt csak egyszer kell megtennie.
 {% endhint %}
 
 ### Alapvető használat
 
-Néhány sorral feldolgozhat egy mappát:
+Feldolgozzon egy mappát néhány sorral:
 
 ```python
 from chloros_sdk import process_folder
@@ -112,7 +112,7 @@ pip install chloros-sdk[dev]
 
 ### Telepítés ellenőrzése
 
-Ellenőrizze, hogy az SDK megfelelően van-e telepítve:
+Ellenőrizze, hogy az SDK helyesen van-e telepítve:
 
 ```python
 import chloros_sdk
@@ -121,23 +121,27 @@ print(f"Chloros SDK version: {chloros_sdk.__version__}")
 
 ***
 
-## Első telepítés
+## Első beállítás
 
 ### Licenc aktiválása
 
 Az SDK ugyanazt a licencet használja, mint az Chloros, Chloros (böngésző) és Chloros CLI. Aktiválja egyszer a GUI-n vagy az CLI-en keresztül:
 
-1. Nyissa meg az **Chloros vagy az Chloros (böngésző)** programot, és jelentkezzen be a Felhasználói <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line"> fülön. Vagy nyissa meg az **CLI** fájlt.
-2. Írja be az Chloros+ hitelesítő adatait, és jelentkezzen be
+1. Nyissa meg az **Chloros vagy az Chloros (böngésző)**programot, és jelentkezzen be a Felhasználó <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line"> fülön. Vagy nyissa meg az**CLI** fájlt.
+2. Írja be Chloros+ hitelesítő adatait, és jelentkezzen be
 3. A licenc helyileg tárolódik (újraindítás után is megmarad)
 
 {% hint style=&quot;success&quot; %}
-**Egyszeri beállítás**: A GUI-n vagy az CLI-en keresztül történő bejelentkezés után az SDK automatikusan a gyorsítótárban tárolt licencet használja. Nincs szükség további hitelesítésre!
+**Egyszeri beállítás**: A GUI vagy az CLI segítségével történő bejelentkezés után az SDK automatikusan a tárolt licencet használja. Nincs szükség további hitelesítésre!
+{% endhint %}
+
+{% hint style=&quot;info&quot; %}
+**Kijelentkezés**: Az SDK felhasználók programozással törölhetik a gyorsítótárban tárolt hitelesítő adatokat az `logout()` módszerrel. Lásd [logout() módszer](#logout) az API Referenciában.
 {% endhint %}
 
 ### Kapcsolat tesztelése
 
-Ellenőrizze, hogy az SDK csatlakozni tud-e az Chloros-hez:
+Ellenőrizze, hogy az SDK képes-e csatlakozni az Chloros-hez:
 
 ```python
 from chloros_sdk import ChlorosLocal
@@ -174,11 +178,11 @@ ChlorosLocal(
 
 | Paraméter                 | Típus | Alapértelmezett                   | Leírás                           |
 | ------------------------- | ---- | ------------------------- | ------------------------------------- |
-| `api_url`                 | str  | `"http://localhost:5000"` | URL a helyi Chloros háttérprogramból          |
-| `auto_start_backend`      | bool | `True`                    | Szükség esetén automatikusan indítja a háttérprogramot |
+| `api_url`                 | str  | `"http://localhost:5000"` | URL a helyi Chloros háttérprogramhoz          |
+| `auto_start_backend`      | bool | `True`                    | Szükség esetén automatikusan indítsa el a háttérprogramot |
 | `backend_exe`             | str  | `None` (automatikus felismerés)      | A háttérprogram futtatható fájljának elérési útja            |
 | `timeout`                 | int  | `30`                      | Kérés időtúllépése másodpercben            |
-| `backend_startup_timeout` | int  | `60`                      | A háttérprogram indításának időtúllépése (másodpercben) |
+| `backend_startup_timeout` | int  | `60`                      | A háttérprogram indításának időtúllépése (másodperc) |
 
 **Példák:**
 
@@ -211,9 +215,7 @@ chloros = ChlorosLocal(timeout=60)
 | `project_name` | str  | Igen      | A projekt neve                                     |
 | `camera`       | str  | Nem       | Kamera sablon (pl. „Survey3N\_RGN”, „Survey3W\_OCN”) |
 
-**Visszatérési érték:** `dict` - Projekt létrehozási válasz
-
-**Példa:**
+**Visszatérési érték:** `dict` – Projekt létrehozásának válasza**Példa:**
 
 ```python
 # Basic project
@@ -236,9 +238,7 @@ Képek importálása egy mappából.
 | `folder_path` | str/Path | Igen      | A képeket tartalmazó mappa elérési útja         |
 | `recursive`   | bool     | Nem       | Almappák keresése (alapértelmezett: False) |
 
-**Visszatérési érték:** `dict` - Importálási eredmények a fájlok számával
-
-**Példa:**
+**Visszatérési értékek:** `dict` - Importálási eredmények a fájlok számával**Példa:**
 
 ```python
 # Import from folder
@@ -258,11 +258,11 @@ A feldolgozási beállítások konfigurálása.
 
 | Paraméter                 | Típus | Alapértelmezett                 | Leírás                     |
 | ------------------------- | ---- | ----------------------- | ------------------------------- |
-| `debayer`                 | str  | „Kiváló minőség (gyorsabb)” | Debayer-módszer                  |
-| `vignette_correction`     | bool | `True`                  | Vignette-korrekció engedélyezése      |
+| `debayer`                 | str  | „Kiváló minőség (gyorsabb)&quot; | Debayer-módszer                  |
+| `vignette_correction`     | bool | `True`                  | Vignettázás-korrekció engedélyezése      |
 | `reflectance_calibration` | bool | `True`                  | Reflektancia-kalibrálás engedélyezése  |
 | `indices`                 | lista | `None`                  | Számítandó vegetációs indexek |
-| `export_format`           | str  | „TIFF (16 bites)”         | Kimeneti formátum                   |
+| `export_format`           | str  | &quot;TIFF (16 bites)”         | Kimeneti formátum                   |
 | `ppk`                     | bool | `False`                 | PPK-korrekciók engedélyezése          |
 | `custom_settings`         | dict | `None`                  | Speciális egyéni beállítások        |
 
@@ -273,11 +273,7 @@ A feldolgozási beállítások konfigurálása.
 * `"PNG (8-bit)"` - Vizuális ellenőrzés
 * `"JPG (8-bit)"` - Tömörített kimenet
 
-**Elérhető indexek:**
-
-NDVI, NDRE, GNDVI, OSAVI, CIG, EVI, SAVI, MSAVI, MTVI2 és még sok más.
-
-**Példa:**
+**Elérhető indexek:**NDVI, NDRE, GNDVI, OSAVI, CIG, EVI, SAVI, MSAVI, MTVI2 és még sok más.**Példa:**
 
 ```python
 # Basic configuration
@@ -345,9 +341,7 @@ chloros.process(wait=False)
 
 A jelenlegi projektkonfiguráció lekérése.
 
-**Visszatérési érték:** `dict` - Aktuális projektkonfiguráció
-
-**Példa:**
+**Visszatérési érték:** `dict` - Jelenlegi projektkonfiguráció**Példa:**
 
 ```python
 config = chloros.get_config()
@@ -358,11 +352,9 @@ print(config['Project Settings'])
 
 #### `get_status()`
 
-A háttérállapot információk lekérése.
+A háttérrendszer állapotának lekérdezése.
 
-**Visszatérési érték:** `dict` - Háttérrendszer állapota
-
-**Példa:**
+**Visszatérési érték:** `dict` - A háttérrendszer állapota**Példa:**
 
 ```python
 status = chloros.get_status()
@@ -384,6 +376,38 @@ chloros.shutdown_backend()
 
 ***
 
+#### `logout()`
+
+Törli a helyi rendszerből a gyorsítótárban tárolt hitelesítő adatokat.
+
+**Leírás:**
+
+Programozással jelentkezik ki a gyorsítótárban tárolt hitelesítő adatok eltávolításával. Ez a következő esetekben hasznos:
+* Különböző Chloros+ fiókok közötti váltás
+* Hitelesítő adatok törlése automatizált környezetekben
+* Biztonsági célok (pl. a hitelesítő adatok eltávolítása az eltávolítás előtt)
+
+**Visszatérési érték:** `dict` - Kijelentkezés művelet eredménye**Példa:**
+
+```python
+from chloros_sdk import ChlorosLocal
+
+# Initialize SDK
+chloros = ChlorosLocal()
+
+# Clear cached credentials
+result = chloros.logout()
+print(f"Logout successful: {result}")
+
+# After logout, login required via GUI/CLI/Browser before next SDK use
+```
+
+{% hint style=&quot;info&quot; %}
+**Újra hitelesítés szükséges**: Az `logout()` hívása után újra be kell jelentkeznie az Chloros, Chloros (böngésző) vagy az Chloros CLI segítségével, mielőtt az SDK-et használná.
+{% endhint %}
+
+***
+
 ### Kényelmi funkciók
 
 #### `process_folder(folder_path, **options)`
@@ -397,16 +421,14 @@ Egy soros kényelmi funkció egy mappa feldolgozásához.
 | `folder_path`             | str/Path | Szükséges        | A képeket tartalmazó mappa elérési útja     |
 | `project_name`            | str      | Automatikusan generált  | Projekt neve                   |
 | `camera`                  | str      | `None`          | Kamera sablon                |
-| `indices`                 | list     | `["NDVI"]`      | Számításhoz szükséges indexek           |
-| `vignette_correction`     | bool     | `True`          | Vignette-korrekció engedélyezése     |
-| `reflectance_calibration` | bool     | `True`          | Reflektancia-kalibrálás engedélyezése |
+| `indices`                 | list     | `["NDVI"]`      | Számítandó indexek           |
+| `vignette_correction`     | bool     | `True`          | Vignettkorrekció engedélyezése     |
+| `reflectance_calibration` | bool     | `True`          | Reflektancia kalibrálás engedélyezése |
 | `export_format`           | str      | &quot;TIFF (16 bites)&quot; | Kimeneti formátum                  |
 | `mode`                    | str      | `"parallel"`    | Feldolgozási mód                |
-| `progress_callback`       | hívható | `None`          | Haladás visszahívás              |
+| `progress_callback`       | callable | `None`          | Haladás visszahívás              |
 
-**Visszatérési értékek:** `dict` - Feldolgozási eredmények
-
-**Példa:**
+**Visszatérési értékek:** `dict` - Feldolgozási eredmények**Példa:**
 
 ```python
 from chloros_sdk import process_folder
@@ -457,7 +479,7 @@ with ChlorosLocal() as chloros:
 
 ### 1. példa: Alapvető feldolgozás
 
-Egy mappa feldolgozása alapértelmezett beállításokkal:
+Egy mappa feldolgozása az alapértelmezett beállításokkal:
 
 ```python
 from chloros_sdk import process_folder
@@ -660,7 +682,7 @@ logging.info("Processing complete!")
 
 ### 6. példa: Hiba kezelése
 
-Robusztus hiba kezelés termelési felhasználásra:
+Robusztus hiba kezelése termelési használatra:
 
 ```python
 from chloros_sdk import ChlorosLocal
@@ -710,7 +732,50 @@ else:
 
 ***
 
-### 7. példa: Parancssori eszköz
+### 7. példa: Fiókkezelés és kijelentkezés
+
+Hitelesítő adatok programozással történő kezelése:
+
+```python
+from chloros_sdk import ChlorosLocal
+
+def switch_account():
+    """Clear credentials to switch to a different account"""
+    try:
+        chloros = ChlorosLocal()
+        
+        # Clear current credentials
+        result = chloros.logout()
+        print("✓ Credentials cleared successfully")
+        print("Please log in with new account via Chloros, Chloros (Browser), or CLI")
+        
+        return True
+    
+    except Exception as e:
+        print(f"✗ Logout failed: {e}")
+        return False
+
+def secure_cleanup():
+    """Remove credentials for security purposes"""
+    try:
+        chloros = ChlorosLocal()
+        chloros.logout()
+        print("✓ Credentials removed for security")
+        
+    except Exception as e:
+        print(f"Warning: Cleanup error: {e}")
+
+# Switch accounts
+if switch_account():
+    print("\nRe-authenticate via Chloros GUI/CLI/Browser before next SDK use")
+
+# Or perform secure cleanup
+# secure_cleanup()
+```
+
+***
+
+### 8. példa: Parancssori eszköz
 
 Egyéni CLI eszköz létrehozása az SDK segítségével:
 
@@ -735,8 +800,18 @@ def main():
                        help='Camera template')
     parser.add_argument('--format', default='TIFF (16-bit)',
                        help='Export format')
+    parser.add_argument('--logout', action='store_true',
+                       help='Clear cached credentials before processing')
     
     args = parser.parse_args()
+    
+    # Handle logout if requested
+    if args.logout:
+        from chloros_sdk import ChlorosLocal
+        chloros = ChlorosLocal()
+        chloros.logout()
+        print("Credentials cleared. Please re-login via Chloros GUI/CLI/Browser.")
+        return 0
     
     successful = []
     failed = []
@@ -778,7 +853,11 @@ if __name__ == '__main__':
 **Használat:**
 
 ```bash
+# Process multiple folders
 python my_processor.py "C:\Flight001" "C:\Flight002" --indices NDVI NDRE GNDVI
+
+# Clear cached credentials
+python my_processor.py --logout
 ```
 
 ***
@@ -863,7 +942,7 @@ print("Processing complete!")
 
 ### Memóriakezelés
 
-Nagy adatállományok esetén kötegelt feldolgozás:
+Nagy adathalmazok esetén kötegelt feldolgozás:
 
 ```python
 from pathlib import Path
@@ -892,9 +971,7 @@ for i in range(0, len(images), batch_size):
 
 ### A háttér nem indul el
 
-**Probléma:** SDK nem tudja elindítani a háttért
-
-**Megoldások:**
+**Probléma:** SDK nem tudja elindítani a háttért**Megoldások:**
 
 1. Ellenőrizze, hogy az Chloros Desktop telepítve van-e:
 
@@ -913,14 +990,10 @@ chloros = ChlorosLocal(backend_exe="C:\\Path\\To\\chloros-backend.exe")
 
 ***
 
-### A licenc nem található
-
-**Probléma:** Az SDK figyelmeztet a hiányzó licencre
-
-**Megoldások:**
+### A licenc nem található**Probléma:** SDK figyelmeztet a hiányzó licencre**Megoldások:**
 
 1. Nyissa meg az Chloros, Chloros (böngésző) vagy Chloros CLI alkalmazást, és jelentkezzen be.
-2. Ellenőrizze, hogy a licenc a gyorsítótárban van-e:
+2. Ellenőrizze, hogy a licenc cache-ben van-e:
 
 ```python
 from pathlib import Path
@@ -931,15 +1004,23 @@ cache_path = Path(os.getenv('APPDATA')) / 'Chloros' / 'cache'
 print(f"Cache exists: {cache_path.exists()}")
 ```
 
-3. Vegye fel a kapcsolatot az ügyfélszolgálattal: info@mapir.camera
+3. Ha hitelesítési problémák merülnek fel, törölje a cache-ben tárolt hitelesítési adatokat, és jelentkezzen be újra:
+
+```python
+from chloros_sdk import ChlorosLocal
+
+# Clear cached credentials
+chloros = ChlorosLocal()
+chloros.logout()
+
+# Then login again via Chloros, Chloros (Browser), or Chloros CLI
+```
+
+4. Vegye fel a kapcsolatot az ügyfélszolgálattal: info@mapir.camera
 
 ***
 
-### Importálási hibák
-
-**Probléma:** `ModuleNotFoundError: No module named 'chloros_sdk'`
-
-**Megoldások:**
+### Importálási hibák**Probléma:** `ModuleNotFoundError: No module named 'chloros_sdk'`**Megoldások:**
 
 ```bash
 # Verify installation
@@ -955,11 +1036,7 @@ python -c "import sys; print(sys.path)"
 
 ***
 
-### Feldolgozási időtúllépés
-
-**Probléma:** A feldolgozás időtúllépésbe kerül.
-
-**Megoldások:**
+### Feldolgozási időtúllépés**Probléma:** A feldolgozás időtúllépése**Megoldások:**
 
 1. Növelje az időtúllépést:
 
@@ -967,17 +1044,13 @@ python -c "import sys; print(sys.path)"
 chloros = ChlorosLocal(timeout=120)  # 2 minutes
 ```
 
-2. Feldolgozzon kisebb adagokat.
-3. Ellenőrizze a rendelkezésre álló lemezterületet.
-4. Figyelje a rendszer erőforrásait.
+2. Kisebb adagokat dolgozzon fel
+3. Ellenőrizze a rendelkezésre álló lemezterületet
+4. Figyelje a rendszer erőforrásait
 
 ***
 
-### A port már használatban van
-
-**Probléma:** A háttérport 5000 foglalt
-
-**Megoldások:**
+### A port már használatban van**Probléma:** A háttérport 5000 foglalt**Megoldások:**
 
 ```python
 # Use different port
@@ -1003,26 +1076,24 @@ Get-NetTCPConnection -LocalPort 5000
 chloros.process(mode="parallel")  # Up to 16 workers
 ```
 
-2. **Csökkentse a kimeneti felbontást** (ha elfogadható)
+2. **A kimeneti felbontás csökkentése** (ha elfogadható)
 
 ```python
 chloros.configure(export_format="PNG (8-bit)")  # Faster than TIFF
 ```
 
-3. **Tiltsa le a felesleges indexeket**
+3. **Kapcsolja ki a felesleges indexeket**
 
 ```python
 # Only calculate needed indices
 chloros.configure(indices=["NDVI"])  # Not all indices
 ```
 
-4. **Feldolgozás SSD-n** (nem HDD-n)
-
-***
+4. **Feldolgozás SSD-n** (nem HDD-n)***
 
 ### Memóriaoptimalizálás
 
-Nagy adathalmazok esetén:
+Nagy adatállományok esetén:
 
 ```python
 # Process in batches instead of all at once
@@ -1033,7 +1104,7 @@ Nagy adathalmazok esetén:
 
 ### Háttérfeldolgozás
 
-Szabadítsa fel az Python-et más feladatokhoz:
+Szabadítson fel Python-ot más feladatokhoz:
 
 ```python
 chloros.process(wait=False)  # Non-blocking
@@ -1123,15 +1194,11 @@ chloros.process(progress_callback=notebook_progress)
 
 ### K: Az SDK internetkapcsolatot igényel?
 
-**V:** Csak az első licenctelepítéshez. Miután bejelentkezett az Chloros, Chloros (böngésző) vagy az Chloros CLI segítségével a licenc helyileg tárolódik, és 30 napig offline módban is működik.
+**V:** Csak az első licencteljesítmény aktiválásához. Miután bejelentkezett az Chloros, Chloros (böngésző) vagy Chloros CLI segítségével, a licenc helyileg tárolódik, és 30 napig offline módban is működik.***
 
-***
+### K: Használhatom az SDK-et GUI nélküli szerveren?**V:** Igen! Követelmények:
 
-### K: Használhatom az SDK-et GUI nélküli szerveren?
-
-**V:** Igen! Követelmények:
-
-* Windows Server 2016 vagy újabb
+* Windows Server 2016 vagy újabb verzió
 * Chloros telepítve (egyszeri)
 * Licenc aktiválva bármely gépen (a cache-elt licenc másolva a szerverre)
 
@@ -1145,23 +1212,19 @@ chloros.process(progress_callback=notebook_progress)
 | **Legalkalmasabb**    | Vizuális munka | Szkriptelés        | Integráció |
 | **Automatizálás**  | Korlátozott     | Jó             | Kiváló   |
 | **Rugalmasság** | Alapszintű       | Jó             | Maximális     |
-| **Licenc**     | Chloros+    | Chloros+         | Chloros+    |
+| **Licenc**     | Chloros+    | Chloros+         | Chloros+    |***
 
-***
+### K: Terjeszthetem az SDK segítségével létrehozott alkalmazásokat?**V:** Az SDK kód integrálható az alkalmazásaiba, de:
 
-### K: Terjeszthetem az SDK segítségével létrehozott alkalmazásokat?
-
-**V:** Az SDK kód integrálható az alkalmazásaiba, de:
-
-* A végfelhasználóknak telepíteniük kell az Chloros szoftvert
-* A végfelhasználóknak aktív Chloros+ licenccel kell rendelkezniük
+* A végfelhasználóknak telepíteniük kell az Chloros programot.
+* A végfelhasználóknak aktív Chloros+ licenccel kell rendelkezniük.
 * Kereskedelmi terjesztéshez OEM licenc szükséges.
 
 OEM-rel kapcsolatos kérdésekkel forduljon az info@mapir.camera-hez.
 
 ***
 
-### K: Hogyan frissíthetem az SDK-et?
+### K: Hogyan frissíthetem az SDK programot?
 
 ```bash
 pip install --upgrade chloros-sdk
@@ -1174,6 +1237,7 @@ pip install --upgrade chloros-sdk
 Alapértelmezés szerint a Projekt elérési útjában:
 
 ```
+
 Project_Path/
 └── MyProject/
     └── Survey3N_RGN/          # Processed outputs
@@ -1181,9 +1245,7 @@ Project_Path/
 
 ***
 
-### K: Feldolgozhatok képeket az Python szkriptekből, amelyek ütemezetten futnak?
-
-**V:** Igen! Használja az Windows Feladatütemezőt az Python szkriptekkel:
+### K: Feldolgozhatok képeket az ütemezett Python szkriptekből?**V:** Igen! Használja az Windows Feladatütemezőt az Python szkriptekkel:
 
 ```python
 # scheduled_processing.py
@@ -1193,13 +1255,11 @@ from chloros_sdk import process_folder
 results = process_folder("C:\\Flights\\Today")
 ```
 
-A Feladatütemező segítségével állítsa be a napi futtatásra.
+A Feladatütemező segítségével ütemezze be a napi futtatást.
 
 ***
 
-### K: Az SDK támogatja az async/await funkciót?
-
-**V:** A jelenlegi verzió szinkron. Aszinkron működéshez használja az `wait=False`-et, vagy futtassa külön szálban:
+### K: Az SDK támogatja az async/await funkciót?**V:** A jelenlegi verzió szinkron. Aszinkron viselkedéshez használja az `wait=False`-et, vagy futtassa külön szálban:
 
 ```python
 import threading
@@ -1215,7 +1275,23 @@ thread.start()
 
 ***
 
-## Súgó
+### K: Hogyan válthatok a különböző Chloros+ fiókok között?**V:** Az `logout()` módszerrel törölje a gyorsítótárban tárolt hitelesítő adatokat, majd jelentkezzen be újra az új fiókkal:
+
+```python
+from chloros_sdk import ChlorosLocal
+
+# Clear current credentials
+chloros = ChlorosLocal()
+chloros.logout()
+
+# Re-login via Chloros, Chloros (Browser), or Chloros CLI with new account
+```
+
+Kijelentkezés után hitelesítse magát az új fiókkal a GUI, a böngésző vagy az CLI segítségével, mielőtt újra használná az SDK-et.
+
+***
+
+## Segítség
 
 ### Dokumentáció
 
@@ -1233,8 +1309,6 @@ Az itt felsorolt példák mindegyike tesztelt és termeléskész. Másolja és a
 
 ***
 
-## Licenc
+## Licenc**Saját fejlesztésű szoftver** - Szerzői jog (c) 2025 MAPIR Inc.
 
-**Saját fejlesztésű szoftver** – Copyright (c) 2025 MAPIR Inc.
-
-Az SDK használatához aktív Chloros+ előfizetés szükséges. A jogosulatlan használat, terjesztés vagy módosítás tilos.
+Az SDK aktív Chloros+ előfizetést igényel. A jogosulatlan használat, terjesztés vagy módosítás tilos.

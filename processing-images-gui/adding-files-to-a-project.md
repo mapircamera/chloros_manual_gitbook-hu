@@ -6,7 +6,7 @@ Miután létrehozott vagy megnyitott egy projektet az Chloros programban, a köv
 
 1. Nyisson meg vagy hozzon létre egy projektet az Chloros programban
 2. Kattintson a **Fájlböngésző** <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line"> ikonra a bal oldali sávban.
-3. A Fájlböngésző panel megjeleníti a projekt fájljainak listáját.
+3. A Fájlböngésző panel megjeleníti a projekt fájllistáját.
 
 {% tipp style=&quot;info&quot; %}
 **Támogatott fájltípusok**: Az Chloros támogatja az MAPIR Survey3W és Survey3N kamerák RAW+JPG és JPG képfájljait. Csak a RAW+JPG formátumot ajánljuk.
@@ -22,51 +22,44 @@ Két fő módszer létezik a képek hozzáadására a projekthez:
 
 Ezzel az opcióval egyedi képfájlokat vagy egy kis fájlválogatást importálhat.
 
-1. Kattintson a **„Fájlok hozzáadása”** gombra a Fájlkezelő panel tetején.
+1. Kattintson a **„Fájlok hozzáadása”** <img src="../.gitbook/assets/image.png" alt="" data-size="line"> gombra a Fájlböngésző panel tetején.
 2. Keresse meg a képeket tartalmazó mappát.
 3. Válasszon ki egy vagy több képfájlt (több fájl kiválasztásához tartsa lenyomva a **Ctrl** billentyűt).
-4. Kattintson az **„Megnyitás”** gombra a kiválasztott fájlok importálásához.
+4. Kattintson a **„Megnyitás”** gombra a kiválasztott fájlok importálásához.
 
 ### 2. módszer: Mappa hozzáadása
 
 Ezzel az opcióval egyszerre importálhatja az összes képet egy mappából.
 
-1. Kattintson a **„Mappa hozzáadása”** gombra a Fájlböngésző panel tetején.
-2. Keresse meg és válassza ki a rögzített képeket tartalmazó mappát.
-3. Kattintson a **„Mappa kiválasztása”** gombra az összes támogatott kép importálásához a mappából.
-
-***
+1. Kattintson a **„Mappa hozzáadása”** <img src="../.gitbook/assets/image (1).png" alt="" data-size="line"> gombra a Fájlböngésző panel tetején.
+2. Keresse meg és válassza ki a felvételi munkamenet képeit tartalmazó mappát.
+3. Kattintson a **„Mappa kiválasztása”** gombra a mappában található összes támogatott kép importálásához.***
 
 ## A Fájlböngésző táblázat megértése
 
 A képek importálása után azok a következő oszlopokkal rendelkező táblázatban jelennek meg:
 
-### Miniatűr
-
-* Az egyes képek kicsinyített előnézete.
-* Kattintson a miniatűrre a teljes kép megtekintéséhez a fő előnézeti területen.
-
 ### Fájlnév
 
-* A fényképezőgép eredeti fájlneve.
-* Megőrzi a fényképezőgép névadási konvencióját (pl. IMG\_0001.RAW).
+* A fényképezőgép eredeti fájlneve
+* Megőrzi a fényképezőgép névadási konvencióját (pl. IMG\_0001.RAW)
 
 ### Időbélyeg
 
-* A kép rögzítésének dátuma és időpontja.
-* A kép EXIF metaadataiból kivonva.
+* A kép rögzítésének dátuma és időpontja
+* A kép EXIF metaadataiból kivonva
 * PPK szinkronizáláshoz és kalibrációs célpontok észleléséhez használatos
 
-### Kamera modell
+### Fényképezőgép modell
 
-* Automatikusan észlelt kamera és szűrő konfiguráció
+* Automatikusan felismert fényképezőgép és szűrő konfiguráció
 * Példák: Survey3W\_RGN, Survey3N\_OCN, Survey3W\_RGB
 * A megfelelő feldolgozási profilok alkalmazásához használatos
 
 ### Cél oszlop (jelölőnégyzet)
 
-* Jelölje be ezt a jelölőnégyzetet a kalibrációs célokat tartalmazó képeknél
-* Jelentősen felgyorsítja a célok észlelését a feldolgozás során
+* Jelölje be ezt a négyzetet a kalibrációs célokat tartalmazó képeknél
+* Jelentősen felgyorsítja a célpontok felismerését a feldolgozás során
 * A részleteket lásd a [Célképek kiválasztása](choosing-target-images.md) című részben.
 
 ***
@@ -77,36 +70,32 @@ A képek importálása után azok a következő oszlopokkal rendelkező tábláz
 
 A nem kívánt képek eltávolítása a projektből:
 
-1. Válasszon ki egy vagy több képet a Fájlböngésző táblázatban
-2. Kattintson a **„Kiválasztottak eltávolítása”** gombra
-3. Erősítse meg az eltávolítást (a fájlok nem kerülnek törlésre a lemezről, csak eltávolításra a projektből)
+1. Válasszon ki egy vagy több képet a Fájlböngésző táblázatban.
+2. Kattintson a **„Kiválasztottak eltávolítása”** <img src="../.gitbook/assets/image (2).png" alt="" data-size="line"> gombra.
+3. Erősítse meg az eltávolítást (a fájlok nem kerülnek törlésre a lemezről, csak eltávolításra a projektből).
 
 ### Rendezés és szűrés
 
-* **Oszlop szerinti rendezés**: Kattintson bármely oszlopfejlécre a képek rendezéséhez
+* **Oszlop szerinti rendezés**: Kattintson bármely oszlopfejlécre a képek rendezéséhez.
 * **Időbélyeg szerinti rendezés**: Hasznos a kronológiai felvételi sorozatok rendezéséhez.
-* **Fényképezőgép-modell szűrő**: Több fényképezőgép használata esetén csoportosítsa a képeket fényképezőgép-típus szerint.
+* **Fényképezőgép-modell szűrő**: több fényképezőgép használata esetén csoportosítsa a képeket fényképezőgép-típus szerint***
 
-***
-
-## Képek előnézete
+## Kép előnézet
 
 ### Teljes kép megtekintése
 
 Kattintson bármelyik kép miniatűrjére a Fájlböngészőben, hogy azt a fő előnézeti területen megjelenítse:
 
-1. A kép a középső előnézeti panelen jelenik meg.
-2. A nagyítás vezérlőivel megtekintheti a kép részleteit.
+1. A kép a középső előnézeti panelen jelenik meg
+2. A nagyítás vezérlőivel megtekintheti a kép részleteit
 3. A nyílgombokkal navigálhat a képek között
 
 ### Gyors navigáció
 
 * **Előző kép**: Kattintson a bal nyílra, vagy nyomja meg a ← gombot
 * **Következő kép**: Kattintson a jobb nyílra, vagy nyomja meg a → gombot
-* **Nagyítás/kicsinyítés**: Használja az egér görgőjét vagy a nagyító gombokat
-* **Panoráma**: Nagyítás esetén kattintson a képre, és húzza el
-
-***
+* **Nagyítás/kicsinyítés**: Használja az egérgörgőt vagy a nagyító gombokat
+* **Panoráma**: Nagyítás esetén kattintson a képre, és húzza azt***
 
 ## Duplikált fájlok kezelése
 
@@ -131,36 +120,34 @@ Ha a projekt több MAPIR kamerából származó képeket tartalmaz:
 3. A Fájlböngésző a Kameramodell oszlopban jeleníti meg a kameramodellt.
 4. A feldolgozás minden kameratípusra a megfelelő beállításokat alkalmazza.
 
-**Példa**: Survey3W RGN + Survey3N OCN kettős kamera beállítás
-
-***
+**Példa**: Survey3W RGN + Survey3N OCN kettős kamera beállítás***
 
 ## Bevált gyakorlatok
 
-### Importálás előtti szervezés
+### Rendezés importálás előtt
 
-* A kalibrációs célképeket tartsa ugyanabban a mappában, mint a felmérési képeket.
-* Tartsa meg a kamera/SD-kártya eredeti mappaszerkezetét.
-* Ne keverje össze a különböző munkamenetek adatait egy projektben.
+* A kalibrációs célképeket tartsa ugyanabban a mappában, mint a felmérési képeket
+* Tartsa meg a kamera/SD-kártya eredeti mappaszerkezetét
+* Ne keverje össze a különböző munkamenetek adatállományait egy projektben
 
 ### Fájlnevezés
 
-* Tartsa meg a kamera eredeti fájlneveit (IMG\_0001.RAW stb.).
-* Ne nevezze át a fájlokat importálás előtt.
-* Az eredeti nevek fontos metaadatokat tartalmaznak.
+* Tartsa meg a kamera eredeti fájlneveit (IMG\_0001.RAW stb.)
+* Ne nevezze át a fájlokat importálás előtt
+* Az eredeti nevek fontos metaadatokat tartalmaznak
 
 ### Kalibrációs célképek
 
-* Minden munkamenetben mindig 1-2 kalibrációs célképet vegyen fel.
-* A felvételek előtt és után rögzítse a célokat.
-* Helyezze a célokat ugyanolyan fényviszonyok közé, mint a felvételi területet.
-* A feldolgozás gyorsítása érdekében jelölje meg a célképeket a Cél jelölőnégyzet segítségével.
+* Minden munkamenethez mindig csatoljon 1-2 kalibrációs célképet.
+* A célképeket a felvételek előtt és után készítse el.
+* A célképeket ugyanolyan fényviszonyok között helyezze el, mint a felvételi területet.
+* A célképeket a Cél jelölőnégyzet bejelölésével jelölje meg, hogy gyorsítsa a feldolgozást.
 
 ***
 
 ## Gyakori problémák és megoldások
 
-### A képek nem jelennek meg az importálás után
+### A képek nem jelennek meg importálás után
 
 **Lehetséges okok:**
 
@@ -187,9 +174,7 @@ Ha a projekt több MAPIR kamerából származó képeket tartalmaz:
 * A kamera órája nincs megfelelően beállítva
 * Az EXIF-adatok külső szoftver által törölve
 
-**Megoldás**: Ellenőrizze, hogy a kamera időbeállításai a felvétel készítése során megfelelőek voltak-e.
-
-***
+**Megoldás**: Ellenőrizze, hogy a kamera időbeállításai a felvétel készítése során helyesek voltak-e.***
 
 ## Következő lépések
 

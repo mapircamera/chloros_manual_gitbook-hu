@@ -6,7 +6,7 @@ A felhasználói <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line
 
 Bejelentkezés után megjelennek a fiókadatok:
 
-<figure><img src=".gitbook/assets/user_account.JPG" alt="" width="375"><figcaption></figcaption></figure>## CLI Bejelentkezés
+<figure><img src=".gitbook/assets/user_account.JPG" alt="" data-size="line"><figcaption></figcaption></figure>## CLI Bejelentkezés
 
 Jelentkezzen be Chloros+ hitelesítő adataival, hogy engedélyezze az CLI feldolgozást.
 

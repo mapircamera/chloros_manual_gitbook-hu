@@ -88,7 +88,7 @@ A Térkép fül két csempe szolgáltatót támogat a háttér térkép képeihe
 
 Kiválaszthatja a térkép réteg típusát (balról jobbra):
 
- <img src="../.gitbook/assets/image (23).png" alt="" data-size="original">### Terep
+ <img src="../.gitbook/assets/image (23).png" alt="" data-size="line">### Terep
 
 Magassági profilokat és részletes térképkockákat (utak stb.) jelenít meg.
 

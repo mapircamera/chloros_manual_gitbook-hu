@@ -1,6 +1,6 @@
 # Kép teljes képernyős megnyitása
 
-Az Chloros Image Viewer egy speciális teljes képernyős felületet biztosít a multispektrális képek megtekintéséhez, elemzéséhez és manipulálásához. Akár eredeti képeket, akár feldolgozott kimeneteket tekint meg, az Image Viewer hatékony eszközöket kínál a vizsgálathoz és elemzéshez.
+Az Chloros Image Viewer egy speciális teljes képernyős felületet biztosít a multispektrális képek megtekintéséhez, elemzéséhez és szerkesztéséhez. Akár eredeti képeket, akár feldolgozott kimeneteket tekint meg, az Image Viewer hatékony eszközöket kínál a vizsgálathoz és elemzéshez.
 
 ## Hozzáférés a képnézegetőhöz
 
@@ -18,20 +18,20 @@ A képnézegetőben a kép megnyitásának leggyakoribb módja:
 Miután a kép betöltődött az előnézeti területen:
 
 1. Kattintson az **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> ikonra a bal oldali sávban.
-2. Megnyílik a Képnézegető fül, amely teljes képernyős nézetben jeleníti meg a kiválasztott képet.
+2. Megnyílik a Képmegjelenítő fül, amely teljes képernyős nézetben jeleníti meg a kiválasztott képet.
 3. A bal oldali sávban megjelennek a fejlett megtekintési és elemzési eszközök.
 
 ***
 
-## A Képnézegető felületének áttekintése
+## A Képmegjelenítő felületének áttekintése
 
 ### Fő megjelenítési terület
 
 A képernyő legnagyobb részén a kép látható:
 
 * **Teljes felbontás**: A képek natív felbontásban jelennek meg.
-* **Nagyítható**: A nagyításhoz használja a vezérlőket vagy az egér görgőjét
-* **Pannable**: Nagyításkor kattintson és húzza az egérmutatót a kép mozgatásához
+* **Nagyítható**: A nagyításhoz használja a vezérlőket vagy az egérgörgőt
+* **Pannable**: Nagyításkor kattintson és húzza az egérrel a kép mozgatásához
 * **Képarány megőrzése**: A képek arányosan méretezhetők
 
 ***
@@ -54,21 +54,15 @@ A képek között billentyűparancsokkal vagy gombokkal navigálhat:
 
 **Nagyítás:**
 
-* Kattintson a **+** (plusz) gombra.
-* Nyomja meg a **+** vagy **=** billentyűt.
-* Görgessen az egérkerékkel **felfelé**.
+* Kattintson a **+** (plusz) gombra
+* Nyomja meg a **+** vagy **=** billentyűt
+* Görgessen az egérkerékkel **felfelé**
 
 **Kicsinyítés:**
 
-* Kattintson a **−** (mínusz) gombra.
-* Nyomja meg a **−** (mínusz) billentyűt.
-* Görgessen az egérkerékkel **lefelé**.
-
-**Képernyőhöz igazítás:**
-
-* Kattintson a **↔** (Igazítás) gombra.
-* Nyomja meg a **0** (nulla) billentyűt.
-* Kattintson duplán a képre.
+* Kattintson a **−** (mínusz) gombra
+* Nyomja meg a **−** (mínusz) billentyűt
+* Görgessen az egérkerékkel **lefelé**
 
 #### Nagyításkor történő mozgatás
 
@@ -76,10 +70,10 @@ Ha a képet a képernyő méretén túl nagyítja:
 
 1. Vigye az egérmutatót a kép fölé.
 2. Kattintson, és **tartsa lenyomva a bal egérgombot**.
-3. **Húzza** a képet a mozgatáshoz
-4. Engedje el a gombot a pásztázás leállításához
+3. **Húzza** a képet a mozgatáshoz.
+4. Engedje el a gombot a mozgatás leállításához.
 
-**Alternatíva**: A nyílgombokkal apránként pásztázhat
+**Alternatíva**: A nyílgombokkal apránként mozgathatja a képet.
 
 ***
 
@@ -87,37 +81,39 @@ Ha a képet a képernyő méretén túl nagyítja:
 
 ### Pixelértékek megtekintése a kurzor alatt
 
-Amikor az egérmutatót a kép fölé viszi, a pixelértékek valós időben megjelennek:
+Amikor az egér kurzorát a kép fölé viszi, a pixelértékek valós időben jelennek meg:
 
 **Az értékek megjelenítési helye:**
 
 * **Lebegő szám és piros vonal a jobb oldali index LUT gradiens legenda**
-* **További nagyítás esetén a kurzor közelében lebegő érték és kiemelt pixel**
-* Megjeleníti a kurzor **alatti vagy kiemelt** pixel értékeit
+* **További nagyítás esetén lebegő érték a kurzor közelében és kiemelt pixel**
+* Megjeleníti a **kurzor alatt vagy kiemelt** pixel értékét
 * Az egér mozgatásával frissül
 
 ***
 
 ## Megtekinthető képtípusok
 
-### Eredeti képek (előfeldolgozás)
+### JPG
 
-**RAW + JPG képek a fényképezőgépről:**
+**JPG képek kamerából:**
 
-* A RAW adatok előnézetként jelennek meg
-* Az eredeti, korrigálatlan értékek megjelenítése
+* JPG adatok megjelenítése előnézetként
+* Eredeti, korrigálatlan értékek megjelenítése
 * Hasznos a képminőség ellenőrzéséhez feldolgozás előtt
 
-### Kalibrált reflektancia képek
+### RAW (eredeti)
+
+### RAW (reflektancia)
 
 **Feldolgozás után:**
 
-* Vignette-korrekció
-* Kalibrált reflektancia
+* Vignette korrigálva
+* Reflektancia kalibrálva
 * Többsávos TIFF (Red, Green, NIR stb.)
 * Tudományos adatok elemzésre készen
 
-### Indexképek
+### RAW (Index)
 
 **NDVI, NDRE, GNDVI stb. (\_NDVI.tif fájlok):**
 
@@ -130,7 +126,7 @@ Amikor az egérmutatót a kép fölé viszi, a pixelértékek valós időben meg
 
 ## Index és LUT alkalmazás
 
-Többspektrális indexek és színes Look-Up táblák alkalmazása:
+Multispektrális indexek és színes Look-Up táblák alkalmazása:
 
 1. Keresse meg az **Index/LUT Sandbox** elemet az **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> oldalsávban
 2. Válassza ki a vegetációs indexet (NDVI, NDRE stb.)
@@ -146,8 +142,8 @@ Részletes utasításokat lásd az [Index/LUT Sandbox](index-lut-sandbox.md) old
 
 ### Navigáció
 
-* **→** (Jobb nyíl): Következő kép
-* **←** (Bal nyíl): Előző kép
+* **→** (jobb nyíl): Következő kép
+* **←** (bal nyíl): Előző kép
 * **Home**: Az első kép a listában
 * **End**: Utolsó kép a listában
 
@@ -155,19 +151,7 @@ Részletes utasításokat lásd az [Index/LUT Sandbox](index-lut-sandbox.md) old
 
 * **+** vagy **=**: Nagyítás
 * **−**: Kicsinyítés
-* **0** (Nulla): Képernyőhöz igazítás
 * **Egérkerék**: Nagyítás/kicsinyítés
-
-### Megjelenítés vezérlése
-
-* **P**: Pixel százalékos mód váltása
-* **L**: Rétegek panel váltása
-* **Esc**: Teljes képernyős mód bezárása vagy visszatérés a Fájlböngészőhöz
-
-### Egyéb
-
-* **Ctrl+S**: Aktuális kép mentése
-* **F**: Teljes képernyős mód (ha elérhető)
 
 ***
 
@@ -175,10 +159,10 @@ Részletes utasításokat lásd az [Index/LUT Sandbox](index-lut-sandbox.md) old
 
 Ellenőrizze, hogy az indexek helyesen lettek-e kiszámítva:
 
-1. Nyissa meg az NDVI vagy más indexképet.
+1. Nyissa meg az NDVI vagy más indexképet
 2. Ellenőrizze a növényzet területét:
-   * **NDVI**: Egészséges növények esetén 0,4–0,9 értéket kell mutatnia.
-   * **NDRE**: Erőteljes növekedés esetén magasabb értékek
+   * **NDVI**: Egészséges növények esetén 0,4–0,9 értéket kell mutatnia
+   * **NDRE**: Erőteljes növekedés esetén magasabb értékeket
    * **GNDVI**: Hasonló az NDVI-hez, de klorofillérzékeny
 3. Ellenőrizze a nem növényzetet:
    * **Talaj**: 0 közelében vagy enyhén negatív
@@ -209,7 +193,7 @@ Ellenőrizze, hogy az indexek helyesen lettek-e kiszámítva:
 
 * Az érték tartománya meghaladja a kijelző képességeit.
 * 32 bites lebegőpontos kép szokatlan értékekkel.
-* Index számítási hiba
+* Index számítási hiba.
 
 **Megoldások:**
 
@@ -221,10 +205,10 @@ Ellenőrizze, hogy az indexek helyesen lettek-e kiszámítva:
 
 **Lehetséges okok:**
 
-* Helytelen kép megjelenítése (eredeti vs. feldolgozott)
+* Helytelen kép megtekintése (eredeti vs. feldolgozott)
 * A kalibrálás nem megfelelően történt
 * A fényérzékelő adatai nem kerültek be a bemenetbe
-* A százalékos mód helytelenül váltott
+* A százalékos mód helytelenül van beállítva
 
 **Megoldások:**
 
@@ -238,7 +222,7 @@ Ellenőrizze, hogy az indexek helyesen lettek-e kiszámítva:
 
 Most, hogy teljes képernyőn tudja megtekinteni a képeket:
 
-* [**Képrétegek**](image-layers.md) – Ismerje meg a többsávos vizualizációt
+* [**Képlapok**](image-layers.md) – Ismerje meg a többsávos vizualizációt
 * [**Index/LUT Sandbox**](index-lut-sandbox.md) – Alkalmazzon egyéni indexeket és színleképezést
 * [**Multispektrális index képletek**](../project-settings/multispectral-index-formulas.md) – Ismerje meg a rendelkezésre álló indexeket
 

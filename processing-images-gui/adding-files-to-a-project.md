@@ -6,7 +6,7 @@ Miután létrehozott vagy megnyitott egy projektet az Chloros programban, a köv
 
 1. Nyisson meg vagy hozzon létre egy projektet az Chloros programban
 2. Kattintson a **Fájlböngésző** <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line"> ikonra a bal oldali sávban
-3. A Fájlböngésző panel megjeleníti a projekt fájljainak listáját
+3. A Fájlböngésző panel megjeleníti a projekt fájllistáját
 
 {% hint style="info" %}
 **Támogatott fájltípusok**: Az Chloros támogatja az MAPIR Survey3W és Survey3N kamerák RAW+JPG és JPG képfájljait. Csak a RAW+JPG formátumot ajánljuk.
@@ -20,22 +20,20 @@ Két fő módszer létezik a képek hozzáadására a projekthez:
 
 ### 1. módszer: Fájlok hozzáadása
 
-Ezzel az opcióval egyedi képfájlokat vagy egy kis fájlválogatást importálhat.
+Ezzel az opcióval egyedi képfájlokat vagy egy kis fájlválasztékot importálhat.
 
 1. Kattintson a **„Fájlok hozzáadása”** <img src="../.gitbook/assets/image.png" alt="" data-size="line"> gombra a Fájlböngésző panel tetején.
 2. Keresse meg a képeket tartalmazó mappát.
 3. Válasszon ki egy vagy több képfájlt (több fájl kiválasztásához tartsa lenyomva a **Ctrl** billentyűt).
-4. Kattintson az **„Megnyitás”** gombra a kiválasztott fájlok importálásához.
+4. Kattintson a **„Megnyitás”** gombra a kiválasztott fájlok importálásához.
 
 ### 2. módszer: Mappa hozzáadása
 
 Ezzel az opcióval egyszerre importálhatja az összes képet egy mappából.
 
 1. Kattintson a **„Mappa hozzáadása”** <img src="../.gitbook/assets/image (1).png" alt="" data-size="line"> gombra a Fájlböngésző panel tetején.
-2. Keresse meg és válassza ki a rögzített képeket tartalmazó mappát.
-3. Kattintson a **„Mappa kiválasztása”** gombra a mappában található összes támogatott kép importálásához.
-
-***
+2. Keresse meg és válassza ki a felvételi munkamenet képeit tartalmazó mappát.
+3. Kattintson a **„Mappa kiválasztása”** gombra a mappában található összes támogatott kép importálásához.***
 
 ## A Fájlböngésző táblázat megértése
 
@@ -56,7 +54,7 @@ A képek importálása után azok a következő oszlopokkal rendelkező tábláz
 
 * Automatikusan felismert kamera és szűrő konfiguráció
 * Példák: Survey3W\_RGN, Survey3N\_OCN, Survey3W\_RGB
-* A megfelelő feldolgozási profilok alkalmazásához használatos
+* A helyes feldolgozási profilok alkalmazásához használatos
 
 ### Cél oszlop (jelölőnégyzet)
 
@@ -66,7 +64,7 @@ A képek importálása után azok a következő oszlopokkal rendelkező tábláz
 
 ### Képek metaadatainak megtekintése
 
-A táblázat jobb felső sarkában található kapcsoló gombra kattintva a kiválasztott kép metaadatai megjelennek a képrács területén.
+A táblázat jobb felső sarkában található kapcsoló gombra kattintva a kiválasztott kép metaadatai megjelennek a képek rácsos területén.
 
 <figure><img src="../.gitbook/assets/chloros_grid_meta.gif" alt=""><figcaption></figcaption></figure>
 
@@ -86,9 +84,7 @@ A nem kívánt képek eltávolítása a projektből:
 
 * **Oszlop szerinti rendezés**: Kattintson bármely oszlopfejlécre a képek rendezéséhez.
 * **Időbélyeg szerinti rendezés**: Hasznos a kronológiai felvételi sorozatok rendezéséhez.
-* **Fényképezőgép-modell szűrő**: Több fényképezőgép használata esetén csoportosítsa a képeket fényképezőgép-típus szerint.
-
-***
+* **Fényképezőgép-modell szűrő**: Több fényképezőgép használata esetén csoportosítsa a képeket fényképezőgép-típus szerint.***
 
 ## Kép előnézet
 
@@ -97,25 +93,23 @@ A nem kívánt képek eltávolítása a projektből:
 Kattintson bármelyik kép miniatűrjére a Fájlböngészőben, hogy azt a fő előnézeti területen megjelenítse:
 
 1. A kép a középső előnézeti panelen jelenik meg.
-2. A nagyítás vezérlőivel megvizsgálhatja a kép részleteit.
+2. A nagyítás vezérlőivel megtekintheti a kép részleteit.
 3. A nyílgombokkal navigálhat a képek között.
 
 ### Gyors navigáció
 
 * **Előző kép**: Kattintson a bal nyílra, vagy nyomja meg a ← gombot.
 * **Következő kép**: Kattintson a jobb nyílra, vagy nyomja meg a → gombot.
-* **Nagyítás/kicsinyítés**: Használja az egérgörgőt vagy a nagyító gombokat.
-* **Panoráma**: Nagyítás esetén kattintson a képre, és húzza azt.
-
-***
+* **Nagyítás/kicsinyítés**: Használja az egér görgőjét vagy a nagyító gombokat.
+* **Panoráma**: Nagyítás esetén kattintson a képre, és húzza el.***
 
 ## Duplikált fájlok kezelése
 
 Az Chloros automatikusan felismeri és figyelmen kívül hagyja a duplikált fájlokat:
 
-* Az azonos fájlnévvel rendelkező fájlokat kihagyja.
-* Megakadályozza a véletlen kettős feldolgozást.
-* Figyelmeztető üzenet jelenik meg, ha duplikátumokat észlel.
+* Az azonos fájlnévvel rendelkező fájlokat kihagyja
+* Megakadályozza a véletlen kettős feldolgozást
+* Figyelmeztető üzenet jelenik meg, ha duplikátumokat észlel
 
 {% hint style="warning" %}
 **Fontos**: Ne nevezze át és ne módosítsa az eredeti képfájlokat importálás előtt. Az Chloros a megfelelő feldolgozáshoz az eredeti fájlnevekre és metaadatokra támaszkodik.
@@ -130,11 +124,9 @@ Ha a projekt több MAPIR kamerából származó képeket tartalmaz:
 1. Az Chloros automatikusan felismeri az egyes kameramodelleket
 2. Az egyes kameratípusokat a megfelelő kalibrációs profillal dolgozza fel
 3. A Fájlböngésző a Kamera modell oszlopban jeleníti meg a kamera modellt.
-4. A feldolgozás minden kameratípusra a megfelelő beállításokat alkalmazza.
+4. A feldolgozás minden kameratípushoz a megfelelő beállításokat alkalmazza.
 
-**Példa**: Survey3W RGN + Survey3N OCN kettős kamera beállítás.
-
-***
+**Példa**: Survey3W RGN + Survey3N OCN kettős kamera beállítás.***
 
 ## Bevált gyakorlatok
 
@@ -142,7 +134,7 @@ Ha a projekt több MAPIR kamerából származó képeket tartalmaz:
 
 * A kalibrációs célképeket tartsa ugyanabban a mappában, mint a felmérési képeket.
 * Tartsa meg a kamera/SD-kártya eredeti mappaszerkezetét.
-* Ne keverje össze különböző munkamenetek adatait egy projektben.
+* Ne keverje össze a különböző munkamenetek adatait egy projektben.
 
 ### Fájlnevezés
 
@@ -153,15 +145,15 @@ Ha a projekt több MAPIR kamerából származó képeket tartalmaz:
 ### Kalibrációs célképek
 
 * Minden munkamenethez mindig csatoljon 1-2 kalibrációs célképet.
-* A célképeket a rögzítési munkamenet előtt és után készítse el.
-* A célképeket ugyanolyan fényviszonyok között helyezze el, mint a rögzítési területet.
-* A feldolgozás felgyorsítása érdekében jelölje meg a célképeket a Cél jelölőnégyzet segítségével.
+* A célképeket a felvételek előtt és után készítse el.
+* A célképeket ugyanolyan fényviszonyok között helyezze el, mint a felvételi területet.
+* A célképeket a Cél jelölőnégyzet bejelölésével jelölje meg a feldolgozás gyorsítása érdekében.
 
 ***
 
 ## Gyakori problémák és megoldások
 
-### A képek nem jelennek meg importálás után
+### A képek nem jelennek meg az importálás után
 
 **Lehetséges okok:**
 
@@ -188,9 +180,7 @@ Ha a projekt több MAPIR kamerából származó képeket tartalmaz:
 * A kamera órája nincs megfelelően beállítva
 * Az EXIF-adatok külső szoftverrel lettek eltávolítva
 
-**Megoldás**: Ellenőrizze, hogy a kamera időbeállításai a felvétel készítése során megfelelőek voltak-e.
-
-***
+**Megoldás**: Ellenőrizze, hogy a kamera időbeállításai a felvétel készítése során megfelelőek voltak-e.***
 
 ## Következő lépések
 

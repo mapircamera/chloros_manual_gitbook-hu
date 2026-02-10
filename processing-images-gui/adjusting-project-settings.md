@@ -4,17 +4,17 @@ A képek feldolgozása előtt fontos, hogy a projektbeállításokat a munkafoly
 
 ## A projektbeállítások elérés
 
-1. Nyissa meg a projektet az Chloros programban
+1. Nyissa meg a projektet az Chloros
 2. Kattintson a **Projektbeállítások** <img src="../.gitbook/assets/icon_project-settings.JPG" alt="" data-size="line"> ikonra a bal oldali sávban
 3. A Projektbeállítások panel minden konfigurációs opciót megjeleníti
 
-{% hint style=&quot;info&quot; %}
-**A beállítások automatikusan mentésre kerülnek** a projekttel együtt. Amikor újra megnyitja a projektet, az összes beállítás visszaáll.
+{% hint style="info" %}
+**A beállítások automatikusan mentésre kerülnek** a projekttel együtt. Amikor újra megnyit egy projektet, minden beállítás visszaáll.
 {% endhint %}
 
 ***
 
-## Gyors beállítás a gyakori munkafolyamatokhoz
+## Gyors beállítás gyakori munkafolyamatokhoz
 
 ### Alapértelmezett beállítások (a legtöbb felhasználó számára ajánlott)
 
@@ -22,7 +22,7 @@ A tipikus MAPIR Survey3 kamera munkafolyamatokhoz az alapértelmezett beállít�
 
 * ✅ **Vignette korrekció**: Engedélyezve
 * ✅ **Reflektancia kalibrálás**: Engedélyezve (MAPIR célok képei szükségesek)
-* ✅ **Debayer-módszer**: Kiváló minőség (gyorsabb)
+* ✅ **Debayer-módszer**: Standard (gyors, közepes minőség)
 * ✅ **Export formátum**: TIFF (16 bites)
 
 Egyszerűen importálja a képeket, és kezdje el a feldolgozást ezekkel az alapértelmezett beállításokkal.
@@ -31,60 +31,58 @@ Egyszerűen importálja a képeket, és kezdje el a feldolgozást ezekkel az ala
 
 ## Projektbeállítások áttekintése
 
-A Projektbeállítások panel több kategóriára van felosztva. Az alábbiakban összefoglaljuk az egyes szakaszokat. A teljes dokumentációt lásd a [Projektbeállítások](../project-settings/project-settings.md) alatt.
+A Projektbeállítások panel több kategóriára van felosztva. Az alábbiakban összefoglaljuk az egyes szakaszokat. A teljes dokumentációt lásd: [Projektbeállítások](../project-settings/project-settings.md).
 
 ### Célfelismerés
 
 Ez szabályozza, hogy az Chloros hogyan azonosítja a kalibrációs célokat a képeken.
 
-**Főbb beállítások:**
+**Főbb beállítások:*** **Minimális kalibrációs mintaterület**: A célfelismerés méretküszöbértéke (alapértelmezett: 25 pixel)
+* **Minimális célcsoportosítás**: A célterületek csoportosításának hasonlósági küszöbértéke (alapértelmezett: 60)**Mikor kell módosítani:**
 
-* **Minimális kalibrációs minta terület**: A célfelismerés méretküszöbe (alapértelmezett: 25 pixel)
-* **Minimális célcsoportosítás**: A célterületek csoportosításának hasonlósági küszöbe (alapértelmezett: 60)
-
-**Mikor kell módosítani:**
-
-* Növelje a minta területét, ha téves felismerések történnek.
-* Csökkentse, ha a célok nem kerülnek felismerésre.
-* Módosítsa a csoportosítást, ha a célok több felismerésre oszlanak.
+* Növelje a minta területét, ha téves észlelések történnek.
+* Csökkentse, ha a célpontok nem kerülnek észlelésre.
+* Állítsa be a csoportosítást, ha a célpontok több észlelésre oszlanak.
 
 ### Feldolgozás
 
-Fő képfeldolgozási és kalibrálási beállítások.
+Fő képfeldolgozási és kalibrációs beállítások.
 
-**Főbb beállítások:**
-
-* **Vignette-korrekció**: Kompenzálja a lencse sötétedését a széleken ✅ Ajánlott
-* **Reflektancia-kalibrálás**: Normalizálja az értékeket a kalibrálási célok segítségével ✅ Ajánlott
+**Főbb beállítások:*** **Vignette-korrekció**: Kompenzálja a lencse sötétedését a széleken ✅ Ajánlott
+* **Reflektancia-kalibráció**: A kalibrációs célok segítségével normalizálja az értékeket ✅ Ajánlott
 * **Debayer-módszer**: Algoritmus a RAW 3-csatornás multispektrális formátumba konvertálásához
-* **Minimális újrakalibrálási intervallum**: A kalibrációs célok használata közötti idő (0 = mindet használja)
+* **Minimális újrakalibrálási intervallum**: A kalibrációs célok használata közötti idő (0 = mindet használja)**Speciális beállítások:*** **Fényérzékelő időzóna eltolása**: PPK időszinkronizáláshoz (alapértelmezett: 0)
+* **PPK-korrekciók alkalmazása**: A .daq fájlokból származó GPS/expozíciós pin adatokat használja
+* **Expozíciós pin 1/2**: A kamerákat expozíciós pinekhez rendeli a kettős kamera beállításokhoz
 
-**Speciális beállítások:**
+### Debayer-módszer
 
-* **Fényérzékelő időzóna eltolás**: PPK időszinkronizáláshoz (alapértelmezett: 0)
-* **PPK korrekciók alkalmazása**: A .daq fájlokból származó GPS/expozíciós pin adatokat használja
-* **Expozíciós pin 1/2**: kamerákat rendel az expozíciós pinekhez kettős kamera beállítások esetén
+Jelenleg 2 debayering módszert kínálunk az Chloros-ben:
+
+#### Standard (gyors, közepes minőség)
+
+A standard debayer gyorsan feldolgozza az adatokat, de debayering színes zajt eredményez, ami kevésbé pontos és zajosabb képeket eredményez.
+
+#### Textúraérzékeny (lassú, legmagasabb minőség) \[Chloros+ csak]
+
+A textúraérzékeny módszer egy magas minőségű, élekérzékeny debayert használ, amelyhez egy AI/ML zajszűrési modell társul, amely szinte az összes debayering zajt eltávolítja. A textúraérzékeny modell futtatásához GPU memória (VRAM) szükséges. A gyorsabb feldolgozás érdekében azt javasoljuk, hogy csak akkor használja, ha rendelkezésre áll &gt;4 GB VRAM.
 
 ### Index (multispektrális indexek)
 
-Konfigurálja, mely növényzetindexeket kívánja kiszámítani és exportálni.
+Állítsa be, hogy mely növényzetindexeket kívánja kiszámítani és exportálni.
 
 **Indexek hozzáadása:**
 
-1. Kattintson az **„Index hozzáadása”** gombra
-2. Válasszon ki egy indexet a legördülő menüből (NDVI, NDRE, GNDVI stb.)
+1. Kattintson az**„Index hozzáadása”** gombra
+2. Válasszon egy indexet a legördülő menüből (NDVI, NDRE, GNDVI stb.)
 3. Konfigurálja a megjelenítési beállításokat (LUT színek, értéktartományok)
 4. Szükség szerint adjon hozzá több indexet
 
-**Népszerű indexek:**
-
-* **NDVI**: Általános növényállomány-egészség (a leggyakoribb)
+**Népszerű indexek:*** **NDVI**: Általános növényállomány-egészség (a leggyakoribb)
 * **NDRE**: Korai stresszfelismerés az RedEdge segítségével
 * **GNDVI**: Klorofillkoncentrációra érzékeny
 * **OSAVI**: Jól működik látható talajjal
-* **EVI**: Magas levélterület-indexű (LAI) régiók
-
-**Egyéni képletek (csak Chloros+):**
+* **EVI**: Magas levélterületi indexű (LAI) régiók**Egyéni képletek (csak Chloros+):**
 
 * Egyedi multispektrális index képletek létrehozása
 * Sávmatematika használata az összes képcsatornával
@@ -96,14 +94,10 @@ Az összes elérhető index és képlet megtalálható a [Multispektrális index
 
 A kimeneti fájl formátumának és minőségének vezérlése.
 
-**Elérhető formátumok:**
-
-* **TIFF (16 bites)**: Ajánlott GIS és tudományos elemzésekhez (0–65 535 tartomány)
+**Elérhető formátumok:*** **TIFF (16 bites)**: Ajánlott GIS és tudományos elemzésekhez (0–65 535 tartomány)
 * **TIFF (32 bites, százalék)**: Lebegőpontos visszaverődési értékek (0,0–1,0 tartomány)
 * **PNG (8 bites)**: Veszteségmentes tömörítés vizualizáláshoz (0–255 tartomány)
-* **JPG (8 bites)**: Legkisebb fájlok, veszteséges tömörítés (0–255 tartomány)
-
-***
+* **JPG (8 bites)**: Legkisebb fájlok, veszteséges tömörítés (0–255 tartomány)***
 
 ## Beállítások mentése és betöltése
 
@@ -133,18 +127,18 @@ Hozzon létre újrafelhasználható sablonokat a konzisztens munkafolyamatokhoz:
 
 ### Munkakönyvtár
 
-A **„Projektmappa mentése”** beállítás meghatározza, hogy alapértelmezés szerint hol jönnek létre az új projektek:
+A **„Projektmappa mentése”** beállítás határozza meg, hogy alapértelmezés szerint hol jönnek létre az új projektek:
 
 * **Alapértelmezett hely**: `C:\Users\[Username]\Chloros Projects`
-* **Hely megváltoztatása**: Kattintson a szerkesztés ikonra, és válassza ki az új mappát.
+* **Hely módosítása**: Kattintson a szerkesztés ikonra, és válassza ki az új mappát
 * **Mikor érdemes megváltoztatni**:
-  * Hálózati meghajtó a csapatmunkához
+  * Hálózati meghajtó csapatmunkához
   * Másik meghajtó, amely több tárhelyet biztosít
   * Év/ügyfél szerint szervezett mappaszerkezet
 
 ***
 
-## PPK (utólagos kinematikai feldolgozás) beállítás
+## PPK (utólag feldolgozott kinematika) beállítás
 
 Ha MAPIR DAQ rögzítőket használ GPS-szel a pontos földrajzi helymeghatározáshoz:
 
@@ -152,25 +146,21 @@ Ha MAPIR DAQ rögzítőket használ GPS-szel a pontos földrajzi helymeghatároz
 
 * MAPIR DAQ GPS (GNSS) modullal
 * .daq naplófájl expozíciós pin bejegyzésekkel
-* A felvételkészítés során a kamera csatlakoztatva van a DAQ expozíciós csapjaihoz
+* A kamera a DAQ expozíciós pinjeihez csatlakoztatva a rögzítési munkamenet alatt
 
 ### Konfigurációs lépések
 
-1. Helyezze a .daq naplófájlt a projektmappájába.
-2. A Projektbeállításokban jelölje be az **„PPK-korrekciók alkalmazása”** jelölőnégyzetet.
-3. Szükség esetén állítsa be a **„Fényérzékelő időzóna eltolása”** értéket (alapértelmezett: 0 UTC esetén).
+1. Helyezze a .daq naplófájlt a projektmappájába
+2. A Projektbeállításokban jelölje be az **„PPK korrekciók alkalmazása”** jelölőnégyzetet
+3. Szükség esetén állítsa be a **„Fényérzékelő időzóna eltolása”** értéket (alapértelmezett: 0 UTC esetén)
 4. Rendelje hozzá a kamerákat az expozíciós csapokhoz:
-   * **Egyetlen kamera**: Automatikusan hozzárendelve az 1. csaphoz
-   * **Két kamera**: Manuálisan rendelje hozzá az egyes kamerákat a megfelelő csapokhoz
+   * **Egyetlen kamera**: automatikusan a 1. csaphoz rendelve
+   * **Két kamera**: manuálisan rendelje hozzá az egyes kamerákat a megfelelő csapokhoz**Expozíciós csapok hozzárendelése:*** **Expozíciós csatlakozó 1**: Válassza ki a kamera modellt a legördülő menüből
+* **Expozíciós csatlakozó 2**: Válassza ki a második kamerát vagy a „Ne használja” opciót
+* Ugyanaz a kamera nem rendelhető mindkét csatlakozóhoz
 
-**Expozíciós csapok hozzárendelése:**
-
-* **Expozíciós csap 1**: Válassza ki a kamera modellt a legördülő menüből
-* **Expozíciós csap 2**: Válassza ki a második kamerát vagy a „Ne használja” opciót
-* Ugyanaz a kamera nem rendelhető hozzá mindkét csaphoz
-
-{% hint style=&quot;warning&quot; %}
-**Fontos**: Az expozíciós csapokat helyesen kell hozzárendelni a megfelelő kamerákhoz. A helytelen hozzárendelés hibás földrajzi helyadatokhoz vezet.
+{% hint style="warning" %}
+**Fontos**: Az expozíciós csatlakozókat helyesen kell hozzárendelni a megfelelő kamerákhoz. A helytelen hozzárendelés hibás földrajzi helyadatokhoz vezet.
 {% endhint %}
 
 ***
@@ -182,7 +172,7 @@ Ha MAPIR DAQ rögzítőket használ GPS-szel a pontos földrajzi helymeghatároz
 Ha egy projektben több MAPIR kamera képét dolgozza fel:
 
 1. Az Chloros automatikusan felismeri az egyes kameramodelleket
-2. Minden kamera megkapja a megfelelő feldolgozási profilt
+2. Minden kamera a megfelelő feldolgozási profilt kapja
 3. PPK: Manuálisan rendelje hozzá az egyes kamerákat a megfelelő expozíciós csaphoz
 4. Az összes kamera ugyanazt az exportformátumot és indexeket használja
 
@@ -192,7 +182,7 @@ Ha egy projektben több MAPIR kamera képét dolgozza fel:
 
 Ugyanazon terület időbeli ismételt felméréseihez:
 
-1. Hozzon létre egy sablont a standard beállításokkal.
+1. Hozzon létre egy sablont a standard beállításaival.
 2. Minden munkamenetben használjon konzisztens kalibrációs célbeállítást.
 3. Minden dátumot külön projektként dolgozzon fel.
 4. Az összehasonlítható eredmények érdekében használjon azonos beállításokat.
@@ -200,7 +190,7 @@ Ugyanazon terület időbeli ismételt felméréseihez:
 
 ### Nagy adatállományok
 
-Sok képpel rendelkező projektek (500+) esetén:
+Sok képet (500+) tartalmazó projektek esetén:
 
 * Fontolja meg a projektek kisebb projektekre bontását dátum vagy terület szerint.
 * Használja az Chloros+ párhuzamos feldolgozást a gyorsabb eredmények érdekében.
@@ -214,7 +204,7 @@ Sok képpel rendelkező projektek (500+) esetén:
 A feldolgozás megkezdése előtt ellenőrizze a következő fontos beállításokat:
 
 * [ ] A kamera modellje helyesen lett felismerve a Fájlkezelőben
-* [ ] A vignettás korrekció engedélyezve
+* [ ] A vignettázás korrekció engedélyezve
 * [ ] A visszaverődés kalibrálása engedélyezve
 * [ ] Legalább egy kalibrációs célkép importálva
 * [ ] A kívánt multispektrális indexek hozzáadva
@@ -229,6 +219,6 @@ A beállítások konfigurálása után:
 
 1. **Jelölje meg a kalibrációs célképeket** – Lásd: [Célképek kiválasztása](choosing-target-images.md)
 2. **Indítsa el a feldolgozást** – Lásd: [A feldolgozás elindítása](starting-the-processing.md)
-3. **Figyelje a folyamatot** – Lásd: [A feldolgozás figyelése](monitoring-the-processing.md)
+3. **Figyelje a folyamatot** – Lásd [A feldolgozás figyelése](monitoring-the-processing.md)
 
-Az összes rendelkezésre álló beállításról részletes információkat a [Projektbeállítások](../project-settings/project-settings.md) referencia dokumentációban talál.
+Az összes rendelkezésre álló beállítás részletes leírását lásd a [Projektbeállítások](../project-settings/project-settings.md) referencia dokumentációban.

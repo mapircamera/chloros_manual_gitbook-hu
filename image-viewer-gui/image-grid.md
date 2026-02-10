@@ -4,7 +4,7 @@ A képek projektbe való importálása után a képek rácsban rendezve jelennek
 
 ## Miniatűr méret
 
-A jobb felső sarokban található nagyító csúszkával állíthatja be a képminiatűrök méretét. A CTRL + egérkerék billentyűkombinációval is méretezheti őket.
+A jobb felső sarokban található nagyító csúszkával állíthatja be a képminiatűrök méretét. A CTRL + egérkerék lenyomva tartásával is méretezheti őket.
 
 <figure><img src="../.gitbook/assets/chloros_grid_zoom.gif" alt=""><figcaption></figcaption></figure>## Exportálás gombok
 

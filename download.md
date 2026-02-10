@@ -10,18 +10,18 @@ Töltse le az Chloros legújabb verzióját, hogy elindulhasson a multispektrál
 
 ### Rendszerkövetelmények
 
-| Követelmény          | Minimális                         | Ajánlott                     |
-| -------------------- | ------------------------------- | ------------------------------- |
-| **Operációs rendszer** | Windows 10 (64 bites)             | Windows 11 (64 bites)             |
-| **Processzor**        | Intel Core i5 vagy azzal egyenértékű     | Intel Core i7 vagy annál jobb         |
-| **Memória (RAM)**     | 8 GB                             | 16 GB vagy több                    |
-| **Grafikus kártya**    | DirectX 11 kompatibilis           | NVIDIA GPU 4 GB+ VRAM-mal       |
-| **Tárolókapacitás**          | 6 GB szabad hely                  | SSD 10 GB+ szabad hellyel       |
-| **Kijelző**          | 1920x1080                       | 2560x1440 vagy nagyobb             |
-| **Internet**         | Szükséges a licenc aktiválásához | Szükséges a licenc aktiválásához |
+| Követelmény          | Minimális                                              | Ajánlott                                          |
+| -------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
+| **Operációs rendszer** | Windows 10 (64 bites)                                  | Windows 11 (64 bites)                                  |
+| **Processzor**        | Intel Core i5 vagy azzal egyenértékű                          | Intel Core i7 vagy annál jobb                              |
+| **Memória (RAM)**     | 8 GB                                                  | 16 GB vagy több                                         |
+| **Grafikus kártya**    | DirectX 11 kompatibilis                                | NVIDIA GPU 4 GB+ VRAM-mal                            |
+| **Tárolókapacitás**          | 6 GB szabad hely                                       | SSD 10 GB+ szabad hellyel                            |
+| **Kijelző**          | 1920x1080                                            | 2560x1440 vagy nagyobb                                  |
+| **Internet**         | Szükséges az [opcionális] Chloros+ licenc aktiválásához | Szükséges az [opcionális] Chloros+ licenc aktiválásához |
 
-{% hint style=&quot;info&quot; %}
-**GPU-gyorsítás**: Az NVIDIA GPU-val (4 GB+ VRAM) rendelkező Chloros+ felhasználók a CUDA-gyorsítást használhatják a jelentősen gyorsabb feldolgozás érdekében. Az Chloros+ felhasználók többszálas feldolgozást is kapnak a maximális sebesség érdekében.
+{% hint style="info" %}
+**GPU-gyorsítás**: Az NVIDIA GPU-val rendelkező Chloros+ felhasználók a CUDA-gyorsítást használhatják a jelentősen gyorsabb feldolgozás érdekében. Az Chloros+ felhasználók többszálas feldolgozást is kapnak a maximális sebesség érdekében.
 {% endhint %}
 
 ***
@@ -32,10 +32,10 @@ Töltse le az Chloros legújabb verzióját, hogy elindulhasson a multispektrál
 
 ### Legújabb stabil kiadás
 
-**Chloros telepítő Windows*** **Verzió**: 1.0.4
-* **Kiadás dátuma**: 2026. január 5.
-* **Fájlméret (letöltés)**: 1,8 GB
-* **Fájlméret (telepítés után)**: 5,7 GB
+**Chloros telepítő az Windows-hez*** **Verzió**: 1.0.5
+* **Kiadás dátuma**: 2026. február 10.
+* **Fájlméret (letöltés)**: 1,6 GB
+* **Fájlméret (telepítve)**: 5,7 GB
 * **Fájltípus**: .exe (Windows telepítő)
 
 #### **Telepítési lépések:**
@@ -44,10 +44,10 @@ Töltse le az Chloros legújabb verzióját, hogy elindulhasson a multispektrál
 2. Kattintson duplán a telepítőre a telepítés megkezdéséhez
 3. Kövesse a telepítő varázsló utasításait
 4. Válassza ki a telepítési könyvtárat (alapértelmezett: `C:\Program Files\[USER]\Chloros\`)
-5. Végezze el a telepítést, majd indítsa el az Chloros, Chloros (böngésző) vagy Chloros CLI alkalmazást.
+5. Fejezze be a telepítést, és indítsa el az Chloros vagy Chloros CLI programot
 6. Jelentkezzen be [MAPIR Cloud Chloros+ fiókjával](https://cloud.mapir.camera/pricing) (vagy folytassa az ingyenes verzióval)
 
-{% hint style=&quot;success&quot; %}
+{% hint style="success" %}
 A telepítő automatikusan hozzáadja az `chloros-cli` fájlt a rendszer PATH-jéhez a parancssori hozzáféréshez.
 {% endhint %}
 
@@ -65,25 +65,25 @@ pip install chloros-sdk
 
 **Dokumentáció**: [API: Python SDK](api-python-sdk.md)**Követelmények**: Chloros Desktop telepítése szükséges, Chloros+ licenc bejelentkezés szükséges.***
 
-## Mit tartalmaz
+## Mit tartalmaz a csomag?
 
 Az Chloros telepítés a következőket tartalmazza:
 
-* ✅ **Chloros** - Teljes funkcionalitású grafikus felület
-* ✅ **Chloros (böngésző)** - Webalapú felület alacsonyabb specifikációjú rendszerekhez
+* ✅ **Chloros** - Teljes funkcionalitású grafikus felület (GUI)
 * ✅ **Chloros CLI** - Parancssori felület (Chloros+ licenc szükséges)
 * ✅ **Chloros SDK** - Python API (Chloros+ licenc szükséges)
 * ✅ **Kameraprofilok** - Előre konfigurált MAPIR kamerasablonok***
 
 ## Frissítés Chloros+ verzióra
 
-A Chloros+ előfizetéssel fejlett funkciókhoz juthat hozzá:
+A Chloros+ előfizetéssel fejlett funkciókhoz juthat:
 
 * 🚀 **Többszálas feldolgozás** – Képek párhuzamos feldolgozása
 * ⚡ **GPU (CUDA) gyorsítás** – Az NVIDIA GPU teljesítményének kihasználása
 * 💻 **CLI hozzáférés** – Automatizálás parancssori eszközökkel
 * 🐍 **Python SDK** – Programozható API hozzáférés
-* 📱 **Több eszköz** – 2–10+ eszközön használható (a csomagtól függően)
+* 📱 **Több eszköz** – 2–10+ eszközön használható (csomagtól függően)
+* **🐻 Fejlett textúraérzékeny debayer módszer** – kiváló minőségű, élekérzékeny debayer, AI/ML zajszűrési modellel kombinálva, amely szinte az összes debayering zajt eltávolítja. 
 * 🧮 **Egyéni képletek** – Egyéni multispektrális indexek létrehozása
 
 <p align="center"><a href="https://cloud.mapir.camera/pricing" class="button primary">Chloros+ csomagok és árak megtekintése</a></p>***
@@ -92,7 +92,7 @@ A Chloros+ előfizetéssel fejlett funkciókhoz juthat hozzá:
 
 ### Hibaelhárítás
 
-**A telepítés hibaüzenettel meghiúsul:**
+**A telepítés hibaüzenettel megszakad:**
 
 * Győződjön meg arról, hogy rendelkezik rendszergazdai jogokkal
 * Ideiglenesen tiltsa le a víruskereső szoftvert
@@ -100,11 +100,10 @@ A Chloros+ előfizetéssel fejlett funkciókhoz juthat hozzá:
 
 **Az alkalmazás nem indul el:**
 
-* Próbálja ki az Chloros (böngésző) verziót
 * Ellenőrizze, hogy az Windows 10/11 (64 bites) telepítve van-e
 * Frissítse a grafikus illesztőprogramokat
 * Ellenőrizze az Windows Eseménynaplóban a hiba részleteit
-* Forduljon a támogatáshoz a hibanaplóval
+* Forduljon a támogatáshoz a hibajelentésekkel
 
 **Licencaktiválási problémák:**
 
@@ -126,10 +125,21 @@ Segítségre van szüksége a telepítéssel vagy a beállítással kapcsolatban
 
 <details>
 
+<summary>1.0.5 verzió</summary>
+
+#### **Kiadás dátuma**: 2026. február 10.**Új funkciók*** **Textúraérzékeny debayer módszer \[Chloros+ csak] -** A Textúraérzékeny módszer egy kiváló minőségű, élekérzékeny debayer modellt használ, amely AI/ML zajszűrési modellel kombinálva szinte teljesen eltávolítja a debayering zajt.
+* **T4P kalibrációs célok támogatása*** **Gyorsabb Chloros+ GPU feldolgozás, jobb memóriakezelés**
+
+**Hibajavítások*** Teljesen új felhasználói felület (GUI), most már minden Windows számítógépen működnie kell.
+
+</details>
+
+<details>
+
 <summary>1.0.4 verzió</summary>
 
-#### **Kiadás dátuma**: 2026. január 5.**Új funkciók*** **Kép/metaadatok váltás**: A Fájlböngészőbe hozzáadott váltó, amely a kiválasztott kép metaadatait táblázatban jeleníti meg a képek rácsának helyett
-* **Képek rácsának nagyítás-csúszka**: Új felhasználói felület csúszka a miniatűrök méretének beállításához (a CTRL + egérkerék kombinációt is támogatja)
+#### **Kiadás dátuma**: 2026. január 5.**Új funkciók*** **Kép/metaadatok váltás**: Váltó hozzáadva a Fájlböngészőhöz, hogy a kiválasztott kép metaadatait táblázatban lehessen megtekinteni a kép rács helyett
+* **Kép rács nagyítás csúszka**: Új UI csúszka a miniatűr méretének beállításához (támogatja a CTRL + egérkerék kombinációt is)
 * **Képrács export gombok**: A felső sorban található gombok a miniatűrök JPG formátumból feldolgozott export formátumba (célok, visszaverődés, index, LUT) való átváltásához
 * **Térkép fül**: Új interaktív 2D térkép, amely a képek GPS-helymegjelölőit mutatja.
   * Támogatja a Google Maps és az ESRI térképcsempéket (a nagyítási szint elérhetősége alapján automatikusan kiválasztja a legjobb csempeszolgáltatást).
@@ -153,7 +163,7 @@ Segítségre van szüksége a telepítéssel vagy a beállítással kapcsolatban
 
 </details>***
 
-## Licencszerződés**Saját fejlesztésű szoftver** – Copyright (c) 2025 MAPIR Inc.
+## Licencszerződés**Saját fejlesztésű szoftver** – Copyright (c) 2026 MAPIR Inc.
 
 A jogosulatlan használat, terjesztés vagy módosítás tilos.
 

@@ -6,7 +6,7 @@ Az Chloros Image Viewer egy speciális teljes képernyős felületet biztosít a
 
 ### A fájlböngészőből
 
-A képnézegetőben a kép megnyitásának leggyakoribb módja:
+A képek megnyitásának leggyakoribb módja a képnézegetőben:
 
 1. Győződjön meg arról, hogy a **Fájlböngésző** fülön van. <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line">
 2. Kattintson bármelyik **képminiatűrre** a képrácsban
@@ -31,10 +31,8 @@ A képernyő legnagyobb részén a kép látható:
 
 * **Teljes felbontás**: A képek natív felbontásban jelennek meg.
 * **Nagyítható**: A nagyításhoz használja a vezérlőket vagy az egérgörgőt
-* **Pannable**: Nagyításkor kattintson és húzza az egérrel a kép mozgatásához
-* **Képarány megőrzése**: A képek arányosan méretezhetők
-
-***
+* **Pannable**: Nagyításkor kattintson és húzza az egérrel a képet
+* **Képarány megőrzése**: A képek arányosan méretezhetők***
 
 ## Megtekintési beállítások
 
@@ -44,23 +42,19 @@ A képernyő legnagyobb részén a kép látható:
 
 A képek között billentyűparancsokkal vagy gombokkal navigálhat:
 
-* **Következő kép**: Kattintson a → gombra, vagy nyomja meg a **→** (jobb nyíl) billentyűt
-* **Előző kép**: Kattintson a ← gombra, vagy nyomja meg a **←** (bal nyíl) billentyűt
+* **Következő kép**: Kattintson a → gombra, vagy nyomja meg a**→** (jobb nyíl) billentyűt
+* **Előző kép**: Kattintson a ← gombra, vagy nyomja meg a**←** (bal nyíl) billentyűt
 * **Ugrás egy adott képre**: Térjen vissza a Fájlböngészőbe, és kattintson a kívánt miniatűrre
 
 #### Nagyítási vezérlők
 
 Állítsa be a nagyítást a kép részleteinek megtekintéséhez:
 
-**Nagyítás:**
-
-* Kattintson a **+** (plusz) gombra
-* Nyomja meg a **+** vagy **=** billentyűt
+**Nagyítás:*** Kattintson a **+** (plusz) gombra
+* Nyomja meg a **+**vagy**=** billentyűt
 * Görgessen az egérkerékkel **felfelé**
 
-**Kicsinyítés:**
-
-* Kattintson a **−** (mínusz) gombra
+**Kicsinyítés:*** Kattintson a **−** (mínusz) gombra
 * Nyomja meg a **−** (mínusz) billentyűt
 * Görgessen az egérkerékkel **lefelé**
 
@@ -73,21 +67,13 @@ Ha a képet a képernyő méretén túl nagyítja:
 3. **Húzza** a képet a mozgatáshoz.
 4. Engedje el a gombot a mozgatás leállításához.
 
-**Alternatíva**: A nyílgombokkal apránként mozgathatja a képet.
-
-***
+**Alternatíva**: A nyílgombokkal apránként mozgathatja a képet.***
 
 ## Pixelértékek ellenőrzése
 
 ### Pixelértékek megtekintése a kurzor alatt
 
-Amikor az egér kurzorát a kép fölé viszi, a pixelértékek valós időben jelennek meg:
-
-**Az értékek megjelenítési helye:**
-
-* **Lebegő szám és piros vonal a jobb oldali index LUT gradiens legenda**
-* **További nagyítás esetén lebegő érték a kurzor közelében és kiemelt pixel**
-* Megjeleníti a **kurzor alatt vagy kiemelt** pixel értékét
+Amikor az egér kurzorát a kép fölé viszi, a pixelértékek valós időben jelennek meg:**Az értékek megjelenítési helye:*** **Lebegő szám és piros vonal a jobb oldali index LUT gradiens legenda*** **További nagyítás esetén a kurzor közelében lebegő érték és kiemelt pixel*** Megjeleníti a **kurzor alatt vagy kiemelt** pixel értékét
 * Az egér mozgatásával frissül
 
 ***
@@ -118,7 +104,7 @@ Amikor az egér kurzorát a kép fölé viszi, a pixelértékek valós időben j
 **NDVI, NDRE, GNDVI stb. (\_NDVI.tif fájlok):**
 
 * Egycsatornás szürkeárnyalatos képek
-* A pixelértékek az index számítási eredményeit képviselik
+* A pixelértékek az index számítás eredményeit jelzik
 * A normalizált indexek tartománya általában -1 és +1 között van
 * Színes LUT-ok alkalmazhatók a vizualizáláshoz
 
@@ -126,9 +112,9 @@ Amikor az egér kurzorát a kép fölé viszi, a pixelértékek valós időben j
 
 ## Index és LUT alkalmazás
 
-Multispektrális indexek és színes Look-Up táblák alkalmazása:
+Többspektrális indexek és színes Look-Up táblák alkalmazása:
 
-1. Keresse meg az **Index/LUT Sandbox** elemet az **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> oldalsávban
+1. Keresse meg az **Index/LUT Sandbox**elemet az**Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> oldalsávban
 2. Válassza ki a vegetációs indexet (NDVI, NDRE stb.)
 3. Válassza ki a multispektrális képletet, vagy hozzon létre saját egyéni képletet (csak Chloros+)
 4. Alkalmazzon szín LUT gradienst a vizualizáláshoz
@@ -149,26 +135,22 @@ Részletes utasításokat lásd az [Index/LUT Sandbox](index-lut-sandbox.md) old
 
 ### Nagyítás
 
-* **+** vagy **=**: Nagyítás
+* **+**vagy**=**: Nagyítás
 * **−**: Kicsinyítés
-* **Egérkerék**: Nagyítás/kicsinyítés
-
-***
+* **Egérkerék**: Nagyítás/kicsinyítés***
 
 ### Indexszámítások ellenőrzése
 
 Ellenőrizze, hogy az indexek helyesen lettek-e kiszámítva:
 
 1. Nyissa meg az NDVI vagy más indexképet
-2. Ellenőrizze a növényzet területét:
+2. Ellenőrizze a növényzet területeit:
    * **NDVI**: Egészséges növények esetén 0,4–0,9 értéket kell mutatnia
    * **NDRE**: Erőteljes növekedés esetén magasabb értékeket
    * **GNDVI**: Hasonló az NDVI-hez, de klorofillérzékeny
 3. Ellenőrizze a nem növényzetet:
    * **Talaj**: 0 közelében vagy enyhén negatív
-   * **Víz**: Negatív értékek (-0,5 és 0 között)
-
-***
+   * **Víz**: Negatív értékek (-0,5 és 0 között)***
 
 ## Hibaelhárítás Megjelenítési problémák
 
@@ -197,7 +179,7 @@ Ellenőrizze, hogy az indexek helyesen lettek-e kiszámítva:
 
 **Megoldások:**
 
-1. Ellenőrizze a pixelértékeket – ha mind nagyon alacsonyak vagy nagyon magasak, állítsa be a kijelzési tartományt.
+1. Ellenőrizze a pixelértékeket – ha mind nagyon alacsonyak vagy nagyon magasak, állítsa be a megjelenítési tartományt.
 2. Próbálja meg megnyitni a QGIS-ben vagy hasonló programban az automatikus tartománybeállítással.
 3. Ellenőrizze a feldolgozás hibakeresési naplóját.
 
@@ -205,10 +187,10 @@ Ellenőrizze, hogy az indexek helyesen lettek-e kiszámítva:
 
 **Lehetséges okok:**
 
-* Helytelen kép megtekintése (eredeti vs. feldolgozott)
+* Helytelen kép megjelenítése (eredeti vs. feldolgozott)
 * A kalibrálás nem megfelelően történt
 * A fényérzékelő adatai nem kerültek be a bemenetbe
-* A százalékos mód helytelenül van beállítva
+* A százalékos mód helytelenül váltott
 
 **Megoldások:**
 

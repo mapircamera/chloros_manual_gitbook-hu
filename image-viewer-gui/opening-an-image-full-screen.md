@@ -1,25 +1,25 @@
 # Kép teljes képernyős megnyitása
 
-Az Chloros Image Viewer egy speciális teljes képernyős felületet biztosít a multispektrális képek megtekintéséhez, elemzéséhez és szerkesztéséhez. Akár eredeti képeket, akár feldolgozott kimeneteket tekint meg, az Image Viewer hatékony eszközöket kínál a vizsgálathoz és elemzéshez.
+Az Chloros Képmegjelenítő egy speciális, teljes képernyős felületet biztosít a multispektrális képek megtekintéséhez, elemzéséhez és szerkesztéséhez. Akár eredeti képeket, akár feldolgozott eredményeket tekint meg, a Képmegjelenítő hatékony eszközöket kínál a vizsgálathoz és az elemzéshez.
 
-## Hozzáférés a képnézegetőhöz
+## Az Image Viewer elérés
 
-### A fájlböngészőből
+### A Fájlkezelőből
 
-A képek megnyitásának leggyakoribb módja a képnézegetőben:
+A kép megnyitásának leggyakoribb módja az Image Viewerben:
 
-1. Győződjön meg arról, hogy a **Fájlböngésző** fülön van. <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line">
+1. Győződjön meg róla, hogy a **Fájlkezelő** fülön van <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line">
 2. Kattintson bármelyik **képminiatűrre** a képrácsban
 3. A kép megnyílik a **fő előnézeti területen** (a képernyő közepén)
-4. A kép most már betöltődött és készen áll a teljes képernyős megtekintésre
+4. A kép betöltődött, és készen áll a teljes képernyős megtekintésre
 
 ### Az Image Viewer fül megnyitása
 
-Miután a kép betöltődött az előnézeti területen:
+Miután a kép betöltődött az előnézeti területre:
 
-1. Kattintson az **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> ikonra a bal oldali sávban.
-2. Megnyílik a Képmegjelenítő fül, amely teljes képernyős nézetben jeleníti meg a kiválasztott képet.
-3. A bal oldali sávban megjelennek a fejlett megtekintési és elemzési eszközök.
+1. Kattintson az **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> ikonra a bal oldali sávban
+2. Megnyílik a Képmegjelenítő fül, amely teljes képernyőn jeleníti meg a kiválasztott képet
+3. A bal oldali sávban elérhetővé válnak a fejlett megtekintési és elemzési eszközök
 
 ***
 
@@ -27,20 +27,20 @@ Miután a kép betöltődött az előnézeti területen:
 
 ### Fő megjelenítési terület
 
-A képernyő legnagyobb részén a kép látható:
+A képernyő legnagyobb része a képet jeleníti meg:
 
-* **Teljes felbontás**: A képek natív felbontásban jelennek meg.
+* **Teljes felbontás**: A képek natív felbontásban jelennek meg
 * **Nagyítható**: A nagyításhoz használja a vezérlőket vagy az egérgörgőt
-* **Pannable**: Nagyításkor kattintson és húzza az egérrel a képet
+* **Körbeforgatható**: Nagyításkor kattintson és húzza az egérrel a kép mozgatásához
 * **Képarány megőrzése**: A képek arányosan méretezhetők***
 
 ## Megtekintési beállítások
 
 ### Alapvető képnavigáció
 
-#### Képek böngészése
+#### Képek között való böngészés
 
-A képek között billentyűparancsokkal vagy gombokkal navigálhat:
+A képkészletben a billentyűparancsok vagy a gombok segítségével navigálhat:
 
 * **Következő kép**: Kattintson a → gombra, vagy nyomja meg a**→** (jobb nyíl) billentyűt
 * **Előző kép**: Kattintson a ← gombra, vagy nyomja meg a**←** (bal nyíl) billentyűt
@@ -58,69 +58,70 @@ A képek között billentyűparancsokkal vagy gombokkal navigálhat:
 * Nyomja meg a **−** (mínusz) billentyűt
 * Görgessen az egérkerékkel **lefelé**
 
-#### Nagyításkor történő mozgatás
+#### Képmozgatás nagyításkor
 
-Ha a képet a képernyő méretén túl nagyítja:
+Ha a képet a képernyő méreténél nagyobb méretre nagyította:
 
-1. Vigye az egérmutatót a kép fölé.
-2. Kattintson, és **tartsa lenyomva a bal egérgombot**.
-3. **Húzza** a képet a mozgatáshoz.
-4. Engedje el a gombot a mozgatás leállításához.
+1. Vigye az egérmutatót a kép fölé
+2. Kattintson és **tartsa lenyomva a bal egérgombot**
 
-**Alternatíva**: A nyílgombokkal apránként mozgathatja a képet.***
+3.**Húzza** az egeret a kép mozgatásához
+4. Engedje fel a gombot a képmozgatás leállításához
 
-## Pixelértékek ellenőrzése
+**Alternatív megoldás**: Használja a nyílgombokat a kép apró lépésekben történő mozgatásához***
+
+## Pixelértékek megtekintése
 
 ### Pixelértékek megtekintése a kurzor alatt
 
-Amikor az egér kurzorát a kép fölé viszi, a pixelértékek valós időben jelennek meg:**Az értékek megjelenítési helye:*** **Lebegő szám és piros vonal a jobb oldali index LUT gradiens legenda*** **További nagyítás esetén a kurzor közelében lebegő érték és kiemelt pixel*** Megjeleníti a **kurzor alatt vagy kiemelt** pixel értékét
+Amint az egérkurzort a kép fölé viszi, a pixelértékek valós időben jelennek meg:**Az értékek megjelenítési helye:*** **Lebegő szám és piros vonal a jobb oldali index LUT gradiens legenda mellett*** **Ha tovább nagyít, lebegő érték a kurzor és a kijelölt pixel közelében*** Megmutatja a **kurzor alatt vagy kijelölt** pixel értékeit
 * Az egér mozgatásával frissül
 
 ***
 
-## Megtekinthető képtípusok
+## Megtekinthető képformátumok
 
 ### JPG
 
-**JPG képek kamerából:**
+**JPG képek a fényképezőgépről:**
 
-* JPG adatok megjelenítése előnézetként
-* Eredeti, korrigálatlan értékek megjelenítése
-* Hasznos a képminőség ellenőrzéséhez feldolgozás előtt
+* A JPG adatok megjelenítése előnézetként
+* Az eredeti, korrekció nélküli értékek megjelenítése
+* Hasznos a képminőség ellenőrzéséhez a feldolgozás előtt
 
-### RAW (eredeti)
+### RAW (Eredeti)
 
-### RAW (reflektancia)
+### RAW (Fényvisszaverődés)
 
 **Feldolgozás után:**
 
-* Vignette korrigálva
+* Vignettálás korrigálva
 * Reflektancia kalibrálva
 * Többsávos TIFF (Red, Green, NIR stb.)
-* Tudományos adatok elemzésre készen
+* Elemzésre kész tudományos adatok
 
 ### RAW (Index)
 
 **NDVI, NDRE, GNDVI stb. (\_NDVI.tif fájlok):**
 
 * Egycsatornás szürkeárnyalatos képek
-* A pixelértékek az index számítás eredményeit jelzik
-* A normalizált indexek tartománya általában -1 és +1 között van
-* Színes LUT-ok alkalmazhatók a vizualizáláshoz
+* A képpontértékek az indexszámítás eredményeit jelzik
+* A normalizált indexek értéke általában -1 és +1 között mozog
+* A vizualizáláshoz színes LUT-ok alkalmazhatók
 
 ***
 
 ## Index és LUT alkalmazás
 
-Többspektrális indexek és színes Look-Up táblák alkalmazása:
+Multispektrális indexek és színes Look-Up Tables alkalmazása:
 
-1. Keresse meg az **Index/LUT Sandbox**elemet az**Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> oldalsávban
+1. Keresse meg az **Index/LUT Sandbox**elemet az**Image Viewer**-ben <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> oldalsávon
 2. Válassza ki a vegetációs indexet (NDVI, NDRE stb.)
-3. Válassza ki a multispektrális képletet, vagy hozzon létre saját egyéni képletet (csak Chloros+)
-4. Alkalmazzon szín LUT gradienst a vizualizáláshoz
+3. Válasszon multispektrális képletet, vagy hozzon létre saját egyéni képletet (csak Chloros+)
+4. Alkalmazzon színes LUT-gradienst a vizualizáláshoz
 5. Állítsa be az értéktartományokat és a küszöbértékeket
 
-Részletes utasításokat lásd az [Index/LUT Sandbox](index-lut-sandbox.md) oldalon.
+Részletes utasításokat az [Index/LUT Sandbox](index-lut-sandbox.md) oldalon talál.
 
 ***
 
@@ -128,10 +129,10 @@ Részletes utasításokat lásd az [Index/LUT Sandbox](index-lut-sandbox.md) old
 
 ### Navigáció
 
-* **→** (jobb nyíl): Következő kép
-* **←** (bal nyíl): Előző kép
-* **Home**: Az első kép a listában
-* **End**: Utolsó kép a listában
+* **→** (Jobb nyíl): Következő kép
+* **←** (Bal nyíl): Előző kép
+* **Home**: A lista első képe
+* **End**: A lista utolsó képe
 
 ### Nagyítás
 
@@ -139,20 +140,20 @@ Részletes utasításokat lásd az [Index/LUT Sandbox](index-lut-sandbox.md) old
 * **−**: Kicsinyítés
 * **Egérkerék**: Nagyítás/kicsinyítés***
 
-### Indexszámítások ellenőrzése
+### Az indexszámítások ellenőrzése
 
 Ellenőrizze, hogy az indexek helyesen lettek-e kiszámítva:
 
 1. Nyissa meg az NDVI vagy más indexképet
 2. Ellenőrizze a növényzet területeit:
    * **NDVI**: Egészséges növények esetén 0,4–0,9 értéket kell mutatnia
-   * **NDRE**: Erőteljes növekedés esetén magasabb értékeket
-   * **GNDVI**: Hasonló az NDVI-hez, de klorofillérzékeny
+   * **NDRE**: Erőteljes növekedés esetén magasabb értékeket mutat
+   * **GNDVI**: Hasonló az NDVI-hez, de klorofill-érzékeny
 3. Ellenőrizze a nem növényzetet:
    * **Talaj**: 0 közelében vagy enyhén negatív
    * **Víz**: Negatív értékek (-0,5 és 0 között)***
 
-## Hibaelhárítás Megjelenítési problémák
+## Megjelenítési problémák elhárítása
 
 ### A kép nem nyílik meg
 
@@ -160,37 +161,37 @@ Ellenőrizze, hogy az indexek helyesen lettek-e kiszámítva:
 
 * A fájl feldolgozás közben megsérült
 * Nem támogatott fájlformátum
-* Nincs elegendő memória a nagy képekhez
+* Nincs elegendő memória a nagy képhez
 
 **Megoldások:**
 
-1. Próbálja meg megnyitni egy külső nézőprogrammal, hogy ellenőrizze a fájl integritását.
-2. Ellenőrizze, hogy a fájlformátum megfelel-e a várt típusnak.
-3. Zárjon be más alkalmazásokat, hogy memóriát szabadítson fel.
-4. Próbáljon kisebb/másik képet.
+1. Próbálja meg megnyitni egy külső nézőprogramban, hogy ellenőrizze a fájl integritását
+2. Ellenőrizze, hogy a fájlformátum megfelel-e a várt típusnak
+3. Zárjon be más alkalmazásokat a memória felszabadítása érdekében
+4. Próbálkozzon kisebb/más képekkel
 
 ### Fekete vagy fehér kép megjelenítése
 
 **Lehetséges okok:**
 
-* Az érték tartománya meghaladja a kijelző képességeit.
-* 32 bites lebegőpontos kép szokatlan értékekkel.
-* Index számítási hiba.
+* A megjelenítési képességeken kívüli értéktartomány
+* Szokatlan értékeket tartalmazó 32 bites lebegőpontos kép
+* Indexszámítási hiba
 
 **Megoldások:**
 
-1. Ellenőrizze a pixelértékeket – ha mind nagyon alacsonyak vagy nagyon magasak, állítsa be a megjelenítési tartományt.
-2. Próbálja meg megnyitni a QGIS-ben vagy hasonló programban az automatikus tartománybeállítással.
-3. Ellenőrizze a feldolgozás hibakeresési naplóját.
+1. Ellenőrizze a pixelértékeket – ha mind nagyon alacsonyak vagy nagyon magasak, állítsa be a megjelenítési tartományt
+2. Próbálja meg megnyitni a QGIS-ben vagy hasonló programban, automatikus tartománybeállítással
+3. Ellenőrizze a feldolgozás hibajelentését
 
 ### A pixelértékek helytelennek tűnnek
 
 **Lehetséges okok:**
 
-* Helytelen kép megjelenítése (eredeti vs. feldolgozott)
-* A kalibrálás nem megfelelően történt
+* Rossz kép megtekintése (eredeti vs. feldolgozott)
+* A kalibrálás nem sikerült megfelelően
 * A fényérzékelő adatai nem kerültek be a bemenetbe
-* A százalékos mód helytelenül váltott
+* A százalékos mód helytelenül van beállítva
 
 **Megoldások:**
 
@@ -202,11 +203,11 @@ Ellenőrizze, hogy az indexek helyesen lettek-e kiszámítva:
 
 ## Következő lépések
 
-Most, hogy teljes képernyőn tudja megtekinteni a képeket:
+Most, hogy már teljes képernyőn tudja megtekinteni a képeket:
 
-* [**Képlapok**](image-layers.md) – Ismerje meg a többsávos vizualizációt
+* [**Képrétegek**](image-layers.md) – Ismerje meg a többsávos megjelenítést
 * [**Index/LUT Sandbox**](index-lut-sandbox.md) – Alkalmazzon egyéni indexeket és színleképezést
-* [**Multispektrális index képletek**](../project-settings/multispectral-index-formulas.md) – Ismerje meg a rendelkezésre álló indexeket
+* [**Multispektrális indexképletek**](../project-settings/multispectral-index-formulas.md) – Ismerje meg a rendelkezésre álló indexeket
 
 A feldolgozási munkafolyamatot lásd:
 

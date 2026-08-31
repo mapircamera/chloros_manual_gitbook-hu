@@ -1,163 +1,150 @@
 # Térképjelölők
 
-A „Térkép” fül a képeket GPS-koordinátáik alapján egy interaktív 2D-térképen jeleníti meg. Ez földrajzi áttekintést nyújt a felvételi munkamenetről, és segít a térbeli lefedettség vizualizálásában. Hasznos továbbá a képek első importálásakor is, hogy gyorsan eltávolíthassa azokat a képeket, amelyeket nem kell feldolgoznia.
+A „Térkép” fül a képeket a GPS-koordinátáik alapján egy interaktív 2D-térképre jeleníti meg. Ez földrajzi áttekintést nyújt a felvételi munkamenetről, és az importálás után a leggyorsabb módja annak, hogy eltávolítsa azokat a képeket, amelyeket nem kíván feldolgozni.
 
 <figure><img src="../.gitbook/assets/chloros_map_markers.gif" alt=""><figcaption></figcaption></figure>
 
-## A Térkép fül eléréséhez
+## A „Térkép” fül megnyitása
 
 1. Nyisson meg vagy hozzon létre egy projektet az Chloros alkalmazásban
-2. Importálja a GPS-metadatákat tartalmazó képeket
-3. Kattintson a **Térkép** <img src="../.gitbook/assets/image (3).png" alt="" data-size="line"> fülre a bal oldali sávban
-4. A térkép jelölőket jelenít meg az egyes képek GPS-helyén
+2. Importálja a GPS-metadatokat tartalmazó képeket
+3. Kattintson a bal oldali oldalsávon a **Térkép** <img src="../.gitbook/assets/image (3) (1).png" alt="" data-size="line"> fülre
+4. A térkép minden kép GPS-helyén egy jelölőt jelenít meg
 
 {% hint style="info" %}
-**GPS szükséges**: Csak azok a képek jelennek meg a térképen, amelyek EXIF metaadatai tartalmaznak beágyazott GPS-koordinátákat. Győződjön meg arról, hogy a fényképezőgépén a felvétel készítése közben be van kapcsolva a GPS.
+**GPS szükséges**: csak azok a képek jelennek meg a térképen, amelyek EXIF-metaadatai GPS-koordinátákat tartalmaznak. A koordináták nélküli képek továbbra is a projektben maradnak, és a feldolgozásuk is normál módon zajlik – egyszerűen csak nincs hozzájuk jelölő.
 {% endhint %}
 
 ***
 
-## Képek módosítása a Térkép fülről
+## Képek szerkesztése a „Térkép” fülön
 
-A **Térkép**<img src="../.gitbook/assets/image (3).png" alt="" data-size="line"> fülön ugyanaz a hozzáadási  <img src="../.gitbook/assets/image.png" alt="" data-size="line">   <img src="../.gitbook/assets/image (1).png" alt="" data-size="line">  és eltávolítás  <img src="../.gitbook/assets/image (2).png" alt="" data-size="line">  gombokkal rendelkezik, mint a [**Fájlkezelő**](../processing-images-gui/adding-files-to-a-project.md) <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line"> fülön. Ugyanazt a projektfájl-táblázatot is megjeleníti, de más oszlopfejlécekkel:
+A **Térkép**<img src="../.gitbook/assets/image (3) (1).png" alt="" data-size="line"> fülön ugyanazok a „Hozzáadás” <img src="../.gitbook/assets/image (3).png" alt="" data-size="line"> <img src="../.gitbook/assets/image (1) (1).png" alt="" data-size="line"> és „Eltávolítás” <img src="../.gitbook/assets/image (2) (1).png" alt="" data-size="line"> fájlgombok találhatók, mint a [**Fájlkezelő**](../processing-images-gui/adding-files-to-a-project.md) <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line"> fülön. Ugyanazt a projektfájl-listát jeleníti meg, földrajzi oszlopokkal:
 
-### Fájlnév
-
-* A fényképezőgép eredeti fájlneve
-* Megtartja a fényképezőgép elnevezési konvencióját (pl. IMG\_0001.RAW)
-
-### Szélesség
-
-* A kép szélessége
-
-### Hosszúság
-
-* A kép hosszúsága
-
-### Magasság
-
-* A kép magassága
+| Oszlop        | Tartalom                                                           |
+| ------------- | ------------------------------------------------------------------ |
+| **Név**      | A fényképezőgépről származó fájlnév                             |
+| **Szélesség**  | Tizedes fokok, hat tizedesjegy                                |
+| **Hosszúság** | Tizedes fokok, hat tizedesjegy                                |
+| **Magasság**  | Méter, egy tizedesjegy — `-`, ha a kép nem tartalmaz magassági adatot |
 
 {% hint style="info" %}
-A táblázat oszlopfejléceire kattintva a sorok adatai is rendeződnek
+Kattintson bármely oszlopfejlécre a rendezéshez; kattintson újra a sorrend megfordításához.
+{% endhint %}
+
+{% hint style="warning" %}
+**A magasság a tengerszint feletti magasság, nem a talaj feletti magasság.** Az érték a kép EXIF `GPSAltitude` címkéjéből származik, amely a tengerszintre vonatkozik. Ez nem a terep feletti repülési magasság, és az Chloros nem számítja ki belőle a talajmintavételi távolságot – egy tengerszint feletti magassága 300 m-es mező felett egy 100 m AGL magasságban repülő drón itt körülbelül 400 m-t rögzít. Használja az oszlopot a kiugró értékek kiszűrésére és a repülési magasság következetességének ellenőrzésére, ne pedig AGL-mérésként.
 {% endhint %}
 
 ***
 
 ## Képjelölők
 
-Minden GPS-adatokkal rendelkező képet egy jelölő jelöl a térképen:
+Minden GPS-adatokkal rendelkező képhez egy jelölő tartozik a koordinátáin.
 
-### Jelölők megjelenítése
+### A jelölők megjelenítése
 
-* A jelölők jelzik az egyes képek felvételének pontos GPS-koordinátáit
-* A jelölők csoportosulhatnak, ha kicsinyítjük a képet
-* Nagyítson rá a képek egyedi helyszíneinek megtekintéséhez
+* A jelölők az egyes felvételekhez rögzített pontos koordinátákon helyezkednek el
+* A közel egymáshoz lévő jelölők kicsinyítéskor vizuálisan átfedhetik egymást – nagyítson rájuk, hogy elkülönítse őket
+* A kijelölt és kiemelt jelölők a többi felett jelennek meg
+
+### Előnézet egérrel áthúzáskor
+
+* **Húzza az egérmutatót** bármely jelölő fölé, és megjelenik a kép miniatűrje a fájlnévvel együtt
+* **Kattintson**egy jelölőre a kép kijelöléséhez, és**rögzítse** a felugró ablakot – ez addig látható marad, amíg máshová nem kattint. Amíg a felugró ablak rögzítve van, más jelölők fölé viszve az egérmutatót az ablak nem tűnik el
+* Ez a leggyorsabb módja annak, hogy egy nagy felvételsorozatból egy adott képet megtaláljon anélkül, hogy elhagyná a térképet
+
+<figure><img src="../.gitbook/assets/image (36).png" alt=""><figcaption><p>A „Térkép” fülön a projektben található összes földrajzi címkével ellátott kép megjelenik</p></figcaption></figure>### Szuper-nagyítás
 
 {% hint style="success" %}
-SUPER-ZOOM: Amikor eléri a térképcsempe-szolgáltató maximális nagyítási szintjét, a csempe további nagyításkor tovább nagyul, így láthatja a közel egymáshoz lévő jelölőket.
+**SUPER-ZOOM**: amikor eléri a maximális nagyítást, amelyre a térképrészlet-szolgáltató rendelkezik képanyaggal, a további nagyítás nem áll meg, hanem tovább nagyítja a térképrészleteket, így szét tudja választani az egymásra szinte ráfekvő jelölőket.
 {% endhint %}
 
-### Előnézet egérmutatóval
-
-* **Vigye az egérmutatót** bármely jelölőre, hogy megtekintse a kép miniatűr előnézetét
-* Ez lehetővé teszi a gyors vizuális azonosítást anélkül, hogy elhagyná a térképnézetet
-* Hasznos konkrét képek megkereséséhez egy nagy felvételi sorozatban
+* A szuper-nagyítás csak akkor lép működésbe, ha **elérte** a szolgáltató által az adott helyre megadott maximális nagyítási szintet, és a csempék betöltése befejeződött. Ezen alatt a nagyítás normál módon működik
+* A tartomány **1× és 32×** között van a szolgáltató saját maximális értéke felett
+* A sarokban található jelző a jelenlegi szuper-nagyítást százalékban mutatja, a mellette lévő **×** gomb pedig egy kattintással visszatér a normál nagyításhoz
+* A kicsinyítés mindig átjut a térképig, így soha nem ragadhat meg a szuper-nagyításban
+* Szupernagyítás közbeni nagyítás és eltolás esetén a keletkező eltolás visszakerül a térképre, így a középponttól eltolódott terület továbbra is csempéket kér, ahelyett, hogy üres maradna
+* A jelölők vektoros elemekként kerülnek megrajzolásra, nem raszterizálva, így minden szupernagyítási szinten élesek maradnak
 
 ***
 
 ## Térképcsempe-szolgáltatók
 
 {% hint style="success" %}
-**Automatikus kiválasztás**: Az Chloros automatikusan kiválasztja azt a csempeszolgáltatót, amely a legjobb nagyítási szintet biztosítja az aktuális térképhelyzethez. Szükség esetén manuálisan is válthat a szolgáltatók között.
+**Automatikus kiválasztás**: Az Chloros kiválasztja azt a csempeszolgáltatót, amely a képek helyétől függetlenül a legjobb nagyítási szintet kínálja. Bármikor manuálisan is válthatsz.
 {% endhint %}
 
-A Térkép fül két csempeszolgáltatót támogat a háttér térképképekhez:
-
-### Google Maps
-
-* Szabványos műholdas és térképfelvételek a Google-tól
-* A legjobb általános világszintű lefedettséghez
-
-### ESRI
-
-* Műholdas és légi felvételek az ESRI ArcGIS-től
-* Bizonyos régiókban gyakran nagyobb felbontású felvételeket biztosít
-
-***
+| Szolgáltató        | Megjegyzések                                                                                                                                                             |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Google Maps** | Széles körű világszintű lefedettség; mind a négy csempe típust támogat                                                                                                            |
+| **Esri ArcGIS**| Bizonyos régiókban gyakran nagyobb felbontású légi felvételek. Az**Terrain** csempe típus nem elérhető az Esri esetében, és a gombja le van tiltva, amíg az Esri van kiválasztva |***
 
 ## Térképcsempe-típusok
 
-Kiválaszthatja a térkép réteg típusát (balról jobbra):
+Válassza ki a térkép réteg típusát a gombokkal (balról jobbra):
 
- <img src="../.gitbook/assets/image (23).png" alt="" data-size="original">### Terep
+![](&lt;../.gitbook/assets/image (14).png&gt;)
 
-Magassági profilokat és részletes térképcsempéket (utak stb.) jelenít meg
+| Típus                 | Megjelenít                                                                |
+| -------------------- | -------------------------------------------------------------------- |
+| **Terrain**          | Magassági árnyékolás térképészeti részletekkel (utak, feliratok). Csak Google       |
+| **Map**              | Szabványos utcatérkép-csempék — a legkisebb sávszélességet igénylő opció              |
+| **Műholdas**        | Részletes műholdas felvételek, feliratok nélkül — a legnagyobb sávszélességet igénylő opció |
+| **Hibrid** (alapértelmezett) | Műholdas felvételek, amelyekre utak és feliratok vannak rajzolva                |
 
-### Térkép
-
-Szabványos (alacsonyabb sávszélességű) térképcsempéket jelenít meg részletekkel (utak stb.)
-
-### Műholdas
-
-Részletes (magasabb sávszélességű) műholdas térképcsempéket jelenít meg
-
-### Hibrid
-
-Műholdas térképcsempéket jelenít meg kiegészítő részletekkel (utak stb.)
-
-***
+A Térkép fül **Hibrid** módban nyílik meg. A választásod átviszi a szolgáltatóváltást is, amennyiben a szolgáltató támogatja ezt.***
 
 ## Térképnavigáció
 
-### Nagyítás/kicsinyítés vezérlők
-
-* **Nagyítás/kicsinyítés**: Használja az egér görgőjét vagy a nagyítás gombokat
-* **Teljes képernyő**: Teljes képernyős térkép
-
-### Képmozgatás vezérlők
-
-* **Képmozgatás**: Kattintson és húzza az egérrel a térképen***
+* **Nagyítás**: az egér görgője vagy a térképen található nagyító gombok
+* **Elmozdítás**: kattintás és húzás
+* **Teljes képernyő**: a teljes képernyős vezérlővel a térkép kitölti az egész ablakot***
 
 ## Használati esetek
 
-### Repülési útvonal megjelenítése
+### Repülési útvonal áttekintése
 
-* A drónfelvételek lefedettségi területének megtekintése
-* A képek lefedettségében lévő hiányosságok azonosítása
-* A repülési útvonal végrehajtásának ellenőrzése
+* A drónrepülés lefedettségi területének áttekintése egy pillanat alatt
+* Azok a hiányosságok kiszűrése, ahol egy átrepülés kimaradt
+* Annak ellenőrzése, hogy a repülés a tervezett útvonalat követte-e
 
 ### Földi felmérés áttekintése
 
-* A földi felvételek térbeli eloszlásának megtekintése
-* A kalibrációs célképek helyének meghatározása a felmérési területhez viszonyítva
-* További felvételi helyszínek tervezése
+* A földi felvételek eloszlásának megtekintése
+* A kalibrációs célkeretek helyének meghatározása a felmérési területhez viszonyítva
+* Döntés arról, hogy hol szükségesek további felvételek
 
 ### Minőség-ellenőrzés
 
-* A váratlan helyeken rögzített képek gyors azonosítása
-* A GPS-pontosság ellenőrzése az adatkészletben
-* A képek helyszíneinek összevetése a terepi jegyzetekkel
+* Keresse meg a váratlan helyen rögzített képeket, és távolítsa el őket a feldolgozás előtt
+* Rendezés magasság szerint, hogy kiszúrja a rossz magasságban rögzített képeket, vagy azokat, ahol a GPS-jel gyenge volt
+* Hasonlítsa össze a képek helyszíneit a terepi jegyzetekkel
 
 ***
 
 ## Hibaelhárítás
 
-### Nincsenek jelölők
+### Nem jelennek meg jelölők
 
-**Lehetséges okok:**
+**Lehetséges okok**
 
 * A képek nem tartalmaznak GPS-metadatákat
-* A rögzítés során a kamera GPS-e ki volt kapcsolva
-* Az EXIF-adatokat külső szoftver törölte
+* A felvétel készítése közben a fényképezőgépen ki volt kapcsolva a GPS
+* Az EXIF-adatokat más szoftver eltávolította az importálás előtt
 
-**Megoldás**: Ellenőrizze, hogy a fényképezőgépen engedélyezve van-e a GPS, és importálja újra az eredeti fájlokat
+**Mit kell tenni**: ellenőrizze, hogy a fényképezőgépen be van-e kapcsolva a GPS, majd importálja újra az eredeti fájlokat. A „Térkép” fül fájltáblázatában ellenőrizheti, hogy egy adott fájl rendelkezik-e koordinátákkal – a koordináták nélküli képeknél ott nem jelenik meg sor.
 
 ### A jelölők rossz helyen vannak
 
-**Lehetséges okok:**
+**Lehetséges okok**: gyenge műholdas pozícióhatározás a felvétel készítésekor, vagy a GPS-jel eltérése a felvétel készítése közben.**Mit kell tenni**: ez a felvétel készítésekor felmerült probléma, nem pedig olyan hiba, amelyet az Chloros utólag kijavíthatna. A precíz munkavégzéshez használjon PPK/RTK GPS-munkafolyamatot – lásd a**PPK-korrekciók alkalmazása** beállítást a [Projektbeállítások](../project-settings/project-settings.md) menüpontban.
 
-* A fényképezőgép GPS-ének gyenge volt a műholdas pozíciója
-* A GPS eltérült a felvétel készítése közben
+### A térkép üres, vagy a csempék betöltése leáll
 
-**Megoldás**: Ez általában a felvétel készítésének idejével kapcsolatos probléma; precíziós alkalmazásokhoz fontolja meg a PPK/RTK GPS használatát
+A térképcsempék szolgáltatói online szolgáltatások. Ha a térképcsempék betöltése leáll, ellenőrizze a készülék hálózati kapcsolatát, majd próbáljon meg szolgáltatót váltani. Ha túlzottan nagyított a képet, nyomja meg a **×** visszaállítási gombot, hogy visszatérjen a normál nagyítási szintre, és hagyja, hogy a térkép újra kérje a térképcsempéket.***
+
+## Kapcsolódó oldalak
+
+* [**Képrács**](image-grid.md) — ugyanaz a képsorozat, mint a miniatűröknél
+* [**Kép teljes képernyős megnyitása**](opening-an-image-full-screen.md) — egy kép részletes megtekintése
+* [**Fájlok hozzáadása egy projekthez**](../processing-images-gui/adding-files-to-a-project.md) — a fülön található fájl hozzáadása/eltávolítása gombok

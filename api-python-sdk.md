@@ -1,1389 +1,252 @@
 # API : Python SDK
 
-Az **Chloros Python SDK** programozási hozzáférést biztosít az Chloros képfeldolgozó motorhoz, lehetővé téve az automatizálást, az egyedi munkafolyamatokat és a zökkenőmentes integrációt az Python alkalmazásokkal és kutatási folyamatokkal.
+{% hint style="info" %}
+**A teljes API-et keresi?** Ez az oldal egy gyakorlati útmutató. Minden nyilvános osztály, metódus, pontos szignatúra és másolható példa megtalálható az [SDK Referenciában](reference/sdk-reference.md), amely AI-asszisztensek számára van optimalizálva.**AI-asszisztenssel dolgozol?** Illeszd be ezt az URL szöveget a csevegőbe, hogy az rendelkezzen a teljes, aktuális Chloros 1.2.0 API verzióval:
 
-### Főbb jellemzők
+`https://mapir.gitbook.io/chloros/reference/sdk-reference.md`
 
-* 🐍 **Natív Python** - Tiszta, Pythonic API a képfeldolgozáshoz
-* 🔧 **Teljes API hozzáférés** - Teljes ellenőrzés az Chloros feldolgozás felett
-* 🚀 **Automatizálás** - Egyedi kötegelt feldolgozási munkafolyamatok létrehozása
-* 🔗 **Integráció** - Az Chloros beágyazása meglévő Python alkalmazásokba
-* 📊 **Kutatásra kész** - Tökéletes tudományos elemzési folyamatokhoz
-* ⚡ **Párhuzamos feldolgozás** - A CPU magok számához igazodik (Chloros+)
-
-### Követelmények
-
-| Követelmény          | Részletek                                                             |
-| -------------------- | ------------------------------------------------------------------- |
-| **Chloros telepítve** | Windows: Asztali telepítő; Linux: `.deb` csomag                  |
-| **Licenc**          | Chloros+ ([fizetős tervezet szükséges](https://cloud.mapir.camera/pricing)) |
-| **Operációs rendszer** | Windows 10/11 (64 bites), Linux x86_64 (amd64), Linux arm64 (NVIDIA Jetson JetPack 6) |
-| **Python**           | Python 3.7 vagy újabb                                                |
-| **Memória**           | Legalább 8 GB RAM (16 GB ajánlott)                                  |
-| **Internet**         | Szükséges a licenc aktiválásához                                     |
-
-{% hint style="warning" %}
-**Licenc követelmény**: Az Python SDK használatához fizetős Chloros+ előfizetés szükséges az API hozzáféréshez. A standard (ingyenes) csomagok nem biztosítanak hozzáférést az API/SDK szolgáltatáshoz. A frissítéshez látogasson el a [https://cloud.mapir.camera/pricing](https://cloud.mapir.camera/pricing) oldalra.
+A kézikönyv minden oldala nyers Markdown formátumban elérhető a kisbetűs slug + `.md` formában, a teljes kézikönyv pedig az `https://mapir.gitbook.io/chloros/llms.txt` címen található meg az indexben.
 {% endhint %}
 
-## Gyors indítás
+A **Chloros Python SDK** (`chloros-sdk` a PyPI-n) vezérli az asztali alkalmazás minden funkcióját az Python-től kezdve: a képek tömeges feldolgozását, az élő LATTICE kamera és mátrix vezérlését, a DAQ fényérzékelő-munkameneteket, valamint a mentett projektek automatizálását. Ez egy vékony réteg ugyanazon a helyi háttérrendszeren, amelyet a GUI és az CLI is használ (HTTP az `127.0.0.1:5000`-en), így a viselkedés mindhárom felületen azonos.
 
-### Telepítés
+## Telepítés
 
-Telepítés pip segítségével:
+A telepítés két lépésből áll: először az Chloros asztali csomagot kell telepíteni (ez biztosítja a feldolgozási háttérrendszert és a hardveres futtatókörnyezetet), majd az Python csomagot.
+
+**
+
+1. lépés — Az Chloros telepítése.** Windows: futtassa az asztali telepítőt (alapértelmezett elérési út: `C:\Program Files\MAPIR\Chloros\`) a [Letöltés](download.md) oldalról. Linux: telepítse az `.deb` csomagot ([Linux telepítés](linux/linux-installation.md)).**
+
+2. lépés — Telepítse az SDK-et** (Python 3.7+):
 
 ```bash
 pip install chloros-sdk
 ```
 
-{% hint style="info" %}
-**Első beállítás**: Az SDK használata előtt aktiválja az Chloros+ licencét az Chloros, Chloros (böngésző) vagy az Chloros CLI alkalmazást, és jelentkezzen be a hitelesítő adataival. Ezt csak egyszer kell elvégeznie. Az Linux (GUI nélkül) alkalmazásban használja a következő parancsot: `chloros-cli login user@example.com 'password'`
-{% endhint %}
+Lehet, hogy nincs is szüksége a pip parancsra: minden telepítő tartalmaz egy megfelelő SDK wheel fájlt. Az Windows telepítő automatikusan telepíti azt a rendszer Python mappájába; az Linux `.deb` a `/usr/lib/chloros/sdk/` helyre helyezi, és kinyomtatja a pontos `pip install --user` parancsot. A PyPI a kiadási verziók megjelenésekor frissül, így az `pip install chloros-sdk` megegyezik a legújabb stabil kiadással.
 
-### Alapvető használat
+**
 
-Feldolgozzon egy mappát néhány sorral:
-
-```python
-from chloros_sdk import process_folder
-
-# One-line processing (Windows)
-results = process_folder("C:\\DroneImages\\Flight001")
-
-# One-line processing (Linux)
-results = process_folder("/home/user/drone_images/flight001")
-```
-
-{% hint style="info" %}
-**Platformok közötti elérési utak**: Az ezen az oldalon található kódpéldák Windows stílusú elérési utakat használnak (pl. `C:\\DroneImages\\Flight001`). Linux esetén használjon inkább Linux útvonalakat (pl. `/home/user/drone_images/flight001` vagy `~/drone_images/flight001`). Az SDK mindkét platformon azonos módon működik.
-{% endhint %}
-
-### Teljes vezérlés
-
-Haladó munkafolyamatokhoz:
-
-```python
-from chloros_sdk import ChlorosLocal
-
-# Initialize SDK
-chloros = ChlorosLocal()
-
-# Create project
-chloros.create_project("MyProject", camera="Survey3N_RGN")
-
-# Import images
-chloros.import_images("C:\\DroneImages\\Flight001")  # Windows
-# chloros.import_images("/home/user/drone_images/flight001")  # Linux
-
-# Configure settings
-chloros.configure(
-    vignette_correction=True,
-    reflectance_calibration=True,
-    indices=["NDVI", "NDRE", "GNDVI"]
-)
-
-# Process images
-chloros.process(mode="parallel", wait=True)
-```
-
-***
-
-## Telepítési útmutató
-
-### Előfeltételek
-
-Az SDK telepítése előtt győződjön meg arról, hogy rendelkezik a következőkkel:
-
-1. **Chloros telepítve** — Windows: Asztali telepítő ([letöltés](download.md)); Linux: `.deb` csomag ([Linux telepítés](linux/linux-installation.md))
-2. **Python 3.7+** telepítve ([python.org](https://www.python.org))
-3. **Aktív Chloros+ licenc** ([frissítés](https://cloud.mapir.camera/pricing))
-
-### Telepítés pip segítségével
-
-**Normál telepítés:**
+3. lépés — Jelentkezzen be egyszer minden gépen:**
 
 ```bash
-pip install chloros-sdk
+chloros-cli login user@example.com 'YourPassword'
 ```
 
-**Haladásfigyelés támogatással:**
+A hitelesítő adatok az `~/.chloros/` fájlban kerülnek tárolásra (mindkét platformon). Az Windows rendszeren a bejelentkezés az asztali alkalmazás „Felhasználó” (User) <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line"> fülén keresztül is elvégezhető. Az SDK használatához fizetős Chloros+ csomag szükséges — lásd az alábbi [Licenckövetelményeket](#license-requirement).
 
-```bash
-pip install chloros-sdk[progress]
-```
+| Követelmény | Részletek |
+| --- | --- |
+| **Chloros telepítve** | Windows: asztali telepítő; Linux: `.deb` csomag (tartalmazza a háttérprogram bináris fájlját) |
+| **Python** | 3.7 vagy újabb (3.10-es verzión fejlesztve/tesztelve) |
+| **Operációs rendszer** | Windows 10/11 64 bites, Ubuntu 22.04 LTS vagy újabb, vagy NVIDIA Jetson (JetPack 6) |
+| **Licenc** | Aktív Chloros+ bejelentkezés, bármely fizetős szint (Copper vagy magasabb) |
 
-**Fejlesztői telepítés:**
+## 60 másodperc alatt kész
 
-```bash
-pip install chloros-sdk[dev]
-```
-
-### A telepítés ellenőrzése
-
-Ellenőrizze, hogy az SDK megfelelően van-e telepítve:
+Egyetlen parancs létrehoz egy projektet, importál egy mappát, beállítja a feldolgozást, és futtatja a feldolgozási folyamatot — automatikusan elindítva a háttérprogramot, ha az még nem fut:
 
 ```python
 import chloros_sdk
-print(f"Chloros SDK version: {chloros_sdk.__version__}")
+
+results = chloros_sdk.process_folder(
+    "C:/DroneImages/Flight001",
+    indices=["NDVI", "NDRE", "GNDVI"],
+)
 ```
 
-***
+(Linux esetén használja az Linux útvonalakat: `/home/user/drone_images/flight001`. Az SDK mindkét platformon azonos módon működik.)
 
-## Első beállítás
-
-### Licenc aktiválása
-
-Az SDK ugyanazt a licencet használja, mint az Chloros, az Chloros (böngésző) és az Chloros CLI. Aktiválja egyszer a grafikus felhasználói felületen vagy az CLI segítségével:**Windows:**Nyissa meg az**Chloros vagy az Chloros (böngésző)** alkalmazást, és jelentkezzen be a Felhasználó <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line"> fülön, vagy használja az CLI-et.**Linux:** Használja az CLI-et (GUI nem elérhető):
-
-```bash
-chloros-cli login user@example.com 'your_password'
-```
-
-A licencet a rendszer helyileg tárolja, és az újraindítás után is megmarad.
-
-{% hint style="success" %}
-**Egyszeri beállítás**: A GUI-n vagy az CLI-en keresztül történő bejelentkezés után az SDK automatikusan a gyorsítótárban tárolt licencet használja. Nincs szükség további hitelesítésre!
-{% endhint %}
-
-{% hint style="info" %}
-**Kijelentkezés**: Az SDK felhasználók programozási úton törölhetik a gyorsítótárban tárolt hitelesítő adatokat az `logout()` metódus használatával. Lásd a [logout() metódust](#logout) az API Referenciában.
-{% endhint %}
-
-### Kapcsolat tesztelése
-
-Ellenőrizze, hogy az SDK képes-e csatlakozni az Chloros-hez:
+LATTICE rögzítési mappát dolgoz fel? Használja a LATTICE-kompatibilis wrappert — ez a megfelelő alapértelmezéseket alkalmazza (nincs panelcél-felismerés, standard debayer):
 
 ```python
-from chloros_sdk import ChlorosLocal
-
-# Initialize SDK (auto-starts backend if needed)
-chloros = ChlorosLocal()
-
-# Check status
-status = chloros.get_status()
-print(f"Backend running: {status['running']}")
+results = chloros_sdk.process_lattice_capture(
+    folder_path="C:/Captures/2026-05-13_Field",
+    indices=["NDVI"],
+)
 ```
 
-***
+## `ChlorosLocal` — teljes folyamatirányítás
 
-## API referencia
-
-### ChlorosLocal osztály
-
-A helyi Chloros képfeldolgozás fő osztálya.
-
-#### Konstruktor
+Bármilyen, egy soros parancsnál bonyolultabb feladatra használja az `ChlorosLocal` parancsot. Ez az első használatkor elindítja a háttérprogramot (`auto_start_backend=True`), létrehozza és konfigurálja a projekteket, figyelemmel kíséri a folyamatot, és futás utáni összefoglalót ad vissza.
 
 ```python
 ChlorosLocal(
-    api_url="http://localhost:5000",     # Backend URL
-    auto_start_backend=True,             # Auto-start backend if not running
-    backend_exe=None,                    # Backend path (auto-detected)
-    timeout=30,                          # Request timeout (seconds)
-    backend_startup_timeout=60           # Backend startup timeout
+    api_url="http://127.0.0.1:5000",   # backend URL (also: backend_url=)
+    auto_start_backend=True,            # spawn backend if not running
+    backend_exe=None,                   # override backend binary path
+    timeout=30,                         # request timeout seconds
+    backend_startup_timeout=60,         # backend boot timeout
+    processing_timeout=14400,           # hard cap on process() (4 h)
+    processing_stuck_timeout=1800,      # no-progress threshold (30 min)
 )
-```
-
-**Paraméterek:**
-
-| Paraméter                 | Típus | Alapértelmezett                   | Leírás                           |
-| ------------------------- | ---- | ------------------------- | ------------------------------------- |
-| `api_url`                 | str  | `"http://localhost:5000"` | URL a helyi Chloros háttérprogramhoz          |
-| `auto_start_backend`      | bool | `True`                    | A háttérprogram automatikus indítása, ha szükséges |
-| `backend_exe`             | str  | `None` (automatikus felismerés)      | A háttérprogram végrehajtható fájljának elérési útja            |
-| `timeout`                 | int  | `30`                      | Kérés időtúllépése másodpercben            |
-| `backend_startup_timeout` | int  | `60`                      | A háttérprogram indításának időtúllépése (másodperc) |
-
-**Példák:**
-
-```python
-# Default (auto-start backend, auto-detect path on Windows and Linux)
-chloros = ChlorosLocal()
-
-# Connect to running backend
-chloros = ChlorosLocal(auto_start_backend=False)
-
-# Custom backend path (Windows)
-chloros = ChlorosLocal(backend_exe="C:/Custom/chloros-backend.exe")
-
-# Custom backend path (Linux)
-chloros = ChlorosLocal(backend_exe="/opt/mapir/chloros/backend/chloros-backend")
-
-# Custom timeout with longer startup (e.g., for Jetson)
-chloros = ChlorosLocal(timeout=60, backend_startup_timeout=120)
 ```
 
 {% hint style="info" %}
-**Platformok közötti automatikus felismerés**: Az SDK automatikusan megpróbálja a platformodhoz megfelelő háttérprogram elérési útját:
-* **Windows**: `C:\Program Files\MAPIR\Chloros\resources\backend\chloros-backend.exe`
-* **Linux (.deb)**: `/usr/lib/chloros/chloros-backend`
-* **Linux (manuális)**: `/opt/mapir/chloros/backend/chloros-backend`
+Maradjon az alapértelmezett `http://127.0.0.1:5000` használatánál, ne cserélje le `localhost`-re — az Windows esetén az `localhost` először az `::1`-re oldódik fel, és kérésenként körülbelül 2 másodpercet vesz igénybe a kizárólag IPv4-et támogató háttérrendszer esetében.
 {% endhint %}
 
-***
-
-### Módszerek
-
-#### `create_project(project_name, camera=None)`
-
-Hozzon létre egy új Chloros projektet.
-
-**Paraméterek:**
-
-| Paraméter      | Típus | Szükséges | Leírás                                              |
-| -------------- | ---- | -------- | -------------------------------------------------------- |
-| `project_name` | str  | Igen      | A projekt neve                                     |
-| `camera`       | str  | Nem       | Kamera sablon (pl. „Survey3N\_RGN”, „Survey3W\_OCN”) |
-
-**Visszatérési érték:** `dict` - Projekt létrehozási válasz**Példa:**
+Használja kontextuskezelőként a garantált tisztítás érdekében:
 
 ```python
-# Basic project
-chloros.create_project("DroneField_A")
+import chloros_sdk
 
-# With camera template
-chloros.create_project("DroneField_A", camera="Survey3N_RGN")
+with chloros_sdk.ChlorosLocal() as cl:
+    cl.create_project("FieldA_2026-05-26", camera="Survey3N_RGN")
+    cl.import_images("C:/DroneImages/Flight001")
+    cl.configure(
+        vignette_correction=True,
+        reflectance_calibration=True,
+        indices=["NDVI", "NDRE", "GNDVI"],
+        export_format="TIFF (16-bit)",
+    )
+    results = cl.process(mode="parallel", wait=True)
+print(results["summary"])
 ```
 
-***
-
-#### `import_images(folder_path, recursive=False)`
-
-Képek importálása egy mappából.
-
-**Paraméterek:**
-
-| Paraméter     | Típus     | Szükséges | Leírás                        |
-| ------------- | -------- | -------- | ---------------------------------- |
-| `folder_path` | str/Path | Igen      | A képeket tartalmazó mappa elérési útja         |
-| `recursive`   | bool     | Nem       | Almappák keresése (alapértelmezett: False) |
-
-**Visszatérési érték:** `dict` - Importálási eredmények a fájlok számával**Példa:**
+Az `configure()` a következő kulcsszavakat fogadja el: `debayer`, `vignette_correction`, `reflectance_calibration`, `indices`, `export_format`, `ppk`, `daq_log_path`, `input_level`, `radiometric_output`, `array_alignment`, `array_alignment_crop`, `array_alignment_interpolation` és `custom_settings`. A legfontosabb értékek:
 
 ```python
-# Import from folder
-chloros.import_images("C:\\DroneImages\\Flight001")
+# export_format
+"TIFF (16-bit)"           # default, recommended
+"TIFF (32-bit, Percent)"  # reflectance percentage as float32
+"PNG (8-bit)"
+"JPG (8-bit)"
 
-# Import recursively
-chloros.import_images("C:\\DroneImages", recursive=True)
+# debayer
+"High Quality (Faster)"                  # standard, default
+"Texture Aware (Slow, Highest Quality)"  # neural debayer, Chloros+ only
 ```
 
-***
+A LATTICE-specifikus vezérlők (`input_level`, `radiometric_output`, valamint az `array_alignment*` család) teljes értéktáblázataikkal együtt a [SDK Referencia](reference/sdk-reference.md#supported-values) című dokumentumban találhatók a teljes értéktábláikkal együtt.
 
-#### `configure(**settings)`
-
-A feldolgozási beállítások konfigurálása.
-
-**Paraméterek:**
-
-| Paraméter                 | Típus | Alapértelmezett                 | Leírás                     |
-| ------------------------- | ---- | ----------------------- | ------------------------------- |
-| `debayer`                 | str  | &quot;Standard (Gyors, Közepes minőség)&quot; | Debayer módszer            |
-| `vignette_correction`     | bool | `True`                  | Vignettakorrekció engedélyezése      |
-| `reflectance_calibration` | bool | `True`                  | Reflektancia-kalibrálás engedélyezése  |
-| `indices`                 | lista | `None`                  | Számítandó vegetációs indexek |
-| `export_format`           | str  | &quot;TIFF (16-bit)&quot;         | Kimeneti formátum                   |
-| `ppk`                     | bool | `False`                 | PPK-korrekciók engedélyezése          |
-| `custom_settings`         | dict | `None`                  | Speciális egyéni beállítások        |
-
-**Exportformátumok:**
-
-* `"TIFF (16-bit)"` - Ajánlott GIS/fotogrammetria esetén
-* `"TIFF (32-bit, Percent)"` - Tudományos elemzés
-* `"PNG (8-bit)"` - Vizuális ellenőrzés
-* `"JPG (8-bit)"` - Tömörített kimenet
-
-**Elérhető indexek:**NDVI, NDRE, GNDVI, OSAVI, CIG, EVI, SAVI, MSAVI, MTVI2 és még sok más.**Példa:**
+### A folyamat nyomon követése
 
 ```python
-# Basic configuration
-chloros.configure(
-    vignette_correction=True,
-    reflectance_calibration=True,
-    indices=["NDVI", "NDRE"]
-)
+def show_progress(percent, message):
+    print(f"[{percent:3d}%] {message}")
 
-# Advanced configuration
-chloros.configure(
-    debayer="Standard (Fast, Medium Quality)",
-    vignette_correction=True,
-    reflectance_calibration=True,
-    ppk=True,
-    export_format="TIFF (32-bit, Percent)",
-    indices=["NDVI", "NDRE", "GNDVI", "OSAVI", "CIG"]
-)
+with chloros_sdk.ChlorosLocal() as cl:
+    cl.create_project("FieldA")
+    cl.import_images("C:/DroneImages/Flight001")
+    cl.configure(indices=["NDVI"])
+    cl.process(progress_callback=show_progress, poll_interval=1.0)
 ```
 
-***
+### A futás utáni összefoglaló olvasása – és az üres futások észlelése
 
-#### `process(mode="parallel", wait=True, progress_callback=None)`
+A befejezés után az `process()` a háttérrendszer feldolgozási összefoglalóját `result["summary"]` néven csatolja. Az `summary["hints"]` minden egyes bejegyzése egy teljes mondat, amely elmagyarázza a figyelemre méltó eseményeket — például, miért nem eredményezett kimenetet egy futtatás — és minden utalást újra kiad Python `UserWarning` formájában, így az üres futtatások önmagukban is felismerhetők, még akkor is, ha soha nem vizsgálja meg a szótárat:
 
-Feldolgozza a projekt képeit.
-
-**Paraméterek:**
-
-| Paraméter           | Típus     | Alapértelmezett      | Leírás                               |
-| ------------------- | -------- | ------------ | ----------------------------------------- |
-| `mode`              | str      | `"parallel"` | Feldolgozási mód: „parallel” vagy „serial”   |
-| `wait`              | bool     | `True`       | Várjon a befejezésre                       |
-| `progress_callback` | callable | `None`       | Haladás visszahívási függvény (progress, msg) |
-| `poll_interval`     | float    | `2.0`        | Haladás lekérdezési intervalluma (másodperc)   |
-
-**Visszatérési érték:** `dict` - Feldolgozási eredmények
+```python
+result = cl.process()
+for hint in result.get("summary", {}).get("hints", []):
+    print("HINT:", hint)
+# hints also arrive on the warnings channel:
+#   python -W always::UserWarning your_script.py
+```
 
 {% hint style="warning" %}
-**Párhuzamos mód**: Chloros+ licenc szükséges. Automatikusan skálázódik a CPU magjaihoz (legfeljebb 16 munkavégző).
+**Az `process()` nem lép fel, ha egy futtatás nem hoz létre képeket.** Ez az egyetlen pont, ahol az SDK és az CLI szándékosan eltér egymástól: Az `chloros-cli process` a „termékeket kérték, de egyet sem írtak” állapotot hibaként kezeli, és nem nulla kóddal lép ki, míg az SDK normál módon tér vissza, és az állapotot az `summary` / hints segítségével jelenti. Ha a folyamatnak üres futás esetén le kell állnia, ellenőrizze ezt saját maga — vizsgálja meg az `summary` fájlt (vagy számolja meg a projektmappa alatti fájlokat), ahelyett, hogy kivételre támaszkodna.
 {% endhint %}
 
-**Példa:**
+## Smart Connect — élő hardver
+
+Három segédprogram nyit állandó munkameneteket a háttérrendszer hardverpooljában — ugyanabban a poolban, amelyet a grafikus felület is használ, így az SDK szkriptek a soros portokért vagy a hálózati sávszélességért való versengés nélkül létezhetnek együtt az asztali alkalmazással. Mindhárom automatikusan elindít egy helyi háttérrendszert, ha még nem fut ilyen.
+
+### Egyetlen LATTICE kamera — `connect_camera`
 
 ```python
-# Simple processing
-results = chloros.process()
+import chloros_sdk
 
-# With progress monitoring
-def show_progress(progress, message):
-    print(f"[{progress}%] {message}")
-
-chloros.process(
-    mode="parallel",
-    progress_callback=show_progress,
-    wait=True
-)
-
-# Fire-and-forget (non-blocking)
-chloros.process(wait=False)
+# Open by serial; reuses existing pool entry if one exists
+with chloros_sdk.connect_camera("213800234") as cam:
+    cam.set_settings(exposure_time=10000, gain=0.0)   # microseconds, dB
+    cam.capture("output/")
 ```
 
-***
+### Szinkronizált kamerasor — `connect_array`
 
-#### `get_config()`
-
-A jelenlegi projektkonfiguráció lekérése.
-
-**Visszatérési érték:** `dict` - Jelenlegi projektkonfiguráció**Példa:**
+Az `connect_array` az ajánlott kiindulási pont a többkamerás rendszerekhez. Ugyanazt az intelligens előkészítési folyamatot futtatja, mint a grafikus felhasználói felület: hálózati elemzés, szinkronizációs szint automatikus kiválasztása, PTP időszinkronizálás, kameránkénti pixelformátum-kiválasztás, AE-beállítás és GPIO-trigger aktiválása. Az **első soros eszköz a master** (ez adja le a hardveres kioldó impulzust); a többi slave.
 
 ```python
-config = chloros.get_config()
-print(config['Project Settings'])
+with chloros_sdk.connect_array(
+        ["213800234", "214000533", "214701288", "214701292"]) as arr:
+    arr.capture("output/", processing="reflectance")
 ```
 
-***
+Adja hozzá az `smart=True`-et bármely tömbfelvételhez, hogy a kioldás előtt megvárja, amíg az automatikus expozíció minden kamerán beáll. A rögzítési módokról (Egyedi / Folyamatos / Intervallum / Leggyorsabb), a rögzítőkről, a burst-to-video funkcióról és a mátrix-igazításról lásd az [SDK Referencia](reference/sdk-reference.md#synchronized-array--arraysession-smart-prep) című dokumentumot.
 
-#### `get_status()`
+### DAQ fényérzékelő — `connect_daq_sensor`
 
-A háttérállapot információinak lekérése, beleértve a szálankénti feldolgozás előrehaladását.
-
-**Visszatérési érték:** `dict` - A háttér állapota a következő szerkezetben:
+Argumentumok nélkül az `connect_daq_sensor()` automatikusan felismeri az átviteli módot (elsőbbségi sorrend: Ethernet → BLE → USB):
 
 ```python
-{
-    "running": True,
-    "url": "http://localhost:5000",
-    "processing": {
-        "percent": 75.0,
-        "phase": "processing"
-    },
-    "export": {
-        "percent": 50.0,
-        "phase": "exporting",
-        "active": True
-    }
-}
+with chloros_sdk.connect_daq_sensor() as daq:    # smart-detect USB / BLE / ETH
+    for frame in daq.latest(n=5):
+        print(frame["spectrum"][:10])
 ```
 
-**Példa:**
+Minden keret tartalmazza a 135 pontos `spectrum` értéket (kalibrálás után W/m²/nm), egy `is_saturated` jelzőt, valamint a CIE `x`, `y`, `z` értékeket. Egy adott érzékelő vagy átviteli mód kijelöléséhez — ami megbízható választás olyan gazdagépeken, ahol több hálózati interfész is van, és az Ethernet automatikus felismerése az első kísérlet során elmulaszthat egy működőképes DAQ-E-t — adjon meg egy kifejezett utalást:
 
 ```python
-status = chloros.get_status()
-print(f"Running: {status['running']}")
-print(f"URL: {status['url']}")
-print(f"Processing: {status['processing']['percent']}%")
-print(f"Export: {status['export']['percent']}% - Active: {status['export']['active']}")
+daq = chloros_sdk.connect_daq_sensor(transport="usb", port="COM3")
+daq = chloros_sdk.connect_daq_sensor(mac="AA:BB:CC:DD:EE:FF")        # implies BLE
+daq = chloros_sdk.connect_daq_sensor(eth_host="daq-e-xxx.local")     # implies Ethernet
 ```
 
-***
+Ne feledje, hogy a felső határ-korrekciós profilok (`cap_id`) **nem** egy SDK vezérlőgombot jelentenek – ezeket inkább az `chloros-cli daq pool-connect --cap-id …` / `pool-set-cap` segítségével válassza ki őket.
 
-#### `shutdown_backend()`
+### Mentett projektek — `open_project`
 
-A háttérprogram leállítása (ha az SDK parancs indította el).
+Egy elmentett Chloros projekt megőrzi a hozzá csatlakoztatott hardvereket (`cameras.json` + `sensors.json` az `project.json` mellett), és az `chloros_sdk.open_project(path)` egyszerre tud mindent újra csatlakoztatni, valamint eszköznév alapján vezérli a rögzítéseket. Lásd a [Projekt automatizálás](reference/sdk-reference.md#project-automation--chlorosproject) című részt a referenciaanyagban.
 
-**Példa:**
+## Mit kap egy kizárólag pip-tel történő telepítés
+
+A hardverfelületek használata előtt ellenőrizze a modulszintű elérhetőségi jelzőket:
 
 ```python
-chloros.shutdown_backend()
+import chloros_sdk
+print(chloros_sdk.__version__)
+print("CAMERA_AVAILABLE =", chloros_sdk.CAMERA_AVAILABLE)    # True iff lattice_sdk imported cleanly
+print("DAQ_AVAILABLE    =", chloros_sdk.DAQ_AVAILABLE)       # True iff daq_sdk imported cleanly
+print("PROJECT_AVAILABLE =", chloros_sdk.PROJECT_AVAILABLE)  # True iff ChlorosProject deps available
 ```
 
-***
+Olyan gazdagépen, amelyen **csak** az `pip install chloros-sdk` van, és nincs Chloros asztali csomag:
 
-#### `logout()`
+* Az `ChlorosLocal`, az `process_folder` és az `process_lattice_capture` **nem** működnek — ezekhez szükség van az asztali telepítőben található háttér bináris fájlra.
+* A smart-connect segédprogramok (`connect_camera`, `connect_array`, `connect_daq_sensor`) tisztán HTTP kliensek, így egy másik gépen futó háttérprogrammal is működnek — azonban a mellékelt háttérprogramok csak a loopback-címre kötődnek, ezért a portot magának kell átirányítania (pl. `ssh -N -L 5000:127.0.0.1:5000 user@chloros-host`), és az `backend_url="http://127.0.0.1:5000"`-et az `auto_start_backend=False`-szel együtt kell átadnia. Lásd a [Távoli háttérrendszer mód](reference/sdk-reference.md#remote-backend-mode-pip-only-host-via-tunnel) című részt.
+* A közvetlen hardveres LATTICE osztályok (`LatticeCamera`, `CameraPool`, …) importálhatók, de szükségük van az asztali csomagból származó Arena SDK futásidejű környezetre — ennek hiányában az `CAMERA_AVAILABLE` az `False`.
+* Az `daq_sdk` (a közvetlen DAQ-osztályok) az asztali telepítővel együtt érkezik, nem a PyPI-csomaggal, így az `DAQ_AVAILABLE` egy kizárólag pip-et használó gépen az `False`-nek felel meg — a DAQ-érzékelőket inkább az `connect_daq_sensor()` segítségével vezérelje egy (alagúton keresztül elérhető) háttérrendszerhez.
 
-A gyorsítótárban tárolt hitelesítő adatok törlése a helyi rendszerből.
+## Licenckövetelmény
 
-**Leírás:**
+Az SDK hozzáféréshez aktív Chloros+ bejelentkezés szükséges bármely fizetős csomagban — **Copper vagy magasabb**(Copper / Bronze / Silver / Gold); az ingyenes Iron csomag nem biztosít SDK/CLI hozzáférést. Az érvényesítés**szerveroldali**: minden SDK kérésnek tartalmaznia kell egy aktív munkamenetet és egy fizetős csomagot is, ellenkező esetben a háttérrendszer `403` / `PLAN_UPGRADE_REQUIRED` hibakódot ad vissza kódot (amelyet az `ChlorosLocal` kód `ChlorosLicenseError` kódként, az `connect_*` segédprogramok pedig `ChlorosConnectError` kódként generálnak). A kijelentkezett hívó a következő hibakódokat kapja: `401` / `AUTH_REQUIRED` (`ChlorosAuthenticationError`) kódot kap – az `chloros-cli login` újrafuttatása az első esetet megoldja, a másodikat azonban nem.
 
-Programozási úton jelentkezik ki a gyorsítótárban tárolt hitelesítő adatok eltávolításával. Ez a következő esetekben hasznos:
-* Különböző Chloros+ fiókok közötti váltás
-* Hitelesítő adatok törlése automatizált környezetekben
-* Biztonsági célok (pl. a hitelesítő adatok eltávolítása az eltávolítás előtt)
+Az offline használat a terv türelmi időszakán belül működik: a szintet a szerver-érvényesítési gyorsítótárból (5 perc) vagy az aláírt, géphez kötött licenc-gyorsítótárból olvassa be (havi tervek esetén 30 napig; éves előfizetések esetén az előfizetés lejáratáig). A türelmi időszak lejárta után a csomag ingyenesre vált, és az SDK hozzáférés leáll, amíg a gép egyszer kapcsolatba nem lép a szerverrel. Az `chloros-cli status` az ingyenes szinten továbbra is elérhető marad, így az ok mindig látható. Lásd [Chloros+ Bejelentkezés](chloros+-login.md).
 
-**Visszatérési érték:** `dict` - A kijelentkezési művelet eredménye**Példa:**
+## Kivételek
+
+Fogja meg az alaposztályt, hogy kezelje a „bármi Chloros rosszul sült el” helyzeteket:
 
 ```python
-from chloros_sdk import ChlorosLocal
-
-# Initialize SDK
-chloros = ChlorosLocal()
-
-# Clear cached credentials
-result = chloros.logout()
-print(f"Logout successful: {result}")
-
-# After logout, login required via GUI/CLI/Browser before next SDK use
-```
-
-{% hint style="info" %}
-**Újra hitelesítés szükséges**: Az `logout()` hívása után újra be kell jelentkeznie az Chloros, Chloros (böngésző) vagy az Chloros CLI parancsot, mielőtt az SDK parancsot használná.
-{% endhint %}
-
-***
-
-### Kényelmi funkciók
-
-#### `process_folder(folder_path, **options)`
-
-Egy soros kényelmi funkció egy mappa feldolgozásához.
-
-**Paraméterek:**
-
-| Paraméter                 | Típus     | Alapértelmezett         | Leírás                    |
-| ------------------------- | -------- | --------------- | ------------------------------ |
-| `folder_path`             | str/Path | Kötelező        | A képeket tartalmazó mappa elérési útja     |
-| `project_name`            | str      | Automatikusan generált  | Projekt neve                   |
-| `camera`                  | str      | `None`          | Kamera sablon                |
-| `indices`                 | list     | `["NDVI"]`      | Számítandó indexek           |
-| `vignette_correction`     | bool     | `True`          | Vignettakorrekció engedélyezése     |
-| `reflectance_calibration` | bool     | `True`          | Reflektancia-kalibrálás engedélyezése |
-| `export_format`           | str      | &quot;TIFF (16-bit)&quot; | Kimeneti formátum                  |
-| `mode`                    | str      | `"parallel"`    | Feldolgozási mód                |
-| `progress_callback`       | hívható | `None`          | Haladás visszahívás              |
-
-**Visszatérési érték:** `dict` - Feldolgozási eredmények**Példa:**
-
-```python
-from chloros_sdk import process_folder
-
-# Simple one-liner
-results = process_folder("C:\\DroneImages\\Flight001")
-
-# With custom settings
-results = process_folder(
-    "C:\\DroneImages\\Flight001",
-    project_name="Field_A_Survey",
-    camera="Survey3N_RGN",
-    indices=["NDVI", "NDRE", "GNDVI"],
-    mode="parallel"
-)
-
-# With progress monitoring
-def show_progress(progress, message):
-    print(f"[{progress}%] {message}")
-
-results = process_folder(
-    "C:\\DroneImages\\Flight001",
-    progress_callback=show_progress
-)
-```
-
-***
-
-## Kontextuskezelő támogatás
-
-Az SDK támogatja a kontextuskezelőket az automatikus tisztításhoz:
-
-```python
-from chloros_sdk import ChlorosLocal
-
-# Auto-cleanup when done
-with ChlorosLocal() as chloros:
-    chloros.create_project("MyProject")
-    chloros.import_images("C:\\Images")
-    chloros.configure(indices=["NDVI"])
-    chloros.process()
-# Backend automatically shut down here
-```
-
-***
-
-## Teljes példák
-
-{% hint style="info" %}
-**Linux felhasználók**: Az alábbi példák mindegyike Windows útvonalakat használ. Cserélje ki az `C:\\...` útvonalakat a saját Linux útvonalaira (pl. `/home/user/...` vagy `~/...`). Az SDK összes funkciója minden platformon azonos.
-{% endhint %}
-
-### 1. példa: Alapvető feldolgozás
-
-Mappa feldolgozása alapértelmezett beállításokkal:
-
-```python
-from chloros_sdk import process_folder
-
-# Process with default settings
-results = process_folder("C:\\Datasets\\Field_A_2025_01_15")
-
-print(f"Processing complete: {results}")
-```
-
-***
-
-### 2. példa: Egyéni munkafolyamat
-
-Teljes ellenőrzés a feldolgozási folyamat felett:
-
-```python
-from chloros_sdk import ChlorosLocal
-
-# Initialize SDK
-chloros = ChlorosLocal()
-
-# Create project with camera template
-chloros.create_project("Research_Plot_A", camera="Survey3N_RGN")
-
-# Import images
-import_results = chloros.import_images("C:\\Research\\PlotA")
-print(f"Imported {len(import_results.get('files', []))} images")
-
-# Configure advanced settings
-chloros.configure(
-    debayer="Standard (Fast, Medium Quality)",
-    vignette_correction=True,
-    reflectance_calibration=True,
-    ppk=False,
-    export_format="TIFF (16-bit)",
-    indices=["NDVI", "NDRE", "GNDVI", "OSAVI"]
-)
-
-# Process with progress monitoring
-def show_progress(progress, message):
-    print(f"Progress: {progress}% - {message}")
-
-chloros.process(
-    mode="parallel",
-    progress_callback=show_progress,
-    wait=True
-)
-
-print("Processing complete!")
-```
-
-***
-
-### 3. példa: Több mappa kötegelt feldolgozása
-
-Több repülési adatkészlet feldolgozása:
-
-```python
-from chloros_sdk import ChlorosLocal
-from pathlib import Path
-
-# Initialize SDK once
-chloros = ChlorosLocal()
-
-# List of flight folders
-flights = [
-    "C:\\Datasets\\Flight_001",
-    "C:\\Datasets\\Flight_002",
-    "C:\\Datasets\\Flight_003"
-]
-
-for flight_path in flights:
-    flight_name = Path(flight_path).name
-    print(f"\n{'='*60}")
-    print(f"Processing: {flight_name}")
-    print('='*60)
-    
-    try:
-        # Create project
-        chloros.create_project(flight_name, camera="Survey3N_RGN")
-        
-        # Import images
-        chloros.import_images(flight_path)
-        
-        # Configure
-        chloros.configure(
-            vignette_correction=True,
-            reflectance_calibration=True,
-            indices=["NDVI", "NDRE", "GNDVI"]
-        )
-        
-        # Process
-        chloros.process(mode="parallel", wait=True)
-        
-        print(f"✓ {flight_name} completed successfully")
-    
-    except Exception as e:
-        print(f"✗ {flight_name} failed: {e}")
-
-print("\n" + "="*60)
-print("All flights processed!")
-```
-
-***
-
-### 4. példa: Kutatási folyamat integrálása
-
-Az Chloros integrálása az adatelemzéssel:
-
-```python
-from chloros_sdk import ChlorosLocal
-import pandas as pd
-import matplotlib.pyplot as plt
-
-# Initialize Chloros
-chloros = ChlorosLocal()
-
-# Field survey data
-surveys = [
-    {"name": "Plot_A", "folder": "C:\\Research\\PlotA", "biomass": 4500},
-    {"name": "Plot_B", "folder": "C:\\Research\\PlotB", "biomass": 3800},
-    {"name": "Plot_C", "folder": "C:\\Research\\PlotC", "biomass": 5200}
-]
-
-results = []
-
-for survey in surveys:
-    # Process with Chloros
-    chloros.create_project(survey['name'])
-    chloros.import_images(survey['folder'])
-    chloros.configure(indices=["NDVI", "NDRE"])
-    chloros.process(mode="parallel", wait=True)
-    
-    # Get results
-    config = chloros.get_config()
-    
-    # Extract NDVI values (example - adjust based on your needs)
-    # In real implementation, you would read the processed TIFF files
-    
-    results.append({
-        'plot': survey['name'],
-        'biomass': survey['biomass'],
-        # Add your NDVI extraction here
-    })
-
-# Statistical analysis
-df = pd.DataFrame(results)
-print("\nResults:")
-print(df)
-
-# Create correlation plot
-# plt.scatter(df['ndvi'], df['biomass'])
-# plt.xlabel('NDVI')
-# plt.ylabel('Biomass (kg/ha)')
-# plt.title('NDVI vs Biomass Correlation')
-# plt.show()
-```
-
-***
-
-### 5. példa: Egyéni előrehaladás-figyelés
-
-Fejlett előrehaladás-követés naplózással:
-
-```python
-from chloros_sdk import ChlorosLocal
-from datetime import datetime
-import logging
-
-# Setup logging
-logging.basicConfig(
-    filename=f'processing_{datetime.now():%Y%m%d_%H%M%S}.log',
-    level=logging.INFO,
-    format='%(asctime)s - %(message)s'
-)
-
-# Progress callback with logging
-def log_progress(progress, message):
-    log_msg = f"[{progress}%] {message}"
-    logging.info(log_msg)
-    print(log_msg)
-
-# Process with logging
-chloros = ChlorosLocal()
-chloros.create_project("LoggedProcess")
-chloros.import_images("C:\\DroneImages")
-chloros.configure(indices=["NDVI", "NDRE"])
-
-logging.info("Starting processing...")
-chloros.process(
-    mode="parallel",
-    progress_callback=log_progress,
-    wait=True
-)
-logging.info("Processing complete!")
-```
-
-***
-
-### 6. példa: Hiba kezelése
-
-Robusztus hiba kezelés termelési használatra:
-
-```python
-from chloros_sdk import ChlorosLocal
-from chloros_sdk.exceptions import (
-    ChlorosError,
-    ChlorosBackendError,
-    ChlorosLicenseError,
-    ChlorosProcessingError
-)
-
-def process_safely(folder_path):
-    """Process with comprehensive error handling"""
-    try:
-        with ChlorosLocal() as chloros:
-            chloros.create_project("SafeProcess")
-            chloros.import_images(folder_path)
-            chloros.configure(indices=["NDVI"])
-            chloros.process()
-            
-        return True, "Success"
-    
-    except ChlorosLicenseError as e:
-        return False, f"License error: {e}. Upgrade to Chloros+ at cloud.mapir.camera/pricing"
-    
-    except ChlorosBackendError as e:
-        return False, f"Backend error: {e}. Ensure Chloros is installed (Windows installer or Linux .deb package)."
-    
-    except ChlorosProcessingError as e:
-        return False, f"Processing error: {e}"
-    
-    except FileNotFoundError as e:
-        return False, f"Folder not found: {e}"
-    
-    except ChlorosError as e:
-        return False, f"Chloros error: {e}"
-    
-    except Exception as e:
-        return False, f"Unexpected error: {e}"
-
-# Use the safe function
-success, message = process_safely("C:\\DroneImages\\Flight001")
-if success:
-    print(f"✓ {message}")
-else:
-    print(f"✗ {message}")
-```
-
-***
-
-### 7. példa: Fiókkezelés és kijelentkezés
-
-A hitelesítő adatok programozási úton történő kezelése:
-
-```python
-from chloros_sdk import ChlorosLocal
-
-def switch_account():
-    """Clear credentials to switch to a different account"""
-    try:
-        chloros = ChlorosLocal()
-        
-        # Clear current credentials
-        result = chloros.logout()
-        print("✓ Credentials cleared successfully")
-        print("Please log in with new account via Chloros, Chloros (Browser), or CLI")
-        
-        return True
-    
-    except Exception as e:
-        print(f"✗ Logout failed: {e}")
-        return False
-
-def secure_cleanup():
-    """Remove credentials for security purposes"""
-    try:
-        chloros = ChlorosLocal()
-        chloros.logout()
-        print("✓ Credentials removed for security")
-        
-    except Exception as e:
-        print(f"Warning: Cleanup error: {e}")
-
-# Switch accounts
-if switch_account():
-    print("\nRe-authenticate via Chloros GUI/CLI/Browser before next SDK use")
-
-# Or perform secure cleanup
-# secure_cleanup()
-```
-
-***
-
-### 8. példa: Parancssori eszköz
-
-Egyéni CLI eszköz létrehozása az SDK segítségével:
-
-```python
-#!/usr/bin/env python
-"""
-Custom Chloros CLI Tool
-Process multiple folders from command line
-"""
-
-import sys
-import argparse
-from pathlib import Path
-from chloros_sdk import process_folder
-
-def main():
-    parser = argparse.ArgumentParser(description='Custom Chloros Processor')
-    parser.add_argument('folders', nargs='+', help='Folders to process')
-    parser.add_argument('--indices', nargs='+', default=['NDVI'],
-                       help='Indices to calculate (default: NDVI)')
-    parser.add_argument('--camera', default=None,
-                       help='Camera template')
-    parser.add_argument('--format', default='TIFF (16-bit)',
-                       help='Export format')
-    parser.add_argument('--logout', action='store_true',
-                       help='Clear cached credentials before processing')
-    
-    args = parser.parse_args()
-    
-    # Handle logout if requested
-    if args.logout:
-        from chloros_sdk import ChlorosLocal
-        chloros = ChlorosLocal()
-        chloros.logout()
-        print("Credentials cleared. Please re-login via Chloros GUI/CLI/Browser.")
-        return 0
-    
-    successful = []
-    failed = []
-    
-    for folder in args.folders:
-        folder_path = Path(folder)
-        
-        if not folder_path.exists():
-            print(f"✗ Skipping {folder}: not found")
-            failed.append(folder)
-            continue
-        
-        print(f"\nProcessing: {folder_path.name}...")
-        
-        try:
-            process_folder(
-                folder_path,
-                camera=args.camera,
-                indices=args.indices,
-                export_format=args.format
-            )
-            print(f"✓ {folder_path.name} complete")
-            successful.append(folder)
-        
-        except Exception as e:
-            print(f"✗ {folder_path.name} failed: {e}")
-            failed.append(folder)
-    
-    # Summary
-    print(f"\n{'='*60}")
-    print(f"Summary: {len(successful)} successful, {len(failed)} failed")
-    
-    return 0 if not failed else 1
-
-if __name__ == '__main__':
-    sys.exit(main())
-```
-
-**Használat:**
-
-```bash
-# Process multiple folders
-python my_processor.py "C:\Flight001" "C:\Flight002" --indices NDVI NDRE GNDVI
-
-# Clear cached credentials
-python my_processor.py --logout
-```
-
-***
-
-## Kivételkezelés
-
-Az SDK különféle hiba típusokhoz specifikus kivételosztályokat biztosít:
-
-### Kivételhierarchia
-
-```python
-ChlorosError                    # Base exception
-├── ChlorosBackendError        # Backend startup/connection issues
-├── ChlorosLicenseError        # License validation issues
-├── ChlorosConnectionError     # Network/connection failures
-├── ChlorosProcessingError     # Image processing failures
-├── ChlorosAuthenticationError # Authentication failures
-└── ChlorosConfigurationError  # Configuration errors
-```
-
-### Kivételpéldák
-
-```python
-from chloros_sdk import ChlorosLocal
-from chloros_sdk.exceptions import *
+import chloros_sdk
 
 try:
-    chloros = ChlorosLocal()
-    chloros.process()
-
-except ChlorosLicenseError:
-    print("Chloros+ license required. Upgrade at cloud.mapir.camera/pricing")
-
-except ChlorosBackendError:
-    print("Backend failed to start. Ensure Chloros is installed (Windows installer or Linux .deb package).")
-
-except ChlorosProcessingError as e:
-    print(f"Processing failed: {e}")
-
-except ChlorosError as e:
-    print(f"General Chloros error: {e}")
+    chloros_sdk.process_folder("/path/to/folder")
+except chloros_sdk.ChlorosAuthenticationError:
+    print("Run `chloros-cli login` first.")
+except chloros_sdk.ChlorosLicenseError:
+    print("Chloros+ subscription required.")
+except chloros_sdk.ChlorosError as e:
+    print(f"Chloros error: {e}")
 ```
 
-***
+Minden pipeline-kivétel (`ChlorosBackendError`, `ChlorosConnectionError`, `ChlorosLicenseError`, `ChlorosAuthenticationError`, `ChlorosConfigurationError`, `ChlorosProcessingError`) az `ChlorosError`-ből származnak. Egy apró bökkenő: az `ChlorosConnectError` hibaüzenetet kizárólag az `connect_camera`, az `connect_array` és az `connect_daq_sensor` hibaüzenetek váltják ki — a sima `Exception`-ből származik, **nem** az `ChlorosError`-ből, így az `except ChlorosError` nem fogja elkapni. A teljes hierarchia az [SDK hivatkozásban](reference/sdk-reference.md#exceptions) található.
 
-## Haladó témák
+## Lásd még
 
-### Egyéni háttérkonfiguráció
-
-Egyéni háttérhely vagy konfiguráció használata:
-
-```python
-chloros = ChlorosLocal(
-    backend_exe="C:\\Custom\\chloros-backend.exe",
-    api_url="http://localhost:5001",  # Custom port
-    timeout=60,                        # Longer timeout
-    backend_startup_timeout=120        # 2 minutes startup
-)
-```
-
-### Nem blokkoló feldolgozás
-
-Indítsa el a feldolgozást, és folytassa más feladatokkal:
-
-```python
-# Start processing (non-blocking)
-chloros.process(wait=False)
-
-# Do other work here...
-print("Processing started in background...")
-
-# Check status later
-import time
-while True:
-    status = chloros.get_config()
-    if status.get('processing_complete'):
-        break
-    time.sleep(5)
-
-print("Processing complete!")
-```
-
-### Memóriakezelés
-
-Nagy adathalmazok esetén kötegenként dolgozza fel az adatokat:
-
-```python
-from pathlib import Path
-
-base_folder = Path("C:\\LargeDataset")
-batch_size = 100
-
-# Get all image files
-images = list(base_folder.glob("*.RAW"))
-
-# Process in batches
-for i in range(0, len(images), batch_size):
-    batch = images[i:i+batch_size]
-    batch_folder = base_folder / f"batch_{i//batch_size}"
-    
-    # Create batch folder and move images
-    # ... (implementation details)
-    
-    # Process batch
-    process_folder(batch_folder)
-```
-
-***
-
-## Hibaelhárítás
-
-### A háttérprogram nem indul el
-
-**Probléma:** Az SDK nem tudja elindítani a háttérprogramot**Megoldások:**
-
-1. Ellenőrizze, hogy az Chloros telepítve van-e:
-
-```python
-import os
-import platform
-
-# Auto-detect backend path
-if platform.system() == "Windows":
-    backend_path = r"C:\Program Files\MAPIR\Chloros\resources\backend\chloros-backend.exe"
-else:
-    backend_path = "/usr/lib/chloros/chloros-backend"
-
-print(f"Backend exists: {os.path.exists(backend_path)}")
-```
-
-2. Ellenőrizze a tűzfalat (Windows) vagy a port elérhetőségét (Linux: `lsof -i :5000`)
-3. Próbálja meg a háttér elérési útját manuálisan:
-
-```python
-# Windows
-chloros = ChlorosLocal(backend_exe="C:\\Path\\To\\chloros-backend.exe")
-
-# Linux
-chloros = ChlorosLocal(backend_exe="/opt/mapir/chloros/backend/chloros-backend")
-```
-
-***
-
-### Licenc nem észlelve**Probléma:** Az SDK figyelmeztet a hiányzó licencre**Megoldások:**
-
-1. Nyissa meg az Chloros, Chloros (böngésző) vagy Chloros CLI alkalmazást, és jelentkezzen be.
-2. Ellenőrizze, hogy a licenc tárolva van-e:
-
-```python
-from pathlib import Path
-import os
-import platform
-
-# Check cache location
-if platform.system() == "Windows":
-    cache_path = Path(os.getenv('APPDATA')) / 'Chloros' / 'cache'
-else:
-    cache_path = Path.home() / '.cache' / 'chloros'
-
-print(f"Cache exists: {cache_path.exists()}")
-```
-
-3. Ha hitelesítési problémák merülnek fel, törölje a gyorsítótárban tárolt hitelesítő adatokat, és jelentkezzen be újra:
-
-```python
-from chloros_sdk import ChlorosLocal
-
-# Clear cached credentials
-chloros = ChlorosLocal()
-chloros.logout()
-
-# Then login again via Chloros, Chloros (Browser), or Chloros CLI
-```
-
-4. Vegye fel a kapcsolatot az ügyfélszolgálattal: info@mapir.camera
-
-***
-
-### Importálási hibák**Probléma:** `ModuleNotFoundError: No module named 'chloros_sdk'`**Megoldások:**
-
-```bash
-# Verify installation
-pip show chloros-sdk
-
-# Reinstall if needed
-pip uninstall chloros-sdk
-pip install chloros-sdk
-
-# Check Python environment
-python -c "import sys; print(sys.path)"
-```
-
-***
-
-### Feldolgozási időtúllépés**Probléma:** A feldolgozás időtúllépése**Megoldások:**
-
-1. Növelje az időtúllépést:
-
-```python
-chloros = ChlorosLocal(timeout=120)  # 2 minutes
-```
-
-2. Feldolgozzon kisebb adagokat
-3. Ellenőrizze a rendelkezésre álló lemezterületet
-4. Figyelje a rendszer erőforrásait
-
-***
-
-### A port már használatban van**Probléma:** A 5000-es háttérport foglalt**Megoldások:**
-
-```python
-# Use different port
-chloros = ChlorosLocal(api_url="http://localhost:5001")
-```
-
-Vagy keresse meg és zárja be az ütköző folyamatot:
-
-```powershell
-# Windows PowerShell
-Get-NetTCPConnection -LocalPort 5000
-```
-
-```bash
-# Linux
-lsof -i :5000
-kill $(lsof -t -i :5000)
-```
-
-***
-
-## Teljesítményre vonatkozó tippek
-
-### A feldolgozási sebesség optimalizálása
-
-1. **Párhuzamos mód használata** (Chloros+ verzió szükséges)
-
-```python
-chloros.process(mode="parallel")  # Up to 16 workers
-```
-
-2. **A kimeneti felbontás csökkentése** (ha elfogadható)
-
-```python
-chloros.configure(export_format="PNG (8-bit)")  # Faster than TIFF
-```
-
-3. **Kapcsolja ki a felesleges indexeket**
-
-```python
-# Only calculate needed indices
-chloros.configure(indices=["NDVI"])  # Not all indices
-```
-
-4. **Feldolgozás SSD-n** (nem HDD-n)***
-
-### Memóriaoptimalizálás
-
-Nagy adathalmazok esetén:
-
-```python
-# Process in batches instead of all at once
-# See "Memory Management" in Advanced Topics
-```
-
-***
-
-### Háttérfeldolgozás
-
-Felszabadítsa az Python-et más feladatokhoz:
-
-```python
-chloros.process(wait=False)  # Non-blocking
-
-# Continue with other work
-# ...
-```
-
-***
-
-## Integrációs példák
-
-### Django integráció
-
-```python
-# views.py
-from django.http import JsonResponse
-from chloros_sdk import process_folder
-
-def process_images_view(request):
-    if request.method == 'POST':
-        folder_path = request.POST.get('folder_path')
-        
-        try:
-            results = process_folder(folder_path)
-            return JsonResponse({'success': True, 'results': results})
-        except Exception as e:
-            return JsonResponse({'success': False, 'error': str(e)})
-```
-
-### Flask API
-
-```python
-# app.py
-from flask import Flask, request, jsonify
-from chloros_sdk import process_folder
-
-app = Flask(__name__)
-
-@app.route('/api/process', methods=['POST'])
-def process():
-    data = request.get_json()
-    folder_path = data.get('folder_path')
-    
-    try:
-        results = process_folder(folder_path)
-        return jsonify({'success': True, 'results': results})
-    except Exception as e:
-        return jsonify({'success': False, 'error': str(e)}), 500
-
-if __name__ == '__main__':
-    app.run()
-```
-
-### Jupyter Notebook
-
-```python
-# notebook.ipynb
-from chloros_sdk import ChlorosLocal
-import matplotlib.pyplot as plt
-
-# Initialize
-chloros = ChlorosLocal()
-
-# Process
-chloros.create_project("JupyterTest")
-chloros.import_images("C:\\Data")
-chloros.configure(indices=["NDVI"])
-
-# Progress in notebook
-from IPython.display import clear_output
-
-def notebook_progress(progress, message):
-    clear_output(wait=True)
-    print(f"Progress: {progress}%")
-    print(message)
-
-chloros.process(progress_callback=notebook_progress)
-
-# Visualize results
-# ... (your visualization code)
-```
-
-***
-
-## GYIK
-
-### K: Az SDK internetkapcsolatot igényel?
-
-**V:** Csak az első licencaktiváláshoz. Miután bejelentkezett az Chloros, Chloros (böngésző) vagy Chloros CLI segítségével, a licencet a rendszer helyileg tárolja, és 30 napig offline módban is működik.***
-
-### K: Használhatom az SDK-et GUI nélküli szerveren?**V:** Igen! Az SDK headless módban működik mind az Windows, mind az Linux szervereken.**Linux (headless használatra ajánlott):**
-* Telepítés az `.deb` csomag segítségével
-* Licenc aktiválása: `chloros-cli login user@example.com 'password'`
-
-**Windows szerver:**
-* Windows Server 2016 vagy újabb
-* Chloros telepítve (egyszeri)
-* Licenc aktiválása az CLI segítségével vagy bármely gépen
-
-***
-
-### K: Mi a különbség a Desktop, az CLI és az SDK között?
-
-| Funkció         | Desktop GUI | CLI Parancssor | Python SDK  |
-| --------------- | ----------- | ---------------- | ----------- |
-| **Felület**   | Pont-kattintás | Parancssor          | Python API  |
-| **Legalkalmasabb**    | Vizuális munka | Szkriptelés        | Integráció |
-| **Automatizálás**  | Korlátozott     | Jó             | Kiváló   |
-| **Rugalmasság** | Alapvető       | Jó             | Maximális     |
-| **Licenc**     | Chloros+    | Chloros+         | Chloros+    |***
-
-### K: Terjeszthetem az SDK-szel készített alkalmazásokat?**V:** Az SDK kód integrálható az Ön alkalmazásaiba, de:
-
-* A végfelhasználóknak telepítve kell lennie az Chloros-nek
-* A végfelhasználóknak aktív Chloros+ licenccel kell rendelkezniük
-* A kereskedelmi terjesztéshez OEM-licenc szükséges
-
-OEM-megkeresésekkel kapcsolatban vegye fel a kapcsolatot az info@mapir.camera-szel.
-
-***
-
-### K: Hogyan frissíthetem az SDK-et?
-
-```bash
-pip install --upgrade chloros-sdk
-```
-
-***
-
-### K: Hová kerülnek a feldolgozott képek?
-
-Alapértelmezés szerint a projekt útvonalába:
-
-```
-
-Project_Path/
-└── MyProject/
-    └── Survey3N_RGN/          # Processed outputs
-```
-
-***
-
-### K: Feldolgozhatok képeket az ütemezés szerint futó Python szkriptekből?**V:** Igen! Használja az operációs rendszer ütemezőjét az Python szkriptekkel:
-
-```python
-# scheduled_processing.py
-from chloros_sdk import process_folder
-
-# Process today's flights
-results = process_folder("/data/flights/today")  # Linux
-# results = process_folder("C:\\Flights\\Today")  # Windows
-```
-
-**Windows:** Ütemezze a Feladatütemezőn keresztül napi futtatásra.**Linux:** Ütemezze cron segítségével:
-
-```cron
-# Run at 2 AM daily
-0 2 * ** /usr/bin/python3 /home/user/scheduled_processing.py >> /var/log/chloros.log 2>&1
-```
-
-***
-
-### K: Támogatja-e az SDK az async/await funkciót?**V:** A jelenlegi verzió szinkron. Aszinkron viselkedéshez használja az `wait=False`-et, vagy futtassa külön szálban:
-
-```python
-import threading
-
-def process_thread():
-    chloros.process()
-
-thread = threading.Thread(target=process_thread)
-thread.start()
-
-# Continue with other work...
-```
-
-***
-
-### K: Hogyan válthatok a különböző Chloros+ fiókok között?**V:** Használja az `logout()` metódust a gyorsítótárban tárolt hitelesítő adatok törléséhez, majd jelentkezzen be újra az új fiókkal:
-
-```python
-from chloros_sdk import ChlorosLocal
-
-# Clear current credentials
-chloros = ChlorosLocal()
-chloros.logout()
-
-# Re-login via Chloros, Chloros (Browser), or Chloros CLI with new account
-```
-
-A kijelentkezés után hitelesítse magát az új fiókkal a grafikus felhasználói felületen, böngészőben vagy az CLI segítségével, mielőtt újra használná az SDK-et.
-
-***
-
-## Segítség
-
-### Dokumentáció
-
-* **API Referencia**: Ez az oldal
-
-### Támogatási csatornák
-
-* **E-mail**: info@mapir.camera
-* **Weboldal**: [https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
-* **Árak**: [https://cloud.mapir.camera/pricing](https://cloud.mapir.camera/pricing)
-
-### Példakód
-
-Az itt felsorolt összes példa tesztelt és termeléskész. Másolja át és igazítsa saját felhasználási esetéhez.
-
-***
-
-## Licenc**Saját fejlesztésű szoftver** - Copyright (c) 2025 MAPIR Inc.
-
-Az SDK használatához aktív Chloros+ előfizetés szükséges. A jogosulatlan használat, terjesztés vagy módosítás tilos.
+* [SDK hivatkozás](reference/sdk-reference.md) — a teljes API felület, amely mesterséges intelligencia-asszisztensekhez lett optimalizálva.
+* [CLI Referencia](reference/cli-reference.md) — minden CLI alparancs egy SDK hívást tükröz.
+* [Letöltés](download.md) — telepítőprogramok az Windows és az Linux verziókhoz.

@@ -1,214 +1,229 @@
 # Kép teljes képernyős megnyitása
 
-Az Chloros Képmegjelenítő egy speciális, teljes képernyős felületet biztosít a multispektrális képek megtekintéséhez, elemzéséhez és szerkesztéséhez. Akár eredeti képeket, akár feldolgozott eredményeket tekint meg, a Képmegjelenítő hatékony eszközöket kínál a vizsgálathoz és az elemzéshez.
+<figure><img src="../.gitbook/assets/image (34).png" alt=""><figcaption><p>Teljes képernyőn megnyitott kép, a rétegválasztóval a jobb felső sarokban</p></figcaption></figure>
 
-## Az Image Viewer elérés
+Az Chloros Képmegjelenítő egy teljes képernyős felület a képek megtekintéséhez, vizsgálatához és méréséhez. Itt olvashatja le a **valódi pixelértékeket** — csatornánkénti DN-értéket, százalékos visszaverődést vagy sugárzási intenzitást W/m²/sr/nm-ben — ahelyett, hogy a képernyőn megjelenő, kinyújtott előnézetet nézné.
+
+## A Képmegjelenítő eléréséhez
 
 ### A Fájlkezelőből
 
-A kép megnyitásának leggyakoribb módja az Image Viewerben:
+1. Nyissa meg a **Fájlkezelő** fület <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line">
+2. Kattintson bármely **miniatűrre** a [képrácsban](image-grid.md)
+3. A kép teljes képernyős módban megnyílik a **Képnézegető** fülön
 
-1. Győződjön meg róla, hogy a **Fájlkezelő** fülön van <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line">
-2. Kattintson bármelyik **képminiatűrre** a képrácsban
-3. A kép megnyílik a **fő előnézeti területen** (a képernyő közepén)
-4. A kép betöltődött, és készen áll a teljes képernyős megtekintésre
+A kép azon a terméken nyílik meg, amelyet a rács éppen megjelenített. Ha a rács beállítása `RAW (Reflectance)`, akkor az a réteg jelenik meg.
 
-### Az Image Viewer fül megnyitása
+### A Képnézegető oldalsávjának megnyitása
 
-Miután a kép betöltődött az előnézeti területre:
+Kattintson a bal oldali oldalsávon található **Képnézegető** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> ikonra az elemzőpanel kinyitásához. A panel felülről lefelé a következőket tartalmazza:
 
-1. Kattintson az **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> ikonra a bal oldali sávban
-2. Megnyílik a Képmegjelenítő fül, amely teljes képernyőn jeleníti meg a kiválasztott képet
-3. A bal oldali sávban elérhetővé válnak a fejlett megtekintési és elemzési eszközök
+* a kép nevét és a kamera modelljét
+* az **Exportálás/Kép(ek) mentése** gombot (csak akkor, ha index vagy LUT aktív)
+* az **Index**és**LUT** jelölőnégyzetek, valamint az index konfigurációs panel — lásd [Index/LUT Sandbox](index-lut-sandbox.md)
+* a **Kurzorértékek** panel: csatornánkénti leolvasás, réteghisztogram és a GSD vezérlő***
 
-***
+## Navigálás és nagyítás
 
-## A Képmegjelenítő felületének áttekintése
+### Képek között való böngészés
 
-### Fő megjelenítési terület
+* **Következő kép**: a → gomb, vagy a**→** (jobb nyíl) billentyű
+* **Előző kép**: a ← gomb, vagy a**←** (balra nyíl) gomb
+* **Ugrás egy adott képre**: térjen vissza a rácsra, és kattintson a kép miniatűrjére
 
-A képernyő legnagyobb része a képet jeleníti meg:
+A nagyítás és a pásztázás a képek közötti váltás során is megmarad, így a képsorozatot végiglapozhatja úgy, hogy a kép ugyanazon részén marad.
 
-* **Teljes felbontás**: A képek natív felbontásban jelennek meg
-* **Nagyítható**: A nagyításhoz használja a vezérlőket vagy az egérgörgőt
-* **Körbeforgatható**: Nagyításkor kattintson és húzza az egérrel a kép mozgatásához
-* **Képarány megőrzése**: A képek arányosan méretezhetők***
+### Nagyítás
 
-## Megtekintési beállítások
+A nagyítás az **egérkerékkel** vezérelhető, 15%-os lépésekben, a kurzorhoz rögzítve — a mutató alatti pont a mutató alatt marad. A tartományt a kép és az ablak mérete határozza meg: a „ablakhoz igazítás” beállításnál tovább nem lehet kicsinyíteni, a felső határt pedig a kép natív felbontása határozza meg.
 
-### Alapvető képnavigáció
+A teljes képernyős nézőben nincsenek külön nagyítás gombok. (A rácsban a **Ctrl + `+` / `−`** billentyűkombinációval a miniatűrök mérete módosítható — ez egy másik vezérlő.)
 
-#### Képek között való böngészés
+### Képmozgatás nagyításkor
 
-A képkészletben a billentyűparancsok vagy a gombok segítségével navigálhat:
+Kattintson a bal egérgombbal a képre, tartsa lenyomva, majd húzza. A képmozgatás korlátozott, így a képet nem lehet a képernyőről kihúzni.
 
-* **Következő kép**: Kattintson a → gombra, vagy nyomja meg a**→** (jobb nyíl) billentyűt
-* **Előző kép**: Kattintson a ← gombra, vagy nyomja meg a**←** (bal nyíl) billentyűt
-* **Ugrás egy adott képre**: Térjen vissza a Fájlböngészőbe, és kattintson a kívánt miniatűrre
+### Pixelenkénti vizsgálat nagy nagyításnál
 
-#### Nagyítási vezérlők
+Amint a tényleges nagyítás meghaladja a **60×**-ot, az Chloros kiemelő keretet rajzol a kurzor alatt megjelenő egyes pixelek köré, és egy lebegő értéket jelenít meg azok mellé.
 
-Állítsa be a nagyítást a kép részleteinek megtekintéséhez:
+A „tényleges” nagyítás a GSD-blokk méretét veszi figyelembe: 8-as blokkméret esetén a kiemelés nem 60×-os, hanem 7,5×-os nagyításnál jelenik meg, mivel egy megjelenített pixel már 8 × 8 forráspixelt foglal el. Ha a nagyítást a küszöbérték alá csökkenti, a kiemelés eltűnik.
 
-**Nagyítás:*** Kattintson a **+** (plusz) gombra
-* Nyomja meg a **+**vagy**=** billentyűt
-* Görgessen az egérkerékkel **felfelé**
+### Billentyűparancsok
 
-**Kicsinyítés:*** Kattintson a **−** (mínusz) gombra
-* Nyomja meg a **−** (mínusz) billentyűt
-* Görgessen az egérkerékkel **lefelé**
+| Gomb                             | Hol       | Művelet                              |
+| ------------------------------- | ----------- | ----------------------------------- |
+| **→**                           | Teljes képernyő | Következő kép                          |
+| **←**                           | Teljes képernyő | Előző kép                      |
+| **Ctrl + R**                    | Teljes képernyő | Az index/LUT sandbox visszaállítása         |
+| **Ctrl + `+`**/**Ctrl + `=`** | Rács        | Nagyobb miniatűrök (gombnyomásonként 4 px)  |
+| **Ctrl + `−`**                  | Rács        | Kisebb miniatűrök (4 px gombnyomásonként) |***
 
-#### Képmozgatás nagyításkor
+## A kurzor értékei
 
-Ha a képet a képernyő méreténél nagyobb méretre nagyította:
+Ha a kurzort a kép fölé viszi, a **Kurzorértékek** panel megjeleníti az alatta lévő összes csatorna értékét.
 
-1. Vigye az egérmutatót a kép fölé
-2. Kattintson és **tartsa lenyomva a bal egérgombot**
+{% hint style="success" %}
+**Ezek a fájl tényleges értékei.** A képernyőn látható vászon egy 8 bites, kinyújtott előnézet, amely nem tudja ezeket az értékeket megadni, ezért az Chloros a tényleges termékfájlból vesz mintát a kijelzéshez. Ezért jeleníti meg egy 12 bites nyers képkocka a 255 feletti értékeket, és ezért jeleníti meg egy float32 sugárzási réteg a fizikai egységeket.
+{% endhint %}
 
-3.**Húzza** az egeret a kép mozgatásához
-4. Engedje fel a gombot a képmozgatás leállításához
+### Az oszlopok jelentése
 
-**Alternatív megoldás**: Használja a nyílgombokat a kép apró lépésekben történő mozgatásához***
+A panel a megtekintett réteghez igazodik:
 
-## Pixelértékek megtekintése
+| Megtekintett réteg              | Megjelenített oszlopok    | Megjegyzések                                                                                           |
+| ---------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------- |
+| Reflektancia                        | **DN**és**%** | A százalékot a fájl saját skálája alapján számítja ki — lásd alább                                      |
+| Sugárzás                           | **W/m²/sr/nm**   | Float fizikai értékek; nincs DN oszlop, mert a DN itt értelmetlen                           |
+| Nyers / Debayered / előnézet / JPG    | **DN**           | Egész számú digitális értékek                                                                         |
+| 32 bites százalékos visszaverődési értékek exportja | csak **%**       | A tárolt lebegőpontos érték nem DN, ezért egész számra kerekítve értelmetlen `0` vagy `1` érték jelenne meg |
 
-### Pixelértékek megtekintése a kurzor alatt
+Minden sor a fényképezőgép szűrőjének csatornájának nevével van jelölve — `Red / Green / NIR` az RGN-hez, `Orange / Cyan / NIR` az OCN esetében, `NIR / Green / Blue` az NGB esetében, `Red / Green / Blue` az RGB esetében, valamint az RE, NIR és a mono M3M kamerák esetében az egycsatornás név. Minden címke egy színes pontot tartalmaz, amely megegyezik az indexképlet-szerkesztőben használt csatornakörökkel.
 
-Amint az egérkurzort a kép fölé viszi, a pixelértékek valós időben jelennek meg:**Az értékek megjelenítési helye:*** **Lebegő szám és piros vonal a jobb oldali index LUT gradiens legenda mellett*** **Ha tovább nagyít, lebegő érték a kurzor és a kijelölt pixel közelében*** Megmutatja a **kurzor alatt vagy kijelölt** pixel értékeit
-* Az egér mozgatásával frissül
+A mentett **index- és LUT**-képek különleges esetet jelentenek: spektrális sávok helyett színképi komponenseket tartalmaznak, ezért soraik `Red / Green / Blue` (vagy egycsatornás indexfájl esetén `Index`) jelöléssel szerepelnek, a kamera szűrőnevei helyett nevei helyett.
+
+Amikor egy index aktív a sandboxban, a csatornák alatt megjelenik egy további sor, amely a kurzor helyén lévő **indexértéket** mutatja, az index nevével és egy fehér ponttal, amely megegyezik a hisztogramon található jelölőjével.
+
+### A reflexió százalékos értéke az egyes fájlok saját skáláját használja
+
+{% hint style="warning" %}
+**Ne feltételezzük, hogy 65535 = 100%.** Az Chloros a fényvisszaverődést különböző skálákon tárolja attól függően, hogy melyik kamera állította elő, és a néző fájlonként meghatározza a helyes értéket.
+{% endhint %}
+
+| Forrás                  | A 1,0-es reflektanciának megfelelő DN | Azonosítás módja                                                                                                                               |
+| ----------------------- | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **LATTICE**(M3C / M3M) |**32768**                      | Minden LATTICE-reflektancia-exportba be van írva az `Chloros:PixelScale=32768` XMP-címke. A 2×-es tartalék lehetővé teszi, hogy a fájl 1,0 feletti ρ-értékeket is tartalmazzon csúszás nélkül |
+| **Survey3**|**65535**                      | Nincs Chloros XMP méretarány-címke — az Survey3 kalibráció a ρ × dtype-max értéket írja be, és 1,0-nál levágja                                                               |
+
+A nézőprogram, az index/LUT sandbox és az index-export egyaránt ugyanazon egyetlen implementáción keresztül határozza meg a skálát, így a kurzor helyén leolvasott érték megegyezik azzal az értékkel, amelyet az index-számítás is használt.
+
+Két fontos következmény:
+
+* Egy **32-bites százalékos**TIFF a DN/65535-öt float típusúként tárolja, míg egy**8 bites** PNG/JPG export a DN × 255/65535 értéket tárolja — a néző mindkettőt visszaalakítja, mielőtt százalékot jelenít meg.
+* Egy eset nem állítható vissza: egy **8-bites forrásból származó felvétel**8-bites TIFF** exportja nem kerül átméretezésre, hanem 0–255-re van korlátozva, és szándékosan nem tartalmaz méretarány-címkét. Ezeknél a fájloknál a panel csak a DN-értéket jeleníti meg, százalékos oszlop nélkül. Ez a valós helyzet, nem pedig hiba.***
+
+## A réteg hisztogramja
+
+A kurzor sorai alatt látható a megtekintett réteg élő hisztogramja, **256 osztással**. Alapértelmezés szerint egy kombinált görbét rajzol, súlyozott `(R + 2G + B) / 4` – ugyanazt a mérési teret használja, mint a LATTICE kamera hisztogramjai. Az**RGB** bekapcsolásával a görbe helyébe csatornánkénti görbék lépnek a csatornák színeiben, amelyek additív keveréssel jelennek meg, így az átfedések is jól olvashatók maradnak. A monokróm rétegeknél mindig az egyetlen görbe jelenik meg.
+
+A vízszintes tengely a réteg saját mértékegységében van megadva:
+
+| Réteg       | Tengely mértékegysége  | Tengely maximuma                                               |
+| ----------- | ---------- | ---------------------------------------------------------- |
+| Fényvisszaverődés | százalék    | 125% — a termék tartaléka lehetővé teszi a 1,0 feletti ρ értéket           |
+| Sugárzás    | W/m²/sr/nm | A képkocka saját csúcsértéke, két számjegyre felfelé kerekítve |
+| 8 bites adat  | DN         | 255                                                        |
+| 12 bites adat | DN         | 4095                                                       |
+| 16 bites adat | DN         | 65535                                                      |
+
+Ha a tengely DN-ben van, és az említett három felső határ egyikén áll meg, az Chloros azt is tudja, hogy milyen bitmélységű az éppen megtekintett kép.
+
+A hisztogram felett három gomb található:
+
+| Gomb     | Alapértelmezett | Hatás                                                                                                                                                                                                                                                                                   |
+| ---------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **KURZOR** | Be      | A fenti sorokban feltüntetett pontos értékeken jelölővonalakat rajzol a hisztogramra, így láthatja, hogy a kurzor alatt lévő pixel hol helyezkedik el a képkocka eloszlásában. RGB módban csatornánként egy jelölő jelenik meg, saját színnel; egyébként egyetlen fehér jelölő látható a kombinált értéknél |
+| **INDEX**| Be      | Csak akkor jelenik meg, ha index aktív. Átváltja a hisztogramot a forrás sávokról az**indexérték-eloszlásra**, ahol a két vágási küszöbérték narancssárga szaggatott vonalakkal, a kurzor indexértéke pedig fehér vonallal jelenik meg                                                          |
+| **RGB**| Ki     | Átvált a kombinált görbéről a csatornánkénti görbékre. Monokróm érzékelő esetén ez a gomb**MONO** feliratot jelenít meg, és letiltva van — csak egy csatorna jeleníthető meg                                                                                                                                  |
+
+A hisztogramot a **látható blokkok** alapján számítja ki, nem a mögöttük lévő forráspixelek alapján: a GSD-blokkméret megváltoztatásával az eloszlás újraszámításra kerül, így a hisztogram, a kurzorjelölő és a megjelenített kép mindig egyezik.***
+
+## GSD-blokkméret
+
+A panel alján található a **GSD (px)**vezérlő: egy számmező, egy**1-től 256-ig**terjedő csúszka és egy**RESET** gomb.
+
+Ez a beállítás a _megjelenített_ képet durvítja azzal, hogy egy N × N-es forrásképpont-blokk átlagát egy megjelenített képpontba számítja. Az `1` a natív felbontás.
+
+* Ez hatással van **a teljes képernyős nézetre, a rácsos miniatűrökre, a kurzor kijelzésére és mindkét hisztogramra** – minden, ami a képet mutatja, ugyanazon az alapfelbontáson alapul.
+* Ez **csak a megjelenítésre vonatkozik**. A feldolgozás és az exportálás nem változik. Az egyetlen kivétel szándékos: az [Index/LUT Sandbox](index-lut-sandbox.md) exportálás elmenti azt, amit éppen nézel, így átveszi az aktuális blokkméretet, és az exportáló panel figyelmeztet, ha a blokkméret meghaladja az 1-et.
+* Az érték **projektenként** kerül tárolásra `viewer_display.gsd_bin` néven az `project.json` fájlban, így a program bezárása és újbóli megnyitása után is megmarad.
+* A kurzor kijelzése a blokkot jelzi, nem a forráspixelt, ha a blokkméret 1 felett van — a megjelenített érték a kurzor alatt lévő blokk átlaga.
+
+{% hint style="info" %}
+**Miért „blokkméret”, és nem centiméter/pixel?** A cm/px értékhez szükség van a talajszint feletti magasságra. Egyetlen képkocka EXIF-adatai a tengerszint feletti GPS-magasságot tartalmazzák, nem pedig a célzott terep feletti magasságot, így az Chloros nem jeleníti meg azt a földfelszíni távolságot, amelyet nem tud pontosan kiszámítani. A forráspixelekben megadott blokkméret ugyanazt a tartalékértéket jelenti, amelyet az MAPIR felhőeszközök is használnak, amikor a földfelszíni mintavételi távolság ismeretlen.
+{% endhint %}
 
 ***
 
 ## Megtekinthető képformátumok
 
-### JPG
+A néző jobb felső sarkában található réteg legördülő menü az aktuális kép minden változatát felsorolja. Hogy mely bejegyzések jelennek meg, a kamerától és a feldolgozott tartalomtól függ — a teljes listát és a legördülő menü működését lásd az [Képrétegek](image-layers.md) alatt.
 
-**JPG képek a fényképezőgépről:**
+### Survey3
 
-* A JPG adatok megjelenítése előnézetként
-* Az eredeti, korrekció nélküli értékek megjelenítése
-* Hasznos a képminőség ellenőrzéséhez a feldolgozás előtt
+* **JPG** — a kamera saját előnézeti fájlja
+* **RAW (Eredeti)** — az `.RAW` forrásfájl, megjelenítés céljából debayerezve, korrekciók nélkül
+* **RAW (Cél)** — olyan képkocka, amelyről megállapítást nyert, hogy kalibrációs célt tartalmaz
+* **RAW (Fényvisszaverődés)** — a kalibrált fényvisszaverődési termék (65535 = ρ 1,0)
+* **Vignette Corrected**/**Sensor Response** — a nem kalibrált tartalék termék
+* **White Balanced** — a fehér egyensúlyra beállított termék
+* **RAW (`<INDEX>` Index)**és**`<INDEX>` LUT** — kiszámított indexképek
 
-### RAW (Eredeti)
+### LATTICE
 
-### RAW (Fényvisszaverődés)
+A LATTICE-felvételek ugyanazt a legördülő menüt használják, a feldolgozási folyamat szintjeinek neveivel:
 
-**Feldolgozás után:**
+| Réteg                 | Mit tartalmaz                                                        |
+| --------------------- | -------------------------------------------------------------------- |
+| **RAW (Eredeti)**    | A rögzített forrás RAW-kép                                     |
+| **RAW (Debayered)**   | A lineáris, debayered kép                                           |
+| **RAW (Előnézet)**     | A kijelzőn megjelenő előnézet — hamisszínű kiterjesztés multispektrális kamerákhoz |
+| **Fehér egyensúly**    | A kijelzőn megjelenő előnézet az RGB master kamerákhoz (fehér egyensúly + gamma)   |
+| **RAW (sugárzás)**    | Float32 spektrális sugárzás W/m²/sr/nm-ben                              |
+| **RAW (visszaverődés)** | uint16 visszaverődés, 32768 = ρ 1,0                                    |
 
-* Vignettálás korrigálva
-* Reflektancia kalibrálva
-* Többsávos TIFF (Red, Green, NIR stb.)
-* Elemzésre kész tudományos adatok
-
-### RAW (Index)
-
-**NDVI, NDRE, GNDVI stb. (\_NDVI.tif fájlok):**
-
-* Egycsatornás szürkeárnyalatos képek
-* A képpontértékek az indexszámítás eredményeit jelzik
-* A normalizált indexek értéke általában -1 és +1 között mozog
-* A vizualizáláshoz színes LUT-ok alkalmazhatók
+A sugárzás és a visszaverődés kizárólag multispektrális adatok: az RGB főkamera nem rendelkezik sávonkénti radiometriával, ezért ezek a rétegek nem készülnek el hozzá.
 
 ***
 
 ## Index és LUT alkalmazás
 
-Multispektrális indexek és színes Look-Up Tables alkalmazása:
+A multispektrális indexek és szín-LUT-ok az oldalsávról alkalmazhatók:
 
-1. Keresse meg az **Index/LUT Sandbox**elemet az**Image Viewer**-ben <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> oldalsávon
-2. Válassza ki a vegetációs indexet (NDVI, NDRE stb.)
-3. Válasszon multispektrális képletet, vagy hozzon létre saját egyéni képletet (csak Chloros+)
-4. Alkalmazzon színes LUT-gradienst a vizualizáláshoz
-5. Állítsa be az értéktartományokat és a küszöbértékeket
+1. Nyissa meg az **Image Viewer** (<img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line">) oldalsávot
+2. Jelölje be az **Index** lehetőséget
+3. Válassza ki a kamera szűrőjét és egy indexképletet, majd húzza a csatornaköröket a képlet helyeire
+4. Adjon hozzá egy LUT-ot, és válasszon gradienst, küszöbértékeket és egy kivágási módot
+5. Olvassa le az értékeket a kurzor helyén, és mentse el az eredményt az **Export/Save Image(s)** gombbal mentse el az eredményt.
 
-Részletes utasításokat az [Index/LUT Sandbox](index-lut-sandbox.md) oldalon talál.
+A teljes útmutatót az [Index/LUT Sandbox](index-lut-sandbox.md) oldalon találja.
 
 ***
 
-## Billentyűparancsok
-
-### Navigáció
-
-* **→** (Jobb nyíl): Következő kép
-* **←** (Bal nyíl): Előző kép
-* **Home**: A lista első képe
-* **End**: A lista utolsó képe
-
-### Nagyítás
-
-* **+**vagy**=**: Nagyítás
-* **−**: Kicsinyítés
-* **Egérkerék**: Nagyítás/kicsinyítés***
-
-### Az indexszámítások ellenőrzése
-
-Ellenőrizze, hogy az indexek helyesen lettek-e kiszámítva:
-
-1. Nyissa meg az NDVI vagy más indexképet
-2. Ellenőrizze a növényzet területeit:
-   * **NDVI**: Egészséges növények esetén 0,4–0,9 értéket kell mutatnia
-   * **NDRE**: Erőteljes növekedés esetén magasabb értékeket mutat
-   * **GNDVI**: Hasonló az NDVI-hez, de klorofill-érzékeny
-3. Ellenőrizze a nem növényzetet:
-   * **Talaj**: 0 közelében vagy enyhén negatív
-   * **Víz**: Negatív értékek (-0,5 és 0 között)***
-
-## Megjelenítési problémák elhárítása
+## Hibaelhárítás
 
 ### A kép nem nyílik meg
 
-**Lehetséges okok:**
+**Lehetséges okok**: a fájlt az importálás után áthelyezték vagy törölték; a termék soha nem került írásra; nincs elegendő memória egy nagyon nagy képhez.**Mit kell tenni**:
 
-* A fájl feldolgozás közben megsérült
-* Nem támogatott fájlformátum
-* Nincs elegendő memória a nagy képhez
+1. Ellenőrizze, hogy a réteg fájlja még mindig létezik-e a projekt kimeneti fájlrendszerében
+2. Nyissa meg a fájlt egy külső nézőprogramban, hogy megbizonyosodjon arról, hogy sértetlen
+3. Zárja be az egyéb alkalmazásokat a memória felszabadítása érdekében
 
-**Megoldások:**
+### A kép fekete, fehér vagy rendkívül színes
 
-1. Próbálja meg megnyitni egy külső nézőprogramban, hogy ellenőrizze a fájl integritását
-2. Ellenőrizze, hogy a fájlformátum megfelel-e a várt típusnak
-3. Zárjon be más alkalmazásokat a memória felszabadítása érdekében
-4. Próbálkozzon kisebb/más képekkel
+**Lehetséges okok**: a kijelző-nyújtásnak nincs mit feldolgoznia (szinte állandó képkocka); egy szokatlan értékeket tartalmazó float32 réteg; olyan index, amely nem eredményezett érvényes adatokat.**Mit kell tenni**:
 
-### Fekete vagy fehér kép megjelenítése
+1. Olvassa le a kurzorértékeket — ha minden csatorna nulla vagy annak közelében van, a probléma az adatokban van, nem a kijelzőben
+2. Ellenőrizze a hisztogramot: egyetlen kiugrás az egyik végén azt jelzi, hogy a képkocka levágott vagy üres
+3. Ellenőrizze a réteget létrehozó futtatás feldolgozási naplója
 
-**Lehetséges okok:**
+### Az értékek helytelennek tűnnek
 
-* A megjelenítési képességeken kívüli értéktartomány
-* Szokatlan értékeket tartalmazó 32 bites lebegőpontos kép
-* Indexszámítási hiba
+**Lehetséges okok**: más rétegen van, mint gondolná; százalékot hasonlít össze nyers DN-értékkel; ugyanazt az osztót használva hasonlít össze egy LATTICE fájlt egy Survey3 fájllal.**Mit kell tenni**:
 
-**Megoldások:**
-
-1. Ellenőrizze a pixelértékeket – ha mind nagyon alacsonyak vagy nagyon magasak, állítsa be a megjelenítési tartományt
-2. Próbálja meg megnyitni a QGIS-ben vagy hasonló programban, automatikus tartománybeállítással
-3. Ellenőrizze a feldolgozás hibajelentését
-
-### A pixelértékek helytelennek tűnnek
-
-**Lehetséges okok:**
-
-* Rossz kép megtekintése (eredeti vs. feldolgozott)
-* A kalibrálás nem sikerült megfelelően
-* A fényérzékelő adatai nem kerültek be a bemenetbe
-* A százalékos mód helytelenül van beállítva
-
-**Megoldások:**
-
-1. Ellenőrizze, hogy a feldolgozott kimenetet nézi-e (ellenőrizze a fájlnév kiterjesztését)
-2. Ellenőrizze a százalékos mód gomb állapotát
-3. Hasonlítsa össze ugyanazon adatkészletből származó, ismert jó képekkel
+1. Ellenőrizze a legördülő menüben a kiválasztott réteget — a panel mértékegységei a réteget követik
+2. A reflexió esetében használja a **%** oszlopot, ahelyett, hogy magad osztanád el a DN-t; ha osztanod kell, használd az adott fájl `Chloros:PixelScale` értékét (32768 a LATTICE esetében, ha nincs megadva, akkor 65535 az Survey3 esetében)
+3. Állítsa vissza a GSD blokkméretet 1-re — 1 felett a blokkátlagot olvassa ki, nem a pixelt
+4. Ellenőrizze, hogy a reflexiós kalibrálás valóban lefutott-e az adott képkockán; egy nem kalibrált tartaléktermék (Sensor Response / Vignette Corrected) nem reflexiós érték
 
 ***
 
 ## Következő lépések
 
-Most, hogy már teljes képernyőn tudja megtekinteni a képeket:
+* [**Képrétegek**](image-layers.md) — minden réteg neve (ha létezik), és az egyes értékek jelentése
+* [**Index/LUT Sandbox**](index-lut-sandbox.md) — index-vizualizációk létrehozása, finomhangolása és exportálása
+* [**Térképjelölők**](map-markers.md) — ugyanaz a képsorozat térképen
+* [**Multispektrális indexképletek**](../project-settings/multispectral-index-formulas.md) — az indexre vonatkozó hivatkozás
 
-* [**Képrétegek**](image-layers.md) – Ismerje meg a többsávos megjelenítést
-* [**Index/LUT Sandbox**](index-lut-sandbox.md) – Alkalmazzon egyéni indexeket és színleképezést
-* [**Multispektrális indexképletek**](../project-settings/multispectral-index-formulas.md) – Ismerje meg a rendelkezésre álló indexeket
-
-A feldolgozási munkafolyamatot lásd:
-
-* [**Képek feldolgozása (GUI)**](../processing-images-gui/adding-files-to-a-project.md) – Teljes feldolgozási útmutató
+A feldolgozási munkafolyamatot lásd a [Képek feldolgozása (GUI)](../processing-images-gui/adding-files-to-a-project.md) című részben.

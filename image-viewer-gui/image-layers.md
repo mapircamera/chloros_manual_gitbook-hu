@@ -1,334 +1,199 @@
 # Képrétegek
 
-Az Chloros Képmegjelenítő „Képrétegek” legördülő menüjével gyorsan válthat az azonos kép különböző verziói között – az eredeti felvételektől a feldolgozott reflektancia-kimenetekig és a számított indexképekig.
+A Képmegjelenítő jobb felső sarkában található **réteg legördülő menü** segítségével a megtekintett kép minden változata között válthat – a forrásfelvételtől kezdve az egyes feldolgozott termékeken át egészen a kiszámított indexképekig –, anélkül, hogy el kellene hagynia a megjelenítőt.
 
 ## Mik azok a kép rétegek?
 
-Az Chloros programban a **rétegek** egy adott forrásképhez rendelkezésre álló különböző kép kimeneteket jelentenek. A képek feldolgozásakor az Chloros több változatot hoz létre:
+Az Chloros programban egy „réteg” egy forrásképhez rendelt **termékfájl**. Az importálás során a forrásfájlok kerülnek beolvasásra; a feldolgozás során a futtatás során létrehozott minden termékhez egy-egy réteg kerül hozzáadásra. Az exportált fájlok megtartják a forrásfájl nevét – a terméket a**mappa** azonosítja, a réteg neve pedig az Chloros által annak a mappának adott címke.
 
-* **Eredeti képek** (a fényképezőgép JPG és RAW fájljai)
-* **Reflektancia-kalibrált** kimenetek (ha a reflektancia-kalibrálás engedélyezve volt)
-* **Célképek** (ha a kép kalibrációs célokat tartalmaz)
-* **Indexképek** (NDVI, NDRE, GNDVI stb., ha indexek voltak konfigurálva)
+<!-- SCREENSHOT-NEEDED: Image Viewer full screen with the layer dropdown open on a processed LATTICE multispectral image, showing the full list: TIFF base, RAW (Original), RAW (Debayered), RAW (Preview), RAW (Radiance), RAW (Reflectance), and one RAW (NDVI Index) entry. -->
 
-A Képmegjelenítő jobb felső sarkában található **Rétegválasztó legördülő menü** segítségével azonnal válthat ezek között a verziók között anélkül, hogy elhagyná a megjelenítőt.***
+***
 
-## Elérhető rétegtípusok
+## A réteg lista
 
-### JPG
+### Mindig jelen van
 
-* A fényképezőgépéről származó eredeti JPG előnézeti kép
-* Minden kép esetében mindig elérhető
-* Feldolgozatlan, a fényképezőgép által rögzített állapotban
-* A leggyorsabban betöltődik és jelenik meg
+| Réteg | Mi ez? |
+| --- | --- |
+| **JPG**(vagy**PNG**/**TIFF**) | A rögzítéssel együtt beérkezett alapfájl. Az Survey3 minden `.RAW` mellé importál egy `.JPG` fájlt; A LATTICE-felvételek egy PNG vagy TIFF megjelenítési előnézetet hoznak. A ténylegesen importált tartalom szerint címkézve |
+| **RAW (Eredeti)** | A forrás nyers képkocka, a megjelenítéshez debayerezve, korrekciók nélkül. Az importálás pillanatától elérhető — nincs szükség feldolgozásra |
 
-**Mikor érdemes megtekinteni:**
+Az olyan LATTICE-felvétel, amelynek alapfájlja **éppen** a nyers képkocka, nem rendelkezik külön alapbejegyzéssel: ezt már az `RAW (Original)` fedi le.
 
-* Az eredeti felvétel gyors előnézete
-* A kép kompozíciójának és keretezésének ellenőrzése
-* A felvétel minőségének ellenőrzése a feldolgozás előtt
+### Survey3 feldolgozási eredmények
 
-### RAW (Eredeti)
-
-* A fényképezőgép eredeti RAW szenzordatai
-* Debayered, utómunkálatok nélkül
-* Magasabb bitmélység, mint a JPG-nél (jellemzően 12-bites vagy 14-bites szenzordata)
-
-**Mikor érdemes megtekinteni:**
-
-* Az eredeti érzékelőadatok minőségének ellenőrzése
-* Érzékelőproblémák vagy artefaktok ellenőrzése
-* A feldolgozás előtti és utáni eredmények összehasonlítása
-
-### RAW (Cél)
-
-* Csak azoknál a képeknél jelenik meg, amelyeknél kalibrációs célokat azonosítottak
-* Megjeleníti az eredeti RAW képet az észlelt céllal
-* A cél észlelésének sikerességének ellenőrzésére szolgál
-
-**Mikor érdemes megtekinteni:**
-
-* A kalibrációs célok helyes észlelésének megerősítése
-* A célkép minőségének ellenőrzése
-* Hibaelhárítás kalibrációs problémák esetén
+| Réteg | Írás helye | Létezik, amikor |
+| --- | --- | --- |
+| **RAW (Cél)** | — | A képkockát úgy azonosították, hogy kalibrációs célt tartalmaz |
+| **RAW (Fényvisszaverődés)** | `Reflectance_Calibrated_Images/` | A fényvisszaverődés-kalibrálás sikeresen lezajlott ezen a képkockán |
+| **Vignettkorrekcióval**| `Vignette_Corrected_Images/` | A képkockát nem lehetett reflektancia-kalibrálni**és** a *vignettkorrekció* be volt kapcsolva |
+| **Érzékelőválasz**| `Sensor_Response_Images/` | A képkockát nem lehetett reflektancia-kalibrálni**és** a *vignett-korrekció* ki volt kapcsolva |
+| **Fehér egyensúly** | `White_Balanced_Images/` | Fehér egyensúlyú termék került mentésre |
 
 {% hint style="info" %}
-**Célréteg**: Ez a réteg csak a kalibrációs célokat tartalmazó képek legördülő menüjében jelenik meg. A szokásos felvételeknél ez az opció nem elérhető.
+**A vignettakorrekció és az érzékelő válasz egymást kizáró lehetőségek, soha nem fordulhatnak elő egyszerre.** Minden futtatás során pontosan egy kalibrálatlan tartalék termék létezik minden kameramodellhez, és a *Vignettakorrekció* kapcsoló választja ki, melyik legyen az. Lásd a [Projektbeállításokat](../project-settings/project-settings.md).
 {% endhint %}
 
-### RAW (reflektancia)
+### LATTICE szintek
 
-* A kalibrált reflektancia kimeneti kép
-* Vignettáláskorrekcióval (ha a feldolgozás során engedélyezve van)
-* A céladatok felhasználásával kalibrált reflektancia (ha engedélyezve van)
-* Többsávos TIFF az összes kameracsatornával
-* A pixelértékek a reflektancia százalékát jelzik (százalékos mód használata esetén)
-* Készen áll a [Index/LUT Sandbox](index-lut-sandbox.md) segítségével történő manipulálásra
+A LATTICE egyetlen feldolgozási lépésben rögzíti a fan out-ot ezekbe a szintekbe. Hogy melyek léteznek, az a Projektbeállításokban található, termékenkénti exportkapcsolóktól, valamint a kamerára vonatkozó beállításoktól függ.
 
-**Mikor érdemes megtekinteni:**
+| Réteg | Írás helye | Vonatkozik |
+| --- | --- | --- |
+| **RAW (Debayered)** | `Debayered_Images/` | RGB és multispektrális |
+| **RAW (Előnézet)** | `Preview_Images/` | Multispektrális (hamis színű kiterjesztés) |
+| **Fehér egyensúly** | `Preview_Images/` | RGB főkamerák — az RGB előnézetet ezen a néven regisztrálták, így egybeesik az azonos nevű Survey3 réteggel |
+| **RAW (sugárzás)** | `Radiance_Images/` | Kizárólag multispektrális |
+| **RAW (reflektancia)** | `Reflectance_Calibrated_Images/` | Csak multispektrális, és csak akkor, ha egy megfelelő `.daq` lefelé irányuló felvétel vagy egy minőségbiztosításon átesett, a képkockán belüli célpont fedi le a képkockát |
 
-* A kalibrált eredmények ellenőrzése
-* A kalibrálás minőségének ellenőrzése
-* A pixelértékek tudományos pontosságának ellenőrzése
-* Összehasonlítás az eredetivel a kalibrálás hatásainak megtekintése érdekében
+Az RGB mesterkamerák nem rendelkeznek sávonkénti radiometriával, ezért a sugárzás és a visszaverődés értékeit **nem alkalmazható**ként hagyják ki — a napló ezt jelzi, ahelyett, hogy csendben hibaüzenet nélkül továbbhaladna.
 
-{% hint style="success" %}
-**Ajánlott**: Használja a RAW (reflektancia) réteget a pixelértékek tudományos mérések és elemzések céljából történő ellenőrzésekor.
-{% endhint %}
+### Index-, LUT- és sandbox-rétegek
 
-### RAW (NDVI Index)... és hasonló
+| Rétegminta | Példa | Honnan származik |
+| --- | --- | --- |
+| **RAW (`<INDEX>` Index)** | `RAW (NDVI Index)` | A Projektbeállításokban konfigurált indexenként egy, a feldolgozás során kiszámítva |
+| **`<INDEX>` LUT** | `NDVI LUT` | Az index színképezett változata |
+| **Sandbox (`<Name>` `<Index\|LUT>` `<NNN>`)** | `Sandbox (NDVI LUT 003)` | Egy-egy az [Index/LUT Sandbox](index-lut-sandbox.md) exportálási futtatásonként |
 
-* Számított vegetációs index kép (ebben a példában NDVI)
-* Az index neve attól függően változik, hogy melyik indexet konfigurálták a feldolgozás során
-* Példák: RAW (NDVI Index), RAW (NDRE Index), RAW (GNDVI Index) stb.
-* Az indexszámítás eredményeit bemutató, egycsatornás szürkeárnyalatos kép
-* A Projektbeállításokban konfigurált minden indexhez egy réteg jelenik meg
-
-**Lehetséges indexnevek:**
-
-* RAW (NDVI Index)
-* RAW (NDRE Index)
-* RAW (GNDVI Index)
-* RAW (OSAVI Index)
-* RAW (EVI Index)
-* RAW (SAVI Index)
-* És még sok más... (lásd [Multispektrális indexképletek](../project-settings/multispectral-index-formulas.md))
-
-**Mikor érdemes megtekinteni:**
-
-* Az indexszámítás eredményeinek vizsgálata
-* Az indexérték-tartományok ellenőrzése
-* A érdeklődésre számot tartó területek azonosítása
-* Az indexképek ellenőrzése GIS-ben vagy elemzésben való felhasználás előtt
+Ha ugyanazt az indexnevet többször is konfigurálják különböző beállításokkal, a második és az azt követő indexek nevébe számot illesztenek (`RAW (NDVI2 Index)`), így a rétegek megkülönböztethetők maradnak.
 
 ***
 
 ## A rétegválasztó használata
 
-### A legördülő menü megnyitása
+1. Nyissa meg a képet teljes képernyős módban a rácsban található miniatűrre kattintva
+2. Kattintson a nézőprogram jobb felső sarkában található **réteg legördülő menüre**
 
-1. Nyisson meg egy képet teljes képernyős módban (kattintson bármelyik miniatűrre a Képmegjelenítőben)
-2. Keresse meg a **réteg legördülő menüt** a néző jobb felső sarkában
-3. A legördülő menü az aktuálisan kiválasztott réteget mutatja (pl. „JPG”)
-4. Kattintson a legördülő menüre az összes elérhető réteg megtekintéséhez
+3. Válasszon ki egy réteget — a kép azonnal frissül
 
-### Rétegek közötti váltás
+A legördülő menüben először a **JPG, RAW (eredeti), RAW (cél), RAW (reflektancia)** jelenik meg, ebben a sorrendben, majd az összes többi a termékek regisztrációjának sorrendjében.
 
-1. Kattintson a réteg legördülő menüre a lista megnyitásához
-2. Megjelennek az aktuális képhez elérhető összes rétegek
-3. Kattintson bármelyik réteg nevére az adott verzióra való váltáshoz
-4. A kép azonnal frissül, és a kiválasztott réteget jeleníti meg
+### Rétegbeállítások navigáláskor
 
-**Gyors váltás:**
+A **←**/**→** gombok megnyomásával a következő képre léphet, és a rendszer megpróbálja ugyanazon a rétegen tartani:
 
-* A legördülő menü megjegyzi az utolsó kiválasztást
-* A következő képre lépéskor az Chloros megpróbálja ugyanazt a rétegtípust megjeleníteni
-* Ha az a réteg nem létezik a következő képen, akkor alapértelmezésként a JPG jelenik meg
+1. **Először a pontos egyezés** — ha a következő képen van azonos nevű réteg, azt kapja meg. Ez biztosítja, hogy az egész sorozat végiglapozása során az `RAW (NDVI Index)` rétegen maradjon
+2. **Ezután típus szerinti egyezés** — egy indexréteg bármely indexréteget keres, egy LUT bármely LUT-ot, a reflektancia a reflektanciát, a cél a célt, az eredeti az eredetit, az alap az alapot
+3. **Ezt követően, kizárólag exportrétegek esetén** — a név megmarad akkor is, ha a réteg lista még nem frissült, mert a fájl már létezik a lemezen. Ez teszi lehetővé, hogy áttekintsd a termékeket, miközben a futtatás még írja őket
+4. **Egyéb esetben** — az első elérhető réteg, ami általában az alapkép
 
-### Rétegek elérhetősége
+A projektben található `.daq` és `.csv` sidecar fájlokat a nyílgombokkal történő navigálás kihagyja, így a képek közötti lépés során soha nem kerül sor fényérzékelős felvételre.
 
-Nem minden réteg érhető el minden képhez:
-
-**Mindig elérhető:*** ✅ JPG (minden képhez tartozik JPG-előnézet)
-
-**Feltételesen elérhető:**
-
-* ⚠️ RAW (Eredeti) – Csak akkor, ha a képet RAW vagy RAW+JPG módban rögzítették
-* ⚠️ RAW (Cél) – Csak akkor, ha a kép felismert kalibrációs célpontokat tartalmaz
-* ⚠️ RAW (Reflektancia) – Csak reflektancia-kalibrációval történő feldolgozás után
-* ⚠️ RAW (\[Index] Index) – Csak indexek konfigurálásával történő feldolgozás után
+A nagyítás és a pásztázás a képek között is átvitelre kerül, ami egyszerűvé teszi ugyanazon mezőpozíció előtti és utáni összehasonlítását.
 
 ***
 
-## Rétegek megőrzése
+## A képpontértékek megértése rétegenként
 
-### Képek közötti navigálás
+A [Kijelölő értékek panel](opening-an-image-full-screen.md#cursor-values) a kurzor alatt lévő csatornánkénti valós értéket jeleníti meg abban a mértékegységben, amelyben az adott réteg tárolva van. Az oszlopok a rétegtől függően változnak:
 
-Ha egy másik képre vált (a nyílgombokkal vagy a miniatűrökre kattintva):**A rétegbeállítások megmaradnak:**
+| Réteg | Megjelenített mértékegység | Megjegyzések |
+| --- | --- | --- |
+| Alap (JPG / PNG / TIFF előnézet) | DN, 0–255 | Kijelzett értékek, RGB-en gamma-korrigálva. Csak vizuális ellenőrzésre |
+| RAW (Eredeti) | DN | Nyers szenzoros digitális értékek. A hisztogram tengelye jelzi a mélységet: 255 (8 bites), 4095 (12 bites) vagy 65535 (16 bites) |
+| RAW (Debayered) | DN | Lineáris, nincs kijelzőbeli kiterjesztés |
+| RAW (Előnézet) / Fehér egyensúly | DN | Kijelzői érték — kiterjesztett vagy gamma-korrigált. Nem mérésre szolgál |
+| RAW (Sugárzás) | **W/m²/sr/nm** | Float32 fizikai sugárzás. Nincs DN oszlop |
+| RAW (reflektancia) | DN **és %** | A százalékos érték a fájl saját skálája alapján számítva — lásd alább |
+| Index / LUT / sandbox exportok | Indexérték, vagy RGB komponensek | Egycsatornás indexfájl az indexértéket jelenti; egy színképezett LUT-fájl az Red/Green/Blue komponenseket jelenti |
 
-* Ha „RAW (Reflectance)” nézetet tekint meg, a következő kép „RAW (Reflectance)” nézetet jelenít meg (ha elérhető)
-* Ha „RAW (NDVI Index)” nézetet tekint meg, a következő kép „RAW (NDVI Index)” nézetet jelenít meg (ha elérhető)
-* Ha ugyanaz a réteg nem létezik, alapértelmezésként JPG jelenik meg
+### Fényvisszaverődés: a skála fájlonkénti
 
-**Példa a munkafolyamatra:**
+{% hint style="warning" %}
+**A „65 535-tel osztás” csak az Survey3 esetében helyes.** A LATTICE fényvisszaverődési értékek más skálán vannak tárolva, és a két osztószám összekeverése a leggyakoribb módja annak, hogy a fényvisszaverődési értékek pontosan a felükre csökkenjenek.
+{% endhint %}
 
-1. Nyissa meg az 1. képet, váltson át a RAW (NDVI Index) rétegre
-2. Nyomja meg a → gombot a 2. kép megtekintéséhez
-3. A 2. kép automatikusan a RAW (NDVI Index) réteget jeleníti meg
-4. Folytassa a navigálást – az összes kép az NDVI réteget jeleníti meg
-5. Nagyon hatékony az indexeredmények áttekintéséhez számos kép esetében
+| Forrás | A 1,0-s fényvisszaverődési értéknek megfelelő DN | Azonosító |
+| --- | --- | --- |
+| **LATTICE**(M3C / M3M) |**32768** | Az `Chloros:PixelScale=32768` XMP-címke, amely minden LATTICE-reflektancia-exportba be van illesztve. A 2×-es tartalék azt jelenti, hogy az 1,0 feletti ρ értékek nem vágódnak le, hanem ábrázolhatók |
+| **Survey3**|**65535** | Nincs Chloros XMP skála címke — az Survey3 kalibráció a ρ × dtype-max értéket írja be, és 1,0-nál levágja |
+
+GIS és szkriptelés esetén: olvassa be az `Chloros:PixelScale` értéket a fájlból, és ossza el vele. Ha a címke hiányzik, a fájl Survey3-skálájú (65535). A néző, az index/LUT sandbox és az indexexport egyaránt ugyanígy határozza meg a skálát, így a kurzor helyén látható szám az az érték, amelyet az indexszámítás is használt.
+
+Ezen skála feletti formátum-specifikus tárolás:
+
+* **TIFF (32-bites, százalék)** a DN / 65535 értéket lebegőpontos számként tárolja
+* **PNG (8 bites)**és**JPG (8 bites)** a DN × 255 / 65535 értéket tárolja
+* Egy **8 bites forrásból származó rögzítés**8 bites TIFF**formátumú exportja** nem átméretezésre kerül, hanem 0–255 közé van korlátozva, és szándékosan nem tartalmaz skála-címkét. A panel ezeknél a fájloknál csak a DN-értéket jeleníti meg, százalékos oszlop nélkül
+
+### Indexérték-tartományok
+
+| Indexcsalád | Tipikus tartomány | Érték |
+| --- | --- | --- |
+| Normalizált különbség (NDVI, GNDVI, NDRE, ENDVI…) | −1 és +1 között | Az egészséges növényzet értéke általában 0,4–0,9; a csupasz talajé 0 közelében; a vízé negatív |
+| Talajkorrigált (SAVI, OSAVI, MSAVI2…) | nagyjából −1 és +1,5 között | Hasonló érték, mint az NDVI esetében, de a talajháttér kiszűrésre került |
+| Arány (GRVI, GCI, MSR, CIRE…) | felfelé korlátlan | Az arányok korlátlanul növekednek, ahogy a nevező sávja nullához közeledik |
+| EVI / LAI | 0 és ~1, 0 és ~3,5 között | A felhők és más telített képpontok mindkettőt a tartományon kívülre tolják — először maszkolja ki őket |
+
+Az egyes előre beállított értékek mögött álló pontos képleteket lásd a [Multispektrális indexképletek](../project-settings/multispectral-index-formulas.md) alatt.
 
 ***
 
 ## Gyakori munkafolyamatok
 
-### 1. munkafolyamat: Előtte/utána összehasonlítás
+### Előtte–utána összehasonlítás
 
-**Cél**: Az eredeti és a kalibrált kép összehasonlítása
+1. Válassza ki a **RAW (Eredeti)** réteget, és jegyezze meg a vignettálást és a kalibrálatlan értékeket
+2. Váltson át a **RAW (Reflektancia)** rétegre
+3. Hasonlítsa össze — a vignettálás eltűnt, az értékek kalibrálva vannak. A nagyítás és a pásztázás rögzítve marad, így ugyanazt a területet látja
 
-1. Nyissa meg a feldolgozott képet a Képmegjelenítőben
-2. Válassza ki a **RAW (Eredeti)** lehetőséget a legördülő menüből
-3. Jegyezze meg a vignettálást és a nem kalibrált értékeket
-4. Váltson át a **RAW (Reflektancia)** lehetőségre a legördülő menüből
-5. Hasonlítsa össze – a vignettálás eltűnt, az értékek kalibrálva vannak
+### Egy index áttekintése a teljes sorozaton
 
-### 2. munkafolyamat: Index áttekintése
+1. Nyissa meg az első feldolgozott képet, és válassza ki az indexréteget
+2. Nyomja meg többször a **→** gombot — az indexréteg követi Önt képről képre
+3. Figyelje az oldalsávon látható hisztogramot közben: az olyan képkockát, amelynek eloszlása ugrásszerűen változik, érdemes alaposabban megvizsgálni
 
-**Cél**: Az NDVI eredmények gyors áttekintése az adatkészleten belül
+### A kalibrációs célpontok ellenőrzése
 
-1. Nyissa meg az első feldolgozott képet
-2. Válassza ki a legördülő menüből a **RAW (NDVI Index)** lehetőséget
-3. A → nyílgombbal lépjen a következő képre
-4. Az NDVI réteg automatikusan megmarad
-5. Folytassa az összes kép áttekintését, ellenőrizve az NDVI mintákat
-6. Váltson át a **RAW (NDRE Index)**-re az összehasonlításhoz
+1. Válassza ki a **RAW (Cél)** elemet egy célképkockán
+2. Győződjön meg arról, hogy a cél jól látható és felismerhető
+3. Lépjen a következő célképkockára — a célréteg követi
 
-### 3. munkafolyamat: Célpont-ellenőrzés
+### Ellenőrizze a reflexiós értékek pontosságát
 
-**Cél**: Ellenőrizze, hogy az összes célképet helyesen észlelte-e a rendszer
-
-1. Keresse meg a célképet
-2. Válassza ki a legördülő menüből a **RAW (Target)** elemet
-3. Ellenőrizze, hogy a kalibrációs célpontok jól láthatóak és észlelhetők-e
-4. Keresse meg a következő célképet
-5. Ismételje meg az ellenőrzést az összes cél esetében
-
-### 4. munkafolyamat: Pixelérték-ellenőrzés
-
-**Cél**: Ellenőrizze a visszaverődési értékek tudományos pontosságát
-
-1. Nyissa meg a feldolgozott képet
-2. Válassza ki a **RAW (Reflectance)** réteget
-3. Kapcsolja be a **Pixel Percent** módot (gomb a jobb felső eszköztáron)
-4. Vigye a kurzort a növényzet területeire
-5. Ellenőrizze, hogy a pixelértékek a várt tartományban vannak-e (30–70% az NIR esetében, 5–15% az Red esetében)
-6. Ellenőrizze a talaj- és vízterületek megfelelő értékeit
+1. Válassza ki a **RAW (Reflexió)** elemet
+2. Olvassa le a **%** oszlopot a Cursor Values panelen – az adott fájlhoz már megfelelően van méretezve
+3. Ellenőrizze a képben szereplő ismert anyagok alapján: az egészséges növényzet NIR értéke magas, a vörös értéke alacsony; a kalibrációs célpontnak a közzétett reflexiós értékéhez közel kell lennie
 
 ***
-
-## A pixelértékek megértése rétegenként
-
-A különböző rétegek eltérő pixelérték-tartományokat mutatnak:
-
-### JPG réteg
-
-* **Tartomány**: 0–255 (8 bites)
-* **Jelentés**: Megjelenítési értékek, gamma-korrigált
-* **Használat**: Csak vizuális ellenőrzésre, nem tudományos mérésre
-
-### RAW (Eredeti)
-
-* **Tartomány**: 0–65535 (16 bites)
-* **Jelentés**: Nyers érzékelői digitális értékek
-* **Használat**: Az érzékelő teljesítményének ellenőrzése, nem kalibrált
-
-### RAW (reflektancia)
-
-* **Tartomány**: 0–65 535 (16 bites TIFF) vagy 0,0–1,0 (32 bites százalék)
-* **Jelentés**: Kalibrált százalékos reflektancia
-* **Használat**: Tudományos mérések és elemzések**16 bites TIFF esetén:**Oszd el 65 535-tel a százalékos reflektancia kiszámításához**32 bites százalékos értékek esetén:** Az értékek közvetlenül a százalékot jelzik (0,5 = 50% reflektancia)
-
-### RAW (indexképek)
-
-* **Tartomány**: Indexenként változik (normalizált indexek esetén általában -1,0 és +1,0 között)
-* **Jelentés**: Indexszámítás eredménye
-* **Példák**:
-  * NDVI: -1 és +1 között (növényzet esetén általában 0,4 és 0,9 között)
-  * NDRE: -1 és +1 között (stresszfelismerés)
-  * EVI: 0 és 1 között (fokozott növényzet)
-
-***
-
-## Tippek és bevált gyakorlatok
-
-### Hatékony rétegváltás
-
-* **Billentyűparancsok**: Nincs billentyűparancs a rétegekhez, de a navigációs nyilak (←/→) minden rétegen működnek
-* **Következetes munkafolyamatok**: Válasszon ki egy réteget (pl. NDVI), és tekintse át a teljes adatsort, mielőtt átváltana egy másikra
-* **Gyors összehasonlítás**: Váltson az Eredeti és a Reflektancia rétegek között a feldolgozás minőségének ellenőrzéséhez
-
-### Teljesítménybeli szempontok
-
-* **A JPG betöltődik a leggyorsabban**: Használja a sok kép közötti gyors navigáláshoz
-* **A RAW rétegek lassabban töltődnek be**: Magasabb felbontás és bitmélység
-* **Index rétegek**: Hasonló sebesség, mint a Reflektancia rétegeknél
-* **Az első betöltés a leglassabb**: Ugyanazon réteg későbbi megtekintései gyorsítótárba kerülnek, és gyorsabbak
-
-### Minőségellenőrzés
-
-* **Mindig ellenőrizze a RAW (Eredeti) réteget**: Ellenőrizze a forrásadatok minőségét, mielőtt megbízna a feldolgozott eredményekben
-* **Hasonlítsa össze a rétegeket**: Használja a rétegváltást, hogy ellenőrizze, a feldolgozás megfelelően működött-e
-* **Ellenőrizze az index tartományokat**: Használja a Pixel Percent módot az index rétegekkel, hogy ellenőrizze, az értékek ésszerűek-e***
 
 ## Hibaelhárítás
 
-### A réteg nem elérhető
+### A várt réteg nem szerepel a legördülő menüben
 
-**Probléma**: A várt réteg nem jelenik meg a legördülő menüben**Lehetséges okok:**
+**Lehetséges okok**
 
-* A kép nem került feldolgozásra (csak JPG és RAW (eredeti) áll rendelkezésre)
-* A feldolgozás során a reflektancia-kalibrálás le volt tiltva
-* Az adott index nem volt beállítva a Projektbeállításokban
-* A kép kizárólag célpontot tartalmaz (a célpontokhoz nem generálódnak indexek)
+* A képet soha nem dolgozták fel — csak az alapréteg és az `RAW (Original)` létezik
+* A termék exportálási kapcsolója nincs bejelölve a Projektbeállításokban
+* A termék nem vonatkozik arra a kamerára (sugárzás és visszaverődés egy RGB mesterkamerán; bármely index egycsatornás M3M monokamerán)
+* A reflexió kalibrálásához nem volt megfelelő alap — nincs `.daq` lefelé irányuló lefedettség, és nincs minőségbiztosításon átment célpont a képkockában — ezért a képkocka visszatért a „Vignette Corrected” vagy a „Sensor Response” értékre
 
-**Megoldások:**
+**Mit kell tenni**
 
-1. Ellenőrizze, hogy a kép feldolgozásra került-e (ellenőrizze a kimeneti mappát a feldolgozott fájlok után)
-2. Ellenőrizze a Projektbeállításokat, hogy az indexek be vannak-e állítva
-3. Dolgozza fel újra a kívánt indexek engedélyezésével
+1. Ellenőrizze a futtatás naplóját: az Chloros jelzi, ha egy kért exporttermék elkészítése lehetetlen volt, és megadja az okát is
+2. Ellenőrizze a [Project Settings](../project-settings/project-settings.md) menüpontban a termékenkénti exportkapcsolókat
+3. Győződjön meg arról, hogy a termék mappa létezik a projekt kimeneti fákban
+4. Végezze el újra a feldolgozást a termék engedélyezésével
 
-### Rossz réteg jelenik meg
+### A réteg lista elavultnak tűnik
 
-**Probléma**: A kép váratlan rétegben nyílik meg**Ok**: Az előző kép rétegbeállítása átkerült, de az a réteg nem létezik a jelenlegi képen**Megoldás**: Az Chloros automatikusan JPG-re vált, ha a preferált réteg nem elérhető – ez normális viselkedés
+Az Chloros futás közben újra beolvassa a projekt termékmappáit, és a lemezen ténylegesen található adatok alapján kijavítja a hiányzó rétegregisztrációkat, így egy normálisan exportált réteg önmagában jelenik meg egy lekérdezés során. Ha elnavigál a képről, majd visszatér rá, az újbóli felbontást kényszerít.
 
-### A kalibrációs célpontok nem láthatók
+### A reflexiós értékek a várt érték felének tűnnek
 
-**Probléma**: A RAW (Célpont) réteg nem jeleníti meg a célpont-felismerést**Lehetséges okok:**
+Szinte biztos, hogy a LATTICE fájlt 65535-tel osztja. Használja az `Chloros:PixelScale` (32768) parancsot, vagy olvassa el a **%** oszlopot, amelyben ez már alkalmazásra került.
 
-* A feldolgozás során nem sikerült felismerni a célpontokat
-* A kép valójában nem tartalmaz célpontokat
-* A célpontfelismerési beállítások túl szigorúak
+### Az indexréteg létezik, de a kép üres
 
-**Megoldások:**
-
-1. Ellenőrizze a hibakeresési naplóban, hogy szerepel-e „Célpont megtalálva” üzenet
-2. Ellenőrizze, hogy a kép valóban tartalmaz-e látható kalibrációs célpontokat
-3. Állítsa be a célpontfelismerési beállításokat a Projektbeállításokban
-4. Lásd [Célképek kiválasztása](../processing-images-gui/choosing-target-images.md)
-
-***
-
-## Kapcsolódó funkciók
-
-### Képmegjelenítő eszközök
-
-Bármely réteg megtekintésekor a következőket használhatja:
-
-* **Nagyítási vezérlők**: Nagyítson a részletek megtekintéséhez
-* **Panorámázás**: Kattintson és húzza az egérrel a nagyított kép mozgatásához
-* **Pixelesszám-ellenőrzés**: Az értékek megtekintése a kurzor helyén
-* **Navigációs nyilak**: Váltson a képek között a réteg megőrzése mellett
-* **Pixelszázalék mód**: Váltson a DN és a százalékos megjelenítés között
-
-A Képmegjelenítő teljes dokumentációját lásd a [Kép teljes képernyős megnyitása](opening-an-image-full-screen.md) című részben.
-
-### Index/LUT Sandbox
-
-Interaktív index teszteléshez és vizualizáláshoz:
-
-* **Valós idejű index számítás**: Különböző index képletek tesztelése
-* **LUT színleképezés**: Színátmenetek alkalmazása szürkeárnyalatos indexekre
-* **Vizualizációk exportálása**: Színes index képek mentése
-
-A részleteket lásd az [Index/LUT Sandbox](index-lut-sandbox.md) oldalon.
+Az indexhez olyan sávokra van szükség, amelyekkel a réteg nem rendelkezik — például egy olyan index, amely egy harmadik csatornát olvas be, miközben egy egy- vagy kétcsatornás fájlra van alkalmazva. Váltson többsávos rétegre (reflektancia vagy debayered), vagy válasszon olyan indexet, amely megfelel a kamera szűrőjének.
 
 ***
 
 ## Következő lépések
 
-Most, hogy már ismeri a képrétegeket:
-
-* [**Kép teljes képernyős megnyitása**](opening-an-image-full-screen.md) – Teljes Image Viewer útmutató
-* [**Index/LUT Sandbox**](index-lut-sandbox.md) – Interaktív index-megjelenítés
-* [**Multispektrális indexképletek**](../project-settings/multispectral-index-formulas.md) – A rendelkezésre álló indexek jegyzéke
-* [**A feldolgozás befejezése**](../processing-images-gui/finishing-the-processing.md) – A feldolgozott kimenetek megértése
+* [**Kép megnyitása teljes képernyős módban**](opening-an-image-full-screen.md) — kurzorérték-leolvasás, hisztogram és GSD-vezérlés
+* [**Index/LUT Sandbox**](index-lut-sandbox.md) — interaktív indexmegjelenítés és export
+* [**Multispektrális indexképletek**](../project-settings/multispectral-index-formulas.md) — az index-referencia
+* [**A feldolgozás befejezése**](../processing-images-gui/finishing-the-processing.md) — a kimeneti mappafák, amelyekre ezek a rétegek hivatkoznak

@@ -1,13 +1,13 @@
-# Támogatott nyelvek
+# Támogatott nyelvek A
 
-Az Chloros **világszerte 38 nyelven** biztosít teljes felületi támogatást, így a világ minden táján elérhető a felhasználók számára. A nyelveket az összes felületen azonnal megváltoztathatja: asztali számítógép, böngésző, CLI és Python SDK.
+Chloros**világszerte 38 nyelven** biztosít teljes felületi támogatást, így a világ minden táján elérhető a felhasználók számára. A nyelv azonnal átváltható mind az asztali grafikus felületen, mind a CLI oldalon. A
 
-Az Chloros a következő nyelveket támogatja:
+Chlorosa következő nyelveket támogatja:
 
-| # | Nyelv | Eredeti név | CLI kód |
+| # | Nyelv | Eredeti név | CLI-kód |
 |---|----------|-------------|----------|
-| 1 | 🇺🇸 Angol | English | `en` |
-| 2 | 🇪🇸 Spanyol | Español | `es` |
+| 1 | 🇺🇸 angol | English | `en` |
+| 2 | 🇪🇸 spanyol | Español | `es` |
 | 3 | 🇵🇹 Portugál | Português | `pt` |
 | 4 | 🇫🇷 Francia | Français | `fr` |
 | 5 | 🇩🇪 Német | Deutsch | `de` |
@@ -21,7 +21,7 @@ Az Chloros a következő nyelveket támogatja:
 | 13 | 🇸🇦 Arab | العربية | `ar` |
 | 14 | 🇵🇱 Lengyel | Polski | `pl` |
 | 15 | 🇹🇷 Török | Türkçe | `tr` |
-| 16 | 🇮🇳 Hindi | हिंदी | `hi` |
+| 16 | 🇮🇳 hindi | हिंदी | `hi` |
 | 17 | 🇮🇩 Indonéz | Bahasa Indonesia | `id` |
 | 18 | 🇻🇳 Vietnámi | Tiếng Việt | `vi` |
 | 19 | 🇹🇭 Thai | ไทย | `th` |
@@ -30,8 +30,8 @@ Az Chloros a következő nyelveket támogatja:
 | 22 | 🇳🇴 Norvég | Norsk | `no` |
 | 23 | 🇫🇮 Finn | Suomi | `fi` |
 | 24 | 🇬🇷 Görög | Ελληνικά | `el` |
-| 25 | 🇨🇿 Cseh | Čeština | `cs` |
-| 26 | 🇭🇺 Magyar | Magyar | `hu` |
+| 25 | 🇨🇿 cseh | Čeština | `cs` |
+| 26 | 🇭🇺 magyar | Magyar | `hu` |
 | 27 | 🇷🇴 Román | Română | `ro` |
 | 28 | 🇺🇦 Ukrán | Українська | `uk` |
 | 29 | 🇧🇷 brazil portugál | Português Brasileiro | `pt-BR` |
@@ -47,16 +47,16 @@ Az Chloros a következő nyelveket támogatja:
 
 ## Hogyan lehet nyelvet váltani
 
-### Chloros asztali számítógépen/böngészőben
+### Az „Chloros” asztali alkalmazásban
 
 1. Nyissa meg az alkalmazás beállításait
 2. Keresse meg a nyelvválasztó menüt
-3. Válassza ki a listából a kívánt nyelvet
+3. Válassza ki a kívánt nyelvet a listából
 4. A felület azonnal frissül
 
-### Chloros CLI
+### Az „Chloros” alkalmazásban CLI
 
-Az `language` parancs segítségével megtekintheti vagy megváltoztathatja az CLI felület nyelvét:
+Az `language` parancs segítségével megtekintheti vagy megváltoztathatja a „CLI” felület nyelvét:
 
 ```bash
 # View current language
@@ -75,19 +75,15 @@ chloros-cli language pt-BR
 chloros-cli language --list
 ```
 
-További részletekért lásd az [CLI dokumentációt](CLI.md).
+További részletekért lásd a [CLI dokumentációt](CLI.md).
 
-### Az Chloros Python SDK
-
-Az SDK inicializálásakor állítsa be a nyelvi paramétert, hogy az üzenetek és kimenetek a kívánt nyelven jelenjenek meg.
-
-## Lefedettség
+## Támogatás
 
 Mind a 38 nyelv teljes mértékben támogatott a következő területeken:
 
-* **Chloros Desktop** - Teljes GUI-fordítás
-* **Chloros Browser** - Webes felület minden nyelven
-* **Chloros CLI** - Parancssori felület és kimeneti üzenetek
-* **Chloros Python SDK** - API üzenetek és dokumentáció
+* **Chloros Desktop** – Teljes GUI-fordítás
+* **Chloros CLI** – Parancssori felület és kimeneti üzenetek
+
+A Python SDK API és a hozzá tartozó [referencia-dokumentáció](reference/sdk-reference.md) angol nyelven érhető el.
 
 A nyelvi támogatás biztosítja, hogy a felhasználók világszerte akadálymentesen, anyanyelvükön dolgozhassanak.

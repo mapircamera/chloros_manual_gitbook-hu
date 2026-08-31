@@ -6,37 +6,37 @@
 
 2026.07.29. 19:19 ·**Frissítés:**
 
-2026.08.30.**Csomag:** `chloros-sdk` (PyPI)**Célközönség:** Nagy nyelvi modellek (LLM) számára optimalizált; ember számára olvasható.**Hatály:** Az `import chloros_sdk` által elérhetővé tett minden nyilvános osztály, függvény és segédfüggvény, másolható példákkal a képfeldolgozás, az egykamerás vezérlés, a szinkronizált tömbök, a DAQ-érzékelők és a projekt automatizálása témakörében.
+2026.08.30.**Csomag:** `chloros-sdk` (PyPI)**Célközönség:** Nagy nyelvi modellek (LLM) számára optimalizált; ember számára olvasható.**Hatály:** Az `import chloros_sdk` által elérhetővé tett minden nyilvános osztály, függvény és segédfüggvény, másolható példákkal a képfeldolgozás, az egykamerás vezérlés, a szinkronizált tömbök, a DAQ-érzékelők és a projekt automatizálás területén.
 
-Ha csak a legfontosabb részeket szeretné megtekinteni, ugorjon ide:
-- [Telepítés és gyorsindítás](#installation)
-- [Smart-Connect a LATTICE-kamerákhoz](#smart-connect-for-lattice-cameras)
+Ha csak a legfontosabbakat szeretné megismerni, ugorjon ide:
+- [Telepítés és gyorsindítás](#telepítés)
+- [Smart-Connect a LATTICE-tömbökhöz](#smart-connect-for-lattice-cameras)
 - [DAQ-érzékelő-munkamenetek](#daq-sensor-sessions)
-- [Projekt automatizálás](#project-automation--chlorosproject)
+- [Projekt-automatizálás](#project-automation--chlorosproject)
 - [Smart-AE / Smart-Capture](#smart-ae--smart-capture)
 
 ---
 
 ## Az architektúra 60 másodpercben
 
-Az SDK egy vékony Python réteg az Chloros háttérrendszer felett (ugyanaz a Flask szerver, amelyet az asztali grafikus felület és az CLI is használ). Az automatizáláshoz importálja az `chloros_sdk`-et, és hívja meg a magas szintű módszereket; a háttérben minden hívás egy HTTP kéréssé válik a 5000-es porton futó helyi háttérrendszer felé — `http://127.0.0.1:5000/api/...` (szándékosan nem `localhost`, amely a Windows oldalon először az `::1`-re oldódik fel, és IPv4-es háttérrendszer esetén kérésenként ~2 másodpercet vesz igénybe). A háttérrendszer rendelkezik a hardverparkkal — kamerák, DAQ-érzékelők, igazítási profilok, képkocka-pufferek — így a SDK szkriptek a grafikus felhasználói felülettel (GUI) párhuzamosan futhatnak anélkül, hogy versengeniük kellene a soros portokért vagy a hálózati kártya sávszélességéért.
+A SDK egy vékony Python réteg a Chloros háttérrendszer felett (ugyanaz a Flask-szerver, amelyet a desktop GUI és a CLI is használ). Az automatizáláshoz importálja az `chloros_sdk`-et, és hívja meg a magas szintű módszereket; a háttérben minden hívás HTTP kéréssé alakul a 5000-es porton futó helyi háttérrendszer felé — `http://127.0.0.1:5000/api/...` (szándékosan nem az `localhost`, amely először az Windows oldalon az `::1`-re oldódik fel, és kérésenként ~2 másodpercet vesz igénybe egy kizárólag IPv4-et támogató háttérrendszer esetén). A háttérrendszer kezeli a hardverpoolt – kamerák, DAQ-érzékelők, igazítási profilok, képkocka-pufferek — így a SDK szkriptek a grafikus felhasználói felülettel együtt működhetnek anélkül, hogy a soros portokért vagy a hálózati kártya sávszélességéért kellene versengeniük.
 
 Három felületet fogsz használni:
 
-1. **`ChlorosLocal` + szabad függvények** (`process_folder`, `process_lattice_capture`) — Képfeldolgozó folyamat. Egyetlen Python hívással futtathatja le egy teljes mappa kalibrálását, debayerezését és indexexportját.
-2. **Smart-connect kezelők** (`connect_camera`, `connect_array`, `connect_daq_sensor`) — Tartós háttérmunkamenet megnyitása élő hardverhez. Ugyanaz a „smart-prep” folyamat, mint a grafikus felhasználói felületen: hálózati próba, automatikus rétegválasztás, PTP, AE-kezdőérték beállítása, GPIO-trigger konfiguráció.
-3. **`ChlorosProject` / `open_project`** — Mentett projekt betöltése (mappa az `cameras.json` + `sensors.json` + `project.json` fájlokkal), minden egyszerre történő csatlakoztatása, és a rögzítéseket névvel ellátott kezelőkkel vezérelje.
+1. **`ChlorosLocal` + szabad függvények** (`process_folder`, `process_lattice_capture`) — Képfeldolgozó folyamat. Egyetlen „Python” hívással futtathatja végig egy teljes mappát a kalibráláson, a debayerezésen és az index-exporton.
+2. **Smart-connect kezelők** (`connect_camera`, `connect_array`, `connect_daq_sensor`) — Nyisson meg egy állandó háttérmunkamenetet az élő hardverhez. Ugyanaz a „smart-prep” folyamat, mint a grafikus felhasználói felületen: hálózati próba, réteg automatikus kiválasztása, PTP, AE inicializálás, GPIO-trigger konfiguráció.
+3. **`ChlorosProject` / `open_project`** — Betölti a mentett projektet (mappa, amely tartalmazza az `cameras.json` + `sensors.json` + `project.json` fájlokat), egyszerre csatlakoztat mindent, és névvel ellátott kezelőkkel vezérli a rögzítéseket.
 
-Az 1. és 2. felületen **automatikusan elindít egy helyi háttérprogramot**, ha még nincs ilyen futásban (ugyanazt a csomagban lévő bináris fájlt, amelyet a GUI/CLI indít el) — így egy egyszerű szkript is működik egy friss parancssorból anélkül, hogy előbb el kellene indítanod a háttérprogramot. Az `auto_start_backend=False` átadásával kikapcsolhatod ezt (pl. ha távoli háttérprogramra mutat, amelyet soha nem indítanak el). Lásd [A háttérprogram automatikus indítása](#backend-auto-start). A Surface 3 másképp viselkedik: az `open_project()` nem fogad el `auto_start_backend` paramétert, az `connect_all()` pedig soha nem indít el háttérprogramot — egyszer megpróbálja az `http://127.0.0.1:5000`-et, és ha semmi sem válaszol, csendben visszatér a közvetlen (háttérprogram nélküli) `lattice_sdk` eszközvezérlésre. Csak az `proj.process()` és az `stream(..., overlays=True)` hozza létre késleltetetten egy `ChlorosLocal()`-et (amely automatikusan elindul).
+Az 1. és 2 **automatikusan elindít egy helyi háttérprogramot**, ha még nincs ilyen futó (ugyanaz a csomagban lévő bináris fájl, amelyet a GUI/CLI indít el) — így egy egyszerű szkript is működik egy friss parancssorból anélkül, hogy előbb el kellene indítanod a háttérprogramot. Az `auto_start_backend=False` átadásával kikapcsolhatod ezt (pl.például amikor távoli háttérprogramra mutat, amelyet soha nem indítanak el). Lásd [A háttérprogram automatikus indítása](#backend-auto-start). A Surface 3 másképp viselkedik: az `open_project()` nem fogad el `auto_start_backend` paramétert, az `connect_all()` pedig soha nem indít el háttérfolyamatot — egyszer megpróbálja az `http://127.0.0.1:5000`-et, és ha semmi sem válaszol, csendben visszatér a közvetlen (háttér nélküli) `lattice_sdk` eszközvezérlésre. Csak az `proj.process()` és az `stream(..., overlays=True)` hozza létre késleltetetten az `ChlorosLocal()`-et (amely automatikusanindítást).
 
 Mindhárom hitelesítéshez kötött: futtassa egyszer az `chloros-cli login` parancsot a gépen, vagy jelentkezzen be az asztali grafikus felületen keresztül. Az érvényes munkamenet nélküli SDK hívások `ChlorosAuthenticationError` hibát eredményeznek.
 
 Követelmények:
-- Python 3.7+ (a csomag leírása szerint; 3.10-en fejlesztették és tesztelték)
+- Python 3.7+ (a csomag leírása szerint; 3.10-es verzión fejlesztve/tesztelve)
 - Helyileg telepített Chloros Desktop (a háttérprogram a telepítőben található)
-- Aktív Chloros+ bejelentkezés. A SDK / CLI szint legalább **Copper**(Copper / Bronze / Silver / Gold); az ingyenes**Iron**szint nem biztosít hozzáférést a SDK / CLI oldalhoz. Ez**szerveroldalon** kerül érvényesítésre: minden SDK / CLI jelöléssel ellátott kérésnek tartalmaznia kell mind élő munkamenetet, mind fizetett csomagot, különben a háttérrendszer `403` hibakódot ad vissza `error_code: PLAN_UPGRADE_REQUIRED` kóddal (amelyet az `ChlorosLocal` kóddal, az `connect_*` segédprogramok pedig `ChlorosConnectError` kóddal jelzik). A kijelentkezett felhasználó az `401` / `AUTH_REQUIRED` (`ChlorosAuthenticationError`) kódot kap — a kettő azért különbözik, mert az `chloros-cli login` újbóli futtatása az elsőt kijavítja, a másodikat viszont nem.
-- Az offline használat a csomag türelmi időszakán belül támogatott: a szintet a szerver-érvényesítési gyorsítótárból (5 perc) vagy az aláírt, géphez kötött licenc-gyorsítótárból (havi csomagok esetén 30 napig, éves előfizetések esetén az előfizetés lejáratáig). A türelmi időszak lejárta után a csomag ingyenesre vált, és az SDK / CLI hozzáférés addig szünetel, amíg a gép egyszer el nem éri a szervert. Az `chloros-cli status` (`GET /api/license-status`) az ingyenes szintre váltás után is elérhető marad, így látható az ok – ez az egyetlen SDK / CLI útvonal, amely mentes a szintkorlátozás alól.
-- Windows 10/11 64 bites, **Ubuntu 22.04 LTS vagy újabb**, vagy Jetson (JetPack 6). Az Ubuntu 20.04**nem** támogatott: az `.deb` függőségei abból származnak, amire a háttérprogram hivatkozik, beleértve az `libc6 (>= 2.34)`-et is, és a Focal a glibc 2.31-et szállítja.
+- Aktív Chloros+ bejelentkezés. A SDK / CLI szintje legalább **Copper**(Copper / Bronze / Silver / Gold); az ingyenes**Iron**szint nem biztosít hozzáférést a SDK / CLI oldalhoz. Ez**szerveroldalon** érvényesül: minden SDK / CLI jelöléssel ellátott kérésnek tartalmaznia kell mind aktív munkamenetet, mind fizetett csomagot, ellenkező esetben a háttérrendszer `403` hibakódot ad vissza `error_code: PLAN_UPGRADE_REQUIRED` hibakóddal (amelyet az `ChlorosLicenseError` segédprogramok `ChlorosLocal`X000101 néven, az `connect_*` segédprogramok pedig `ChlorosConnectError` néven jelenítik meg). A kijelentkezett hívó a `401` / `AUTH_REQUIRED` (`ChlorosAuthenticationError`) kódot kap – a kettő különbözik egymástól, mert a- a futó `chloros-cli login` az elsőt javítja, a másodikat viszont nem.
+- Az offline használat a csomag türelmi ideje alatt támogatott: a szintet a szerver-érvényesítési gyorsítótárból (5 perc) vagy az aláírt, gépre kötött licenc-gyorsítótárból olvassa be (30 nap havi csomagoknál, az éves előfizetés lejáratáig). A türelmi időszak lejárta után a csomag ingyenesre vált, és az SDK / CLI hozzáférés megszűnik, amíg a gép egyszer el nem éri a szervert. Az `chloros-cli status` (`GET /api/license-status`) az ingyenes szintnél is elérhető marad, így látható az ok — ez az egyetlen SDK / CLI útvonal, amely mentes a szintkorlátozás alól.
+- Windows 10/11 64 bites, **Ubuntu 22.04 LTS vagy újabb**, vagy Jetson (JetPack 6). Az Ubuntu 20.04**nem** támogatott: az `.deb`függőségei abból származnak, amire a háttérprogram hivatkozik, beleértve az `libc6 (>= 2.34)`-et is, a Focal pedig a glibc 2.31-et szállítja.
 
 ---
 
@@ -46,12 +46,12 @@ Az Python SDK egy vékony Python réteg a Chloros háttérprogram felett. Néhá
 
 Legfrissebb letöltések: [`https://mapir.gitbook.io/chloros/download`](https://mapir.gitbook.io/chloros/download)
 
-### 1. lépés — Telepítse az Chloros platformcsomagot
+### 1. lépés — Az Chloros platformcsomag telepítése
 
 #### Windows (.exe)
 
 1. Töltse le az `Chloros-Setup-x.y.z.exe` fájlt a letöltési oldalról.
-2. Indítsa el a telepítőt, és kövesse a varázsló utasításait. Az alapértelmezett telepítési útvonal az `C:\Program Files\MAPIR\Chloros\`.
+2. Futtassa a telepítőt, és kövesse a varázsló utasításait. Az alapértelmezett telepítési útvonal az `C:\Program Files\MAPIR\Chloros\`.
 3. Indítsa el legalább egyszer az Chloros oldalt, és jelentkezzen be a Chloros+ fiókjával.
 
 #### Linux amd64 (.deb)
@@ -72,33 +72,33 @@ chloros-cli --version
 chloros-cli login user@example.com 'YourPassword'
 ```
 
-### 2. lépés — Telepítse az Python SDK programot
+### 2. lépés — Telepítse az Python fájlt SDK
 
-**A Chloros telepítő egy megfelelő SDK wheel fájlt is tartalmaz.** Minden Windows telepítő és Linux .deb fájl egy olyan `chloros_sdk-X.Y.Z-py3-none-any.whl` fájlt helyez el a lemezen, amely pontosan megegyezik a GUI / CLI / backend verzióval. Nem kell a PyPI-t követnie a szinkronizálás érdekében.
+**Az Chloros telepítő egy megfelelő SDK wheel fájlt is tartalmaz.** Minden Windows telepítő és Linux .deb fájl egy `chloros_sdk-X.Y.Z-py3-none-any.whl` fájlt helyez el a lemezen, amely pontosan megegyezik a GUI / CLI / backend verzióval. Nem kell a PyPI-t követnie, hogy szinkronban maradjon.
 
 #### Windows
 
-A telepítő automatikusan futtatja az `pip install` fájlt a csomagban lévő wheel fájllal, a rendszer Python (előnyben részesíti az `py.exe` indítót, de visszaesik az `python -m pip`-re). Nincs szükség semmilyen beavatkozásra — az `import chloros_sdk` a sikeres telepítés után működik a Python környezetedben. Ha nincs Python a gépen, a telepítő csendben átugorjaezt a lépést, és a grafikus felület (GUI) valamint a CLI továbbra is működnek.
+A telepítő automatikusan futtatja az `pip install` fájlt a csomagban lévő wheel fájllal, a rendszer Python beállításait használva (előnyben részesíti az `py.exe` indítót, de visszatér az `python -m pip`-re). Nincs szükség semmilyen beavatkozásra — az `import chloros_sdk` a sikeres telepítés után az Python környezetben működik. Ha a gépen nincs Python, a telepítő csendben kihagyja ezt a lépést, és a grafikus felület (GUI) + az CLI továbbra is működik.
 
 #### Linux (.deb)
 
-A .deb fájl az `/usr/lib/chloros/sdk/` könyvtárba helyezi el a wheel fájlt. Az `postinst` fájl kinyomtatja a pontos parancsot — a PEP 668-nak megfelelő disztribúciók alapértelmezés szerint nem engedélyezik a globális pip-írásokat, ezért nem telepítjük automatikusan:
+A .deb a wheel fájlt az `/usr/lib/chloros/sdk/` helyre helyezi. Az `postinst` kimenet a pontos parancsot jeleníti meg — a PEP 668-nak megfelelő disztribúciók alapértelmezés szerint nem engedélyezik a globális pip-írásokat, ezért nem végzünk automatikus telepítést:
 
 ```bash
 pip install --user /usr/lib/chloros/sdk/chloros_sdk-*.whl
 ```
 
-Air-gapped Jetson-telepítések esetén ez teljesen offline történik — a wheel fájl már a lemezen található.
+Air-gapped Jetson-telepítések esetén ez teljesen offline történik — a wheel fájl már a lemezen van.
 
 #### Nyilvános PyPI
 
-Kizárólag pip-et használó gazdagépek esetén (nincs telepítve az Chloros asztali csomag; távoli háttérrendszerrel vagy kizárólag DAQ-val működő munkafolyamatok):
+Kizárólag pip-et használó gazdagépek esetében (nincs telepítve az Chloros asztali csomag; távoli háttérrel működő vagy kizárólag DAQ-ra épülő munkafolyamatok):
 
 ```bash
 pip install chloros-sdk
 ```
 
-A PyPI a kiadási verziójú telepítő-összeállításoknál frissül, így a közzétett wheel megegyezik a legújabb stabil kiadással. A fejlesztői összeállítások (pl. `1.1.4.dev1`) kizárólag a csomagban szereplő telepítő-wheel-en keresztül érhetők el.
+A PyPI a kiadási verziójú telepítőcsomagok elkészítésekor frissül, így a közzétett wheel megegyezik a legújabb stabil kiadással. A fejlesztői verziók (pl. `1.1.4.dev1`) kizárólag a csomagban szereplő telepítő wheel-en keresztül érhetők el.
 
 #### Ellenőrzés
 
@@ -112,27 +112,27 @@ print("PROJECT_AVAILABLE =", chloros_sdk.PROJECT_AVAILABLE)
 
 > **Chloros+ előfizetés szükséges.** Minden SDK híváshoz aktív Chloros+ bejelentkezés szükséges. Futtassa az `chloros-cli login user@example.com 'YourPassword'` parancsot egyszer minden gépen; a hitelesítő adatok az `~/.chloros/` fájlban kerülnek tárolásra.
 
-### Szükségem van a Desktop csomagra?
+### Szükségem van a Desktop Package-re?
 
-A legtöbb munkafolyamat esetében a pip csomag önmagában **nem** elegendő. Az egyes SDK felületekhez a következőkre van szükség:
+A legtöbb munkafolyamat esetében a pip csomag önmagában **nem** elegendő. Az alábbiakban bemutatjuk, mire van szüksége az egyes SDK felületeknek:
 
-| SDK felület | Szükséges-e a Desktop Package? | Miért |
+| SDK felület | Szükség van a Desktop Package-re? | Miért |
 | --- | --- | --- |
-| `ChlorosLocal`, `process_folder`, `process_lattice_capture` | **Igen** | Automatikusan elindítja a háttérprogramot az `/usr/lib/chloros/chloros-backend` (Linux) vagy az `C:\Program Files\MAPIR\Chloros\…` (Windows) címeken. |
-| `connect_camera`, `connect_array`, `connect_daq_sensor`, `analyze_array_network`, `list_*`, `discover_*` | **Igen**(helyi)**/ Nem**(távoli) | Tiszta HTTP kliensek a háttérrendszeren keresztül. Helyi háttérrendszer → asztali csomag szükséges. Távoli háttérrendszer → `backend_url=`**alagúton keresztül** (lásd: Távoli háttérrendszer mód — a szállított háttérrendszerek csak a loopback-hez kapcsolódnak). |
-| `ChlorosProject` / `open_project` | **Igen** | A mentett projekteket a háttérrendszeren keresztül futtatja. |
-| Közvetlen LATTICE osztályok (`LatticeCamera`, `CameraPool`, `Calibration`, `DLS`, …) | **Igen** | Szükség van az Arena SDK natív futtatókörnyezetére, amely az asztali csomagban található. Az `CAMERA_AVAILABLE` egyébként importáláskor `False`-ként jelenik meg. |
-| Közvetlen DAQ osztályok (`DAQUSensor`, `DAQMSensor`, `DAQESensor`, `SensorFleet`, `discover_all`) | **Nem** | Tiszta Python pyserial/bleak/zeroconf felett. Egy kizárólag pip-et használó környezet végpontok közötti DAQ-vezérlést tesz lehetővé. |
+| `ChlorosLocal`, `process_folder`, `process_lattice_capture` | **Igen** | Automatikusan elindítja a háttérbináris fájlt az `/usr/lib/chloros/chloros-backend` (Linux) vagy az `C:\Program Files\MAPIR\Chloros\…` (Windows) fájlban. |
+| `connect_camera`, `connect_array`, `connect_daq_sensor`, `analyze_array_network`, `list_*`, `discover_*` | **Igen**(helyi)**/ Nem**(távoli) | Tiszta HTTP kliensek a háttérrendszeren keresztül. Helyi háttérrendszer → asztali csomag szükséges. Távoli háttér → `backend_url=`**alagúton keresztül** (lásd: Távoli háttér mód — a szállított háttérprogramok csak a loopback-hez kapcsolódnak). |
+| `ChlorosProject` / `open_project` | **Igen** | A mentett projekteket a háttérrendszeren keresztül hajtja végre. |
+| Közvetlen LATTICE osztályok (`LatticeCamera`, `CameraPool`, `Calibration`, `DLS`, …) | **Igen** | Szükség van az Arena SDK natív futtatókörnyezetére, amely az asztali csomagban található. Az `CAMERA_AVAILABLE` egyébként importáláskor `False`-nek felel meg. |
+| Közvetlen DAQ osztályok (`DAQUSensor`, `DAQMSensor`, `DAQESensor`, `SensorFleet`, `discover_all`) | **Nincs** | Tiszta Python pyserial/bleak/zeroconf felett. Egy kizárólag pip-et használó környezet végpontok között képes vezérelni a DAQ-okat. |
 
 ### Távoli háttérmód (kizárólag pip-et használó gazdagép, alagúton keresztül)
 
-> **A szállított háttér nem érhető el a LAN-on keresztül.** A termelési
-> verziók kizárólag a loopback-hez kapcsolódnak (mindkét loopback-család), és határozottan elutasítják a
-> nem loopback módot (`CHLOROS_CLOUD_MODE`), így az
-> `backend_url="http://<lan-ip>:5000"` **nem működik egy telepített
-> Chloros** — ez a minta eddig csak source/dev
-> háttérprogrammal működött. Ha egy másik gépen lévő háttérprogramot szeretne vezérelni, akkor saját maga továbbítsa annak loopback
-> portját, és az SDK fájlt irányítsa az alagútra:
+> **A mellékelt háttérprogram nem érhető el a LAN-on keresztül.** A termelési
+> verziók kizárólag a loopback-hez kapcsolódnak (mindkét loopback-családhoz), és határozottan elutasítják az
+> egyetlen nem loopback módot (`CHLOROS_CLOUD_MODE`), így
+> az `backend_url="http://<lan-ip>:5000"` **nem működik egy telepített
+> Chloros** esetén — ez a minta eddig csak source/dev
+> háttérrel működött. Ha egy másik gépen lévő háttért szeretnéd vezérelni, irányítsd át annak a loopback
+> portját, és irányítsd a SDK-t az alagútra:
 
 ```bash
 # on the pip-only host: forward local 5000 to the Chloros machine's loopback
@@ -149,13 +149,13 @@ chloros_sdk.connect_array(serials, backend_url=BACKEND)
 chloros_sdk.connect_daq_sensor(eth_host="daq-e-1.local", backend_url=BACKEND)
 ```
 
-A headless / CI / robotikai gazdagépek egy gépet tarthatnak meg a teljes asztali telepítéssel, mint „Chloros-kiszolgálót”, minden máshol pedig az `pip install chloros-sdk`-et — de a kettő közötti átvitel a fenti, felhasználó által beállított alagút, nem pedig közvetlen LAN-URLáció.
+A headless / CI / robotikai gazdagépek megtarthatnak egy gépet teljes asztali telepítéssel, mint „Chloros-kiszolgálót”, minden máshol pedig az `pip install chloros-sdk`-et – de a kettő közötti átvitel a fenti, felhasználó által beállított alagút, nem pedig közvetlen LAN-URLáció.
 
-> **Ismert korlátozás — az `ChlorosLocal` nem képes kizárólag pip-en keresztül működni.** Az `ChlorosLocal(backend_url=BACKEND)` jelenleg a konstruktorában *még azelőtt* feloldja a helyi háttérprogramot, hogy megpróbálná felderíteni a URL-t, és `ChlorosBackendError` hibát jelez („Chloros-háttér nem található…”) hibaüzenetet, ha nincs telepítve asztali csomag — még akkor is, ha elérhető a távoli háttér. Csak a fenti smart-connect felület (`connect_camera` / `connect_array` / `connect_daq_sensor`, valamint az `analyze_array_network` és az `list_*` / `discover_*` segédprogramok) működnek kizárólag pip-csomaggal rendelkező gazdagépen.
+> **Ismert korlátozás – az `ChlorosLocal` nem támogatja kizárólag a pip használatát.** Az `ChlorosLocal(backend_url=BACKEND)` jelenleg a konstruktorában *még azelőtt* felold egy helyi háttérprogramot, hogy megpróbálná felderíteni a URL-t, és `ChlorosBackendError` hibát jelez („Chloros háttérprogram nem található…”) hibaüzenetet, ha nincs telepítve asztali csomag — még akkor is, ha elérhető a távoli háttérprogram. Csak a fenti smart-connect felület (`connect_camera` / `connect_array` / `connect_daq_sensor`, valamint az `analyze_array_network` és az `list_*` / `discover_*` segédprogramok) működik egy kizárólag pip-et futtató gazdagépről.
 
-### Kizárólag DAQ-ra épülő munkafolyamat (kizárólag pip-csomaggal rendelkező gazdagép)
+### Kizárólag DAQ-ra épülő munkafolyamat (csak pip-et futtató gazdagép)
 
-Ha csak DAQ-érzékelőkre van szükséged, és nem használsz LATTICE-kamerákat vagy képfeldolgozást, a pip-csomag önállóan működik:
+Ha csak DAQ-érzékelőkre van szüksége, és nem használ LATTICE-kamerákat vagy képfeldolgozást, a pip-csomag önállóan működik:
 
 ```bash
 pip install chloros-sdk
@@ -172,7 +172,7 @@ sensor.connect()
 sensor.start_streaming()
 ```
 
-Nincs háttérprogram, nincs .deb, nincs Chloros+ bejelentkezés szükséges a közvetlen hardveres DAQ-munkához.
+Nincs háttérprogram, nincs .deb fájl, és a közvetlen hardveres DAQ-munkához nem szükséges bejelentkezni az Chloros+ oldalra.
 
 ---
 
@@ -211,7 +211,7 @@ proj.disconnect_all()
 
 ---
 
-## Főszintű API index
+## A legfelső szintű „API” index
 
 ```python
 import chloros_sdk
@@ -271,7 +271,7 @@ chloros_sdk.PROJECT_AVAILABLE    # True iff ChlorosProject deps available
 
 ## Képfeldolgozás — `ChlorosLocal`
 
-A fő folyamatkezelő osztály. Első használatkor elindítja a háttérprogramot, létrehozza és konfigurálja a projekteket, figyelemmel kíséri a folyamatot, és futás utáni összefoglalókat ad vissza.
+A fő pipeline-osztály. Első használatkor elindítja a háttérprogramot, létrehozza és konfigurálja a projekteket, figyelemmel kíséri a folyamatot, és a futtatás után összefoglalót ad vissza.
 
 ### Konstruktor
 
@@ -293,17 +293,17 @@ ChlorosLocal(
 | --- | --- |
 | `create_project(project_name, camera=None)` | Új projekt létrehozása (opcionálisan egy kamerasablonnal, például az `"Survey3N_RGN"`-szel). |
 | `import_images(folder_path, recursive=False)` | RAW/TIF/JPG/DNG képek **és `.daq` fényérzékelő-felvételek** importálása. Visszaadja az `count` (képek) és az `scan_count` (felvételek) értékeket. Csak akkor jelez figyelmeztetést, ha a mappában egyik sem található. |
-| `export_light_sensor(daq=True, csv=True)` | Minden fényérzékelő-felvételhez kalibrált `.daq` + `.csv` fájlokat ír-érzékelős felvételről a projektben az `<project>/Light Sensor/` fájlba. Lásd [Fényérzékelős felvételek](#light-sensor-recordings--calibrated-daq--csv). |
+| `export_light_sensor(daq=True, csv=True)` | A projekt minden fényérzékelő-felvételéhez kalibrált `.daq` + `.csv` fájlokat ír a `<project>/Light Sensor/` fájlba. Lásd [Fényérzékelő-felvételek](#light-sensor-recordings--calibrated-daq--csv). |
 | `configure(debayer=..., vignette_correction=..., reflectance_calibration=..., indices=[...], export_format=..., ppk=..., daq_log_path=..., input_level=..., radiometric_output=..., array_alignment=..., array_alignment_crop=..., array_alignment_interpolation=..., custom_settings=None)` | Állítsa be a feldolgozási paramétereket. |
 | `process(mode="parallel", wait=True, progress_callback=None, poll_interval=2.0)` | Futtassa a feldolgozási folyamatot. Visszaadja az `{"status": "complete", "async": False}` értéket, valamint egy `summary` kulcsot, ha a háttérrendszer biztosít ilyet — lásd [Futtatás utáni összefoglaló és tippek](#post-run-summary--hints). |
 | `get_config()` / `get_status()` / `status()` | A háttérrendszer állapotának ellenőrzése. |
 | `logout()` | A gyorsítótárban tárolt hitelesítő adatok törlése. |
-| `shutdown_backend()` | A háttérprogram leállítása (ha SDK -started). |
-| `discover_cameras()` | LATTICE kamerák felkutatása **ezen példány háttérrendszere segítségével** (`/api/camera/discover`). Szótárak listáját adja vissza (`serial`, `model`, `ip`, …) — ugyanolyan formátumban, mint amit a GUI/ CLI lát. Üres lista, ha nem található, vagy a háttérprogram nem érhető el. |
-| `camera_capture(output_dir, format="tiff", **settings)` | Egyetlen képkocka rögzítése**a háttérprogramon keresztül**(automatikusindítású) úgy, hogy ugyanazt az előkészítést kapja, mint a GUI/ CLI (alapértelmezés szerint 12 bit, pool újrafelhasználás, beágyazott kalibrációs metaadatok). A célt az `serial=` vagy az `device_index=` parancsokkal határozza meg; adja át az `exposure`/`gain`/`pixel_format`/`preset` értékeket `**settings`-ként adja át. Visszaadja a régi metaadat-szótárat (`filepath`, `width`, `height`, `pixel_format`, `exposure_time`, `gain`, `timestamp`). |
-| `camera_stream(serial, *, fps=10.0, overlay=None, decode=True, connect_timeout=10.0, read_timeout=15.0)` | Összeállított előnézeti képkockák előállítása egy összevont kamerából — vékony MJPEG-kliens a háttérrendszer `/api/camera/<serial>/stream-annotated` útvonalán keresztül (zebra / rács / célkereszt / hisztogram / csúcsjelzés / spot szerveroldalon rajzolva). Az `decode=True` BGR-tömböket ad vissza; az `False` nyers JPEG bájtot ad vissza. Projektként is elérhető az `ChlorosProject.stream(overlays=True)` néven. |
+| `shutdown_backend()` | A háttérprogram leállítása (ha SDK -indítva). |
+| `discover_cameras()` | LATTICE kamerák felkutatása **ezen példány háttérrendszerén keresztül** (`/api/camera/discover`). Szótárak listáját adja vissza (`serial`, `model`, `ip`, …) — ugyanolyan formában, ahogyan a GUI/ CLI látja. Üres lista, ha nem található, vagy a háttérprogram nem érhető el. |
+| `camera_capture(output_dir, format="tiff", **settings)` | Egyetlen képkocka rögzítése**a háttérrendszeren keresztül**(ezt a kezelő automatikusan elindítja), így ugyanazt az előkészítést kapja, mint a GUI/CLI (alapértelmezés szerint 12 bit, pool újrafelhasználás, beágyazott kalibrációs metaadatok). A célt az `serial=` vagy az `device_index=` parancsokkal határozza meg; az `exposure`/`gain`/`pixel_format`/`preset` kódokat `**settings` kódként. Visszaadja a régi metaadat-szótárat (`filepath`, `width`, `height`, `pixel_format`, `exposure_time`, `gain`, `timestamp`) szótárat. |
+| `camera_stream(serial, *, fps=10.0, overlay=None, decode=True, connect_timeout=10.0, read_timeout=15.0)` | Összeállított előnézeti képkockák generálása egy összevont kamerából — vékony MJPEG-kliens a háttérrendszer `/api/camera/<serial>/stream-annotated` útvonalán keresztül (zebra / rács / célkereszt / hisztogram / csúcsjelzés / pont szerveroldalon rajzolva). Az `decode=True` BGR-tömböket ad ki; az `False` nyers JPEG bájtokat ad ki. Elérhető továbbá az-project néven is elérhető: `ChlorosProject.stream(overlays=True)`. |
 
-Használja kontextuskezelőként a garantált tisztításhoz:
+Használja kontextuskezelőként a garantált tisztítás érdekében:
 
 ```python
 with chloros_sdk.ChlorosLocal() as cl:
@@ -321,42 +321,42 @@ print(results["summary"])
 
 ### Fényérzékelő-felvételek — kalibrált `.daq` + `.csv`
 
-A DAQ-U / DAQ-M / DAQ-E **a**kalibrációs csomag**nélkül** is rögzíthető. Ez az,
-amit a nyilvános [`chloros_scripts`](https://github.com/mapircamera/chloros_scripts)
-felvevők (`record_daq.py`) alapértelmezés szerint ezt teszik: a nyers érzékelőértékeket írják ki, és megjelölik a
-fájlt, így a Chloros **a sorozatszám alapján** letölti az érzékelő gyári kalibrációját — először a helyi gyorsítótárból
-először, majd a MAPIR felhőből — és az importáláskor alkalmazza azt.
+A DAQ-U / DAQ-M / DAQ-E **a**kalibrációs csomag**nélkül** is rögzíthető. Ezt
+teszik alapértelmezés szerint a nyilvános [`chloros_scripts`](https://github.com/mapircamera/chloros_scripts)
+felvevők (`record_daq.py`) alapértelmezés szerint: a nyers érzékelőértékeket írják ki, és ellátják a
+fájlt egy jelöléssel, így a Chloros **a sorozatszám alapján** letölti az adott érzékelő gyári kalibrációját — először a helyi gyorsítótárból,
+majd a MAPIR felhőből — és az importáláskor alkalmazza azt.
 
-A Chloros az eredményt felvételenként két termékként írja vissza, az
-`<project>/Light Sensor/` alatt:
+A Chloros az eredményt felvételenként két termék formájában írja vissza, a
+`<project>/Light Sensor/` név alatt:
 
-| Termék | Mi ez |
+| Termék | Mi ez? |
 | --- | --- |
-| `<name>_calibrated.daq` | Az újrafeldolgozható archívum — ugyanaz a sémája, mint az élő felvételnek, most már feltüntetve azt a csomagot, amely létrehozta. Újbóli importálása **nem** kalibrálja újra. |
-| `<name>_calibrated.csv` | Spektrális irsugárzás W/m²/nm-ben az érzékelő saját hullámhossz-rácsán, egy sor minden mérési értékre, valamint fotometrikus oszlopok (teljes teljesítmény, fotopikus/skotopikus lux, PPFD és annak kék/zöld/vörös felosztás, csúcs hullámhossz). |
-| `<name>_raw.daq` / `<name>_raw.csv` | **Csak csomag nélküli érzékelők (DAQ-A).** Nyers spektrális érzékelőimpulzusok — *nem* sugárzási intenzitás. Lásd alább. |
+| `<name>_calibrated.daq` | Az újrafeldolgozható archívum — ugyanaz a sémája, mint az élő felvételnek, de most már megadja azt a csomagot is, amely létrehozta. Újbóli importálásakor **nem** kalibrálódik újra. |
+| `<name>_calibrated.csv` | Spektrális besugárzás W/m²/nm-ben az érzékelő saját hullámhossz-rácsán, egy sor minden mérési értékre, valamint fotometriai oszlopok (teljes teljesítmény, fotopikus/skotopikus lux, PPFD és annak kék/zöld/vörös bontása, csúcshullámhossz). |
+| `<name>_raw.daq` / `<name>_raw.csv` | **Kizárólag csomag nélküli érzékelők (DAQ-A).** Nyers spektrális érzékelő-impulzusok — *nem* sugárzási intenzitás. Lásd alább. |
 
 Az `process()` ezt az exportot az egyik lépéseként végzi el. Ehhez **nincs** szükség képanyagra:
-az önállóan repülő fényérzékelő önmagában is elsőrendű munkafolyamatot jelent, és egy ilyen projektnek
-kialakításából adódóan nincs képe.
+az önállóan repült fényérzékelő önmagában is elsőrendű munkafolyamatot jelent, és egy ilyen projektnek
+tervezéséből adódóan nincs képanyaga.
 
-**A DAQ-A felvételek nyers impulzusokként kerülnek exportálásra.** A DAQ-A család a sorozatszámonkénti
+**A DAQ-A felvételek nyers számértékekként kerülnek exportálásra.** A DAQ-A család a sorozatszámonkénti
 csomagrendszert megelőzően jött létre, és nincs letöltendő csomagja — helyette a terepen egy
 reflektancia-célponttal kalibrálják, ezért soha nem is volt rá szüksége. Ezek a felvételek
-`_raw` kiterjesztéssel exportálódnak, nem pedig `_calibrated` előtaggal: ez egy eltérő fájlnév, nem pedig egy
-fájlon belüli jelző, mivel az azonosítónak meg kell maradnia, ha puszta névként továbbítják e-mailben. Az
-`.csv` fejléc `raw spectral sensor counts (NOT irradiance)` értéket jelöl, és figyelmeztet arra, hogy az
-értékek **a** fájlon belül összehasonlíthatók – pontosan erre használja őket a célalapú kalibrálás
-–, és nem az érzékelők között. A teljesítményfüggő fotometrikus oszlopok (teljes teljesítmény,
-fotopikus/szkotopikus lux, PPFD) **NULL** értéket adnak vissza, ahelyett, hogy a számlálásokból integrálnák őket.
+`_raw` kiterjesztéssel exportálódnak, nem pedig `_calibrated`-szel: egy eltérő fájlnévvel, nem pedig a fájlban lévő jelzővel,
+mert a jelölésnek meg kell maradnia, ha puszta névként továbbítják e-mailben. Az
+`.csv` fejlécben az `raw spectral sensor counts (NOT irradiance)` szerepel, és figyelmeztet arra, hogy az
+értékek **a** fájlon belül összehasonlíthatók — pontosan erre használja őket a célalapú kalibrálás
+— — és nem az érzékelők között. A teljesítményfüggő fotometrikus oszlopok (teljes teljesítmény,
+fotopikus/szkotopikus lux, PPFD) **NULL** értéket adnak vissza, a számlálásokból történő integrálás helyett.
 
-Egy olyan DAQ-U / DAQ-M / DAQ-E, amelynek csomagja egyszerűen nem volt letölthető, továbbra is **kihagyásra kerül**,
+Egy DAQ-U / DAQ-M / DAQ-E, amelynek csomagja egyszerűen nem volt letölthető, továbbra is **kihagyásra kerül**,
 nem kerülnek nyers formában írásra: ebben az esetben a csomag létezik, és a „újracsatlakozás és újrafeldolgozás” valóban jó tanács.
 
-A régebbi **v1.01 / v1.02** felvételek (ezeket a DAQ-A-SD írja) nem tartalmaznak olvasásonkénti időpontot,
-csak a fájl írási idejét. Az image↔downwelling egyeztető továbbra is elutasítja őket — egy
-képkocka és az írási idő összehasonlítása láthatatlanul hibás lenne —, de az exportáló program beolvassa őket, és az
-CSV kinyomtatja az `clock=daq_created_on` fájlt, így a termék jelzi, hogy melyik órára van beállítva.
+A régebbi **v1.01 / v1.02** felvételek (amelyeket a DAQ-A-SD ír) nem tartalmaznak olvasásonkénti korszakot,
+csak a fájlírási idejét. Az image↔downwelling illesztő továbbra is elutasítja őket — egy
+képkocka és az írási idő összeillesztése láthatatlanul hibás lenne —, de az exportáló beolvassa őket, és a
+CSV kinyomtatja az `clock=daq_created_on` kódot, így a termék jelzi, hogy melyik órára van beállítva.
 
 ```python
 import chloros_sdk
@@ -372,10 +372,10 @@ for rec in result["skipped"]:
     print("skipped", rec["source"], "--", rec["reason"])
 ```
 
-Azokat a felvételeket, amelyek kalibrációs csomagja nem tölthető le (offline állapotban, vagy olyan érzékelő esetén, amelynek
-nincs kalibrációs fájlja), az `skipped` kód alatt **az ok megjelölésével** kerül jelentésre. Soha nem
-kerül kiírásra „kalibrált” fájlként, amely nyers számadatokat tartalmaz – csatlakozzon az internethez, és
-futtassa újra a műveletet, így az export befejeződik.
+Az a felvétel, amelynek kalibrációs csomagja nem tölthető le (offline állapotban, vagy olyan érzékelő esetén, amelynek
+nincs kalibrációs fájlja) az `skipped` kód alatt **az ok megjelölésével** kerül jelentésre. Soha nem
+kerül kiírásra „kalibrált” fájlként, amely nyers számlálási adatokat tartalmaz — csatlakozzon az internethez, és
+futtassa újra a folyamatot, így az export befejeződik.
 
 ### Haladási visszahívások
 
@@ -392,7 +392,7 @@ with chloros_sdk.ChlorosLocal() as cl:
 
 ### Futtatás utáni összefoglaló és tippek
 
-A befejezés után az `process()` lekérdezi az `GET /api/processing-summary` fájlt, és a testét `result["summary"]` néven csatolja. A lekérdezés a legjobb erőfeszítés alapján történik, és soha nem blokkolja a sikeres visszatérést — ha az összefoglaló nem érhető el, az `process()` visszatér az egyszerű `{"status": "complete", "async": False}` formátumra. Az `summary["hints"]` minden bejegyzése – teljes mondatok a javasolt javítással, pl. miért nem eredményezett kimenetet egy futtatás — szintén újraküldésre kerül Python `UserWarning` formátumban, így a nulla kimenetű futtatások önellenőrzőek, még akkor is, ha soha nem vizsgálja meg a szótárat:
+A befejezés után az `process()` letölti az `GET /api/processing-summary` fájlt, és a tartalmát `result["summary"]` néven csatolja a testet. A letöltés a legjobb erőfeszítés alapján történik, és soha nem gátolja a sikeres visszatérést – ha az összefoglaló nem érhető el, az `process()` visszatér az egyszerű `{"status": "complete", "async": False}` formátumra. Az `summary["hints"]` minden bejegyzése – teljes mondatok a javasolt javítással, pl. miért nem eredményezett kimenetet egy futtatás — szintén újraküldésre kerül „Python” formátumban (`UserWarning`), így a nulla kimenetű futtatások önellenőrzőek, még akkor is, ha soha nem vizsgálja meg a szótárat:
 
 ```python
 result = cl.process()
@@ -406,37 +406,37 @@ for hint in result.get("summary", {}).get("hints", []):
 
 | Kulcs | Mit számol |
 | --- | --- |
-| `models` | A futtatásban szereplő kameracsoportok száma. |
-| `images_in_groups` | Azokhoz a csoportokhoz tartozó forrásképek száma. |
+| `models` | A futtatásban szereplő kameracsoportok. |
+| `images_in_groups` | Azokhoz a csoportokhoz tartozó forrásképek. |
 | `targets_found` | Észlelt reflektancia-célpontok. |
 | `images_calibrated` | A futtatás során kalibrált képek. |
 | `exported_files` | **A futtatás során létrehozott képfájlok.** |
 | `daq_recordings_exported` / `daq_recordings_skipped` | Fényérzékelő-felvételek, amelyeket szándékosan külön számoltak — ezek egy másik szakaszból származnak, és olyan futásoknál is léteznek, ahol egyáltalán nincsenek képek, így ha ezeket is beleszámolnánk, akkor egy kizárólag adatgyűjtésre szolgáló futás úgy tűnne, mintha képeket is exportált volna. |
 
-Ezek mellett: `summary["output_dirs"]` (minden írási célpontként szolgáló könyvtár),
-`summary["light_sensor_export"]`, `summary["stopped"]` (igaz, ha a felhasználó megszakította a
-futást, így a részleges számlálások nem jelzik azt, hogy a futás befejeződött, de kevesebb eredményt hozott), és
+Ezek mellett: `summary["output_dirs"]` (minden írt könyvtár),
+`summary["light_sensor_export"]`, `summary["stopped"]` (akkor igaz, ha a felhasználó megszakította a
+futást, így a részleges számlálások nem jelennek meg befejezett futásként, amely alultermelt), és
 `summary["groups"]` (a csoportonkénti bontás).
 
 Az `exported_files`-et a folyamat **az írás közben** rögzíti, nem pedig utólag a
-projekt képobjektumaiból. A párhuzamos és a GPU-stratégiák saját képobjektumokat hoznak létre
-(a GPU-útvonalak esetében a munkavállalói alfolyamatokban), így a régi beolvasás minden ilyen futásnál
-`0 file(s) written` értéket jelentett, majd kiadta a nulla exportra utaló jelzést — olyan futásoknál,
-ahol minden rendben működött. Ha ezt a számot használja a szkriptjében, egy hibátlan párhuzamos futtatás most már
-nem nulla értéket jelent.
+projekt képobjektumaiból olvassa ki. A párhuzamos és a GPU-stratégiák saját képobjektumokat
+hoznak létre (a GPU-útvonalak esetében a munkavégző alfolyamatokban), így a régi beolvasás
+`0 file(s) written` értéket jelentett minden ilyen futtatásnál, majd kiadta a nulla exportra utaló jelzést – olyan futtatásoknál is,
+ahol minden rendben működött. Ha ezt a számot használod a szkriptedben, egy hibátlan párhuzamos futtatás most már
+nem nulla számot jelent.
 
-A Light-sensor-kihagyások az olvasó által az egyes fájlokhoz ténylegesen megállapított okot jelentik –
-olvashatatlan sémát, hiányzó csomagot, írási hibát – **duplikációmentesítve**, így húsz fájl
-kihagyását egyetlen okként jeleníti meg, ahelyett, hogy húszszor ismételné azt.
+A Light-sensor kihagyások jelentése a leolvasó által az egyes fájlokhoz ténylegesen megállapított okot jelenti –
+olvashatatlan sémát, hiányzó csomagot, írási hibát – **duplikációmentesen**, így a
+egy ok miatt kihagyott húsz fájl egy okként jelenik meg, ahelyett, hogy húszszor ismétlődne.
 
 > **Az `process()` nem dob hibaüzenetet, ha egy futtatás nem eredményez képeket.** Ez az egyetlen pont, ahol az SDK és
 > az CLI szándékosan eltérnek egymástól: az `chloros-cli process` a „termékeket kérték, de egyet sem
-> írtak” üzenetet hibaüzenetként kezeli, és nullától eltérő értékkel lép ki, míg az SDK normál módon tér vissza, és az
-> állapotot az `summary` / hints-en keresztül jelenti. Ha a folyamatnak üres futás esetén le kell állnia, ellenőrizze
-> saját maga — vizsgálja meg az `summary` kódot (vagy számolja meg a projektmappa alatti fájlokat), ahelyett, hogy
-> a kivétel hiányára támaszkodna. A szokásos okok a következők: egy bemeneti mappa, amelyet nem ismert fel
-> rögzítésként, valamint a jelen lévő kamerákra nem alkalmazható termékek kihagyása (pl. a RGB -only
-> kamerák).
+> írtak” helyzetet hibaként kezeli, és nem-nullát ad vissza, míg az SDK normál módon tér vissza, és az
+> állapotot az `summary` / hints-en keresztül jelenti. Ha a feldolgozási folyamatnak üres futás esetén le kell állnia, ellenőrizze
+> saját maga – vizsgálja meg az `summary`-et (vagy számolja meg a projektmappa alatti fájlokat), ahelyett, hogy arra,
+> hogy nem történt kivétel. A szokásos okok a következők: a bemeneti mappa nem lett felismerve
+> rögzítésként, illetve a termékek kihagyásra kerültek, mivel a jelen lévő kamerákra nem alkalmazhatók (pl. a RGB -only
+> kamerák sugárzása).
 
 ### Kényelmi funkciók
 
@@ -502,7 +502,7 @@ False         # export in native sensor geometry / skip the common-overlap crop
 
 #### Radiometrikus kimenet (LATTICE multispektrális feldolgozási folyamat)
 
-Az `process` feldolgozási folyamat LATTICE multispektrális (M3C/M3M) exportszintje — `reflectance` (alapértelmezett), `radiance`, `sensor-response` vagy `all` (minden alkalmazható mód képenként) — a projekt**„Radiometrikus kimenet”** feldolgozási beállításához. Az `configure()`-hez külön kulcsszó tartozik:
+Az `process` feldolgozási folyamat LATTICE multispektrális (M3C/M3M) exportszintje — `reflectance` (alapértelmezett), `radiance`, `sensor-response` vagy `all` (minden képhez tartozó alkalmazható mód) — a projekt **„Radiometrikus kimenet”** feldolgozási beállításához rendelődik. Az `configure()`-hez külön kulcsszó tartozik:
 
 ```python
 with chloros_sdk.ChlorosLocal() as cl:
@@ -515,7 +515,7 @@ with chloros_sdk.ChlorosLocal() as cl:
     cl.process()
 ```
 
-A speciális kiskapu — a projekt `"Radiometric output"` kulcsának `custom_settings`-en keresztül történő megadása — továbbra is működik, de ne feledje, hogy ez a teljes beállítási blokkot felülírja (lásd az alábbi figyelmeztetést):
+A speciális menekülési út — a projekt `"Radiometric output"` kulcsának `custom_settings`-en keresztül történő megadása — továbbra is működik, de ne feledje, hogy ez a teljes beállítási blokkot felülírja (lásd az alábbi figyelmeztetést):
 
 ```python
 cl.configure(custom_settings={
@@ -526,9 +526,9 @@ cl.configure(custom_settings={
 })
 ```
 
-Az `reflectance` (az alapértelmezett) a kamera sugárzási intenzitását osztja az **időbélyeggel egyező DAQ lefelé irányuló sugárzással**, amelyet automatikusan határoz meg egy rögzített `.daq` (DAQ-U/M/E)**vagy egy DAQ-M natív `.csv`**adatból, amely a képek mellett található; ha bármely kamera- vagy DAQ-kalibrációs csomag hiányzik helyileg, azt az első használatkor**automatikusan letölti az AWS-ből**. Az CLI ezt típusonkénti termékkapcsolóként teszi elérhetővé az `chloros-cli process` oldalon: `--radiance`/`--no-radiance`, `--reflectance`/`--no-reflectance`, `--debayered`, `--preview`.
+`reflectance` (az alapértelmezett) a kamera sugárzási intenzitását osztja el az **időbélyeggel egyező DAQ lefelé irányuló sugárzással**, amelyet automatikusan meghatároznak egy rögzített `.daq` (DAQ-U/M/E)**vagy egy DAQ-M natív `.csv`**fájlból; ha helyileg hiányzik bármely kamera- vagy DAQ-kalibrációs csomag, azt az első használatkor**automatikusan letölti az AWS**-ből. Az CLI ezt típusonkénti termékkapcsolóként teszi elérhetővé az `chloros-cli process` oldalon: `--radiance`/`--no-radiance`, `--reflectance`/`--no-reflectance`, `--debayered`, `--preview`.
 
-> Az `custom_settings` **felülírja** a teljes számított beállítási blokkot (megkerüli az `configure()`többi kulcsszavát és az érvényesítést). Használatakor vegyen fel minden olyan `Project Settings` kulcsot, amely fontos Önnek, a fenti példához hasonlóan.
+> Az `custom_settings` **felváltja** a teljes kiszámított beállítások blokkját (tervezésénél fogva figyelmen kívül hagyja az `configure()` többi kulcsszavát és érvényesítését). Használatakor vegyen fel minden olyan `Project Settings` kulcsot, amelyre szüksége van , ahogy a fenti példában is látható.
 
 ---
 
@@ -568,31 +568,31 @@ connect_camera(
 ) -> CameraSession
 ```
 
-#### `CameraSession` módszerek
+#### `CameraSession` Módszerek
 
 | Módszer | Leírás |
 | --- | --- |
 | `read_nodes(names, enum_names=(), timeout=30.0)` | GenICam csomópontok olvasása; visszaadja az `{nodes, errors, enums, device}` értéket. |
 | `set_settings(**kwargs)` | Csomópontok írása barátságos név alapján (`exposure_time`, `gain`, `pixel_format`, `width`, `height`, `target_brightness`, `ae_damping`, `ae_upper_limit`, `trigger_mode`, `trigger_source`, …). |
-| `capture(output_dir="output", ext=".tiff", jpeg_quality=95, processing=None, levels=None, force_daq=None, settings=None, timeout=None)` | **Egyetlen** képkocka rögzítése. Visszaad egy elemből álló listát, amely a képkocka metaadat-szótárait tartalmazza. (A sorozatfelvétel/többképkockás rögzítés eltávolításra került — ha sorozatra van szüksége, hívja meg az `capture()` függvényt egy ciklusban.) |
+| `capture(output_dir="output", ext=".tiff", jpeg_quality=95, processing=None, levels=None, force_daq=None, settings=None, timeout=None)` | **Egyetlen** képkocka rögzítése. A képkocka metaadat-szótárakból álló, egy elemből álló listát ad vissza. (A sorozatfelvétel/többképkockásképkockák rögzítése eltávolításra került — ha sorozatra van szüksége, hívja meg az `capture()`-et egy ciklusban.) |
 | `disconnect()` | Felszabadítás a poolból. Nincs hatása, ha már egy megnyitott munkamenethez csatlakoztunk. |
 
 `capture()` exportvezérlők (ugyanaz a modell, mint a tömb + GUI):
 
-- `processing` / `levels` — `processing="all"` minden alkalmazandó exporttípust elment; `levels=["raw","radiance"]` csak azokat menti (felülírja az `processing`-et). A háttérprogram alapértelmezett beállításához hagyja ki mindkettőt.
-- `force_daq=True` — a hozzárendelt DAQ/DLS-leolvasást `.daq` sidecar-ként menti el még nyers adatfelvétel esetén is, így a képkocka később újra feldolgozható reflektancia/index formátumra. Ha nincs DAQ csatlakoztatva, akkor nincs hatása.
+- `processing` / `levels` — az `processing="all"` minden alkalmazható exporttípust elment; az `levels=["raw","radiance"]` csak azokat menti (felülírja az `processing`-et). A háttérprogram alapértelmezett beállításához mindkettőt hagyja ki.
+- `force_daq=True` — a hozzárendelt DAQ/DLS-leolvasást `.daq` sidecar-ként, még kizárólag nyers adatokat tartalmazó rögzítés esetén is, így a képkocka később újra feldolgozható reflektancia/törésmutató formátumba. Ha nincs DAQ összekapcsolva, akkor nincs hatása.
 
 ### Szinkronizált tömb — `ArraySession` (Smart-Prep)
 
-Az `connect_array` **az ajánlott belépési pont** a többkamerás felállásokhoz. A háttérben a teljes GUI-s smart-prep folyamatot futtatja:
+Az `connect_array` **az ajánlott kiindulási pont** a többkamerás felállásokhoz. A háttérben a teljes GUI-s Smart-Prep folyamatot futtatja:
 
 1. **Hálózati elemzés** (`/api/camera/array/recommend`) — megkeresi a legnagyobb olyan képkockaméretet, amely illeszkedik a sim-emit szinthez anélkül, hogy képkockák vesznének el.
 2. **Szint automatikus kiválasztása** — `sim-capture-sim-emit`, ha a hálózat képes kezelni; ellenkező esetben `sim-capture-ftd-stagger` vagy `slip-emit-and-capture`.
-3. **Automatikus kicsinyítés**— észrevétlenül kicsinyíti a keretméretet / növeli a binninget, ha a vezeték nem képes fenntartani a kért felbontást.**Ez a biztonsági háló nem terjed ki az összesített túljegyzésre**: a vezeték számára túl sok kamera problémáját nem lehet a keretek kicsinyítésével megoldani — lásd [Túlterhelés](#over-subscription-the-per-cam-floor).
-4. **PTP alapértelmezés szerint engedélyezve** — a kamerák közötti időbélyegek mikroszekundumon belül összehasonlíthatók.
+3. **Automatikus kicsinyítés**— észrevétlenül kicsinyíti a képkockaméretet / növeli a binninget, ha a vezeték nem képes fenntartani a kért felbontást.**Ez a biztonsági háló nem terjed ki az összesített túljegyzésre**: a vezetékhez képest túl sok kamera problémáját nem lehet képkockák kicsinyítésével megoldani — lásd [Túljegyzés](#over-subscription-the-per-cam-floor).
+4. **PTP alapértelmezés szerint engedélyezve**— a kamerák közötti időbélyegek**~1 ms**pontossággal egy közös órára igazodnak. Az egyidejű expozíciót az M8 hardveres trigger biztosítja (**&lt; 100 µs** modulok között), nem a PTP: a PTP az *időbélyegeket* igazítja, nem az expozíciókat.
 5. **Kameránkénti pixelformátum-automatikus kiválasztás** — RGB kamerák → `BayerRG8`, multispec → `BayerRG12`.
-6. **AE-beállítás** — pillanatképet készít minden kamera aktuális AE-állapotáról, így a csatlakozás nem állítja vissza az expozíciót a felvétel közben.
-7. **GPIO-trigger konfiguráció** — az `connect_array` minden kamerát (`TriggerMode=On`, `TriggerSource=Line2`), így a master impulzusai az M8-as kábelen keresztül vezérlik a slave-eket. Ez egy kizárólag tömbökre vonatkozó lépés: egyetlen kamera megnyitásához az `LatticeCamera` free-parancsot használva.
+6. **AE-beállítás mentése** — pillanatképet készít minden kamera aktuális AE-állapotáról, így a csatlakozás nem állítja vissza az expozíciót menet közben.
+7. **GPIO-trigger konfiguráció** — az `connect_array` minden kamerát (`TriggerMode=On`, `TriggerSource=Line2`), így a master impulzusa az M8-as kábelen keresztül vezérli a slave-eket. Ez a lépés csak tömb esetén érvényes: az `LatticeCamera` paranccsal megnyitott egyetlen kamera helyette szabadon fut.
 
 ```python
 import chloros_sdk
@@ -627,52 +627,52 @@ connect_array(
 ```
 
 `force_tier` értékek:
-- `"sim-capture-sim-emit"` — valódi egyidejűség (minden kamera ugyanazon az órajel-élén indít).
+- `"sim-capture-sim-emit"` — valódi egyidejűség (minden kamera ugyanazon órajel-élnél indít).
 - `"sim-capture-ftd-stagger"` — rugalmas időtartománybeli eltolás (a kamerák kissé eltolt időpontokban sugároznak, így a csomagok sorba rendeződnek a vezetéken).
-- `"slip-emit-and-capture"` — szekvenciális, kameránkénti rögzítés (nincs időbeli szinkronizálás; ez az egyetlen lehetőség, ha egyetlen keretméret sem felel meg a szimultán módnak).
+- `"slip-emit-and-capture"` — kameránkénti szekvenciális rögzítés (nincs időbeli szinkronizálás; ez az egyetlen lehetőség, ha egyetlen keretméret sem felel meg a szimultán üzemmódnak).
 
-Az `wire_ceiling_mbps` felülírja a **gazdagép tartós vezetékes sávszélesség-keretét** MB/s-ban — ez az az egyetlen
-szám, amelytől az egész tömb allokációja függ. Hagyja `None` értékre, hogy az automatikus-felismert
-értéket használja. Csökkentse, ha a tömb GVSP-sérült kereteket jelent: az automatikus érték a
-hálózati kártya által jelzett kapcsolatsebességből származik, amely túlbecsüli az USB-adaptereket, a keskeny PCIe sávokat és
-forgalmas megosztott hálózatok esetében — túlbecsüli a sebességet, és ez a túlbecslés sérült keretek formájában jelenik meg, nem pedig
-szemmel láthatóan lassú kapcsolatként. Az érték a projekt tömb-rögzítési blokkjában kerül mentésre, így egy
-újbóli megnyitás vagy egy későbbi `connect_array` parancs visszaállítja azt, akárcsak bármely más tömbbeállítást.
-Lásd [Tömbállapot](#array-health--which-subsystem-is-losing-frames).
+Az `wire_ceiling_mbps` felülírja a **gazdagép folyamatos vezetéki sávszélesség-keretét** MB/s-ban — ez az az egyetlen
+szám, amelytől az egész tömb allokációja függ. Hagyja `None` értéken az automatikusan észlelt
+érték használatához. Csökkentse, ha a tömb GVSP-sérült kereteket jelent: az automatikus érték a
+NIChirdetett kapcsolati sebességéből származik, amely túlbecsüli az USB-adaptereket, a keskeny PCIe-sávokat és
+a terhelt megosztott hálózatokat — és ez a túlbecslés sérült keretek formájában jelenik meg, nem pedig
+szemmel láthatóan lassú kapcsolati sebességként. Az érték a projekt tömb-rögzítési blokkjában marad meg, így egy
+újbóli megnyitáskor vagy egy későbbi `connect_array` parancs végrehajtásakor a többi tömbbeállításhoz hasonlóan visszaáll.
+Lásd [Tömb állapota](#array-health--which-subsystem-is-losing-frames).
 
-#### Túljegyzés (a kameránkénti alsó határ)
+#### Túlterhelés (a kameránkénti alsó határ)
 
-A Sim-emit ütemezés minden kamerának kioszt egy részt az ütközésbiztos vezeték-kapacitásból, amelynek alsó határa **kameraenként 8 MB/s**(`per_cam_floor_bps`). Amint az `N × floor` túllépi az ütközésmentes felső határt, a rendszer**túlterheli a vezetéket**— a hiba módja a GVSP-csomagvesztés, nem pedig alacsonyabb képkockasebesség — és nincs megoldás a képkockaméretre:**a binning és az ROI csökkenti a képkockánkénti bájtokat, nem pedig a másodpercenkénti ütemezett bájtokat**az összesített ellenőrzés ezt hasonlítja össze. Gyakorlati teljes felbontású felső határok egy 1 GbE-s gazdagépen:**6 kamera 1500 MTU-val, 9 jumbo keretekkel** (az `max_cams_collision_safe` az elemzési válaszban jelenti a vezeték felső határát). Megoldások: kevesebb kamera, végpontok közötti jumbo-keretek, vagy gyorsabb hálózati kártya.
+A Sim-emit pacing minden kamerának kioszt egy részt az ütközésbiztos sávszélesség-keretből, amelynek alsó határa **kameraenként 8 MB/s**(`per_cam_floor_bps`). Amint az `N × floor` túllépi az ütközésmentes felső határt, a tömb**túlterheli a vezetéket**— a hiba módja a GVSP-csomagvesztés, nem pedig alacsonyabb képkockasebesség — és a képkockaméretre vonatkozóan nincs megoldás:**a binning és az ROI csökkenti a képkockánkénti bájtokat, nem pedig a másodpercenkénti szabályozott bájtokat**, amelyeket az összesítő ellenőrzés hasonlít össze. Gyakorlati teljes felbontású felső határok egy 1 GbE-s gazdagépen:**6 kamera 1500 MTU-val, 9 jumbo keretekkel** (az `max_cams_collision_safe` az elemzési válaszban jelzi a vonal felső határértékét). Megoldások: kevesebb kamera, végpontok közötti jumbo keretek, vagy gyorsabb hálózati kártya.
 
-- Az `analyze_array_network()` és `/api/camera/array/connect` válaszok az `oversubscribed`, `aggregate_demand_bps`, `collision_safe_ceiling_bps`, `max_cams_collision_safe` és `per_cam_floor_bps` értékeket. Ha az `oversubscribed` értéke igaz, a kivetítés **nullázza az fps mezőket** (`achievable_fps_max` / `fps_bright` / `fps_dark`), ahelyett, hogy félrevezető, lassú, de működő értéket jelentené.
-- Az `POST /api/camera/array/connect` elfogadja az `pin_resolution` testparamétert (**csak HTTP — nem pedig SDK kwarg**; az `connect_array` nem teszi közzé). A rögzítés eltávolítja a binning walk-down biztonsági hálót, így egy túlterhelt csatlakozás, amelynél az `pin_resolution` be van állítva,**kategorikusan elutasításra kerül** , és a hibaüzenet felsorolja az összes lehetséges megoldást. Rögzítés nélkül a csatlakozás folytatódik a walk-down-nal, de figyelmeztet, hogy a csökkentés nem tudja kiüríteni az aggregátumot.
-- Kísérleti megoldás: állítsd be az `CHLOROS_ARRAY_ALLOW_OVERSUBSCRIBED=1` értéket a háttérrendszer környezetében, hogy az elutasítást hangos figyelmeztetésre minősítsd le – így a csatlakozás mégis megtörténik, és elfogadod a csomagvesztést.
+- Az `analyze_array_network()` és `/api/camera/array/connect` válaszok az `oversubscribed`, `aggregate_demand_bps`, `collision_safe_ceiling_bps`, `max_cams_collision_safe` és `per_cam_floor_bps` kódokat. Ha az `oversubscribed` értéke igaz, a vetítés **nullázza az fps mezőket** (`achievable_fps_max` / `fps_bright` / `fps_dark`), ahelyett, , mint hogy félrevezető, lassú, de működő sebességet jelentsen.
+- Az `POST /api/camera/array/connect` elfogadja az `pin_resolution` testparamétert (**csak HTTP-ben — nem SDK kwarg**; az `connect_array` nem teszi elérhetővé). A rögzítés eltávolítja a binning walk-down biztonsági hálót, így egy túlterhelt csatlakozási kísérlet `pin_resolution` beállítás mellett**kategorikusan elutasításra kerül**, egy olyan hibaüzenettel, amely felsorolja az összes lehetséges megoldást. Rögzítés nélkül a csatlakozás folytatódik a walk-down folyamatával, de figyelmeztet arra, hogy a szűkítés nem tudja törölni az összesített értéket.
+- Tesztelési menekülési út: állítsd be az `CHLOROS_ARRAY_ALLOW_OVERSUBSCRIBED=1`-et a háttérrendszer környezetében, hogy az elutasítást hangos figyelmeztetéssé minősítsd vissza – így a kapcsolatot így is létrehozod, és elfogadod a csomagvesztést.
 
-#### Tömb állapota – melyik alrendszer veszít kereteket
+#### Tömbállapot — melyik alrendszer veszít kereteket
 
-Az `GET /api/camera/array/<array_id>/capability` egy aktív `health` blokkot hordoz egy
-csatlakoztatott tömbön, amelyet egy gördülő **10 másodperces** ablakban. A keretveszteséget
-két, egymással ellentétes javítást igénylő okra bontja, ahelyett, hogy egyetlen „hiányos” arányt adna meg, amely
-egyiket sem nevez meg:
+Az `GET /api/camera/array/<array_id>/capability` egy élő `health` blokkot hordoz egy
+csatlakoztatott tömbön, amelyet **10 másodperces** gördülő ablakban újraértékelnek. A keretveszteséget
+két okra bontja, amelyek ellentétes javításokat igényelnek, ahelyett, hogy egyetlen „hiányos” arányt adna meg, amely
+egyiket sem nevezi meg:
 
 | Mező | Mit jelent | Melyik alrendszer |
 | --- | --- | --- |
-| `gvsp_corrupt_rate_pct` (soronként) | A keret **megérkezett, de szerkezetileg hibás volt**— GVSP-csomagvesztés. |**Hálózat**: vezeték-kapacitás, ütemezés, NIC RX gyűrű, MTU |
-| `never_arrived_rate_pct` (soronként) | A keret **egyáltalán nem érkezett meg**— a kamera nem indult el, vagy semmi nem jött ki belőle. |**Kiváltás / szinkronizálás**: M8 kábel, `line=`, `TriggerMode` |
-| `worst_gvsp_corrupt_pct` / `worst_never_arrived_pct` | A legrosszabb kameraátviteli sebesség mindegyik esetében. | — |
-| `per_cam_rate_pct` | Kameraenkénti összesített hiányossági arány (mindkét ok együtt). | — |
+| `gvsp_corrupt_rate_pct` (soros portonként) | A keret **megérkezett, de szerkezetileg hibás volt**— GVSP csomagvesztés. |**Hálózat**: vezetékkapacitás, ütemezés, NIC RX gyűrű, MTU |
+| `never_arrived_rate_pct` (soronként) | A keret **egyáltalán nem érkezett meg**— a kamera nem indult el, vagy semmi sem hagyta el azt. |**Trigger / szinkronizálás**: M8 kábel, `line=`, `TriggerMode` |
+| `worst_gvsp_corrupt_pct` / `worst_never_arrived_pct` | A legrosszabb kamera-átviteli arány mindegyik esetében. | — |
+| `per_cam_rate_pct` | Kameraenkénti összesített hiányos átviteli arány (mindkét ok együtt). | — |
 | `stable_for_seconds` | Mennyi ideig maradt minden kamera 0,01 % alatt. | — |
 
 Az `health` mellett ugyanaz a rekord jelzi azt a számot is, amelyen az egész allokáció lóg:
 
 | Mező | Mit jelent |
 | --- | --- |
-| `wire_ceiling_mbps` | A gazdagép érvényben lévő, fenntartott vezetékes sávszélessége, MB/s. |
+| `wire_ceiling_mbps` | A gazdagép érvényben lévő, fenntartott hálózati sávszélessége, MB/s. |
 | `wire_ceiling_source` | Honnan származik ez az érték, szavakkal kifejezve — pl. `USB-capped 200 MB/s (was theoretical 1062; …)` vagy `user override 120 MB/s (auto said 200)`. |
 | `wire_ceiling_is_user_set` | `true`, amikor `wire_ceiling_mbps=` beállította. |
-| `nic_is_usb` | `true` egy USB-Ethernet-adapter esetén. |
+| `nic_is_usb` | `true` USB-Ethernet-adapter esetén. |
 
-Ehhez a végponthoz nincs „SDK” wrapper — olvassa ki közvetlenül:
+Ehhez a végponthoz nincs SDK-burkolat — olvassa ki közvetlenül:
 
 ```python
 import requests, chloros_sdk
@@ -693,54 +693,54 @@ if (health.get("worst_gvsp_corrupt_pct") or 0) > 1.0:
     arr = chloros_sdk.connect_array(serials, wire_ceiling_mbps=120)
 ```
 
-**Olvasás:** a nullától eltérő `gvsp_corrupt_rate_pct` érték, ahol az `never_arrived_rate_pct` 0-ra áll, azt jelenti, hogy
-a triggerelés és a kábelszinkronizálás tökéletes, és a veszteség 100%-a a hálózati útvonalon keletkezik — csökkentse
+**Értelmezés:** a nullától eltérő `gvsp_corrupt_rate_pct` érték 0-val együtt azt jelenti, hogy
+a kiváltás és a kábeles szinkronizálás tökéletes, és a a veszteség a hálózati útvonalon keletkezik — csökkentse az
 `wire_ceiling_mbps` értéket, és csatlakozzon újra. Az ellenkező minta inkább a szinkronkábelre vagy a
 triggervezetékre utal.
 
-> **Az `target_fps` nem a sérült keretek szabályozója.** A GevSCPD ütemezését egyszer írja be a
+> **Az `target_fps` nem a sérült keretek szabályozója.** A GevSCPD A tempó beállítása egyszer történik a
 > csatlakozáskor, így a triggerfrekvencia csökkentése a kitöltési arányt változtatja meg, nem pedig a
-> egyidejű kibocsátási burst-frekvenciát. Egy mért, 5-szeres igénycsökkentés nem hozott javulást, míg
-> a vezetéki felső határ 240-ről 200 MB/s-ra történő csökkentése ugyanazon berendezésnél a sérült keretek arányát 10,4 %-ról
-> 0,00 %-ra csökkentette.
+> szimultán kibocsátási robbanási sebességet. Egy mért 5-szeres igénycsökkentés nem hozott javulást, míg
+> a vezetéki felső határ 240-ről 200 MB/s-ra történő csökkentése ugyanazon a berendezésen a sérült adatok arányát 10,4 %-ról
+> 0,00%-ra.
 
-> **A TRI032S firmware-en a közbenső automatikus zsugorítás nem elérhető.** A futó tömb nem tudja
-> ezt önállóan kijavítani; válassza le, majd csatlakoztassa újra, hogy a csatlakozási idő-beállító az új
-> felső határnak megfelelően tervezzen újra.
+> **A TRI032S firmware-en a közbenső automatikus szűkítés nem elérhető.** Egy futó tömb nem
+> tudja ezt önállóan kijavítani; válasszuk le, majd csatlakoztassuk újra, hogy a csatlakozási idő-beállító az
+> új felső határ alapján újratervezhesse a folyamatot.
 
-Egy **USB-Ethernet-adaptert a szonda 200 MB/s-ra korlátoz**, függetlenül annak
-névtábláján szereplő értéktől: a kapcsolati sebességet tartós értékre átalakító hatékonysági táblázat
-PCIe-alapú, és egy USB hálózati kártya az Ethernet-kapcsolat sebességét hirdeti, miközben az
-USB-busz és az illesztőprogram korlátozza. A korlát abszolút érték, nem pedig hányad — egy USB 1 GbE adapter
-kb. 80 MB/s sebességet ér el, és ez nem érinti.
+Egy **USB Ethernet-adapter sebességét a szonda 200 MB/s-ra korlátozza**, függetlenül a
+gyári névjegyétől: az a hatékonysági táblázat, amely a kapcsolati sebességet tartós értékre konvertálja,
+PCIe-alapú, és egy USB hálózati kártya az Ethernet-kapcsolati sebességét hirdeti, miközben az
+USB-busz és az illesztőprogram korlátozza. A korlát abszolút, nem pedig egy hányad – egy USB 1 GbE adapter
+kb. 80 MB/s-ot ér el, és ez nem befolyásolja.
 
-#### `ArraySession` módszerek
+#### `ArraySession` Módszerek
 
 | Módszer | Leírás |
 | --- | --- |
 | `status(timeout=10.0)` | Élő `{fps, ptp, frame_count, last_error, …}`. |
-| `capture(output_dir="output", format="tiff", processing="debayered", levels=None, aligned=None, render_index=None, force_daq=None, smart=False, timeout=300.0)` | Egy szinkronizált rögzítési csoport. Visszaad egy `CaptureResult` (keret-szótárak listája + `.skipped`) értéket ad vissza. Az exportálási vezérlők alább találhatók. |
+| `capture(output_dir="output", format="tiff", processing="debayered", levels=None, aligned=None, render_index=None, force_daq=None, smart=False, timeout=300.0)` | Egy szinkronizált rögzítési csoport. Visszaad egy `CaptureResult` (keret-szótárak listája + `.skipped`) értéket. Az exportálási beállítások alább találhatók. |
 | `capture(..., smart=True)` | **Intelligens rögzítés** — megvárja, amíg az AE minden kamerán stabilizálódik, majd elindítja a rögzítést. |
-| `capture_fastest(output_dir="output", force_daq=True, render_index=True, timeout=120.0)` | Leggyorsabb rögzítés: csak nyers adatok + a hozzárendelt DAQ-érték (+ az ingyenes kombinált index). A GUI „Leggyorsabb rögzítés” gombját. |
-| `capture_repeated(output_dir="output", count=None, duration_s=None, interval_s=0.0, on_capture=None, **capture_kwargs)` | Egyszeri / Folyamatos / Intervallum egy korlátozott ciklusban. Visszaadja az `list[CaptureResult]` értéket.**Az `count` és/vagy az `duration_s`** szükséges a leállításhoz (a „SDK” nem támogatja a Ctrl+C billentyűkombinációt). |
-| `record(output_dir="output", fps=10.0, duration_s=None, video=True, gif=False, timeout=30.0)` | Elindítja az élő kombinált index nézet rögzítését videó/GIF formátumban → `RecorderHandle`. Minden tömbhöz egy kompozit felvevő tartozik. |
-| `burst(output_dir="output", duration_s=None, max_frames=None, index_config=None, serial_index_config=None, timeout=30.0)` | Magas képsebességű nyers Bayer-sorozatfelvétel indítása → `RecorderHandle`. Offline újrafeldolgozás `build_video()` segítségével. |
-| `build_video(burst_dir, products=None, fps=10.0, video=True, gif=False, save_tiffs=False, wait=True, poll_s=2.0, timeout=1800.0)` | A mentett nyers sorozat offline újrafeldolgozása kalibrált videó(k)vá. Blokkol, amíg be nem fejeződik (`wait=True`), majd visszaadja az `{outputs, errors, combined}` értéket. |
-| `build_video_status(job_id, timeout=15.0)` | Offline összeállítási feladat lekérdezése: `{running, result, error, burst_dir}`. |
+| `capture_fastest(output_dir="output", force_daq=True, render_index=True, timeout=120.0)` | Leggyorsabb rögzítés: csak nyers adatok + a hozzárendelt DAQ-érték (+ az ingyenes kombinált index). A GUI „Leggyorsabb rögzítés” gombját tükrözi. |
+| `capture_repeated(output_dir="output", count=None, duration_s=None, interval_s=0.0, on_capture=None, **capture_kwargs)` | Egyszeri / Folyamatos / Intervallum egy korlátozott ciklusban. Visszaadja az `list[CaptureResult]` értéket.**Az `count` és/vagy az `duration_s` szükséges** a művelet befejezéséhez (a „SDK” nem támogatja a Ctrl+C billentyűkombinációt). |
+| `record(output_dir="output", fps=10.0, duration_s=None, video=True, gif=False, timeout=30.0)` | Elindítja az élő kombinált indexnézet rögzítését videóba/GIF-be → `RecorderHandle`. Tömbönként egy összetett rögzítő. |
+| `burst(output_dir="output", duration_s=None, max_frames=None, index_config=None, serial_index_config=None, timeout=30.0)` | Elindít egy nagyképkockasebességű nyers Bayer-sorozat rögzítését → `RecorderHandle`. Offline újrafeldolgozás az `build_video()` paranccsal. |
+| `build_video(burst_dir, products=None, fps=10.0, video=True, gif=False, save_tiffs=False, wait=True, poll_s=2.0, timeout=1800.0)` | A mentett nyers sorozatot offline feldolgozza kalibrált videó(k)vá. Blokkol, amíg be nem fejeződik (`wait=True`), majd visszaadja az `{outputs, errors, combined}` értéket. |
+| `build_video_status(job_id, timeout=15.0)` | Offline építési feladat lekérdezése: `{running, result, error, burst_dir}`. |
 | `disconnect()` | Az egész tömb felszabadítása. |
 
-`capture()` exportvezérlés (ugyanaz a végpont, mint a GUI/CLI):
+`capture()` exportvezérlők (ugyanaz a végpont, mint a GUI/CLI):
 
-- `processing` / `levels` — `processing="all"` (vagy `levels=["raw","radiance",…]`) minden kamera esetében elmenti az összes alkalmazható exporttípust; egy egyetlen `processing` érték csak azt a szintet menti el.
-- `aligned=True` — minden tag nem nyers exportját igazítja a tömb [igazítási profiljához](#array-alignment) (együtt regisztrálva); a nyers adatok nem kerülnek eltorzításra, de a transzformációt a metaadatokban hordozzák. Ha a tömbnek nincs profilja, akkor visszatér az igazítatlan állapotra (amire figyelmeztető üzenet jelenik meg az eredmény `alignment` mezőjében).
-- `render_index=False` — kihagyja a kameránkénti vegetációs index-átfedést; alapértelmezés szerint ott jeleníti meg, ahol be van állítva.
-- `force_daq=True` — a hozzárendelt DAQ/DLS-leolvasást `.daq` sidecar-ként menti el akkor is, ha egyetlen kiválasztott szint sem igényli.
+- `processing` / `levels` — `processing="all"` (vagy `levels=["raw","radiance",…]`) minden alkalmazható exporttípust kameránként ment; egy egyetlen `processing` érték csak azt a szintet menti.
+- `aligned=True` — minden elem nem nyers exportját a tömb [igazítási profiljához](#array-alignment) igazítja (-regisztrált); a nyers adatok nem kerülnek igazításra, de a transzformációt a metaadatokban hordozzák. Ha a tömbnek nincs profilja, akkor visszatér az igazítatlan állapotra (az eredmény `alignment` értékében megjelenő figyelmeztetéssel).
+- `render_index=False` — kihagyja a-kamerás növényzet-index átfedést; alapértelmezés szerint a beállított helyen jeleníti meg.
+- `force_daq=True` — a hozzárendelt DAQ/DLS-értéket `.daq` sidecar-fájlként menti el, még akkor is, ha egyetlen kiválasztott szint sem igényli.
 
-**TIFF-tömörítés (csak HTTP):**Az `ArraySession.capture()` nem küld `compression` kulcsot, így a háttérprogram alapértelmezett beállítása érvényes — az `POST /api/camera/array/capture` kiolvassa az `compression` testparamétert, az `"deflate"`-et olvassa be alapértelmezés szerint (veszteségmentes zlib L1 + vízszintes prediktor, ~4,1 MB teljes felbontású képkockánként). Az `"none"` tömörítetlen formában ír (~6,3 MB/képkocka),**~5× gyorsabb írási sebességgel** — mindkettő veszteségmentes, és importáláskor azonos módon olvasható. Az SDK nem tesz közzé kwarg-ot ehhez; a kiút az `chloros-cli lattice array-capture --compression none` vagy a nyers HTTP. A DEFLATE szintén tartja az Python GIL-t, így a tömörített írások nem párhuzamosíthatók akamera-író szálak között – a szenzor sebességénél történő folyamatos, 8 kamerás, teljes felbontású rögzítéshez az `compression: "none"` szükséges. Részletek: [CLI Hivatkozás → array-capture](cli-reference.md).**Elem-szintű export felülírások (csak HTTP):**ugyanaz a végpont elfogadja az `exclude_serials` parancsot is (lista — elemek eltávolítása a mentett halmazból; a tömb továbbra is egy szinkronizált csoportként működik, és a kizárt elemek az `excluded`-ben kerülnek visszaadásra), az `serial_levels` (`{serial: [level tokens]}` kameránkénti felülírások), valamint az `serial_index` (`{serial: bool}` kameránkénti index-átfedés felülírások). Ezek a GUI-paritású testparaméterek, és**még nem SDK kwargs**; a térképekből hiányzó elemek visszatérnek a tömb szintű `levels` / `render_index` értékekre.
+**TIFF-tömörítés (csak a HTTP-gomb):**Az `ArraySession.capture()` nem küld `compression` kulcsot, így a háttérprogram alapértelmezése érvényes — az `POST /api/camera/array/capture` beolvassa az `compression` testparamétert olvas, `"deflate"` alapértelmezés szerint (veszteségmentes zlib L1 + vízszintes prediktor, ~4,1 MB teljes felbontású képkockánként). Az `"none"` tömörítetlen formában ír (~6,3 MB/képkocka),**~5× gyorsabb írási sebességgel** — mindkettő veszteségmentes, és importáláskor azonos módon olvasható. Az SDK nem tesz közzé hozzá kwarg-ot; a kiskapu az `chloros-cli lattice array-capture --compression none` vagy a nyers HTTP. A DEFLATE szintén tartja az Python GIL-t, így a tömörített írások nem párhuzamosíthatók a kameránkénti író szálak között — a szenzor sebességén történő folyamatos 8kamera teljes felbontású rögzítéséhez az érzékelő sebességénél az `compression: "none"` szükséges. Részletek: [CLI Hivatkozás → array-capture](cli-reference.md).**Tagonkénti export-felülírások (csak HTTP):**ugyanaz a végpont elfogadja az `exclude_serials` (lista — tagok eltávolítása a mentett halmazból; a tömb továbbra is egy szinkronizált csoportként működik, és a kizárt tagokat az `excluded` adja vissza), az `serial_levels` (`{serial: [level tokens]}` kameránkénti szintű felülírások), valamint az `serial_index` (`{serial: bool}` kameránkénti index-overlay felülírások) kódokat is. Ezek a GUI-paritású testparaméterek, és**még nem **SDK**kwargok**; a térképekből hiányzó tagok a tömb egészére vonatkozó `levels` / `render_index` értékekre esnek vissza.
 
-##### Az átugrott kamerák vizsgálata — `CaptureResult.skipped`
+##### Kihagyott kamerák vizsgálata — `CaptureResult.skipped`
 
-Az `ArraySession.capture()` egy `CaptureResult`-et ad vissza, amely egy `list` alosztály: végig kell futtatni, indexelni, `len()` — minden meglévő minta továbbra is működik. Az új kód ellenőrizheti az `.skipped` attribútumot, hogy megnézze, mely bütyköket zárták ki és miért. A leggyakoribb eset az, hogyRGB-es bütyköket találunk egy vegyesszűrőtömbben, amikor `processing="radiance"` vagy `"reflectance"` kérésére – a Bayer-módszer szerinti sugárzásérték szélessávú érzékelő esetében értelmetlen, ezért a háttérrendszer inkább kihagyja ezeket a kamerákat, mintsem értelmetlen eredményeket állítson elő.
+Az `ArraySession.capture()` egy `CaptureResult`-et ad vissza, amely egy `list` alosztály: iteráljuk, indexeljük, `len()`-eljük — minden meglévő minta továbbra is működik. Az új kód ellenőrizheti az `.skipped` attribútumot, hogy megnézze, mely kamerákat hagyták ki és miért. A leggyakoribb eset az, hRGB-es kamerák egy vegyes szűrőtartományban, amikor `processing="radiance"`-et vagy `"reflectance"` kérésére — a Bayer-enkénti sugárzás szélessávú érzékelő esetében értelmetlen, ezért a háttérrendszer inkább kihagyja ezeket a kamerákat, mintsem értelmetlen adatokat állítson elő.
 
 ```python
 with chloros_sdk.connect_array(serials) as arr:
@@ -758,24 +758,24 @@ with chloros_sdk.connect_array(serials) as arr:
         #       'filter': 'RGB'}
 ```
 
-Az okjelzők az `<level>-not-applicable-to-rgb-cam` mintát követik (minden kihagyott szintre egy bejegyzés, amelyek mindegyike a `level`). A visszaverődés-specifikus kihagyások: `reflectance-skipped-no-fresh-dls` (nincs elérhető friss lefelé irányuló mérési érték), `reflectance-skipped-bound-daq-unavailable (…)` (a kapcsolt DAQ nem volt elérhető), valamint `dls-uncalibrated-band-<nm>` — a sáv nagy része a DAQ fényérzékelőjének radiometrikusan kalibrált tartományán kívül esik (~374–974 nm), ezért a DAQ-alapú abszolút reflektancia-elosztás elutasításra kerül, és a képkocka egyértelműen az érzékelő-válaszra vált át. A forgalomban lévő SKU-k közül csak az F988 váltja ki ezt; ennek a kamerának a támogatott útvonala a reflektancia-panel munkafolyamat.
+Az okjelzők az `<level>-not-applicable-to-rgb-cam` mintát követik (minden kihagyott szintre egy bejegyzés, mindegyik az `level`). A visszaverődés-specifikus kihagyások a következők: `reflectance-skipped-no-fresh-dls` (nincs elérhető friss lefelé irányuló mérési érték), `reflectance-skipped-bound-daq-unavailable (…)` (a kapcsolt DAQ nem volt elérhető), és `dls-uncalibrated-band-<nm>` — a sáv nagy része a DAQ fényérzékelőjének radiometrikusan kalibrált tartományán (~374–974 nm) kívül esik, ezért a DAQ-alapú abszolút reflektancia-elválasztás elutasításra kerül, és a képkocka egyértelműen az érzékelő-válaszra vált át. A forgalomban lévő SKU-k közül csak az F988 váltja ki ezt; az adott kamera támogatott útvonala a reflektancia-panel munkafolyamat.
 
 `processing` szintek:
 
 | Szint | Kimenet |
 | --- | --- |
-| `"raw"` | Egycsatornás Bayer (monokróm kamerák: az egyetlen sáv) közvetlenül az érzékelőből. |
+| `"raw"` | Egycsatornás Bayer (monokróm kamerák: egy sáv) közvetlenül az érzékelőből. |
 | `"debayered"` *(SDK alapértelmezett)* | 3-csatornás BGR bilineáris demosaic-on keresztül (monokróm kamerák: 1-csatornás szürkeárnyalatos). |
-| `"radiance"` | float32 W/m²/sr/nm a teljes radiometrikus láncon keresztül. Csak multispektrális — a „RGB” kamerák kihagyásra kerülnek. |
+| `"radiance"` | float32 W/m²/sr/nm a teljes radiometrikus láncon keresztül. Kizárólag multispektrális — az RGB kamerákat kihagyja. |
 | `"reflectance"` | uint16 0..32768 (Pix4D-kompatibilis); abszolút referenciaértékhez élő DAQ-párosítás szükséges. Csak multispektrális. |
-| `"display"` | A GUI-előnézethez illeszkedő teljes lánc (CCM + WB + gamma a kamera profilja szerint). |
-| `"all"` | **Minden alkalmazható szinthez egy fájl** minden kamera esetében (megfelel a GUI „Capture All” / CLI alapértelmezésének). A visszaküldött `CaptureResult` fájl ezután `(cam, level)`-enként egy képkocka-diktumot tartalmaz, az egyes diktumokban a szinttel; a nem alkalmazható szintek az `.skipped`-ben jelennek meg. A bármely reflexiós kerethez használt DAQ-leolvasás `.daq` kiegészítő fájlként kerül mentésre. |
+| `"display"` | A teljes lánc a GUI-előnézethez igazítva (CCM + WB + gamma a kamera profilja szerint). |
+| `"all"` | **Egy fájl az egyes alkalmazható szintekre** minden kamera esetében (megfelel a GUI „Capture All” / CLI alapértelmezésnek megfelelően). A visszaküldött `CaptureResult` fájl ezután `(cam, level)`-enként egy képkocka-diktumot tartalmaz, az egyes diktumokban a szinttel együtt; az alkalmazhatatlan szintek az `.skipped` fájlban jelennek meg. A bármely reflexiós kerethez használt DAQ-leolvasást `.daq` kiegészítő fájlként menti el. |
 
-> **Megjegyzés — az alapértelmezett érték eltér az CLI-től.** Az `ArraySession.capture()` alapértelmezett értéke az `processing="debayered"`; az `chloros-cli lattice array-capture` parancs alapértelmezett értéke az `processing="all"`-re. Az `processing="all"` parancsot kifejezetten az SDK fájlból kell átadni, hogy tükrözze a CLI /GUI többszintű mentési beállításait.
+> **Megjegyzés — az alapértelmezett érték eltér az CLI-tól.** Az `ArraySession.capture()` alapértelmezett értéke az `processing="debayered"`; az `chloros-cli lattice array-capture` parancs alapértelmezett értéke az `processing="all"`. Adja meg kifejezetten az `processing="all"` értéket az SDK fájlban, hogy tükrözze a CLI /GUI többszintű mentését.
 
-### Felvételi módok és rögzítők
+### Rögzítési módok és rögzítők
 
-A táblázat felülete tükrözi a GUI felvételi panelt: Egyszeri / Folyamatos / Intervallum / Leggyorsabb zár üzemmódok, valamint két felvevő (élő kompozit videó és nyers sorozatfelvétel → offline újrafeldolgozás).
+A tömb felülete tükrözi a GUI rögzítőpaneljét: Egyedi / Folyamatos / Intervallum / Leggyorsabb záridő módok, valamint két rögzítő (élő kompozit videó és nyers sorozatfelvétel → offline újrafeldolgozás).
 
 ```python
 import time, chloros_sdk
@@ -806,9 +806,9 @@ with chloros_sdk.connect_array(serials) as arr:
     print(out["outputs"])
 ```
 
-- **`capture_repeated`**az „SDK” folyamatos/intervallum hurokja. Mivel nincs olyan `Ctrl+C`, amellyel szkriptből megszakíthatnánk,**kötelező** átadni az `count` és/vagy az `duration_s` értéket (akkor áll le, ha bármelyiket eléri). Az `interval_s`-et minden futtatás elejétől mérik (a GUI-hoz igazodva). A fennmaradó kwargok közvetlenül átkerülnek az `capture()`-be.
-- **`record`** *figyelési szintű*: rögzíti a megjelenített élő kombinált index-kompozitot, ezért a kombinált adatfolyamnak nyitva kell lennie ahhoz, hogy a képkockák beérkezzenek. Tömbönként egy kompozit-rögzítő (kivételt dob, ha már fut egy).
-- **`burst` → `build_video`** *elemzési minőségű*: az `burst` nyers képkockákat + képkockánkénti manifesztet + egy `.daq` fájlt ír minden egyes DLS-leolvasáshoz az `<output>/bursts/<base>/` alatt a rögzítési ciklus teljes sebességén (lánc nélkül, exiftool nélkül, élő nézet nélkül). Az `build_video` minden képkockát idő szerint illeszt a legközelebbi `.daq`-hez, és újra futtatja az importáló folyamat sugárzási/visszaverődési/index láncát. Az `products` egy lista az `{"kind": "per_cam"|"combined", "level": "radiance"|"reflectance"|"index"}`-ekből (alapértelmezés: a kombinált index). Az `burst().stop()` emellett automatikusan elindít egy legjobb eredményre törekvő kombinált index-építést, amelyet az `build_job` néven ad vissza a leállási eredményben.
+- **`capture_repeated`**az „SDK” folyamatos/intervallum hurokja. Mivel nincs olyan `Ctrl+C`, amivel egy szkriptből megszakíthatnánk,**feltétlenül** át kell adni az `count`-et és/vagy az `duration_s`-et (akkor áll le, amikor bármelyik elérhetővé válik). Az `interval_s`-et az egyes futások kezdetétől mérik (a grafikus felülethez igazodva). A fennmaradó kwargok közvetlenül továbbkerülnek az `capture()`-hez.
+- **`record`** *figyelési szintű*: rögzíti a megjelenített élő kombinált indexű kompozitot, ezért a kombinált adatfolyamnak nyitva kell lennie ahhoz, hogy a képkockák beérkezzenek. Tömbönként egy kompozit-rögzítő (kivételt dob, ha már fut egy).
+- **`burst` → `build_video`** *elemzési minőségű*: az `burst` nyers képkockákat + képkockánkénti manifesztet + egy-egy `.daq` fájlt ír minden egyedi DLS-leolvasáshoz az `<output>/bursts/<base>/` alatt a rögzítési ciklus teljes sebességén (nincs lánc, nincs EXIFeszköz, nincs élő nézet). Az `build_video` idő szerint illeszti az egyes képkockákat a legközelebbi `.daq`-hez, és újra futtatja az importálási folyamatsugárzási/visszaverődési/index láncát. Az `products` az `{"kind": "per_cam"|"combined", "level": "radiance"|"reflectance"|"index"}`-ek listája (alapértelmezés: a kombinált index). Az `burst().stop()` emellett automatikusan elindít egy „best-effort” kombinált index-építést, amelynek eredményét az `build_job` néven adja vissza a leállási eredményben.
 
 #### `RecorderHandle`
 
@@ -817,10 +817,10 @@ Az `ArraySession.record()` és az `ArraySession.burst()` által visszaadott ért
 | Tag | Leírás |
 | --- | --- |
 | `job_id` | Háttérfeladat-azonosító (str). |
-| `kind` | `"composite"` (az `record`-ből) vagy `"raw"` (az `burst`-ből). |
+| `kind` | `"composite"` (az `record`) vagy az `"raw"`-ből (az `burst`-ből). |
 | `start_stats` | Az `start` hívás által visszaadott szótár. |
-| `result` | `None` futás közben; a végső leállási eredményt tartalmazó szótár a leállás után. |
-| `stats(timeout=10.0)` | Élő feladatstatisztikák (leírt képkockák, tényleges fps, eltelt idő). |
+| `result` | `None` futás közben; a végleges leállási eredményt tartalmazó dict a leállás után. |
+| `stats(timeout=10.0)` | Élő feladatstatisztikák (leírt képkockák, elért fps, eltelt idő). |
 | `stop(timeout=60.0)` | A felvevő leállítása; visszaadja és gyorsítótárba menti a végső eredményt. Idempotens (egy második hívás a gyorsítótárban tárolt eredményt adja vissza). |
 
 ```python
@@ -833,7 +833,7 @@ print(result["out_dir"], result.get("build_job"))
 
 ### Csatlakozás egy már csatlakoztatott tömbhöz — `attach_array`
 
-Ha a tömb már fut (a GUI megnyitotta, vagy egy korábbi SDK munkamenet meghívta az `connect_array` függvényt), akkor az újracsatlakozás helyett az `attach_array` parancsot használja a hivatkozás megszerzéséhez. Az `connect_array` ilyen esetben mindig a következő hibát jelzi: „A kamera <sn>már </sn>szerepel <sn>a tömbben<id>” hibaüzenetet ad ki ebben az esetben, mivel az `/array/connect` parancs POST-küldése egy olyan tagra, amelynem idempotens; az `attach_array` beolvassa az `/api/camera/array/list`-et, és az array_id vagy a sorozatszám alapján végez egyezéskeresést.
+Ha a tömb már aktív (a grafikus felület megnyitotta, vagy egy korábbi SDK munkamenet meghívta az `connect_array` függvényt), akkor az újracsatlakozás helyett az `attach_array` függvényt használja a tömbhez tartozó azonosító megszerzéséhez. Az `connect_array` <sn><id>ilyen helyzetben</id></sn> mindig „A kamera <sn>már </sn>szerepel <sn>a tömbben<id>”</id></sn> hibát jelez<sn><id>, mivel az `/array/connect` POST-parancs küldése egy poolban lévő tagra nem idempotens; az `attach_array` az `/api/camera/array/list`-et olvassa be, és az array_id vagy a sorozatszám alapján végez egyezéskeresést.
 
 ```python
 import chloros_sdk
@@ -849,7 +849,7 @@ arr = chloros_sdk.attach_array("array-1779862544497")
 arr.capture("output/", processing="reflectance")
 ```
 
-Minta: Azok a SDK szkriptek, amelyek a az asztali grafikus felülettel, először az `attach_array`-et kell megpróbálniuk, és csak akkor térjenek vissza az `connect_array`-re, ha még nincs tömb a poolban.
+Minta: Az asztali grafikus felülettel együtt futó SDK szkripteknek először az `attach_array`-et kell megpróbálniuk, és csak akkor kell az `connect_array`-re váltaniuk, ha még nincs tömb a poolban.
 
 ```python
 import chloros_sdk
@@ -860,7 +860,7 @@ except chloros_sdk.ChlorosConnectError:
     arr = chloros_sdk.connect_array(serials)
 ```
 
-> **Fontos — a context-manager kilépése MEGSZAKÍTJA a kapcsolatot.**Az `ArraySession.disconnect()` mindig POST-ot küld az `/array/disconnect`-nek; nincs olyan „attached-not-owned” védelem, mint az `CameraSession` / `DAQSensorSession` esetében. Ha a GUI-val közös bérlőként működik, és nem szeretné lebontani a tömböt a hatókör kilépésekor,**ne használja az `with` blokkot** — tárold a kezelőt egy normál változóban, és hagyd ki a kifejezett `disconnect()`-et:
+> **Fontos — a context-manager kilépése MEGSZAKÍTJA a kapcsolatot.**Az `ArraySession.disconnect()` mindig POST-ot küld az `/array/disconnect`-nek; nincs olyan „attached-not-owned” védelem, mint az `CameraSession` / `DAQSensorSession` esetében. Ha a GUI-val közös bérlőként működik, és nem szeretné lebontani a tömböt a hatókör kilépésekor,**ne használja az `with` blokkot** — tárolja a kezelőt egy normál változóban, és hagyja ki a kifejezett `disconnect()` utasítást:
 >
 > ```python
 > arr = chloros_sdk.attach_array(serials)
@@ -868,9 +868,9 @@ except chloros_sdk.ChlorosConnectError:
 > # … script ends; array stays up for the GUI
 > ```
 
-### Hálózati elemzés segédprogram
+### Hálózatelemző segédprogram
 
-Hasznos a tömb megnyitása előtt — megmutatja, hogy a javasolt beállítások megfelelőek-e:
+Hasznos a tömb megnyitása előtt — előre jelzi, hogy a javasolt beállítások megfelelőek-e:
 
 ```python
 result = chloros_sdk.analyze_array_network(
@@ -893,16 +893,16 @@ elif result["status"] == "needs_force_slip":
     print("Sim-sync impossible on this wire; force_tier='slip-emit-and-capture' required")
 ```
 
-Az `status` az `ok` / `auto_capped_fps` / `auto_shrunk` / `needs_force_slip` közül (egyébként `error`). Az `auto_capped_fps` azt jelenti, hogy a kért felbontás csak korlátozott triggerfrekvencián illeszkedik az RX gyűrűhöz — tartsa meg a felbontást, és lépjen át az `target_fps=result["recommended"]["recommended_target_fps"]`-ről az `connect_array`-re (lásd a [6. példát](#6-capability-probe-before-connecting-a-4-cam-array)).
+`status` az `ok` / `auto_capped_fps` / `auto_shrunk` / `needs_force_slip` közé tartozik (egyébként `error`). Az `auto_capped_fps` azt jelenti, hogy a kért felbontás csak korlátozott triggerfrekvencián illeszkedik az RX gyűrűhöz — tartsa meg a felbontást, és adja át az `target_fps=result["recommended"]["recommended_target_fps"]` értéket az `connect_array`-re (lásd a [6. példát](#6-capability-probe-before-connecting-a-4-cam-array)).
 
-**A vetület értelmezése** (ugyanaz a modell, mint a GUI Array Settings panelen):
+**A kivetítés értelmezése** (ugyanaz a modell, mint a GUI Array Settings panelen):
 
-- **A Burst (`frame_bytes_total`) kameránként összeadódik az egyes kamerák tényleges képpontformátumában.**A**M3M**monokamerák Mono12 (2 B/px) adatfolyamot továbbítanak, függetlenül attól, hogy milyen `pixel_format` értéket adunk meg, így egy 4 kamerás, teljes felbontású képkocka mérete**~25 MB** három mono kamerával, nem pedig a ~12,6 MB, amit a teljes 8-bites feltételezés adna. A háttérrendszer a modell alapján határozza meg az egyes kamerák formátumát.
-- **Az Admittance (`burst_fits_nic_ring`) figyelembe veszi a kimeneti sávszélességet**, nem pedig a teljes burst és a gyűrű közötti különbséget: a sim-emit akkor illeszkedik, amikor a gazdagép gyorsabban üríti ki az RX gyűrűt, mint ahogy a kamerák megtöltik. Egy 10G-s gazdagép + 1 GbE-s kamerák**átadják** a teljes felbontást akkor is, ha a burst túllépi a gyűrű kapacitását; egy 1 GbE-s gazdagép blokkolja (`needs_force_slip` / `auto_shrunk`).
-- **Az `achievable_fps_max` egy konzervatív soros visszakeresési felső határ** — az `max(readout+emit, N×emit)` esetében a kameránkénti kibocsátás az 1 GbE-s kamerakapcsolatra van korlátozva, az expozíciótól függetlenül. Például ~2,8 fps egy 4 kamerás, teljes felbontású, 12 bites tömb esetén (megegyezik a futásidő alatt mért ~2,7–3,0 értékkel). Teljes modell: [CLI Hivatkozás → Tömb fps és sorozatfelvétel-modell](cli-reference.md#array-fps--burst-model).
-- **Túlterhelés (`oversubscribed: true`) azt jelenti, hogy az N × kameránkénti alsó határ meghaladja az ütközésbiztos felső határt** — az fps mezők (`achievable_fps_max` / `fps_bright` / `fps_dark`) értéke 0, és az automatikus-zsugorítás/binning nem tudja kijavítani (ezek a képkockánkénti bájtok számát csökkentik, nem pedig a másodpercenkénti ütemezett bájtok számát). A megoldás a kamerák számának csökkentése, a jumbo keretek használata, vagy egy gyorsabb hálózati kártya; az `max_cams_collision_safe` jelzi a felső határt (6 teljes felbontású kamera 1 GbE-n @ 1500 MTU-val, 9 jumbo keretekkel). A válasz az `aggregate_demand_bps`, `collision_safe_ceiling_bps` és `per_cam_floor_bps` (8 MB/s) kódokat is tartalmazza. Lásd: [Túljegyzés](#over-subscription-the-per-cam-floor).
+- **A Burst (`frame_bytes_total`) kameránként összeadódik az egyes kamerák valós pixelformátumában.**A Mono**M3M**kamerák a Mono12 (2 B/px) formátumban továbbítják az adatokat, függetlenül attól, hogy milyen `pixel_format` értéket adsz meg, így egy 4 kamerás teljesfelbontású képkocka mérete három Mono kamerával**~25 MB**, nem pedig a ~12,6 MB, amit a teljes 8-bites feltételezés adna. A háttérrendszer a modell alapján határozza meg az egyes kamerák formátumát.
+- **Az átviteli kapacitás (`burst_fits_nic_ring`) a kiürítésre figyel**, nem pedig a teljes adatcsomag és a gyűrű közötti különbségre: a sim-emit akkor megfelelő, ha a gazdagép gyorsabban üríti ki az RX-gyűrűt, mint ahogy a kamerák megtöltik. Egy 10G-s gazdagép + 1 GbE-s kamerák**lehetővé teszik** a teljes felbontású adatátvitelt akkor is, ha a burst túllépi a gyűrű kapacitását; egy 1 GbE-s gazdagép blokkolja (`needs_force_slip` / `auto_shrunk`).
+- **Az `achievable_fps_max` egy konzervatív soros visszakeresési felső határ** — az `max(readout+emit, N×emit)` esetében a kameránkénti kibocsátás az 1 GbE kamerakapcsolatra van korlátozva, az expozíciótól függetlenül. Pl. ~2.8 fps egy 4 kamerás, teljes felbontású, 12 bites rendszer esetében (megegyezik a futásidő alatt mért ~2,7–3,0 értékkel). Teljes modell: [CLI Hivatkozás → Rendszer fps és burst modell](cli-reference.md#array-fps--burst-model).
+- **A túljegyzés (`oversubscribed: true`) azt jelenti, hogy az N × kameránkénti alsó határ túllépi az ütközésbiztos felső határt** — az fps mezők (`achievable_fps_max` / `fps_bright` / `fps_dark`) értéke 0, és az automatikus zsugorítás/binning nem képes ezt kijavítani (ezek a képkockánkénti bájtok számát csökkentik, nem pedig a másodpercenkénti bájtok ütemét). A megoldás a kamerák számának csökkentése, a jumbo keretek használata vagy egy gyorsabb hálózati kártya; az `max_cams_collision_safe` a felső határt jelenti (6 teljesfelbontású kamerát 1 GbE-n @ 1500 MTU-nál, 9-et jumbo keretekkel). A válasz az `aggregate_demand_bps`, `collision_safe_ceiling_bps` és `per_cam_floor_bps` kódokat is tartalmazza (8 MB/s). Lásd [Túljegyzés](#over-subscription-the-per-cam-floor).
 
-### Felfedezés és listázás
+### Felismerés és felsorolás
 
 ```python
 chloros_sdk.discover_lattice_cameras()   # list all cams visible to the backend
@@ -914,7 +914,7 @@ chloros_sdk.list_arrays()                # active arrays in the pool
 
 ## Smart-AE / Smart-Capture
 
-A LATTICE-tömbök a csatlakozás után azonnal elindítják a háttérben a folyamatos AE-t, de egy frissen beállított jelenet konvergenciája egy pillanatig tart. A **Smart-Capture** egy kényelmi funkció: megkérdezi az egyes kamerák expozícióját, megvárja, amíg a rendszer az egész ablakban stabilizálódik, majd elindítja a felvételt. Ez a GUI-val egyenértékű: az asztali alkalmazás „smart” rögzítési gombja ugyanazt a háttér-végpontot hívja meg.
+A LATTICE-tömbök csatlakozás után azonnal folyamatos AE-t futtatnak a háttérben, de egy újonnan beállított jelenet konvergenciája egy pillanatig tart. A **Smart-Capture** egy kényelmi funkció: lekérdezi az egyes kamerák expozícióját, megvárja, amíg a rendszer az egész ablakban stabil lesz, majd elindítja a felvételt. Ez megegyezik a grafikus felületen elérhető funkcióval: az asztali alkalmazás „smart” felvétel gombja ugyanazt a háttér-végpontot hívja meg.
 
 ```python
 import chloros_sdk
@@ -928,7 +928,7 @@ with chloros_sdk.connect_array([
     arr.capture("pose_b/", processing="reflectance", smart=True)
 ```
 
-Ha az `ChlorosProject` (következő szakasz) segítségével vezéreljük, több beállítási lehetőségünk nyílik:
+Ha az `ChlorosProject` (következő szakasz) használatával további beállítási lehetőségek nyílnak meg:
 
 ```python
 proj.arrays["main_rig"].capture_smart(
@@ -940,13 +940,13 @@ proj.arrays["main_rig"].capture_smart(
 )
 ```
 
-Az intelligens AE-beállítás alapértelmezés szerint konzervatív. Szigorítsuk az `exposure_tolerance_pct` értéket a szigorú radiometrikus munkákhoz; lazítsa meg a gyorsan változó jeleneteknél, ahol csak „elég közel” kell lennie.
+Az intelligens expozíciós (smart-AE) beállítás alapértelmezés szerint konzervatív. Szigorítsa az `exposure_tolerance_pct` értéket igényes radiometriai munkákhoz; lazítsa meg gyorsan változó jelenetek esetén, ahol csak „elég közel” legyen az eredmény.
 
 ---
 
 ## DAQ-érzékelő munkamenetek
 
-Állandó háttérpool spektrális érzékelőkhöz (DAQ-U USB-n, DAQ-M BLE-n, DAQ-E Etherneten). Tükrözi a kamera felületét: intelligens felismerés, pool újrafelhasználás, idempotens csatlakozás.
+Állandó háttérpool spektrális érzékelőkhöz (DAQ-U USB-n, DAQ-M BLE-n, DAQ-E Etherneten). A kamera felületét tükrözi: intelligens felismerés, pool újrafelhasználás, idempotens csatlakozás.
 
 ### Intelligens felismerés (Zero-Config)
 
@@ -962,7 +962,7 @@ with chloros_sdk.connect_daq_sensor() as daq:
         print(len(spectrum), is_sat)
 ```
 
-Elsőbbségi sorrend: Ethernet → BLE → USB. Bármelyik explicit utalás átadása rögzíti az átviteli módot.
+Elsőbbségi sorrend: Ethernet → BLE → USB. Bármelyik explicit utalás megadása rögzíti az átviteli módot.
 
 ### Rögzített átviteli mód
 
@@ -990,18 +990,18 @@ daq = chloros_sdk.connect_daq_sensor(
 
 | Metódus | Leírás |
 | --- | --- |
-| `status(timeout=10.0)` | Pool-bejegyzés összefoglalása (streaming/felvétel állapota, hullámhossz-tartomány, kalibrációs sha, integrációs idő, frame_avg, AE állapot). |
-| `latest(n=1, timeout=10.0)` | Legfeljebb N legutóbbi spektrumkép visszaadása. |
-| `stream_start()` / `stream_stop()` | A streaming folytatása / szüneteltetése (a kezelő nyitva marad). |
-| `record_start(output_dir=None, device_name=None)` | Elindít egy .daq fájl rögzítését. Visszaadja a fájl elérési útját. Elutasítja a DAQ-U/M esetében, ha nincs AWS kalibrációs csomag (a DAQ-E kivétel). |
+| `status(timeout=10.0)` | Pool-bejegyzés összefoglalása (adatfolyam/felvétel állapota, hullámhossz-tartomány, kalibrációs sha, integrációs idő, frame_avg, AE állapot). |
+| `latest(n=1, timeout=10.0)` | Legfeljebb N legfrissebb spektrumkeret visszaadása. |
+| `stream_start()` / `stream_stop()` | Folyamatos adatátvitel folytatása / szüneteltetése (a kezelő nyitva marad). |
+| `record_start(output_dir=None, device_name=None)` | Elindítja a .daq fájl rögzítését. Visszaadja a fájl elérési útját. Elutasítja a DAQ-U/M esetében AWS kalibrációs csomag hiányában (a DAQ-E kivétel). |
 | `record_stop()` | A felvétel leállítása. Visszaadja az `{path, rows}` értéket. |
 | `disconnect()` | Felszabadítás a poolból. Nincs hatása a csatolt, de nem saját tulajdonú kezelőkre. |
 
-> **A felső határ-korrekciós profilok (`cap_id`) nem tartoznak az „SDK” beállítás körébe.** Az `connect_daq_sensor()` / `DAQSensorSession` nem tesz közzé semmilyen `cap_id` paramétert vagy `set_cap` metódust. Válasszon ki egy flotta-kapacitás-korrekciós profilt a CLI (`chloros-cli daq pool-connect --cap-id …` / `chloros-cli daq pool-set-cap …`) oldalon, vagy a háttérrendszer `/api/daq` HTTP útvonalain keresztül (`/api/daq/connect` és az `/api/daq/<id>/cap-id` az `cap_id`-et fogadja).
+> **Felső határ-korrekciós profilok (`cap_id`) nem tartoznak az „SDK” beállítási lehetőséghez.** Az `connect_daq_sensor()` / `DAQSensorSession` nem tesz közzé `cap_id` paramétert vagy `set_cap` metódust. Válasszon ki egy flottakapacitás--korrekciós profilt az CLI (`chloros-cli daq pool-connect --cap-id …` / `chloros-cli daq pool-set-cap …`) vagy a háttérrendszer `/api/daq` HTTP útvonalain keresztül (az `/api/daq/connect` és az `/api/daq/<id>/cap-id` elfogadja az `cap_id`-et).
 
-### Felfedezés — a csatlakozáshoz szükséges cím megkeresése
+### Felfedezés — a csatlakozáshoz szükséges cím megtalálása
 
-Az `discover_daq_sensors()` az USB / BLE / ETH hálózatokat olyan érzékelők után kutatva, amelyeket *megnyithatna*. Ez az `discover_lattice_cameras()` DAQ-megfelelője, és az egyetlen módja a **DAQ-M BLE MAC-címének** megszerzésére — a DAQ-E-nek van gazdagépneve, a DAQ-U-nak pedig COM-portja, de a MAC-címet sem az eszközön nem nyomtatják ki, sem az operációs rendszer nem sorolja fel.
+Az `discover_daq_sensors()` átvizsgálja az USB / BLE / ETH hálózatokat olyan érzékelők után, amelyeket *megnyithat*. Ez az `discover_lattice_cameras()` DAQ-megfelelője, és az egyetlen módja a **DAQ-M BLE MAC-címének** megszerzésére — a DAQ-E-nek van gazdagépneve, a DAQ-U-nak pedig COM-portja, de a MAC-címet sem az eszközön nem tüntetik fel, sem az operációs rendszer nem sorolja fel.
 
 ```python
 for s in chloros_sdk.discover_daq_sensors():
@@ -1020,19 +1020,19 @@ for s in chloros_sdk.discover_daq_sensors(transports=["ble"]):
 | `transport` | `usb` \| `ble` \| `eth`. |
 | `address` | COM-port / BLE MAC / gazdagépnév — továbbítás az `connect_daq_sensor`-hez, mint `port=` / `mac=` / `eth_host=`. |
 | `display` | Ember számára olvasható címke. |
-| `model` | `DAQ-U` \| `DAQ-M` \| `DAQ-E`, vagy `None` olyan port esetén, amelyet a vizsgálat nem tud azonosítani (az USB soros adapterek szond nélkül nem különböztethetők meg, ezért az ismeretleneket inkább feltünteti, mint elrejti). |
-| `extra` | Transzportonkénti részletek (BLE hirdetett név, USB gyártó, DAQ-E ip/fw/…). Az üres értékeket kihagyja. |
+| `model` | `DAQ-U` \| `DAQ-M` \| `DAQ-E`, vagy `None` olyan port esetén, amelyet a szkennelés nem tud azonosítani (az USB soros adapterek szondás vizsgálat nélkül nem különböztethetők meg, ezért az ismeretlen elemek nem kerülnek elrejtésre, hanem megjelennek). |
+| `extra` | Átviteli módonkénti részletek (BLE hirdetett név, USB gyártó, DAQ-E ip/fw/…). Az üres értékeket kihagyja a rendszer. |
 
 | Paraméter | Alapértelmezett | Leírás |
 | --- | --- | --- |
-| `transports` | mindhárom | A vizsgálatot korlátozó sorozat (vagy csv karakterlánc). Érdemes megadni, ha tudod, mit akarsz — a BLE a leglassabb láncszem. |
-| `scan_timeout` | 5 | Átviteli módonkénti szkennelési ablak másodpercben; a háttérrendszer 1–20 közé korlátozza. |
-| `timeout` | 60,0 | Az egész hívásra vonatkozó „HTTP” felső határ (ahogyan az „SDK” más részein is). |
+| `transports` | mindhárom | A vizsgálatot korlátozó sorozat (vagy csv karakterlánc). Érdemes megadni, ha tudod, mit akarsz — a BLE a lassú láncszem. |
+| `scan_timeout` | 5 | Transzportonkénti szkennelési ablak másodpercben; a háttérrendszer 1–20 közé korlátozza. |
+| `timeout` | 60,0 | HTTP felső határ az egész hívásra (ahogyan az „SDK” más részein is). |
 | `auto_start_backend` | `True` | Helyi háttérprogramot indít, ha még nincs futó. Távoli `backend_url` esetén soha nem indít. |
 
-> **A poolban már nyitott érzékelők nem jelennek meg.** A csatlakoztatott BLE-periféria leállítja az adását, és egy nyitott COM-portot nem lehet lekérdezni, ezért a felfedezés csak azokat sorolja fel, amelyek *csatlakozásra rendelkezésre áll*. Várható, hogy közvetlenül a csatlakozás után üres eredményt kapunk — a már meglévő eszközökhöz használjuk az `list_daq_sensors()` parancsot. Azokat a transzportokat, amelyeknél a szkennelés nem futtatható (nincs telepítve a bleak / zeroconf), a rendszer kihagyja a hibaüzenet kiadása helyett, így egy Bluetooth-nélküli gép is megkapja az USB- és ETH-válaszokat.
+> **A poolban már megnyitott érzékelők nem jelennek meg.** A csatlakoztatott BLE-periféria leállítja az adás-fogadást, és egy nyitott COM-portot nem lehet lekérdezni, ezért a felfedezés csak azokat sorolja fel, amelyek *csatlakozásra rendelkezésre állnak*. Várható, hogy közvetlenül a csatlakozás után üres eredményt kapunk — a már birtokunkban lévő eszközökhöz használjuk az `list_daq_sensors()` parancsot. Azokat a transzportokat, amelyek szkennelése nem futtatható (nincs telepítve a bleak / zeroconf), a rendszer kihagyja ahelyett, hogy hibajelentést adna, így egy Bluetooth nélküli gép is megkapja az USB- és ETH-válaszokat.
 
-### Listázás
+### Lista
 
 ```python
 for s in chloros_sdk.list_daq_sensors():
@@ -1041,13 +1041,13 @@ for s in chloros_sdk.list_daq_sensors():
 
 ### Együttműködés a GUI-val / CLI
 
-Ha a GUI-ban már van megnyitott érzékelő, az Python-ból az `connect_daq_sensor(port="COM3")` hívása egy `already_connected=True` jelölésű kezelőt ad vissza. A munkamenet `disconnect()` értéke ekkor no-op, így az SDK szkript nem szakítja ki az érzékelőt a GUI alól a program bezárásakor.
+Ha a GUI-ban már van megnyitva egy érzékelő, az Python parancsból az `connect_daq_sensor(port="COM3")` hívása egy `already_connected=True` jelölésű kezelőt ad vissza. A munkamenet `disconnect()` azután egy no-op, így az SDK szkriptje nem szakítja ki az érzékelőt a GUI alól a scope kilépésekor.
 
 ### Közvetlen hardverosztályok (háttérprogram nélkül)
 
-Az `daq_sdk`-et az `chloros_sdk` újraexportálja, így az érzékelőket a folyamat elejétőlfolyamaton belül végpontok között vezérelheted a szenzorokat a háttérprogram nélkül:
+Az `daq_sdk`-et az `chloros_sdk` újra exportálja, így a szenzorokat a háttérprogram nélkül is végpontok között, folyamaton belül vezérelheted:
 
-> **Elérhetőség:**Az `daq_sdk` az Chloros asztali telepítővel együtt érkezik,**nem** a PyPI-csomagban — az `pip install chloros-sdk` az `lattice_sdk`-et biztosítja, de az `chloros_sdk.DAQ_AVAILABLE == False`-et kihagyja. Ezeknek az osztályoknak a használata előtt ellenőrizze ezt a jelzőt; kizárólag pip-et futtató gazdagépen inkább a [`connect_daq_sensor()`](#daq-sensor-sessions) segítségével csatlakoztassa az érzékelőt, amelyhez nincs szükség helyi transzportkönyvtárakra.
+> **Elérhetőség:**Az `daq_sdk` az Chloros asztali telepítővel együtt érkezik,**nem** a PyPI-csomaggal — az `pip install chloros-sdk` az `lattice_sdk`-et biztosítja, de az `chloros_sdk.DAQ_AVAILABLE == False`-et. Ellenőrizze ezt a jelzőt az osztályok használata előtt; kizárólag pip-et futtató gazdagépen inkább a [`connect_daq_sensor()`](#daq-sensor-sessions) segítségével vezérelje az érzékelőt, amelyhez nincs szükség helyi transzportkönyvtárakra.
 
 ```python
 from chloros_sdk import DAQUSensor, DAQMSensor, DAQESensor, discover_all
@@ -1070,7 +1070,7 @@ Ha megosztott tulajdonjogot szeretne a grafikus felhasználói felülettel, akko
 
 ## Projekt automatizálás — `ChlorosProject`
 
-Egy elmentett Chloros projekt egy olyan mappa, amely tartalmazza az `cameras.json` + `sensors.json` + `project.json` fájlokat. Az `open_project` betölti a manifesztet, az `connect_all` az összes mentett eszközt online állapotba hozza a mentett beállításokkal — ugyanazzal a hardverállapottal, amit a grafikus felület is létrehozna.
+A mentett Chloros projekt egy mappa, amely tartalmazza az `cameras.json` + `sensors.json` + `project.json` fájlokat. `open_project` betölti a manifesztet, az `connect_all` pedig minden mentett eszközt online állapotba hoz a mentett beállításokkal — ugyanazzal a hardverállapottal, amit a grafikus felhasználói felület (GUI) eredményezne.
 
 ### Minimális példa
 
@@ -1107,19 +1107,19 @@ with chloros_sdk.open_project("/path/to/proj") as proj:
 
 ### `ChlorosProject` metódusok
 
-| Metódus | Leírás |
+| Módszer | Leírás |
 | --- | --- |
-| `connect_all(cameras=True, arrays=True, sensors=True, verbose=False, align=None)` | Minden mentett eszköz felderítése és csatlakoztatása. Osztályonkénti csatlakozási jelentést ad vissza. Ha van futó háttérprogram, amely az `127.0.0.1:5000`-en hallgatózik, azt használja; ellenkező esetben csendben visszatér a közvetlen (háttérprogram nélküli) `lattice_sdk` eszközvezérlésre vált át — soha nem indít el háttérprogramot. |
+| `connect_all(cameras=True, arrays=True, sensors=True, verbose=False, align=None)` | Minden mentett eszköz felkutatása és csatlakoztatása. Osztályonkénti csatlakozási jelentést ad vissza. Futó háttérprogramot használ, ha ilyen figyel az `127.0.0.1:5000`-en; ellenkező esetben észrevétlenül visszatér a közvetlen (háttérprogram nélküli) `lattice_sdk` eszközvezérlésre — soha nem indít el háttérprogramot. |
 | `disconnect_all()` | Minden kapcsolatot bont. |
 | `capture_all(output_dir=".")` | Minden kamerából egy képkocka + minden érzékelőből egy tömb + spektrum. |
-| `stream(camera, overlays=False, fps=10.0)` | Generátor, amely BGR `numpy` képkockákat állít elő egy megnevezett kamerából (vagy sorozatból). Az `overlays=False` egy közvetlen `lattice_sdk` képfelvételi hurok (a sorozatok `{serial: frame}` szótárakat eredményeznek). Az `overlays=True` az `ChlorosLocal.camera_stream()`-en keresztül irányítja → a háttérrendszer `/api/camera/<serial>/stream-annotated` MJPEG-adatfolyamát, a kameramentett `ui.overlay` blokkját lekérdezési paraméterként továbbítja. Backend módot és **önálló kamerát** szükséges: a közvetlen üzemmódú kamera `RuntimeError` hibát vet fel (a háttérprogram nem tudja megragadni a folyamat tulajdonában lévő kamerát), míg a tömb `NotImplementedError` hibát vet fel (kameránként összetett átfedéseket hoz létre — egy elemet név szerint továbbít). Egyszeri műveletnek megfelelő: `CameraHandle.capture(annotated=True)`. |
-| `align_arrays(align=True, verbose=False)` | Igazítást futtat minden jelenleg csatlakoztatott tömbön. |
-| `process(mode="parallel", wait=True, progress_callback=None, poll_interval=2.0)` | Futtatja a kalibrációs / indexelési folyamatot a projektképein (az `ChlorosLocal.process`-et burkolja; ez a négy az **egyetlen** elfogadott kwarg — az `indices=` stb. `TypeError` hibát dob; az indexeket az `ChlorosLocal.configure()` segítségével). Lusta módon létrehoz egy `ChlorosLocal()`-et, amely automatikusan elindít egy háttérprogramot. |
+| `stream(camera, overlays=False, fps=10.0)` | Generátor, amely BGR `numpy` képkockákat állít elő egy megnevezett kamerából (vagy tömb) alapján. Az `overlays=False` egy közvetlen `lattice_sdk` képfelvételi hurok (a sorozatok `{serial: frame}` szótárakat eredményeznek). Az `overlays=True` az `ChlorosLocal.camera_stream()`-en keresztül irányít → a háttérrendszer `/api/camera/<serial>/stream-annotated` MJPEG-adatfolyamához, ahol a kamera elmentett `ui.overlay` blokkját lekérdezési paraméterként továbbítja. Hátulapi módot és **önálló kamerát** igényel: a közvetlen üzemmódú kamera `RuntimeError` hibát okoz (a háttér nem tudja megragadni a folyamat tulajdonában lévő kamerát), míg egy tömb `NotImplementedError` hibát okoz (kameránként összetett átfedéseket hoz létre — egy elemet név szerint streamel). Egyszeri műveletnek megfelelő: `CameraHandle.capture(annotated=True)`. |
+| `align_arrays(align=True, verbose=False)` | Igazítást futtat minden jelenlegcsatlakozott tömbön. |
+| `process(mode="parallel", wait=True, progress_callback=None, poll_interval=2.0)` | Futtassa a kalibrációs/indexelési folyamatot a projekt képein (beágyazza az `ChlorosLocal.process`-et; ez a négy az **egyetlen** elfogadott kwargok — az `indices=` stb. `TypeError` hibát dob; az indexeket az `ChlorosLocal.configure()`-en keresztül állítja be). Lusta módon létrehoz egy `ChlorosLocal()`-et, amely automatikusanelindít egy háttérprogramot. |
 
 Attribútumok:
-- `proj.cameras` — `Dict[str, CameraHandle]`, név és sorozatszám alapján indexelve.
-- `proj.arrays` — `Dict[str, ArrayHandle]`, amelynek kulcsa a név ÉS az array_id.
-- `proj.sensors` — `Dict[str, SensorHandle]`, amelynek kulcsa a név ÉS a slot_id.
+- `proj.cameras` — `Dict[str, CameraHandle]` név és sorozatszám alapján indexelt.
+- `proj.arrays` — `Dict[str, ArrayHandle]`, név és array_id alapján indexelve.
+- `proj.sensors` — `Dict[str, SensorHandle]`, név és slot_id alapján.
 - `proj.config` — `project.json["config"]` szótár.
 
 ### `CameraHandle`
@@ -1148,49 +1148,49 @@ for arr in cam.frame_stream(processing="debayered", fps=5, count=100):
 ```
 
 **Feldolgozási szintek.** Az `capture()`, az `grab()` és az `frame_stream()` mind ugyanazt az `processing`
-tokent használnak, és a lánc kumulatív – minden szint futtatja a fölötte lévőket:
+tokent veszi fel, és a lánc kumulatív — minden szint futtatja a fölötte lévő összeset:
 
 | Szint | Kimenet | Megjegyzések |
 | --- | --- | --- |
-| `raw` | 1-csatornás Bayer, érzékelő-natív | Nincs demosaic. Ezen a szinten nincsenek átfedések. |
-| `debayered` | 3-csatornás BGR (**alapértelmezett**) | Bilineáris demosaic. Az egyetlen szint, amely backend mód nélkül is működik. |
-| `radiance` | float32, W/m²/sr/nm | Teljes radiometrikus lánc: demoszaik + 3×3 színszétválasztás (multispec) + DSNU + síkkép + NIST-skála, az expozíció és az erősítés kiszámításával, így az értékek abszolútak. |
-| `reflectance` | uint16, 32768 = 1,0 | Sugárzás osztva a lefelé irányuló besugárzási intenzitással (ρ = π·L/E). Ehhez DLS/DAQ-leolvasásra van szükség — lásd az alábbi megjegyzést. |
-| `display` | 8-bites sRGB-szerű | GUI-nek megfelelő renderelés: CCM + fehéregyensúly + gamma a kamera aktív színprofilján keresztül. |
+| `raw` | 1-csatornás Bayer, szenzor-natív | Nincs demosaic. Ezen a szinten nincsenek átfedések. |
+| `debayered` | 3-csatornás BGR (**alapértelmezett**) | Bilineáris demosaik. Az egyetlen szint, amely backend mód nélkül is működik. |
+| `radiance` | float32, W/m²/sr/nm | Teljes radiometrikus lánc: demosaik + 3×3 színszétválasztás (multispec) + DSNU + sík-mező + NIST-skála, az expozíció és az erősítés kivonásával, így az értékek abszolútak. |
+| `reflectance` | uint16, 32768 = 1,0 | Sugárzási intenzitás osztva a lefelé irányuló besugárzási intenzitással (ρ = π·L/E). DLS/DAQ-leolvasás szükséges — lásd az alábbi megjegyzést. |
+| `display` | 8-bit sRGB-szerű | GUI-nek megfelelő renderelés: CCM + fehéregyensúly + gamma a kamera aktív színprofilján keresztül. |
 
-Bármi, ami nem `debayered`-en kívül minden más backend módot igényel; a közvetlen módú kamera
-`NotImplementedError` hibát dob. Az `reflectance`-hez használható lefelé irányuló sugárzási értékre van szükség — a képkocka végpontja automatikusan
-beilleszti az összesített DAQ-adatot a kamera DLS-helyére, de ha nincs DAQ-hoz kötve a lánc elutasítja a
-reflektancia kimenetet, és őszintén jelzi a visszaminősítést a visszaküldött metaadatokban, ahelyett, hogy csendben
-visszaadna egy alacsonyabb minőségű eredményt.
+A `debayered`-től eltérő beállításokhoz háttérmód szükséges; a közvetlen üzemmódú kamera
+`NotImplementedError` hibát. Az `reflectance`-hez használható lefelé irányuló mérési értékre van szükség — a képkocka végpontja automatikusan
+beilleszti az összesített DAQ-adatot a kamera DLS-helyébe, de ha nincs DAQ-adat hozzárendelve, a lánc elutasítja a
+reflektancia kimenetet, és őszintén a visszaküldött metaadatokban jelzi a visszaminősítést, ahelyett, hogy csendben
+adna vissza egy alacsonyabb minőségű eredményt.
 
-> **Reflektancia DN skála — ne kódold be mereven.** A LATTICE reflektancia az `32768` = ρ 1.0 értéket, és
-> XMP `Chloros:PixelScale=32768` címkét jelöl meg; az Survey3 reflektancia az `65535` = ρ 1,0 értéket használja, és nem tartalmaz
-> `Chloros:*` címkéket. Olvassa be a címkét, és ossza el vele. Az uint16 tartományban van definiálva, így
-> `32768` marad minden olyan formátum esetében, amely újraméretezi (16 bites TIFF, 8 bites PNG /JPG, 32 bites százalék) — először
-> normalizálja vissza a tárolt adattípust uint16-ra (8-bitesből ×257, floatból ×65535). Az egyetlen kivétel:
-> egy 8-bites forrásból származó rögzítés, amelyet 8-bites TIFF formátumban írtak le, *levágásra kerül*, nem pedig átméretezésre, így nincs skála, amely
-> leírná — Chloros ebben az esetben teljesen kihagyja az `PixelScale`-et és a MicaSense-tupelt. A LATTICE reflektanciafájlban hiányzó
-> címkét kezelje „nincs érvényes skála”ként, ne pedig alapértelmezettként.
+> **Reflektancia DN skála — ne kódold be rögzítve.** A LATTICE-reflektancia az `32768` = ρ 1,0 értéket használja, és
+> XMP `Chloros:PixelScale=32768`; Survey3 a reflektancia az `65535` = ρ 1,0 értéket használja, és nem tartalmaz
+> `Chloros:*` címkét. Olvassa be a címkét, és ossza el vele. Az uint16 tartományban van definiálva, így
+> `32768` marad minden olyan formátum esetében, amely átméretez (16 bites TIFF, 8 bites PNG /JPG, 32 bites százalék) — először normalizálja
+> a tárolt adattípust először vissza uint16-ra (8 bitesből ×257-szeresre, lebegőpontosból ×65535-szeresre). Az egyetlen kivétel:
+> egy 8-bites forrásból származó, 8-bites TIFF formátumban írt felvétel *levágásra* kerül, nem átméretezésre, így nincs méretarány, amely
+> leírná — Chloros ebben az esetben teljesen kihagyja az `PixelScale`-et és a MicaSense-tupelt. A hiányzó
+> címkét a LATTICE reflektanciafájlban „nincs érvényes skála”ként kezelje, ne pedig alapértelmezettként.
 
 > **Az EXIF-adatok átkerülnek az exportba.** Az `process()` a forrásfelvétel GPS-blokkját
-> **és annak ExifIFD-jét** minden termékre, így az exportált fájlok tartalmazzák az `FocalLength`, `FNumber`,
-> `ExposureTime`, `ISO`, `DateTimeOriginal` és `CameraSerialNumber` kódokat, valamint a
-> georeferenciálást is tartalmazzák. Az `FocalLength` kód alapján határozza meg a Pix4D a talajmintavételi távolságot – ennek hiányában
-> a rekonstrukció rendkívül hibás méretarányra (egy mért esetben egy 411 m-es terület
-> 47,8 km-es lett). A másolat szándékosan nem az `-all:all`: az IFD0 szerkezeti címkéi megzavarják
-> a LATTICE kimenetet, az `ExifImageWidth`/`Height` fájlokat pedig azért zárjuk ki, mert azok a forrás
-> felvételét írják le, nem pedig az exportált rasztert.
+> **és annak ExifIFD-jét** minden termékre átmásolja, így az exportált fájlok tartalmazzák az `FocalLength`, `FNumber`,
+> `ExposureTime`, `ISO`, `DateTimeOriginal` és `CameraSerialNumber` fájlokat, valamint a
+> földrajzi hivatkozás is szerepel. Az `FocalLength` az a cím, amelyből a Pix4D kiszámítja a földi mintavételi távolságot – ennek hiányában
+> a rekonstrukció rendkívül hibás méretarányra áll vissza (egy mért esetben egy 411 m-es terület
+> 47,8 km-es területté változott). A másolat szándékosan nem az `-all:all` fájl: az IFD0 szerkezeti címkéi megszakítják
+> a LATTICE kimenetet, az `ExifImageWidth`/`Height` fájlokat pedig azért hagytuk ki, mert azok a forrás
+> felvételt írják le, nem pedig az exportált rasztert.
 
-Felvételi-fázisú aljelzők (a radiometrikus szintekre vonatkoznak — `radiance`, `reflectance`, `display`):
+Rögzítési szakasz aljelzői (a radiometrikus szintekre vonatkoznak — `radiance`, `reflectance`, `display`):
 
-| Jelző | Alapértelmezett | Jelentés |
+| Zászló | Alapértelmezés | Jelentés |
 | --- | --- | --- |
-| `apply_calibration` | `True` | DSNU + síkkorrekció + 3x3 keverésmentesítés + NIST radiometrikus skála. |
-| `apply_white_balance` | `True` | WB LUT. DLS-támogatás, ha DAQ van a kamerához kapcsolva. |
+| `apply_calibration` | `True` | DSNU + síkmező + 3x3 keverésmentesítés + NIST radiometrikus skála. |
+| `apply_white_balance` | `True` | WB LUT. A DLS-figyelembe veszi, ha egy DAQ a kamerához van kapcsolva. |
 | `apply_index` | `False` | Vegetációs index értékelése. |
-| `index_expression` | `None` | Képlet felülírása. Ha nem üres → automatikusan engedélyezi az indexet. |
-| `annotated` | `False` | GUI-díszítések (zebra/rács/csúcsjelzés) átfedése. Nem elérhető az `raw` esetében. |
+| `index_expression` | `None` | Felülírási képlet. Ha nem üres → automatikusan engedélyezi az indexet. |
+| `annotated` | `False` | GUI-díszítések (zebra/rács/csúcsjelzés) átfedése. Az `raw` esetében nem elérhető. |
 
 ### `ArrayHandle`
 
@@ -1232,14 +1232,14 @@ print(counts)  # frames written per serial
 ```
 
 > **A visszatérési típus `CapturePathMap`, nem pedig `Dict[str, str]`.**
-> Az `chloros_sdk.CapturePathMap` az `Dict[str, Union[str, List[str]]]`: egy szintű
-> Az `processing` minden sorozatnak egy útvonalat ad, míg a többszintű (`"all"`, vagy egy
-> kifejezett `levels` lista) az adott
-> kamerához mentett összes termék **rendezett listáját** adja meg. Egy élő kombinált kompozíció, ha ilyen streamelés folyik, a sorozatszám helyett az extra
-> `"combined"` kulcs alatt érkezik. Az a kód, amely az `str`-et feltételezi, a
-> lista formátumban megszakad anélkül, hogy bármely típusellenőrző kifogást emelne — a megjegyzés szerint az `Dict[str, str]`
-> volt egy ideig a listaformátum megjelenése után, ezért létezik az alias. Normalizálj
-> , ha a lapos formátumot szeretnéd:
+> Az `chloros_sdk.CapturePathMap` egy `Dict[str, Union[str, List[str]]]`: egyszintű
+> `processing` minden sorozatnak egy útvonalat ad, míg a többszintűszintű (`"all"`, vagy egy
+> kifejezett `levels` lista) az adott sorozathoz tartozó **sorrendbe rendezett listát** minden olyan termékből, amelyet az adott
+> kamerához mentettek. Egy élő kombinált kompozit – ha ilyen streamelés folyik – a külön
+> `"combined"` kulcs alatt jelenik meg, nem pedig egy sorozatszám alatt. Az a kód, amely az `str`-et feltételezi, a
+> listaformátumban megszakad anélkül, hogy bármely típusellenőrző kifogást emelne — a megjegyzés egy ideig az `Dict[str, str]`-et
+> jelölte a listaformátum kiadása után, ezért létezik az alias. Normalizálja
+> a lapos formátumot, ha azt szeretné:
 >
 > ```python
 > paths = arr.capture(processing="all")
@@ -1249,7 +1249,7 @@ print(counts)  # frames written per serial
 
 ### Tömb-igazítás
 
-Az `ArrayHandle` a teljes igazítási felületet teszi elérhetővé. A profilok alapértelmezés szerint csak a munkamenetre vonatkoznak — az állandósításhoz hívd meg kifejezetten az `export_alignment()`-et.
+Az `ArrayHandle` a teljes igazítási felületet teszi elérhetővé. A profilok alapértelmezés szerint csak a munkamenetre vonatkoznak — az állandó mentéshez kifejezetten hívja meg az `export_alignment()` parancsot.
 
 ```python
 from chloros_sdk import AlignmentSpec
@@ -1286,7 +1286,7 @@ arr.clear_alignment()
 
 #### Csatlakozáskori igazítás
 
-Az `connect_all(align=...)` minden tömböt automatikusan igazít a csatlakozáskor:
+Az `connect_all(align=...)` minden tömböt automatikusan igazíthat a csatlakozáskor:
 
 ```python
 # Align every array with defaults
@@ -1314,7 +1314,7 @@ spectrum = proj.sensors["Sky"].read()
 
 ## Közvetlen hardver (háttérrendszer nélkül)
 
-Ha teljesen független szeretne lenni a háttérrendszertől (CI, headless robotok, beágyazott rendszerek), importálja közvetlenül az `lattice_sdk` és az `daq_sdk` fájlokat — mindkettőt az-exportálja az `chloros_sdk`. Figyelem az `CAMERA_AVAILABLE` / `DAQ_AVAILABLE` esetében: az `lattice_sdk` megtalálható a PyPI-csomagban (de ehhez szükség van az Arena SDK futtatókörnyezetre), míg az `daq_sdk` kizárólag az asztali telepítővel érhető el.
+Ha teljesen független szeretne lenni a háttérrendszertől (CI, headless robotok, beágyazott rendszerek), importálja közvetlenül az `lattice_sdk` és az `daq_sdk` fájlokat — mindkettőt az `chloros_sdk` újraexportálja. Figyelem az `CAMERA_AVAILABLE` / `DAQ_AVAILABLE` esetében: Az `lattice_sdk` a PyPI-csomagban található (de ehhez az Arena SDK futtatókörnyezet jelenléte szükséges), míg az `daq_sdk` kizárólag az asztali telepítővel érhető el.
 
 ```python
 from chloros_sdk import (
@@ -1339,25 +1339,25 @@ with LatticeCamera(serial="213800234", settings=settings) as cam:
     print(result.filepath, result.width, result.height)
 ```
 
-##### Előre beállított értékek és a kioldó
+##### Előre beállított profilok és a kioldó
 
-A négy előre beállított érték közül három **szabad futású**: a kamera folyamatosan exponál, és egy
-az `capture()` visszaadja a következő képkockát. Az `triggered` kivételt képez – a
-kamerát a 2. vonalon lévő hardveres élre állítja be, így addig nem rögzít semmit, amíg az meg nem érkezik.
+A négy előre beállított profil közül három **szabad futású**: a kamera folyamatosan exponál, és az
+`capture()` visszaadja a következő képkockát. Az `triggered` a kivétel — ez a
+kamerát a 2. vonalon megjelenő hardveres élre élesíti, így addig nem rögzít semmit, amíg az meg nem jelenik.
 
-| Előre beállított érték | Kiváltó jel | Használata, ha |
+| Előre beállított érték | Kioldó | Használata, ha |
 | --- | --- | --- |
 | `default` | szabad futás | általános használat |
-| `high_speed` | szabad futás | 8-bites, 60 fps korlát, rövid expozíció |
+| `high_speed` | szabad futás | 8 bit, 60 fps korlát, rövid expozíció |
 | `high_quality` | szabad futás | 12 bites, nincs fps-korlát — a szokásos választás állóképekhez |
-| `triggered` | **készenlét, 2. vonal** | a kamera egy M8 szinkronkábelhez van csatlakoztatva, és valami más indítja el |
+| `triggered` | **készenlét, 2. vonal** | a fényképezőgép egy M8 szinkronkábelhez van csatlakoztatva, és valami más indítja el |
 
-Ha az `triggered`-et választja (vagy maga állítja be az `trigger_mode="On"`-et), és a 2. vonalat semmi sem
-vezérli, akkor minden `capture()` időtúllépésbe kerül — helyesen, mivel
-a kamerát várakozásra kérted. A SDK elmagyarázza, mi történik ilyenkor; lásd
+Ha az `triggered` beállítást választod (vagy magad állítod be az `trigger_mode="On"`-et), és semmi
+nem vezérli a 2. vonalat, akkor minden `capture()` időtúllépésbe kerül — helyesen, mivel te kérted
+a kamerát, hogy várjon. A SDK elmagyarázza, mi történik ilyenkor; lásd
 [SC_ERR_TIMEOUT a rögzítés során](#direct-hardware-backend-free).
 
-> **Megjegyzés — A csatlakozáskor megjelenő „GVSP probe” / `SC_ERR_TIMEOUT -1011` üzenetek nem hibák.**&gt; Csatlakozáskor a SDK megpróbál**jumbo kereteket** (9000 bájtos GVSP-csomagokat) egyeztetni a nagyobb átviteli sebesség érdekében. Közvetlen pont-pont-pont közötti NIC-kapcsolaton (pl. egy link-local `169.254.x.x` cím esetén) a hálózat általában nem képes jumbo keretek továbbítására, ezért ez a próba időtúllépésbe kerül, és olyan sorokat rögzít, mint például:
+> **Megjegyzés — A csatlakozáskor megjelenő „GVSP probe” / `SC_ERR_TIMEOUT -1011` üzenetek nem hibák.**&gt; Csatlakozáskor a SDK megpróbálja kialkudni a**jumbo keretek** (9000 bájtos GVSP-csomagok) használatát a nagyobb átviteli sebesség érdekében. Közvetlen pont-pont hálózati kártya-kapcsolaton (pl. link-local `169.254.x.x` cím) a hálózat általában nem képes jumbo keretek továbbítására, ezért ez a próbálkozás időtúllépésbe kerül, és olyan sorokat rögzít, mint például:
 >
 > ```
 > [Network] GVSP probe: unexpected error (TimeoutError: ... SC_ERR_TIMEOUT -1011)
@@ -1365,15 +1365,15 @@ a kamerát várakozásra kérted. A SDK elmagyarázza, mi történik ilyenkor; l
 > [Network] GVSP packet size: 1500 bytes (standard)
 > ```
 >
-> Ez a **tervezett tartalék megoldás**: az SDK automatikusan visszatér a szabványos 1500-bájtos csomagokra, és a kamera továbbra is normál módon csatlakozik (a következő `[chunk-enable …]` sorok a normál csatlakozási sorozat részét képezik). A rögzítés továbbra is működik.
+> Ez a **tervezett tartalék megoldás**: az SDK automatikusan visszatér a szabványos 1500 bájtos csomagokhoz, és a kamera továbbra is normál módon csatlakozik (a következő `[chunk-enable …]` sorok a normál csatlakozási sorozat részét képezik). A rögzítés továbbra is működik.
 >
-> Ezt a próbát kihagyhatja, de **ez nem csupán a naplóbejegyzések elhallgattatására szolgál — hanem kikapcsolja a jumbo kereteket is.** A kamera a „Don&#x27;t-Fragment” pingekre legfeljebb 1500 bájtig válaszol, függetlenül attól, hogy milyen jó a hálózatod, így a ping-teszt önmagában soha nem tudja felismerni a jumbo kereteket; ezt csak ez a próba képes megtenni. Ha letiltod, a kamera örökre a szabványos 1500 bájtos csomagokat fogja használni, bármilyen hálózaton:
+> Ezt a próbát kihagyhatja, de **ez nem csupán a naplóbejegyzések elhallgatására szolgál — hanem kikapcsolja a jumbo kereteket.** A kamera a Don&#x27;t-Fragment pingekre legfeljebb 1500 bájtig válaszol, függetlenül attól, hogy milyen jó a hálózatod, így a ping-teszt önmagában soha nem tudja kimutatni a jumbo kereteket; ezt csak ez a próba képes megtenni. Ha letiltod, a kamera örökre a szabványos 1500 bájtos csomagokat fogja használni, bármilyen hálózaton:
 >
 > ```bash
 > CHLOROS_GVSP_PROBE_FALLBACK=0   # gives up jumbo — see the warning it prints
 > ```
 >
-> Csak olyan hálózaton érdemes ezt használni, amelyről *biztosan tudod*, hogy nem támogatja a jumbo-csomagokat, ahol ez kameránként körülbelül egy másodpercet spórol a csatlakozási időből. Mivel ez valódi kompromisszum, nem pedig pusztán kozmetikai változtatás, az „SDK” (Hálózati beállítások) menüpont most már jelzi ezt, ha használod:
+> Csak olyan hálózaton érdemes használni, amelyről *biztosan* tudod, hogy nem támogatja a jumbo-csomagokat, mivel ilyenkor kameránként körülbelül egy másodpercet spórolhatsz a csatlakozási időből. Mivel ez valódi kompromisszum, nem pedig pusztán kozmetikai változtatás, a „SDK” (Hálózati beállítások) menü most már jelzi ezt, ha használod:
 >
 > ```
 > [Network] ⚠️ GVSP probe disabled (CHLOROS_GVSP_PROBE_FALLBACK=0) — staying at
@@ -1381,11 +1381,11 @@ a kamerát várakozásra kérted. A SDK elmagyarázza, mi történik ilyenkor; l
 > up ~1.45x wire ceiling. Unset the variable to test for jumbo.
 > ```
 >
-> **Hagyd békén, hacsak nincs rá okod.** Ha engedélyezve marad, minden csatlakozáskor újra felméri a tényleges hálózati környezetet: csatlakozz egy jumbo-kompatibilis kapcsolóhoz, és a következő csatlakozáskor a rendszer magától felismeri a jumbo-csomagokat, konfigurálás és újraindítás nélkül.
+> **Hagyd békén, hacsak nincs rá okod.** Ha engedélyezve marad, minden csatlakozáskor újra felméri a tényleges hálózati környezetet: ha egy jumbo-kompatibilis kapcsolóhoz csatlakozol, a következő csatlakozáskor a rendszer automatikusan felismeri a jumbo-csomagokat, konfigurálás és újraindítás nélkül.
 >
-> Ha *szeretnéd* a jumbo-átviteli sebességet, akkor engedélyezd a jumbo-t végpontok között (NIC MTU 9000 + egy olyan kapcsoló, amely átadja őket), vagy rögzítsd az `CHLOROS_GVSP_PACKET_SIZE_FORCE=9000` paranccsal, ha tudod, hogy a kapcsolat támogatja — bár a parancsonkénti `CHLOROS_GVSP_PACKET_SIZE_FORCE=9000 python …` használatát részesítsd előnyben a végleges beállítással szemben, mivel a rögzített méret kihagyja a próbafolyamatot, és megakadályozza az előtte lévő hálózathoz való alkalmazkodást. Az útvonalon lévő **minden** eszköznek át kell engednie a jumbo-csomagokat — beleértve minden PoE-elosztót vagy -befecskendezőt is, ami általában az oka annak, hogy egy egyébként jumbo-kompatibilis rendszer nem tudja továbbítani őket.
+> Ha *szükséged van* a jumbo átviteli sebességre, engedélyezd a végpontok közötti jumbo-t (NIC MTU 9000 + egy olyan kapcsoló, amely átadja azokat), vagy rögzítsd az `CHLOROS_GVSP_PACKET_SIZE_FORCE=9000` beállítással, ha tudod, hogy a kapcsolat támogatja — bár a végleges beállítás helyett inkább az egyes parancsokra vonatkozó `CHLOROS_GVSP_PACKET_SIZE_FORCE=9000 python …`-et javasoljuk, mivel a rögzített méret kihagyja a hálózati felmérést, és nem alkalmazkodik az előtte lévő hálózathoz. Az útvonalon található **minden** eszköznek át kell engednie a jumbo-csomagokat — beleértve a PoE-elosztókat és -injektorokat is, amelyek általában az oka annak, hogy egy egyébként jumbo-kompatibilis rendszer nem tudja továbbítani őket.
 
-> **Az `SC_ERR_TIMEOUT -1011` hiba az `capture()` / `grab*()` során egy másik probléma — ez valódi hiba.**&gt; A fenti megjegyzés kizárólag az `-1011` kódra vonatkozik, amelyet a**connect-time probe**rögzített. Ugyanez a hiba, ha**rögzítés** során jelentkezik, azt jelenti, hogy a kamera rendben csatlakozott, de nem küld képeket:
+> **Az `SC_ERR_TIMEOUT -1011` hiba az `capture()` / `grab*()` során egy másik probléma — ez valódi hiba.**&gt; A fenti megjegyzés kizárólag a**connect-time probe**által naplózott `-1011`-re vonatkozik. Ugyanez a hiba, ha egy**capture** során jelentkezik, azt jelenti, hogy a kamera rendben csatlakozott, de nem küld képeket:
 >
 > ```
 > File ".../lattice_sdk/camera.py", line ..., in grab_frame_with_metadata
@@ -1393,13 +1393,13 @@ a kamerát várakozásra kérted. A SDK elmagyarázza, mi történik ilyenkor; l
 > lattice_sdk.exceptions.CaptureError: Capture failed: ... SC_ERR_TIMEOUT -1011
 > ```
 >
-> A döntő jel az, ha a kamera *vezérlő* csatornája rendben van – az észlelés működik, a beállítások és az `[chunk-enable …]` írások mind sikeresek –, miközben *minden* képkocka időtúllépést okoz.
+> A döntő jel az, hogy a kamera *vezérlő* csatornája rendben van – a felismerés működik, a beállítások és az `[chunk-enable …]` írási műveletek mind sikeresek –, miközben *minden* képkocka időtúllépést eredményez.
 >
-> **A szokásos ok az, hogy a kamera hardveres kioldásra van beállítva.** Az `trigger_mode="On"` és az `trigger_source="Line2"` esetében a kamera egyáltalán nem küld semmit, amíg az M8 szinkronkábelre nem érkezik elektromos jel. Ha nincs kábel, amely ezt a vonalat vezérli, minden képfelvétel örökké vár. A kamera nem romlott el, és a hálózat is rendben van — pontosan azt teszi, amit megparancsoltak neki.
+> **A leggyakoribb ok az, hogy a kamera hardveres kiváltásra van beállítva.** Az `trigger_mode="On"` és `trigger_source="Line2"` esetében a kamera egyáltalán nem küld semmit, amíg az M8 szinkronkábelre nem érkezik elektromos jel. Ha nincs kábel, amely ezt a vonalat vezérelné, minden képfelvétel örökké vár. A kamera nem romlott el, és a hálózat is rendben van — pontosan azt teszi, amire utasították.
 >
-> Az `CameraSettings()` és az `default` / `high_speed` / `high_quality` beállítások szabad futást engedélyeznek, és egy élesítés alatt időtúllépés miatt megszakadó rögzítés magyarázatot ad a helyzetre, ahelyett, hogy pusztán egy `-1011` kódot írna ki. Az `PRESETS["triggered"]` a tervezésnek megfelelően élesíti a a 2. vonalat, a tervezésnek megfelelően.
+> Az `CameraSettings()` és az `default` / `high_speed` / `high_quality` előre beállított értékek szabad futást jelentenek, és egy élesítés alatt időtúllépés miatt megszakadó rögzítés magyarázatot ad a helyzetre, ahelyett, hogy pusztán egy `-1011` hibakódot jeleníthetne meg. Az `PRESETS["triggered"]` tervezés szerint élesíti a 2-es vonalat2-t, a tervezésnek megfelelően.
 >
-> Bármely kamera szabad futásának kikényszerítéséhez:
+> Bármely kamera szabadfutásának kikényszerítéséhez:
 >
 > ```python
 > settings = PRESETS["high_quality"]
@@ -1410,17 +1410,17 @@ a kamerát várakozásra kérted. A SDK elmagyarázza, mi történik ilyenkor; l
 
 #### Színprofilok (RGB élő előnézet) — `set_color_profile`
 
-Az `LatticeCamera.set_color_profile(profile, custom_cct_k=None)` beállítás kiválasztja a kijelző színprofilját a **élő előnézethez** a RGB kamerákon (a multispec kamerák figyelmen kívül hagyják ezt a beállítást):
+Az `LatticeCamera.set_color_profile(profile, custom_cct_k=None)` beállítás az RGB kamerák **élő előnézetéhez** a kijelző színprofilját választja ki (a multispec kamerák figyelmen kívül hagyják ezt a beállítást):
 
 | Profil | Jelentés |
 | --- | --- |
 | `raw` | A radiometrikus lánc teljes mellőzése. |
 | `linear` | DSNU + flat + WB, nincs CCM, nincs gamma. |
-| `natural` | Lineáris + mért CCM + sRGB gamma, kizárólag az egyszerű utómunkával (színárnyalat-simítás + fényes részek telítettségének csökkentése) — a valósághű alapbeállítás. |
-| `enhanced` | `natural` plusz a teljes hub-parity utómunka (színszegélyek eltávolítása, élénkség, CLAHE helyi kontraszt). Gazdagabb megjelenés, nagyjából **kétszeres képkockánkénti utómunkaköltséggel**, tehát alacsonyabb élő képkockasebességgel. |
-| `custom_temp` | `natural`, de a fehér egyensúly (WB) rögzítve az `custom_cct_k` Kelvin-értékre (a DLS figyelmen kívül hagyva; a háttér oldalon 2000–10 000 K-ra korlátozva a háttérrendszer oldalán). |
+| `natural` | Lineáris + mért CCM + sRGB gamma, kizárólag az olcsóbb kivitelben (színárnyalat-simítás + a fényes részek telítettségének csökkentése) — a valósághű alapbeállítás. |
+| `enhanced` | `natural` plusz a teljes hub-parity utómunka (színszegély eltávolítás, élénkség, CLAHE helyi kontraszt). Gazdagabb megjelenés, nagyjából **kétszeres képkockánkénti utómunkaköltséggel**, így alacsonyabb LIVE képkockasebességgel. |
+| `custom_temp` | `natural`, de a fehér egyensúly (WB) rögzítve az `custom_cct_k` Kelvin-értékre (a DLS figyelmen kívül hagyva; a háttérrendszer oldalán 2000–10000 K-ra korlátozva). |
 
-A profil **kizárólag élő előnézetre** szolgáló sebesség-/megjelenés-szabályozó: a mentett felvételek mindig a teljes, gazdag végső megjelenést kapják, függetlenül a kiválasztott profiltól, így az `natural` kiválasztása a képkocka-idő visszanyerése érdekében nem rontja a lemezre kerülő anyag minőségét. Egy ismeretlen profil az `ValueError` értéket emeli; amikor egy chloros háttérprogram elérhető, a változás POST-kéréssel továbbításra kerül hozzá is, így a következő előnézeti képkocka már tükrözi azt (a direct-SDK felhasználók háttérrendszer nélkül is megkapják a beállításváltozást).
+A profil egy **csak élő-előnézeti-kizárólagos** sebesség/megjelenés-szabályozó: a mentett felvételek mindig a teljes, gazdag utómunkát kapják, függetlenül a kiválasztott profiltól, így az `natural` kiválasztása a képkocka-idő visszanyerése érdekében nem csökkenti a lemezre kerülő anyag minőségét. Egy ismeretlen profil emeli az `ValueError` értéket; amikor elérhető egy chloros háttérprogram, a változás oda is elküldésre kerül, így a következő előnézeti képkocka már tükrözi azt (a háttérprogram nélküli direct-SDK-felhasználók is megkapják a beállításváltozást).
 
 ```python
 with LatticeCamera(serial="214701292") as cam:   # RGB cam
@@ -1430,7 +1430,7 @@ with LatticeCamera(serial="214701292") as cam:   # RGB cam
 
 #### Mono (M3M) kamerák és `Calibration`
 
-Egy mono **M3M** kamera (`M3M-<lens>-F<wavelength>`) egysávos: egy szürkeárnyalatos sík, nincs Bayer-mozaik, nincs 3×3 spektrális-átviteli mátrix. Az `Calibration` felismeri ezt, és egy `is_mono` jelzőt tesz közzé. A reflexió továbbra is sávonkénti radiometrikus térképként érvényes (a szétkeverés identitásmátrix), de az egyetlen kamerán végzett többsávos számítások értelmes eredményt adnak, nem pedig értelmetlen értékeket:
+A mono **M3M** kamera (`M3M-<lens>-F<wavelength>`) egysávos: egy szürkeárnyalatos sík, nincs Bayer-mozaik, nincs 3×3 spektrális keresztbeszélés-mátrix. Az `Calibration` felismeri ezt, és kiad egy `is_mono` jelzőt. A reflexió továbbra is sávonkénti radiometrikus térképként érvényesül (a keverés az identitásmátrix), de a többsávos számítások egyetlen kamerán nem értelmetlen eredményt adnak, hanem értelmeset:
 
 ```python
 from chloros_sdk import Calibration, CalibrationError
@@ -1446,7 +1446,7 @@ except CalibrationError as e:
     print(e)   # "...single-band mono (M3M) camera. Combine multiple..."
 ```
 
-Ha monokróm hardverrel szeretnénk növényzetindexet készíteni, egyesítsünk több, különböző hullámhosszúságú M3M kamerát egy igazított többsávos rétegbe (lásd [Tömbigazítás](#array-alignment)), és az indexet ne egy kamerán, hanem ezen a rétegen számítsuk ki.
+Ha monokróm hardverből szeretnénk növényzetindexet készíteni, egyesítsünk több, különböző hullámhosszúságú M3M kamerát egy igazított többsávos képcsomagba (lásd [Képsorozat-igazítás](#array-alignment)), és számítsuk ki az indexet a képcsomag egészén, nem pedig egyetlen kamerán.
 
 DAQ közvetlen mód:
 
@@ -1468,9 +1468,9 @@ sensor.start_streaming()
 sensor.stop()
 ```
 
-> **`apply_sensor_settings` elfogadott kulcsok**— pontosan `integration_time_ms`, `frame_avg`, `ae_enabled`, `sunshine_diffuser_installed` (DAQ-E; elavult, helyette az `cap_id` használata ajánlott), `filter_model` (DAQ-M) és `cap_id` (minden DAQ-típus; `None`/`""`/`"none"` = puszta érzékelő, nincs sapkakorrekció). Az ismeretlen kulcsokat**figyelmen kívül hagyja** — pl. az `{"integration_time": 64}` nem hajt végre semmilyen műveletet (`integration_time_ms`-nek kell lennie). Visszaadja az `{"applied": [...], "errors": {...}}` értéket, és soha nem dob kivételt.
+> **`apply_sensor_settings` elfogadott kulcsok**— pontosan `integration_time_ms`, `frame_avg`, `ae_enabled`, `sunshine_diffuser_installed` (DAQ-E; elavult, helyette az `cap_id` használata ajánlott), `filter_model` (DAQ-M) és `cap_id` (minden DAQ-típus; `None`/`""`/`"none"` = csupasz érzékelő, nincs sapkakorrekció). Az ismeretlen kulcsokat**csendben figyelmen kívül hagyja** — pl. az `{"integration_time": 64}` nem hajt végre semmit (az `integration_time_ms`-nek kell lennie). Visszaadja az `{"applied": [...], "errors": {...}}`-et, és soha nem dob kivételt.
 
-Az `chloros_sdk` csak a fent használt alapfelületet exportálja újra. A teljes `daq_sdk` nyilvános API (22 név) a következőket adja hozzá — ezeket közvetlenül az `daq_sdk`-ból kell importálni:
+Az `chloros_sdk` csak a fentebb használt alapfelületet exportálja újra. A teljes `daq_sdk` nyilvános API (22 név) a következőket adja hozzá — ezeket közvetlenül az `daq_sdk`-ből kell importálni:
 
 ```python
 from daq_sdk import (
@@ -1488,7 +1488,7 @@ from daq_sdk import (
 
 ## Kivételek
 
-Fogja meg az alaposztályt, hogy kezelje a „Chloros-ban bármi rosszul sült el” helyzeteket:
+Fogja meg az alaposztályt, hogy kezelje a „Chloros-ban bármi baj történt” helyzeteket:
 
 ```python
 import chloros_sdk
@@ -1503,7 +1503,7 @@ except chloros_sdk.ChlorosError as e:
     print(f"Chloros error: {e}")
 ```
 
-> Az `ChlorosAuthenticationError` és az `ChlorosConfigurationError` a többi elemmel együtt a legfelső szinten kerülnek exportálásra; az ábrán látható módon az `chloros_sdk.exceptions`-ből is importálhatók.
+> Az `ChlorosAuthenticationError` és az `ChlorosConfigurationError` a többi elemmel együtt a legfelső szinten van exportálva; az ábrán látható módon az `chloros_sdk.exceptions`-ból is importálhatók, ahogy az ábrán látható.
 
 Hierarchia:
 
@@ -1535,7 +1535,7 @@ LatticeError
 
 ---
 
-## Teljes folyamatot bemutató példák
+## Végpontok közötti példák
 
 ### 1. Mappa feldolgozása egyéni haladási sávval
 
@@ -1613,7 +1613,7 @@ with chloros_sdk.open_project("/home/user/Chloros Projects/Field_A") as proj:
     proj.process()
 ```
 
-### 4. Többkamerás képkocka-folyam → NumPy-feldolgozási folyamat
+### 4. Többkamerás képkocka-adatfolyam → NumPy-feldolgozási folyamat
 
 ```python
 import chloros_sdk
@@ -1633,7 +1633,7 @@ with chloros_sdk.open_project("/path/to/proj") as proj:
             print(serial, frame.shape, frame.dtype, frame.mean())
 ```
 
-### 5. Fej nélküli, közvetlenül a hardverhez kapcsolódó (háttérrendszer nélküli) rögzítési szkript
+### 5. Headless, közvetlenül a hardverhez kapcsolódó (háttérprogram nélküli) rögzítési szkript
 
 ```python
 from chloros_sdk import LatticeCamera, PRESETS, discover_cameras
@@ -1648,7 +1648,7 @@ for c in cams:
         print(c.serial, result.filepath)
 ```
 
-### 6. Képességvizsgálat egy 4-kamerás rendszer csatlakoztatása előtt
+### 6. Képességfelmérés egy 4 kamerás rendszer csatlakoztatása előtt
 
 ```python
 import chloros_sdk
@@ -1688,9 +1688,9 @@ else:
     raise RuntimeError(f"Probe error: {probe.get('error')}")
 ```
 
-### 7. Felvételi recept-egyenértékű (tiszta Python)
+### 7. Felvételi recept megfelelője (tiszta Python)
 
-Az CLI recept-DSL-jének van egy közvetlen Python-egyenértékűje:
+Az CLI recept-DSL-jének van egy közvetlen Python megfelelője:
 
 ```python
 import time, chloros_sdk
@@ -1722,15 +1722,15 @@ with chloros_sdk.open_project("/path/to/proj") as proj:
 
 ---
 
-## Backend Auto-Start
+## Backend automatikus indítás
 
-A smart-connect belépési pontok — `connect_camera`, `connect_array`, `connect_daq_sensor` és `discover_lattice_cameras` — vékony HTTP kliensek , amelyek feltételezik, hogy egy háttérszerver figyel az `127.0.0.1:5000` porton (a smart-connect felület alapértelmezett URL). Ha a grafikus felület (GUI) vagy a CLI már fut, akkor az egyik biztosan elérhető. Egy puszta szkriptből indítva viszont előfordulhat, hogy nincs — ezért ezek a függvények **automatikusan elindítják a csomagban szereplő háttérprogramot** (ablak nélkül, ugyanúgy, ahogyan az `ChlorosLocal` is teszi) az első hívásuk előtt, majd legfeljebb `backend_startup_timeout` ideig várnak, amíg az elindul.
+A smart-connect belépési pontok — `connect_camera`, `connect_array`, `connect_daq_sensor` és `discover_lattice_cameras` — vékony HTTP kliensek, amelyek feltételezik, hogy egy háttérprogram figyel az `127.0.0.1:5000` porton (a smart-connect felület alapértelmezett URLje). Ha a grafikus felület (GUI) vagy a CLI már fut, akkor az egyik biztosan. Egy puszta szkriptből indítva viszont előfordulhat, hogy nincs ilyen — ezért ezek a függvények **automatikusan elindítják a csomagban szereplő háttérprogramot** (ablak nélkül, ugyanúgy, ahogyan az `ChlorosLocal` is) az első hívásuk előtt, majd legfeljebb `backend_startup_timeout` ideig várnak, amíg az elindul.
 
 Szabályok:
 
-- **Csak a helyi URL futtatódik el.** A `backend_url`, amely az `localhost` / `127.0.0.1` / `[::1]`-re mutató `backend_url` megengedett; bármely más gazdagépet másé gépének tekintünk, és azt soha nem indítjuk el.
-- **A háttérprogram újrafelhasználás céljából futva marad** (CLI-hez hasonlóan) — a szkript leállásakor nem történik implicit leállítás. A szkript újbóli futtatásakor a futó háttérprogramot újra felhasználja.
-- **Az `auto_start_backend=False` paranccsal le lehet tiltani** bármelyik ilyen hívásnál (pl. ha távoli háttérprogramra mutat, vagy maga kezeli a háttérprogram életciklusát).
+- **Csak a helyi URL indítható el.** A `backend_url`, amely az `localhost` / `127.0.0.1` / `[::1]`-re mutató `backend_url` megfelelő; bármely más gazdagépet másé gépének tekintünk, és azt soha nem indítjuk el.
+- **A háttérprogram újrafelhasználás céljából futásban marad** (ugyanúgy, mint az CLI esetében) — a szkript leállásakor nem történik implicit leállítás. A szkript újbóli futtatásakor a futó háttérprogram újra felhasználásra kerül.
+- **Az `auto_start_backend=False` parancs használatával le lehet tiltani** bármelyik ilyen hívásnál (pl. ha távoli háttérprogramra hivatkoztál, vagy magad kezeled a háttérprogram életciklusát).
 
 ```python
 import chloros_sdk
@@ -1745,17 +1745,17 @@ arr = chloros_sdk.connect_array(serials,
                                 auto_start_backend=False)
 ```
 
-Ha a csomagban szereplő bináris fájl nem található meg vagy nem indítható el, a következő HTTP hívás egy kezelhető, **platformfüggő** `ChlorosConnectError` hibajelentést generál ahelyett, hogy egyszerűen csak a kapcsolat megtagadását jelentené — az Windows oldalon az asztali alkalmazásra vagy egy `chloros-cli` parancsra irányít; Linux-en (GUI nélkül) pedig egy `chloros-cli` parancsra vagy az `.deb`-re irányít.
+Ha a csomagban szereplő bináris fájl nem található meg vagy nem indítható el, a következő HTTP hívás egy kezelhető, **platformfüggő** `ChlorosConnectError` hibakódot, nem pedig egy egyszerű „kapcsolat megtagadva” hibajelentést — az Windows oldalon az asztali alkalmazásra vagy egy `chloros-cli` parancsra irányít; Linux-en (GUI nélkül) egy `chloros-cli` parancsra vagy az `.deb`-re irányítja.
 
 ---
 
 ## Környezet és fejlécek
 
-Az SDK minden háttérHTTP-hívást `X-Chloros-Client: sdk`-szel jelöljelöléssel látja el. A háttérrendszer a SDK / CLI licencelési szabályokat alkalmazza (bejelentkezés **és** fizetős Chloros+ csomag szükséges), a GUI ingyenes szintje helyett. Ez az importáláskor automatikusan beállítódik — Önnek semmit sem kell tennie.
+A SDK minden háttérrendszer-HTTP-hívást `X-Chloros-Client: sdk` jelöléssel lát el. A háttérrendszer a SDK / CLI licencelési szabályait alkalmazza (bejelentkezés **és** fizetős Chloros+ csomag szükséges), ahelyett, hogy a grafikus felület ingyenes szintjét használná. Ez az importáláskor automatikusan beállítódik — Önnek semmit sem kell tennie.
 
-Az `http://localhost` és az `http://127.0.0.1` a helyi háttérrendszerként kerülnek felismerésre. Más gazdagépekhez (pl. a saját elemzési szolgáltatásodhoz) változatlanul maradnak.
+Az `http://localhost` és az `http://127.0.0.1` a helyi háttérrendszerként kerülnek felismerésre. A többi szerverre (pl. a saját elemzési szolgáltatására) irányuló hívások változatlanok maradnak.
 
-A háttérszolgáltatást (URL) felülírhatod az `backend_url=` (vagy `api_url=` az `ChlorosLocal` esetén) megadásával:
+A háttérszolgáltatás felülírásához URL adja meg az `backend_url=` értéket (vagy az `api_url=` értéket az `ChlorosLocal` esetén):
 
 ```python
 chloros_sdk.connect_camera("213800234", backend_url="http://127.0.0.1:5000")
@@ -1765,28 +1765,28 @@ chloros_sdk.connect_daq_sensor(eth_host="daq-e-1.local",
 chloros_sdk.ChlorosLocal(backend_url="http://127.0.0.1:5000")
 ```
 
-(A nem loopback `backend_url` csak a source/dev háttérrendszert éri el — a szállított háttérrendszerek csak a loopbackhoz kapcsolódnak; az alagútmintát lásd a Távoli háttérrendszer módnál.)
+(A nem loopback jellegű `backend_url` csak a forrás/dev háttérprogramot ér el — a mellékelt háttérprogramok csak a loopback-hez kapcsolódnak; az alagút mintájáról lásd a Távoli háttérprogram mód című részt.)
 
 ---
 
 ## Verziókezelés és kompatibilitás
 
 - A SDK verziója `chloros_sdk.__version__` néven érhető el.
-- Az SDK a mellékelt háttérprogram-verzióhoz igazítja a viselkedést. A régebbi SDK és az újabb háttérprogramok keverése általában működik (előre kompatibilis végpontok), de az újabb SDK és a régebbi háttérprogramok keverése `404` hibákat okozhat az új végpontokon — frissítse az asztali alkalmazást, hogy megfeleljen.
+- Az SDK a viselkedést a csomagban szereplő háttérprogram-verzióhoz köti. Egy régebbi SDK és egy újabb backend kombinálása általában működik (előre kompatibilis végpontok), de egy újabb SDK és egy régebbi backend kombinálása `404` hibákat okozhat az új végpontokon — frissítse az asztali alkalmazást, hogy megfeleljen.
 - A smart-connect felület (`connect_camera` / `connect_array` / `connect_daq_sensor`) és a hálózatelemző végpont stabil JSON sémákat ad vissza; az új mezők kiegészítő jellegűek.
 
 ---
 
 ## Hibaelhárítási tippek
 
-- **`ChlorosAuthenticationError: Login required`** → Futtassa egyszer az `chloros-cli login EMAIL PASSWORD` parancsot ezen a gépen, vagy jelentkezzen be az Chloros asztali alkalmazáson keresztül.
-- **`ChlorosConnectError: No Chloros backend is running …`** → A smart-connect hívások automatikusan elindítanak egy helyi háttérprogramot, ezért ez a hibaüzenet csak akkor jelenik meg, ha a csomagban szereplő bináris fájl nem található vagy nem indítható el (pl. egy kizárólag pip-et futtató, asztali csomaggal nem rendelkező gazdagépen). Az üzenet platform-függő: az Windows rendszeren nyissa meg az asztali alkalmazást, vagy futtasson bármely `chloros-cli` parancsot; az Linux rendszeren futtasson egy `chloros-cli` parancsot (nincs grafikus felület), vagy telepítse az `.deb` programot. Távoli háttérprogram esetén adja meg a `backend_url=` (és `auto_start_backend=False`) parancsot.
-- **`CAMERA_AVAILABLE == False`** importáláskor → Az `lattice_sdk` nem tudta betölteni (általában az Arena SDK futásidejű DLL-jei nincsenek telepítve). A nem kamerás felület továbbra is működik.
-- **Az Array connect nem natív felbontást ad vissza**→ A háttérprogram smart-prep funkciója automatikusan kicsinyíti a képkocka méretét, hogy illeszkedjen a vezetékhez. Használja az `analyze_array_network()` parancsot az ok megállapításához, majd vagy frissítse a kapcsolatot, fogadja el a méretcsökkentést, vagy adja meg az `force_tier="slip-emit-and-capture"` parancsot a szekvenciális rögzítéshez. A méretcsökkentés biztonsági hálója**nem** fedezi az összesített túljegyzést (`oversubscribed: true`, fps mezők 0): a vezetékre vonatkozó túl sok kamera problémáját nem lehet binninggel/ROI-val megoldani — csökkentse a kamerák számát, engedélyezze a jumbo kereteket, vagy váltson gyorsabb hálózati kártyára (lásd [Túljegyzés](#over-subscription-the-per-cam-floor)).
-- **Az `analyze_array_network()` jelzi, hogy a hálózati kártya RX gyűrűje rendkívül kicsi (~0,26 MB)-nek jelzi / a csatlakozási kapukon „FRAMES WILL DROP” felirat jelenik meg** → A gazdagép hálózati kártyájának vételi gyűrűje az alapértelmezett értéken van (gyakran 32-re áll vissza a hálózati kártya illesztőprogram frissítése után). Realtek USB 10GbE adapter esetén állítsa be az `ReceiveBufferLen=256` és az `PendingReceives=64` (emelt szintű) értékeket, majd indítsa újra a háttérprogramot, hogy újraolvassa a gyűrűt. A teljes eljárás: [CLI Hivatkozás → Gazdagép hálózati kártyájának beállítása és hangolása](cli-reference.md#host-nic-setup--tuning-lattice-arrays).
-- **A gazdagép lefagy újraindításkor/leállításkor, később WMI `Invalid class` hibák jelentkeznek / a hálózati kártya nem aktiválódik** → Elavult USB 10GbE illesztőprogram okozza az `DRIVER_POWER_STATE_FAILURE` (BSOD `0x9F`). Frissítse az adapter illesztőprogramját a legújabb verzióra (≥ 2026), majd-állítsa be újra a fogadógyűrű beállításait. Lásd [CLI Referencia → Gazdagép NIC beállítása és hangolása](cli-reference.md#host-nic-setup--tuning-lattice-arrays).
-- **Reflektancia elutasítva** → Egy aktív DAQ-t kell hozzárendelni a kamerához (vagy sorozathoz) az abszolút skálájú reflektancia érdekében. A társítást végezze el a grafikus felhasználói felületen keresztül, vagy használja az `processing="radiance"` (W/m²/sr/nm) beállítást, amelyhez nincs szükség párosított érzékelőre.
-- **Az `smart=True` rögzítése a vártnál hosszabb ideig tart** → Az AE konvergenciája a jelenet dinamikájától függ; szigorítsa az `exposure_tolerance_pct` értéket, vagy rövidítse az `stability_window_s` értéket, ha gyorsabb (kevésbé stabil) kiváltást szeretne.
+- **`ChlorosAuthenticationError: Login required`** → Futtassa egyszer az `chloros-cli login EMAIL PASSWORD` parancsot ezen a gépen, vagy jelentkezzen be az „Chloros” asztali alkalmazáson keresztül.
+- **`ChlorosConnectError: No Chloros backend is running …`** → A smart-connect hívások automatikusan elindítanak egy helyi háttérprogramot, így ez a hibaüzenet csak akkor jelenik meg, ha a csomagban szereplő bináris fájl nem található vagy nem indítható el (pl. egy kizárólag pip-et futtató, asztali csomaggal nem rendelkező gazdagépen). Az üzenet platform-függő: a Windows rendszeren nyissa meg az asztali alkalmazást, vagy futtasson bármilyen `chloros-cli` parancsot; az Linux rendszeren futtasson egy `chloros-cli` parancsot (nincs GUI), vagy telepítse az `.deb`-et. Távoli háttérprogram esetén adja meg az `backend_url=` (és az `auto_start_backend=False`) parancsot.
+- **`CAMERA_AVAILABLE == False`** importáláskor → Az `lattice_sdk` betöltése sikertelen volt (jellemzően az Arena SDK futásidejű DLL-ek nincsenek telepítve). A nem kamerás felület továbbra is működik.
+- **Az Array connect natívnál alacsonyabb felbontást ad vissza**→ A háttérrendszer smart-prep funkciója automatikusan kicsinyíti a képkocka méretét, hogy illeszkedjen a vezetékhez. Használja az `analyze_array_network()` parancsot, hogy megnézze, miért, majd vagy frissítse a kapcsolatot, fogadja el a kicsinyítést, vagy adja át az `force_tier="slip-emit-and-capture"` kódot a szekvenciális rögzítéshez. A kicsinyítésre vonatkozó biztonsági háló**nem** terjed ki az összesített-előfizetést (`oversubscribed: true`, fps mezők 0): a vezetékhez képest túl sok kamera problémáját nem lehet binninggel/ROI-val megoldani — csökkentse a kamerák számát, engedélyezze a jumbo kereteket, vagy váltson gyorsabb hálózati kártyára (lásd [Túlzott előfizetés](#over-subscription-the-per-cam-floor)).
+- **Az `analyze_array_network()` a hálózati kártya RX gyűrűjét aprónak (~0,26 MB) jelzi / a csatlakozási kapukon „FRAMES WILL DROP” felirat látható** → A gazdagép hálózati kártyájának vételi gyűrűje az alapértelmezett értéken van (a hálózati kártya-illesztőprogram frissítése után gyakran 32-re áll vissza). Egy Realtek USB 10GbE adapteren állítsa be az `ReceiveBufferLen=256` és `PendingReceives=64` (emelt szintű) értékeket, majd indítsa újra a háttérprogramot, hogy az újra-újraolvassa a gyűrűt. Teljes eljárás: [CLI Hivatkozás → Host NIC beállítás és hangolás](cli-reference.md#host-nic-setup--tuning-lattice-arrays).
+- **A gazdagép lefagy újraindításkor/leállításkor, később WMI `Invalid class` hibák / a hálózati kártya nem aktiválódik** → Elavult USB 10GbE illesztőprogram okozza az `DRIVER_POWER_STATE_FAILURE` hibát (BSOD `0x9F`). Frissítse az adapter illesztőprogramját a legújabb verzióra (≥ 2026), majd alkalmazza újra a fogadógyűrű beállításait. Lásd [CLI Referencia → Gazdagép hálózati kártyájának beállítása és hangolása](cli-reference.md#host-nic-setup--tuning-lattice-arrays).
+- **A reflexió elutasítva** → Egy aktív adatgyűjtőt (DAQ) kell a kamerához (vagy a szenzortömbhöz) az abszolút skálájú reflektancia érdekében. A társítást végezze el a grafikus felhasználói felületen keresztül, vagy használja az `processing="radiance"` (W/m²/sr/nm) beállítást, amelyhez nincs szükség párosított szenzorra.
+- **Az `smart=True` rögzítése a vártnál hosszabb ideig tart** → Az AE konvergenciája a jelenet dinamikájától függ; szigorítsa az `exposure_tolerance_pct` beállítást, vagy rövidítse az `stability_window_s` értéket, ha gyorsabb (kevésbé stabil) kioldást szeretne.
 
 ---
 

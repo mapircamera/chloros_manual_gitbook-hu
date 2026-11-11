@@ -1,8 +1,6 @@
 # DAQ-E hálózat és időszinkronizálás
 
-> Az érzékelő fizikai hálózati beállítása – kábelezés, PoE, IP-cím hozzárendelés és az eszköz saját hálózati beállításai – a **[DAQ felhasználói kézikönyvben](https://mapir.gitbook.io/daq/daq-e/network-setup)** található. Ez az oldal az Chloros
-
--oldalt tárgyalja: a csatlakozást, az időszinkronizálást, valamint azt, hogy mit kell tenni, ha a felderítés nem jár eredménnyel.
+> Az érzékelő fizikai hálózati beállítása – kábelezés, PoE, IP-cím hozzárendelés és az eszköz saját hálózati beállításai – a **[DAQ felhasználói kézikönyvben](https://mapir.gitbook.io/daq/daq-e/network-setup)** található. Ez az oldal az Chloros-oldalt tárgyalja: a csatlakozást, az időszinkronizálást, valamint azt, hogy mit kell tenni, ha a felderítés nem jár eredménnyel.
 
 A DAQ-E a DAQ-család Ethernet-alapú tagja: PoE-n keresztül kap áramellátást, mDNS-en keresztül (`_daq-e._tcp` szolgáltatás) ismerhető fel, és az érzékelő-azonosítójából származtatott gazdagépnévvel címezhető — `daq-e-<6 hex>.local`, pl. `daq-e-def330.local`. Ez az oldal bemutatja, hogyan továbbítja az adatokat a hálózaton, és hogyan vesz részt a PTP időszinkronizálásban.
 
@@ -13,35 +11,17 @@ A DAQ-E a DAQ-család Ethernet-alapú tagja: PoE-n keresztül kap áramellátás
 | **Multicast** (alapértelmezett) | UDP `239.10.10.10:5002` | Ugyanazon a LAN-on lévő tetszőleges számú eszköz ugyanazt az adatfolyamot veszi | Minden datagramot CRC-16/CCITT-vel ellenőriznek |
 | **Raw** | TCP-port `5000` | Pontosan egy kliens (kizárólagos) | Bájtkompatibilis a DAQ-U-val |
 
-A Chloros
-
-alapértelmezés szerint multicastot használ, ami lehetővé teszi, hogy a grafikus felhasználói felület (GUI), a parancssori felület (CLI
-
-) és az SDK
-
-egyszerre figyeljenek egy érzékelőt.
+A Chloros alapértelmezés szerint multicastot használ, ami lehetővé teszi, hogy a grafikus felhasználói felület (GUI), a parancssori felület (CLI) és az SDK egyszerre figyeljenek egy érzékelőt.
 
 ## Hálózati követelmények
 
-* **Ugyanaz a broadcast-tartomány.** A Chloros
-
--t futtató gépnek ugyanazon az L2 hálózati szegmensen kell lennie, mint az érzékelőnek — az mDNS-felfedezés nem halad át útválasztókon.
-* **Tűzfal.** Windows
-
-rendszeren a telepítő minden hálózati profilhoz hozzáadja a **Chloros
-
-Backend (UDP-In)**tűzfalszabályt a háttérszolgáltatáshoz, amely kiterjed a DAQ-E adatokra (UDP 5002), az mDNS-t (UDP 5353) és a PTP-t (UDP 319/320), valamint egy**„Chloros
-
-Backend (TCP-In)”** szabályt, amely a helyi alhálózatra korlátozódik, és a DAQ-E által a firmware-frissítés során a számítógéppel létesített visszacsatolási kapcsolatra vonatkozik. Linux
-
-rendszeren az `.deb` megnyitja az UDP-portokat az `ufw` vagy az `firewalld` fájlban, ha a telepítéskor ez a tűzfal aktív. Egy harmadik féltől származó tűzfal, vagy egy később engedélyezett tűzfal esetében ugyanezeket a portokat kell engedélyezni.
+* **Ugyanaz a broadcast-tartomány.** A Chloros-t futtató gépnek ugyanazon az L2 hálózati szegmensen kell lennie, mint az érzékelőnek — az mDNS-felfedezés nem halad át útválasztókon.
+* **Tűzfal.** Windows rendszeren a telepítő minden hálózati profilhoz hozzáadja a **Chloros Backend (UDP-In)**tűzfalszabályt a háttérszolgáltatáshoz, amely kiterjed a DAQ-E adatokra (UDP 5002), az mDNS-t (UDP 5353) és a PTP-t (UDP 319/320), valamint egy**„Chloros Backend (TCP-In)”** szabályt, amely a helyi alhálózatra korlátozódik, és a DAQ-E által a firmware-frissítés során a számítógéppel létesített visszacsatolási kapcsolatra vonatkozik. Linux rendszeren az `.deb` megnyitja az UDP-portokat az `ufw` vagy az `firewalld` fájlban, ha a telepítéskor ez a tűzfal aktív. Egy harmadik féltől származó tűzfal, vagy egy később engedélyezett tűzfal esetében ugyanezeket a portokat kell engedélyezni.
 * **PoE-tápellátás, nincs állapotjelző LED.** A DAQ-E-nek nincs saját LED-je — ellenőrizze a tápellátást a kapcsoló vagy az injektor portján található link/PoE-jelzőfény segítségével, és a bekapcsolás után várjon néhány másodpercet, amíg a készülék elindul és csatlakozik a hálózathoz.
 
 ## Csatlakoztatás
 
-**GUI:** Fényérzékelők fül → Érzékelő csatlakoztatása → Eszköztípus „DAQ-E (Ethernet)”. A felderítés csak addig fut, amíg a csatlakozási párbeszédablak a képernyőn látható (mDNS-keresés és ARP-letapogatás Windows
-
-rendszeren), 15 másodpercenként megismétlődve; a Frissítés gomb megnyomásával azonnal újraindul a keresés. Az észlelt érzékelők megjelennek a legördülő menüben; az első észlelt érzékelő automatikusan kijelölésre kerül.
+**GUI:** Fényérzékelők fül → Érzékelő csatlakoztatása → Eszköztípus „DAQ-E (Ethernet)”. A felderítés csak addig fut, amíg a csatlakozási párbeszédablak a képernyőn látható (mDNS-keresés és ARP-letapogatás Windows rendszeren), 15 másodpercenként megismétlődve; a Frissítés gomb megnyomásával azonnal újraindul a keresés. Az észlelt érzékelők megjelennek a legördülő menüben; az első észlelt érzékelő automatikusan kijelölésre kerül.
 
 <!-- SCREENSHOT-NEEDED: DAQ connect dialog with Device Type set to "DAQ-E (Ethernet)" and at least one discovered sensor listed in the Hostname/IP dropdown (e.g. daq-e-xxxxxx.local), Connect button enabled. -->
 
@@ -67,23 +47,9 @@ Az `--eth-host` elfogadja az mDNS-gépnevet vagy az IP-címet, mindig a megfelel
 
 ## Eszközbeállítások és firmware
 
-Maga az érzékelő tárolja a hálózati beállításait: DHCP (gyári beállítás, amely 169.254.x.x link-local címre vált, ha nincs válasz a DHCP-kiszolgálótól) vagy statikus cím. Azt is tárolja, hogy bekapcsoláskor elindul-e az adatátvitel. Ezeket a beállításokat a grafikus felhasználói felületen (az érzékelő fogaskerék-ikonjával elérhető beállítások, **Hálózat**:**Módosítás…**,**Adatfolyam bekapcsoláskor**,**Érzékelő újraindítása**; lásd [A DAQ fül](gui.md)), vagy a CLI
+Maga az érzékelő tárolja a hálózati beállításait: DHCP (gyári beállítás, amely 169.254.x.x link-local címre vált, ha nincs válasz a DHCP-kiszolgálótól) vagy statikus cím. Azt is tárolja, hogy bekapcsoláskor elindul-e az adatátvitel. Ezeket a beállításokat a grafikus felhasználói felületen (az érzékelő fogaskerék-ikonjával elérhető beállítások, **Hálózat**:**Módosítás…**,**Adatfolyam bekapcsoláskor**,**Érzékelő újraindítása**; lásd [A DAQ fül](gui.md)), vagy a CLI-n és az SDK-ben az `pool-set-network`, `pool-set-auto-stream` és `pool-reboot` (`DAQSensorSession.set_network()`, `set_auto_stream()`, `reboot()`; lásd a [CLI-referenciát](../reference/cli-reference.md#daq-e-device-settings)). Az érzékelő újraindul a hálózati változás alkalmazása érdekében, és a Chloros újra csatlakoztatja. A Chloros ot futtató számítógép hálózatán statikus címnek kell lennie: a Chloros elutasítja azokat, amelyekhez az újraindítás után nem tudott hozzáférni. Az érzékelő azonosítója és az `daq-e-<id>.local` gazdagépneve soha nem változik. Újdonság az 1.3.0-s verzióban.
 
--n és az SDK
-
--ben az `pool-set-network`, `pool-set-auto-stream` és `pool-reboot` (`DAQSensorSession.set_network()`, `set_auto_stream()`, `reboot()`; lásd a [CLI
-
--referenciát](../reference/cli-reference.md#daq-e-device-settings)). Az érzékelő újraindul a hálózati változás alkalmazása érdekében, és a Chloros
-
-újra csatlakoztatja. A Chloros
-
-ot futtató számítógép hálózatán statikus címnek kell lennie: a Chloros
-
-elutasítja azokat, amelyekhez az újraindítás után nem tudott hozzáférni. Az érzékelő azonosítója és az `daq-e-<id>.local` gazdagépneve soha nem változik. Újdonság az 1.3.0-s verzióban.
-
-**A firmware-frissítések beépültek a grafikus felhasználói felületbe.** Ha egy csatlakoztatott DAQ-E olyan firmware-t futtat, amely régebbi, mint a Chloros
-
--verzióhoz mellékelt kép, az érzékelő sorában sárga **Frissítés elérhető** ikon jelenik meg, és a fogaskerék-beállítások ablakban megjelenik egy „Frissítés a <version>” gomb. A frissítés körülbelül 30 másodperc alatt lezajlik a hálózaton keresztül; az érzékelő automatikusan újraindul és újra csatlakozik, és egy megszakadt átvitel esetén a jelenlegi firmware sértetlen marad. CLI-ről vagy SDK-ről, valamint Linux rendszeren, ahol nincs grafikus felület, futtassa az `chloros-cli daq pool-update-firmware --sensor-id <id>` (`DAQSensorSession.update_firmware()`) parancsot.
+**A firmware-frissítések beépültek a grafikus felhasználói felületbe.** Ha egy csatlakoztatott DAQ-E olyan firmware-t futtat, amely régebbi, mint a Chloros-verzióhoz mellékelt kép, az érzékelő sorában sárga **Frissítés elérhető** ikon jelenik meg, és a fogaskerék-beállítások ablakban megjelenik egy „Frissítés a <version>” gomb. A frissítés körülbelül 30 másodperc alatt lezajlik a hálózaton keresztül; az érzékelő automatikusan újraindul és újra csatlakozik, és egy megszakadt átvitel esetén a jelenlegi firmware sértetlen marad. CLI-ről vagy SDK-ről, valamint Linux rendszeren, ahol nincs grafikus felület, futtassa az `chloros-cli daq pool-update-firmware --sensor-id <id>` (`DAQSensorSession.update_firmware()`) parancsot.
 
 <!-- SCREENSHOT-NEEDED: DAQ-E per-sensor settings modal showing the DAQ-E-only rows: Hostname/IP, Firmware row with the "Update to <ver>" button (or "Up to date"), and the PTP Sync row with a live state value. -->
 

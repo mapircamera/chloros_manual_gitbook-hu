@@ -1,8 +1,6 @@
 # Felvétel és a .daq formátum
 
-Az `.daq` fájl a Chloros
-
-fényérzékelőjének felvételi formátuma: egy DAQ-érzékelő kalibrált spektrális képkockáiból álló **SQLite adatbázis**. Ha egy rögzítési munkamenet során ilyen fájlt készítünk, a reflexiós feldolgozó folyamat később minden képet eloszthat az adott pillanatban mért lefelé irányuló besugárzási intenzitással.
+Az `.daq` fájl a Chloros fényérzékelőjének felvételi formátuma: egy DAQ-érzékelő kalibrált spektrális képkockáiból álló **SQLite adatbázis**. Ha egy rögzítési munkamenet során ilyen fájlt készítünk, a reflexiós feldolgozó folyamat később minden képet eloszthat az adott pillanatban mért lefelé irányuló besugárzási intenzitással.
 
 ## Mit tartalmaz egy .daq fájl?
 
@@ -16,15 +14,11 @@ fényérzékelőjének felvételi formátuma: egy DAQ-érzékelő kalibrált spe
 
 A formátum a DAQ-U, DAQ-M, DAQ-E és DAQ-E-S eszközökön azonos, így a későbbi feldolgozás során nem számít, melyik eszköz rögzítette az adatokat. A DAQ-E-S felvételek minden spektrum mellett az eszköz dőlésszögét, forgásszögét és emelkedési szögét is tárolják.
 
-**A felvételek áramkimaradás esetén is megmaradnak (1.3.0).**Az élő felvétel minden commit alkalmával naplóba kerül, és teljes lemezszinkronizálás történik, így egy áramkimaradás vagy egy leállított folyamat esetén csak az utolsó 3 másodperc veszik el, nem pedig a fájl. Az írás közben leállított felvétel az `.daq` fájl mellett egy `<name>.daq-journal` fájlt is hagyhat:**mindkettőt őrizze meg és másolja át együtt.** Az Chloros
-
-az első fájlolvasáskor visszagörgeti a naplófájlt. A leterhelt lemez késlelteti a fájl írását, de soha nem az érzékelő adatait.
+**A felvételek áramkimaradás esetén is megmaradnak (1.3.0).**Az élő felvétel minden commit alkalmával naplóba kerül, és teljes lemezszinkronizálás történik, így egy áramkimaradás vagy egy leállított folyamat esetén csak az utolsó 3 másodperc veszik el, nem pedig a fájl. Az írás közben leállított felvétel az `.daq` fájl mellett egy `<name>.daq-journal` fájlt is hagyhat:**mindkettőt őrizze meg és másolja át együtt.** Az Chloros az első fájlolvasáskor visszagörgeti a naplófájlt. A leterhelt lemez késlelteti a fájl írását, de soha nem az érzékelő adatait.
 
 **Az adatátvitelt leállító DAQ-E-t újra csatlakoztatja a rendszer (1.3.0).** Amikor egy DAQ-E adatfolyama elhallgat (a kapcsolóját ki- és bekapcsolták, vagy megszakadt a kapcsolat), a háttérrendszer a korábbi beállításokkal csatlakoztatja újra, és a felvétel ugyanabban az `.daq` fájlban folytatódik, a hiányzó rész a fájlban megjelölve.
 
-A kalibrált felvételhez szükség van az érzékelő gyári kalibrációs csomagjára. A DAQ-U és DAQ-M esetében a háttérprogram az érzékelő azonosítója alapján letölti a csomagot a MAPIR
-
-felhőjéből (ha ez nem sikerül, a felvétel elutasításra kerül); a DAQ-E egységek kivételt képeznek, mivel a kalibrációs adatokat a készüléken tárolják.
+A kalibrált felvételhez szükség van az érzékelő gyári kalibrációs csomagjára. A DAQ-U és DAQ-M esetében a háttérprogram az érzékelő azonosítója alapján letölti a csomagot a MAPIR felhőjéből (ha ez nem sikerül, a felvétel elutasításra kerül); a DAQ-E egységek kivételt képeznek, mivel a kalibrációs adatokat a készüléken tárolják.
 
 ## Felvétel a grafikus felhasználói felületről
 
@@ -41,15 +35,9 @@ A fájlok az `<project>/light_sensor/` mappába kerülnek, és amikor a felvéte
 
 
 
-## Felvétel a CLI
+## Felvétel a CLI-ről
 
--ről
-
-A CLI
-
-a háttérrendszer érzékelőpoolján keresztül rögzít (a háttérrendszernek futnia kell — ezek a parancsok vékony HTTP
-
--kliensek):
+A CLI a háttérrendszer érzékelőpoolján keresztül rögzít (a háttérrendszernek futnia kell — ezek a parancsok vékony HTTP-kliensek):
 
 ```bash
 # Connect the sensor into the backend pool
@@ -69,40 +57,22 @@ Az `--sensor-id` érték lekérése az `chloros-cli daq pool-list`-ből. Két é
 | Opció | Alapértelmezés |
 | --- | --- |
 | `--duration` | `0` — rögzítés `pool-record --stop`-ig |
-| `--output` / `-o` | `~/Documents/DAQ Live View/` a **háttérrendszer** fájlrendszerén, nem az CLI
+| `--output` / `-o` | `~/Documents/DAQ Live View/` a **háttérrendszer** fájlrendszerén, nem az CLI-én |
 
--én |
-
-A kimeneti könyvtár megkülönböztetése akkor fontos, ha a CLI
-
--nek egy másik gépen futó háttérrendszere van: a fájl oda kerül, ahol a háttérrendszer fut. Ha a háttérrendszer ugyanazon a számítógépen van, akkor egy relatív `-o` (például a fenti `./out`) a parancs futtatásának helye szerinti mappához van rendelve.
+A kimeneti könyvtár megkülönböztetése akkor fontos, ha a CLI-nek egy másik gépen futó háttérrendszere van: a fájl oda kerül, ahol a háttérrendszer fut. Ha a háttérrendszer ugyanazon a számítógépen van, akkor egy relatív `-o` (például a fenti `./out`) a parancs futtatásának helye szerinti mappához van rendelve.
 
 ## Felvétel Python
 
-ból Az `DAQSensorSession` (amelyet az `chloros_sdk.connect_daq_sensor()` ad vissza) ugyanazt a csoportosított felvételt teszi elérhetővé: Az `record_start(output_dir=None, device_name=None)` a fájl elérési útját adja vissza, az `record_stop()` pedig az `{path, rows}`-et. A teljes munkamenet-API
-
--t lásd az [SDK
-
--referenciában](../reference/sdk-reference.md). Az SDK
-
-közvetlen hardverosztályai (csak asztali telepítések esetén) alapértelmezés szerint az `~/Documents/DAQ/`-ba írják a felvételeket; a kiadott verziók esetében a fenti összevont elérési út a támogatott módszer.
+ból Az `DAQSensorSession` (amelyet az `chloros_sdk.connect_daq_sensor()` ad vissza) ugyanazt a csoportosított felvételt teszi elérhetővé: Az `record_start(output_dir=None, device_name=None)` a fájl elérési útját adja vissza, az `record_stop()` pedig az `{path, rows}`-et. A teljes munkamenet-API-t lásd az [SDK-referenciában](../reference/sdk-reference.md). Az SDK közvetlen hardverosztályai (csak asztali telepítések esetén) alapértelmezés szerint az `~/Documents/DAQ/`-ba írják a felvételeket; a kiadott verziók esetében a fenti összevont elérési út a támogatott módszer.
 
 ## .daq fájl használata a feldolgozás során
 
-A képekből származó reflexió kiszámításához a Chloros
-
--nak minden expozícióhoz illeszkedő lefelé irányuló besugárzási értékre van szüksége:
+A képekből származó reflexió kiszámításához a Chloros-nak minden expozícióhoz illeszkedő lefelé irányuló besugárzási értékre van szüksége:
 
 * **Tartsa meg az `.daq` fájlt a képekkel együtt.**A feldolgozás során a feldolgozási folyamat automatikusan meghatározza az**időbélyeggel egyező lefelé irányuló sugárzást** egy rögzített `.daq` fájlból (bármely DAQ-modell) — vagy egy DAQ-M natív `.csv` fájlból, amelyet a képek mellett talál. A GUI-felvételek automatikusan megfelelnek ennek a követelménynek, mivel a leállás pillanatában hozzáadódnak a projekthez.
-* **A kalibrációt igény szerint tölti be a rendszer.** Ha egy kamera- vagy DAQ-specifikus gyári kalibrációs csomag még nincs helyileg tárolva, a Chloros
-
-az első használatkor automatikusan letölti azt a MAPIR
-
-felhőjéből (egyszeri internetkapcsolat szükséges; az `~/.chloros/` fájlban tárolódik).
+* **A kalibrációt igény szerint tölti be a rendszer.** Ha egy kamera- vagy DAQ-specifikus gyári kalibrációs csomag még nincs helyileg tárolva, a Chloros az első használatkor automatikusan letölti azt a MAPIR felhőjéből (egyszeri internetkapcsolat szükséges; az `~/.chloros/` fájlban tárolódik).
 * **Az élő felvételek saját kiegészítő fájlt írnak.** Minden élőben rögzített reflektancia-képkocka esetében a ténylegesen használt DAQ-érték `.daq` fájlként kerül mentésre a rögzítések `daq/` mappájába, így a rögzítés később az eredeti felvétel nélkül is újra feldolgozható.
-* **Felvételek az `chloros_scripts` felvevőkről (1.3.0).**A nyilvános [`chloros_scripts`](https://github.com/mapircamera/chloros_scripts) felvevők által írt `.daq` fájl szerepel a létrehozó DAQ-modellként, és a felső határa a**Projektbeállítások → DAQ fényérzékelő** menüpontban állítható be, akárcsak bármely más felvétel esetében. Ezek a felvevők nyers érzékelőértékeket írnak; az Chloros
-
-soros kapcsolaton keresztül letölti az érzékelő gyári kalibrációját, és azt alkalmazza.
+* **Felvételek az `chloros_scripts` felvevőkről (1.3.0).**A nyilvános [`chloros_scripts`](https://github.com/mapircamera/chloros_scripts) felvevők által írt `.daq` fájl szerepel a létrehozó DAQ-modellként, és a felső határa a**Projektbeállítások → DAQ fényérzékelő** menüpontban állítható be, akárcsak bármely más felvétel esetében. Ezek a felvevők nyers érzékelőértékeket írnak; az Chloros soros kapcsolaton keresztül letölti az érzékelő gyári kalibrációját, és azt alkalmazza.
 * **Kinek a mérési értéke ez (1.3.0).**Minden `.daq` felvétel mellett egy `.daq.cameras.json` megnevezi azt a kamerát (vagy kamerákat), amelynek (amelyeknek) képkockáira az adott mérési érték vonatkozik, és a feldolgozás**kizárólag az azokból származó képekhez** rendeli hozzá az értéket. Egy önálló kamera, amelynek nincs saját fényérzékelője, ezért már nem veszi át egy másik kamera mérési eredményét – csatlakoztasson hozzá egy érzékelőt, vagy rögzítsen egyet. A DAQ-val közvetlenül készített felvétel (GUI Record, `daq pool-record`), valamint minden olyan `.daq` fájl, amely nem tartalmazza ezt a fájlt (beleértve a régebbi rögzítéseket is), továbbra is minden kamerát kiszolgál.
 
 ## A besugárzás visszakeresése
@@ -111,9 +81,7 @@ A projekt feldolgozása során a rendszer minden benne található fényérzéke
 `Light Sensor/` mappába a képtermékek mellé. Ehhez **nincs** szükség képanyagra: egy
 önmagában rögzített fényérzékelő-felvétel is teljes rögzítésnek számít, és egy kizárólag `.daq`
 fájlokat tartalmazó mappa is érvényes bemenetnek minősül. Egy kizárólag fényérzékelő-felvételeket tartalmazó projekt felsorolja azokat, és
-az alkalmazásból és a CLI
-
--ből egyaránt feldolgozza őket, és a futtatás után is a listán maradnak. A futtatás
+az alkalmazásból és a CLI-ből egyaránt feldolgozza őket, és a futtatás után is a listán maradnak. A futtatás
 jelenti, hogy hány fényérzékelő-terméket írt ki.
 
 | Termék | Mi ez? |
@@ -132,9 +100,7 @@ helyileg semmi sincs tárolva.
 A **DAQ-A** a soronkénti kalibrációs csomagrendszer bevezetése előtt készült, ezért nincs letöltendő
 csomagja. Ez nem figyelmetlenség: a DAQ-A-t a helyszínen kalibrálják egy
 reflektancia-célponttal szemben, és a célpont-alapú kalibráláshoz csak az érzékelő *relatív*
-válaszára van szükség — ami pontosan a nyers számlálási értékei. A Chloros
-
-ma is ezekkel kalibrál.
+válaszára van szükség — ami pontosan a nyers számlálási értékei. A Chloros ma is ezekkel kalibrál.
 
 Tehát a DAQ-A felvétele exportálható, de más név alatt:
 
@@ -153,12 +119,8 @@ a valós besugárzási értékek esetében jelentenek valamit — teljes teljes�
 a számlálásokból lennének kiszámítva.
 
 A régebbi DAQ-A-SD-felvételek (v1.01 / v1.02 sémák) csak a fájl írási idejét rögzítik, nem pedig
-olvasatonkénti időbélyeget. A Chloros
-
-nem fogja ezekhez a képeket illeszteni — egy képkockát egy
+olvasatonkénti időbélyeget. A Chloros nem fogja ezekhez a képeket illeszteni — egy képkockát egy
 írási időhöz párosítani helytelen lenne, anélkül hogy valaha is hibásnak tűnne —, de az exportálás problémamentesen olvassa be őket, és
-a CSV
-
--fájl megadja, hogy melyik órához tartoznak.
+a CSV-fájl megadja, hogy melyik órához tartoznak.
 
 A teljes reflektancia-leíráshoz – egyérzékelős kamerával, valamint kétérzékelős környezeti/objektum-méréssel – lásd [Reflektancia-munkafolyamatok](reflectance.md).

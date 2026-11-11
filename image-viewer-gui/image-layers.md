@@ -4,11 +4,7 @@ A Képmegjelenítő jobb felső sarkában található **réteg legördülő men�
 
 ## Mik azok a képrétegek?
 
-A „réteg” a Chloros
-
-ban egy forrásképhez rendelt **termékfájl**. Az importálás során megkapja a forrásfájlokat; a feldolgozás során a futtatás minden egyes termékéhez egy réteg kerül hozzáadásra. Az exportált fájlok megtartják a forrásfájl nevét – a terméket a**mappa** azonosítja, a réteg neve pedig az Chloros
-
-által annak a mappának adott címke.
+A „réteg” a Chloros ban egy forrásképhez rendelt **termékfájl**. Az importálás során megkapja a forrásfájlokat; a feldolgozás során a futtatás minden egyes termékéhez egy réteg kerül hozzáadásra. Az exportált fájlok megtartják a forrásfájl nevét – a terméket a**mappa** azonosítja, a réteg neve pedig az Chloros által annak a mappának adott címke.
 
 <!-- SCREENSHOT-NEEDED: Image Viewer full screen with the layer dropdown open on a processed LATTICE multispectral image, showing the full list: TIFF base, RAW (Original), RAW (Debayered), RAW (Preview), RAW (Radiance), RAW (Reflectance), and one RAW (NDVI Index) entry. -->
 
@@ -20,24 +16,12 @@ ban egy forrásképhez rendelt **termékfájl**. Az importálás során megkapja
 
 | Réteg | Mi ez? |
 | --- | --- |
-| **JPG**(vagy**PNG
-
-**/**TIFF
-
-**) | A rögzítéssel beérkezett alapfájl. A Survey3
-
-minden `.RAW` mellé egy `.JPG` fájlt importál; a LATTICE-rögzítések PNG
-
-- vagy TIFF
-
--megjelenítési előnézetet hoznak. A ténylegesen importált tartalom szerint címkézve |
+| **JPG**(vagy**PNG**/**TIFF**) | A rögzítéssel beérkezett alapfájl. A Survey3 minden `.RAW` mellé egy `.JPG` fájlt importál; a LATTICE-rögzítések PNG- vagy TIFF-megjelenítési előnézetet hoznak. A ténylegesen importált tartalom szerint címkézve |
 | **RAW (Eredeti)** | A forrás nyers képkocka, megjelenítésre debayerezve, korrekciók nélkül. Az importálás pillanatától elérhető — nincs szükség feldolgozásra |
 
 Egy olyan LATTICE-felvétel, amelynek alapfájlja **éppen** a nyers képkocka, nem rendelkezik külön alapbejegyzéssel: ezt már az `RAW (Original)` fedi le.
 
-### A Survey3
-
--as feldolgozási termékek
+### A Survey3-as feldolgozási termékek
 
 | Réteg | Írás helye | Létezik, ha |
 | --- | --- | --- |
@@ -57,31 +41,19 @@ A LATTICE egyetlen feldolgozási lépésben rögzíti ezeket a szinteket. Hogy m
 
 | Réteg | Írási hely | Alkalmazás |
 | --- | --- | --- |
-| **RAW (Debayered)** | `Debayered_Images/` | RGB
-
-és multispektrális |
+| **RAW (Debayered)** | `Debayered_Images/` | RGB és multispektrális |
 | **RAW (Előnézet)** | `Preview_Images/` | Multispektrális (hamis színű kiterjesztés) |
-| **Fehér egyensúly** | `Preview_Images/` | RGB
-
--mesterkamerák — az RGB
-
--előnézetet ezen a néven regisztrálják, így egybeesik az azonos nevű Survey3
-
--réteggel |
+| **Fehér egyensúly** | `Preview_Images/` | RGB-mesterkamerák — az RGB-előnézetet ezen a néven regisztrálják, így egybeesik az azonos nevű Survey3-réteggel |
 | **RAW (sugárzás)** | `Radiance_Images/` | Csak multispektrális |
 | **RAW (reflektancia)** | `Reflectance_Calibrated_Images/` | Csak multispektrális, és csak akkor, ha egy megfelelő `.daq` lefelé irányuló felvétel vagy egy minőségbiztosításon átesett, a képkockán belüli célpont fedi le a képkockát |
 
-Az RGB
-
--mesterkameráknak nincs sávonkénti radiometriájuk, ezért a sugárzási és visszaverődési értékeket **nem alkalmazható**ként hagyják ki — a napló ezt jelzi, ahelyett, hogy csendben hibaüzenetet adna.
+Az RGB-mesterkameráknak nincs sávonkénti radiometriájuk, ezért a sugárzási és visszaverődési értékeket **nem alkalmazható**ként hagyják ki — a napló ezt jelzi, ahelyett, hogy csendben hibaüzenetet adna.
 
 {% hint style="info" %}
 **A nyers és a debayered rétegek igazodnak a termékekhez (újdonság a 1.3.0-s verzióban).**A LATTICE nyers és debayered fájlok az érzékelő natív tájolásában kerülnek mentésre, és az XMP-ben rögzítik a hozzájuk tartozó tájolást; a többi termék már az adott tájolással mentésre kerül. A néző és a képrács a megjelenítéshez a bejegyzés alapján**RAW (Eredeti)**és**RAW (Debayered)** módba vált, így a képkocka már nem fordul el, amikor a termékréteg és a nyers réteg között váltunk. Ez csak a megjelenítésre vonatkozik — a fájlokat soha nem írják át. Az orientációs bejegyzés nélküli fájlok (amelyeket az 1.3.0 verzió előtt rögzítettek, vagy más szoftver írt) a tárolásuk szerinti állapotban jelennek meg. Lásd [Kimeneti képformátumok](../output-image-formats.md#orientation).
 {% endhint %}
 
-A korlátozó maszkok (`*_clampmask.tif` az `clamp_masks/` mappában) nem rétegek: az Chloros
-
-importáláskor kihagyja őket. Lásd: [Kimeneti képformátumok](../output-image-formats.md#clamp-masks).
+A korlátozó maszkok (`*_clampmask.tif` az `clamp_masks/` mappában) nem rétegek: az Chloros importáláskor kihagyja őket. Lásd: [Kimeneti képformátumok](../output-image-formats.md#clamp-masks).
 
 ### Index-, LUT- és sandbox-rétegek
 
@@ -125,48 +97,26 @@ A [Kurzorértékek panel](opening-an-image-full-screen.md#cursor-values) a kurzo
 
 | Réteg | Megjelenített mértékegység | Megjegyzések |
 | --- | --- | --- |
-| Alap (JPG / PNG
-
-/ TIFF
-
-előnézet) | DN, 0–255 | Megjelenítési értékek, RGB
-
--re gamma-korrigálva. Csak vizuális ellenőrzésre |
+| Alap (JPG / PNG / TIFF előnézet) | DN, 0–255 | Megjelenítési értékek, RGB-re gamma-korrigálva. Csak vizuális ellenőrzésre |
 | RAW (Eredeti) | DN | Nyers érzékelői digitális értékek. A hisztogram tengelye jelzi a mélységet: 255 (8 bites), 4095 (12 bites) vagy 65535 (16 bites) |
 | RAW (Debayered) | DN | Lineáris, nincs képernyőn történő kiterjesztés |
 | RAW (Előnézet) / Fehér egyensúly | DN | Kijelzőn megjelenő érték — kiterjesztve vagy gamma-korrigálva. Nem mérésre szolgál |
 | RAW (Sugárzás) | **W/m²/sr/nm** | Float32 fizikai sugárzás. Nincs DN oszlop |
 | RAW (Fényvisszaverődés) | DN **és %** | A fájl saját skálája alapján számított százalék — lásd alább |
-| Index / LUT / sandbox exportok | Indexérték, vagy RGB
-
--komponensek | Az egycsatornás indexfájl az indexértéket jelenti; a színleképezett LUT-fájl a Red
-
-/Green
-
-/Blue
-
-komponenseket jelenti |
+| Index / LUT / sandbox exportok | Indexérték, vagy RGB-komponensek | Az egycsatornás indexfájl az indexértéket jelenti; a színleképezett LUT-fájl a Red /Green /Blue komponenseket jelenti |
 
 ### Reflektancia: a skála fájlonkénti
 
 {% hint style="warning" %}
-**A „65 535-tel osztás” csak a Survey3
-
-esetében helyes.** A LATTICE reflektancia más skálán van tárolva, és a két osztószám keverése a leggyakoribb módja annak, hogy a reflektanciaértékek pontosan a felük legyenek a valós értéknek.
+**A „65 535-tel osztás” csak a Survey3 esetében helyes.** A LATTICE reflektancia más skálán van tárolva, és a két osztószám keverése a leggyakoribb módja annak, hogy a reflektanciaértékek pontosan a felük legyenek a valós értéknek.
 {% endhint %}
 
 | Forrás | A 1,0-s fényvisszaverődési értéknek megfelelő DN | Azonosító |
 | --- | --- | --- |
 | **LATTICE**(M3C / M3M) |**32768** | Az `Chloros:PixelScale=32768` XMP-címke, amelyet minden LATTICE-reflektancia-exportba beágyaznak. A kétszeres tartalék azt jelenti, hogy az 1,0 feletti ρ értékek ábrázolhatók, nem pedig levágódnak |
-| **Survey3**| **65535** | Nincs Chloros
+| **Survey3**| **65535** | Nincs Chloros XMP skála címke — a Survey3 kalibráció a ρ × dtype-max értéket írja, és 1,0-nál levágja |
 
-XMP skála címke — a Survey3
-
-kalibráció a ρ × dtype-max értéket írja, és 1,0-nál levágja |
-
-GIS és szkripteléshez: olvassa be az `Chloros:PixelScale` értéket a fájlból, és ossza el vele. Ha a címke hiányzik, a fájl Survey3
-
--skálájú (65535). A nézőprogram, az index/LUT sandbox és az index-export egyaránt ugyanígy határozza meg a skálát, így a kurzor helyén látható szám az, amelyet az index-számítás is használt.
+GIS és szkripteléshez: olvassa be az `Chloros:PixelScale` értéket a fájlból, és ossza el vele. Ha a címke hiányzik, a fájl Survey3-skálájú (65535). A nézőprogram, az index/LUT sandbox és az index-export egyaránt ugyanígy határozza meg a skálát, így a kurzor helyén látható szám az, amelyet az index-számítás is használt.
 
 Ezen skála feletti formátum-specifikus tárolás:
 
@@ -178,30 +128,10 @@ Ezen skála feletti formátum-specifikus tárolás:
 
 | Indexcsalád | Jellemző tartomány | Érték |
 | --- | --- | --- |
-| Normalizált különbség (NDVI
-
-, GNDVI
-
-, NDRE
-
-, ENDVI…) | −1 és +1 között | Egészséges növényzet esetén általában 0,4–0,9; csupasz talaj esetén 0 közelében; víz esetén negatív |
-| Talajkorrigált (SAVI
-
-, OSAVI
-
-, MSAVI2…) | nagyjából −1 és +1,5 között | Hasonló értékek, mint az NDVI
-
--nél, de a talajháttér kiszűrésre került |
-| Arány (GRVI
-
-, GCI
-
-, MSR, CIRE…) | felfelé korlátlan | Az arányok korlátlanul növekednek, ahogy a nevező sáv értéke nullához közeledik |
-| EVI
-
-/ LAI
-
-| 0 és ~1, illetve 0 és ~3,5 között | A felhők és más telített képpontok mindkettőt a tartományon kívülre tolják — ezeket először maszkolja ki |
+| Normalizált különbség (NDVI, GNDVI, NDRE, ENDVI…) | −1 és +1 között | Egészséges növényzet esetén általában 0,4–0,9; csupasz talaj esetén 0 közelében; víz esetén negatív |
+| Talajkorrigált (SAVI, OSAVI, MSAVI2…) | nagyjából −1 és +1,5 között | Hasonló értékek, mint az NDVI-nél, de a talajháttér kiszűrésre került |
+| Arány (GRVI, GCI, MSR, CIRE…) | felfelé korlátlan | Az arányok korlátlanul növekednek, ahogy a nevező sáv értéke nullához közeledik |
+| EVI / LAI | 0 és ~1, illetve 0 és ~3,5 között | A felhők és más telített képpontok mindkettőt a tartományon kívülre tolják — ezeket először maszkolja ki |
 
 Az egyes előre beállított értékek mögött álló pontos képleteket lásd a [Multispektrális indexképletek](../project-settings/multispectral-index-formulas.md) című részben.
 
@@ -231,9 +161,7 @@ Az egyes előre beállított értékek mögött álló pontos képleteket lásd 
 
 1. Válassza ki a **RAW (Reflexió)** elemet
 2. Olvassa le a **%** oszlopot a Cursor Values panelen – az adott fájlhoz már megfelelően van méretezve
-3. Ellenőrizze a képben található ismert anyagok alapján: az egészséges növényzet magas NIR
-
--értékkel és alacsony vörösértékkel rendelkezik; a kalibrációs célértéknek közel kell lennie a közzétett reflexiós értékéhez
+3. Ellenőrizze a képben található ismert anyagok alapján: az egészséges növényzet magas NIR-értékkel és alacsony vörösértékkel rendelkezik; a kalibrációs célértéknek közel kell lennie a közzétett reflexiós értékéhez
 
 ***
 
@@ -245,25 +173,19 @@ Az egyes előre beállított értékek mögött álló pontos képleteket lásd 
 
 * A képet soha nem dolgozták fel — csak az alapréteg és az `RAW (Original)` létezik
 * A termék exportálási kapcsolója nincs bejelölve a Projektbeállításokban
-* A termék nem alkalmazható az adott kamerára (sugárzás és reflexió egy RGB
-
--mesterkép esetén; bármely index egycsatornás M3M monokameránál)
+* A termék nem alkalmazható az adott kamerára (sugárzás és reflexió egy RGB-mesterkép esetén; bármely index egycsatornás M3M monokameránál)
 * A reflexiókalibrálásnak nem volt mire támaszkodnia — nincs `.daq` lefelé irányuló lefedettség és nincs minőségbiztosításon átment képkockán belüli célpont — így a képkocka visszatért a Vignette Corrected vagy a Sensor Response beállításra
 
 **Mit kell tenni?**
 
-1. Ellenőrizze a futtatás naplóját: a Chloros
-
-jelzi, ha egy kért exporttermék elkészítése lehetetlen volt, és megadja az okát is
+1. Ellenőrizze a futtatás naplóját: a Chloros jelzi, ha egy kért exporttermék elkészítése lehetetlen volt, és megadja az okát is
 2. Ellenőrizze a [Projektbeállítások](../project-settings/project-settings.md) menüpontban a termékenkénti exportkapcsolókat
 3. Győződjön meg arról, hogy a termékmappa létezik a projekt kimeneti fa szerkezetében
 4. Végezze el újra a feldolgozást a termék engedélyezésével
 
 ### A réteg lista elavultnak tűnik
 
-A Chloros
-
-a futás közben újra beolvassa a projekt termékmappáit, és a lemezen ténylegesen található adatok alapján kijavítja a hiányzó rétegregisztrációkat, így egy exportálását befejező réteg általában önmagától megjelenik egy lekérdezés során. Ha elnavigál a képről, majd visszatér rá, az újbóli felbontást kényszerít.
+A Chloros a futás közben újra beolvassa a projekt termékmappáit, és a lemezen ténylegesen található adatok alapján kijavítja a hiányzó rétegregisztrációkat, így egy exportálását befejező réteg általában önmagától megjelenik egy lekérdezés során. Ha elnavigál a képről, majd visszatér rá, az újbóli felbontást kényszerít.
 
 ### A reflexiós értékek a várt érték felének tűnnek
 

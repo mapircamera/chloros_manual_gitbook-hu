@@ -22,19 +22,7 @@ A felső fejléc balról jobbra a következőket tartalmazza:
 * **Csatlakozás fényérzékelőhöz** — átugrik a [Fényérzékelők fülre](daq/), hogy csatlakoztasson egy DAQ fényérzékelőt. Nyitott projekt nélkül is működik.
 
 {% hint style="info" %}
-**Csak Windows**: A Chloros
-
-Desktop GUI Windows
-
-rendszeren érhető el. A Linux
-
--felhasználóknak a headless feldolgozáshoz a [CLI
-
-](CLI.md) és a [Python
-
-SDK
-
-](api-python-sdk.md) dokumentációt kell megtekinteniük.
+**Csak Windows**: A Chloros Desktop GUI Windows rendszeren érhető el. A Linux-felhasználóknak a headless feldolgozáshoz a [CLI](CLI.md) és a [Python SDK](api-python-sdk.md) dokumentációt kell megtekinteniük.
 {% endhint %}
 
 ### <img src=".gitbook/assets/image (2) (1) (1).png" alt="" data-size="line">
@@ -49,15 +37,9 @@ Haladási sáv <img src=".gitbook/assets/image (5).png" alt="" data-size="line">
 
 
 
-Az ingyenes Chloros
+Az ingyenes Chloros módban, amely az összes fájlt egymás után dolgozza fel, a haladási sáv 2 szakaszt jelenít meg: Célfelismerés és Feldolgozás.
 
-módban, amely az összes fájlt egymás után dolgozza fel, a haladási sáv 2 szakaszt jelenít meg: Célfelismerés és Feldolgozás.
-
-A fizetős, Chloros
-
-+ licenccel rendelkező módban, amely az összes fájlt egyszerre dolgozza fel, a haladási sáv 4 szakaszt jelenít meg: Felismerés, Elemzés, Kalibrálás, Exportálás. Ha az egérmutatót a „Chloros
-
-+” haladási sáv fölé viszi, megnyílik a kibővített, 4 szakaszból álló haladási sáv panel, így nyomon követheti a folyamatot. A felső haladási sávra kattintva a legördülő panel befagyasztódik, újabb kattintással pedig feloldódik.
+A fizetős, Chloros+ licenccel rendelkező módban, amely az összes fájlt egyszerre dolgozza fel, a haladási sáv 4 szakaszt jelenít meg: Felismerés, Elemzés, Kalibrálás, Exportálás. Ha az egérmutatót a „Chloros+” haladási sáv fölé viszi, megnyílik a kibővített, 4 szakaszból álló haladási sáv panel, így nyomon követheti a folyamatot. A felső haladási sávra kattintva a legördülő panel befagyasztódik, újabb kattintással pedig feloldódik.
 
 <figure><img src=".gitbook/assets/plus_prog.JPG" alt=""><figcaption></figcaption></figure>
 

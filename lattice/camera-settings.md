@@ -1,12 +1,8 @@
 # Kamera beállítások
 
-A **Kamerák** fül az Chloros
+A **Kamerák** fül az Chloros LATTICE kamerákhoz tartozó élő vezérlőfelülete: egy fő képterület, amely minden csatlakoztatott kamerát élő csempeként jelenít meg, valamint egy oldalsáv, amely három oldal között vált – a **kameralista**, a**beállítási panel**(kameránkénti, tömbös vagy rögzítési beállítások – egyszerre egy), valamint az**Indexkalkulátor**. Ez az oldal a kameralista, a kameránkénti beállítási panel és a tömbös beállítási panel minden vezérlőjét ismerteti. A rögzítési módok, az exporttípus kiválasztása és az „All” rögzítési folyamat a kísérő oldalon, a [Rögzítési beállítások és módok](capture.md) alatt található.
 
-LATTICE kamerákhoz tartozó élő vezérlőfelülete: egy fő képterület, amely minden csatlakoztatott kamerát élő csempeként jelenít meg, valamint egy oldalsáv, amely három oldal között vált – a **kameralista**, a**beállítási panel**(kameránkénti, tömbös vagy rögzítési beállítások – egyszerre egy), valamint az**Indexkalkulátor**. Ez az oldal a kameralista, a kameránkénti beállítási panel és a tömbös beállítási panel minden vezérlőjét ismerteti. A rögzítési módok, az exporttípus kiválasztása és az „All” rögzítési folyamat a kísérő oldalon, a [Rögzítési beállítások és módok](capture.md) alatt található.
-
-A „Kamerák” fül az oldalsávon jelenik meg, miután a Chloros
-
-háttérrendszer készen áll. Az alábbi vezérlők mind az `127.0.0.1:5000`-en keresztül kommunikálnak a helyi háttérrendszerrel; a változtatások – ha másképp nem jelezzük – azonnal érvénybe lépnek az élő kameraképen.
+A „Kamerák” fül az oldalsávon jelenik meg, miután a Chloros háttérrendszer készen áll. Az alábbi vezérlők mind az `127.0.0.1:5000`-en keresztül kommunikálnak a helyi háttérrendszerrel; a változtatások – ha másképp nem jelezzük – azonnal érvénybe lépnek az élő kameraképen.
 
 ## Az ezen az oldalon használt kameratípusok
 
@@ -14,40 +10,12 @@ A vezérlők a kiválasztott kamera típusától függően jelennek meg vagy rej
 
 | Kifejezés | Jelentés | Szűrőcsatornák |
 | --- | --- | --- |
-| **RGB
-
--kamera** | LATTICE M3C FRGB szűrővel (a modell tartalmazza az `-FRGB` kódot) | Red
-
-/ Green
-
-/ Blue
-
-|
-| **Bayer multispektrális** | LATTICE M3C FRGN, FOCN vagy FNGB szűrővel | FRGN: Red
-
-/ Green
-
-/ NIR
-
-· FOCN: Orange
-
-/ Cyan
-
-/ NIR
-
-· FNGB: NIR
-
-/ Green
-
-/ Blue
-
-|
+| **RGB-kamera** | LATTICE M3C FRGB szűrővel (a modell tartalmazza az `-FRGB` kódot) | Red / Green / Blue |
+| **Bayer multispektrális** | LATTICE M3C FRGN, FOCN vagy FNGB szűrővel | FRGN: Red / Green / NIR · FOCN: Orange / Cyan / NIR · FNGB: NIR / Green / Blue |
 | **Mono (M3M)** | LATTICE M3M — egy keskenysávú szűrő, egy kalibrált sáv | Egy sáv |
 | **Tömbtag** | Egy szinkronizált tömb részeként csatlakoztatott kamera (kombinált vagy különálló kijelző) | A szűrőjének megfelelően |
 
-Az RGB
-
--kamerák fotometrikus feldolgozást kapnak (fehér egyensúly, színprofilok, gamma); a multispektrális és monokróm kamerák a radiometrikus láncot kapják, és kihagyják a fotometrikus beállításokat. A tömbtagok a stream-szintű beállításokat (pixelformátum, felbontás, binning, trigger, képkockasebesség) a rendszerhez — ezek a sorok a kameránkénti ablakban írásvédetté válnak, és átkerülnek a rendszerbeállítások ablakába.
+Az RGB-kamerák fotometrikus feldolgozást kapnak (fehér egyensúly, színprofilok, gamma); a multispektrális és monokróm kamerák a radiometrikus láncot kapják, és kihagyják a fotometrikus beállításokat. A tömbtagok a stream-szintű beállításokat (pixelformátum, felbontás, binning, trigger, képkockasebesség) a rendszerhez — ezek a sorok a kameránkénti ablakban írásvédetté válnak, és átkerülnek a rendszerbeállítások ablakába.
 
 ## A fő élőkép-terület
 
@@ -55,9 +23,7 @@ Az RGB
 
 
 
-Ha nincs csatlakoztatott kamera, az élőkép-területen egy **„Csatlakoztasson kamerát a kezdéshez”**felirat jelenik meg két gombbal:**Kamera csatlakoztatása**(zöld, megnyitja az egykamerás csatlakozási párbeszédablakot) és**Rendszer csatlakoztatása** (kék, megnyitja a rendszer csatlakoztatási párbeszédablakot). Maguk a csatlakozási párbeszédablakok a [Kamerák csatlakoztatása](connecting.md című dokumentumban vannak leírva; a rendszerrel kapcsolatos fogalmak (szinkronizálás, rétegek, sávszélesség) a [Többkamerás rendszerek](arrays.md) című dokumentumban. Ha olyan mentett projektet nyit meg, amelyben kamerák vannak, a kezdőképernyőn egy forgó ikon jelenik meg a „N mentett kamera újbóli megnyitása…” felirattal, miközben a Chloros
-
-visszaállítja az utolsó munkamenetből származó adatfolyamokat.
+Ha nincs csatlakoztatott kamera, az élőkép-területen egy **„Csatlakoztasson kamerát a kezdéshez”**felirat jelenik meg két gombbal:**Kamera csatlakoztatása**(zöld, megnyitja az egykamerás csatlakozási párbeszédablakot) és**Rendszer csatlakoztatása** (kék, megnyitja a rendszer csatlakoztatási párbeszédablakot). Maguk a csatlakozási párbeszédablakok a [Kamerák csatlakoztatása](connecting.md című dokumentumban vannak leírva; a rendszerrel kapcsolatos fogalmak (szinkronizálás, rétegek, sávszélesség) a [Többkamerás rendszerek](arrays.md) című dokumentumban. Ha olyan mentett projektet nyit meg, amelyben kamerák vannak, a kezdőképernyőn egy forgó ikon jelenik meg a „N mentett kamera újbóli megnyitása…” felirattal, miközben a Chloros visszaállítja az utolsó munkamenetből származó adatfolyamokat.
 
 <!-- SCREENSHOT-NEEDED: Cameras tab empty state — the "Connect a camera to get started" splash with the green Connect Camera and blue Connect Array buttons. -->
 
@@ -126,17 +92,9 @@ A panel tetején egy élő luma-hisztogram látható, amelyet a ~8 Hz-es frekven
 
 -előnézetből számítanak ki. Az átlagot Bayer-súlyozással számítják ki — (R+2G+B)/4 —, hogy illeszkedjen a kamera saját AE-méréséhez.
 
-* **Narancssárga (Orange
-
-) szaggatott vonal**= az AE célérték.**Húzza vízszintesen az újracélzáshoz** — az elengedéskor egy parancs kerül elküldésre, a húzás pedig átváltja az AE célmódot Kézi üzemmódra.
-* **Zöld (Green
-
-) folytonos vonal** = a tényleges átlagos fényerő (amit az AE jelenleg biztosít).
-* **RGB
-
-gomb** (jobb felső sarok): a kamera szűrője szerint színezett, sávonkénti átfedő hisztogramok megjelenítését kapcsolja be/ki (pl. FRGN esetén: szürke NIR
-
-, zöld, piros). Mono (M3M) kameráknál a gomb felirata „MONO”, és le van tiltva — mono módban mindig az egysávos fényerő-hisztogram jelenik meg.
+* **Narancssárga (Orange) szaggatott vonal**= az AE célérték.**Húzza vízszintesen az újracélzáshoz** — az elengedéskor egy parancs kerül elküldésre, a húzás pedig átváltja az AE célmódot Kézi üzemmódra.
+* **Zöld (Green) folytonos vonal** = a tényleges átlagos fényerő (amit az AE jelenleg biztosít).
+* **RGB gomb** (jobb felső sarok): a kamera szűrője szerint színezett, sávonkénti átfedő hisztogramok megjelenítését kapcsolja be/ki (pl. FRGN esetén: szürke NIR, zöld, piros). Mono (M3M) kameráknál a gomb felirata „MONO”, és le van tiltva — mono módban mindig az egysávos fényerő-hisztogram jelenik meg.
 * Az X-tengely feliratai az aktuális képpontformátum szenzorának bitmélységét követik: 0..255, 0..1023, 0..4095 vagy 0..65535.
 
 ### Kameraadat-sorok
@@ -148,56 +106,22 @@ gomb** (jobb felső sarok): a kamera szűrője szerint színezett, sávonkénti 
 | Sor | Viselkedés |
 | --- | --- |
 | **Modell** | Csak olvasható (pl. `LATT-M3C-L87-FRGN`). |
-| **Radiometrikus kalibrálás**|**Green
-
-** **„Active”**jelölés, amelyen a kalibrációs szint, a hash, a kalibrálás dátuma és a sávlista látható, a kamera kalibrációs csomagjából betöltve (lásd [Gyári radiometrikus kalibrálás](https://mapir.gitbook.io/lattice-camera/calibration/factory-radiometric-calibration)).**RGB
-
--kamerák esetén elrejtve** — ezek fotometrikus fehéregyensúly-kalibrálással rendelkeznek, nem sávonkénti sugárzási értékekkel. |
-| **Kalibrációs jelentés**|**Letöltés** gomb — megnyitja a kamera sorozatszámonkénti NIST kalibrációs tanúsítványát PDF formátumban az operációs rendszer nézőjében. Ha a tanúsítvány még nincs a gyorsítótárban, a Chloros
-
-helyette egy tippet jelenít meg. |
+| **Radiometrikus kalibrálás**|**Green** **„Active”**jelölés, amelyen a kalibrációs szint, a hash, a kalibrálás dátuma és a sávlista látható, a kamera kalibrációs csomagjából betöltve (lásd [Gyári radiometrikus kalibrálás](https://mapir.gitbook.io/lattice-camera/calibration/factory-radiometric-calibration)).**RGB-kamerák esetén elrejtve** — ezek fotometrikus fehéregyensúly-kalibrálással rendelkeznek, nem sávonkénti sugárzási értékekkel. |
+| **Kalibrációs jelentés**|**Letöltés** gomb — megnyitja a kamera sorozatszámonkénti NIST kalibrációs tanúsítványát PDF formátumban az operációs rendszer nézőjében. Ha a tanúsítvány még nincs a gyorsítótárban, a Chloros helyette egy tippet jelenít meg. |
 | **Sorozatszám** | Csak olvasható. |
 | **Firmware**| Megjeleníti az aktuális verziót, majd meghatározza az adott modellhez elérhető verziót (modellenként tárolva a gyorsítótárban — egy N kamerából álló rendszer egyszer ellenőrzi a szervert). Állapotok: „Ellenőrzés…” →**„Frissítés X-re”**gomb → „Frissítés folyamatban…” → „Frissítve A → B” / „Sikertelen: …” / „Kihagyva: …” / zöld**„Naprakész”**. A frissítés gomb eszköztippje: „Gyári visszaállítás + frissítés + UserSet1 újraprogramozása. ~2–3 perc; ne válassza le.” |
 | **IP** | Csak olvasható. |
 | **Hőmérséklet** | Csak olvasható, 3 másodpercenként frissül. 65 °C felett narancssárgára, 75 °C felett pedig pirosra vált, és megjelenik egy ⚠ jel. |
-| **Kalibrációs cél** jelölőnégyzet | Engedélyezi az ArUco reflektancia-célpont felismerését a panelekhez tartozó NDVI
-
--érvényesítési táblázattal az élő kép alatt (lista nézet) — lásd [A kalibrációs célpont táblázatot](#the-calibration-target-table). Csak munkamenetben elérhető — mindig kikapcsolt állapotban nyílik meg. |
+| **Kalibrációs cél** jelölőnégyzet | Engedélyezi az ArUco reflektancia-célpont felismerését a panelekhez tartozó NDVI-érvényesítési táblázattal az élő kép alatt (lista nézet) — lásd [A kalibrációs célpont táblázatot](#the-calibration-target-table). Csak munkamenetben elérhető — mindig kikapcsolt állapotban nyílik meg. |
 | **Fényérzékelő** legördülő menü | Egy DAQ fényérzékelőt (DAQ-E/M/U, a Fényérzékelők fül listájából) rendel ehhez a kamerához a lefelé irányuló fény (DLS) megvilágítási korrekciója és a prediktív automatikus expozíció érdekében. A „A „Nincs” opció törli a hozzárendelést. Ha nincs csatlakoztatott érzékelő, a legördülő menü a következő üzenetet jeleníti meg: „(nincs csatlakoztatott érzékelő — nyissa meg a DAQ fület)”. A hozzárendelés a projekttel együtt kerül mentésre. |
 
 #### A Kalibrációs célpont táblázat
 
 A táblázat **kizárólag validációs célú** („csak validáció — nem módosítja a kalibrációt”). A fejlécében szerepel a kamera sorozatszáma, a szűrő, a célpont száma és a jelölő mérete pixelben, és panelonként egy sor található:
 
-* **Panel**, majd sávonként egy oszlop a panel értékével — egy Bayer-kamera a három sávját név és hullámhossz szerint jeleníti meg (pl. FRGN: Red
-
-660 nm / Green
-
-550 nm / NIR
-
-850 nm); egy **mono (M3M) kamera az egyetlen sávját** jeleníti meg (pl. `F750`), és nincs NDVI
-
-oszlopa.
+* **Panel**, majd sávonként egy oszlop a panel értékével — egy Bayer-kamera a három sávját név és hullámhossz szerint jeleníti meg (pl. FRGN: Red 660 nm / Green 550 nm / NIR 850 nm); egy **mono (M3M) kamera az egyetlen sávját** jeleníti meg (pl. `F750`), és nincs NDVI oszlopa.
 * **Sat** — a panel telített képpontjainak aránya (borostyánsárga 1%-tól, piros 5%-tól).
-* **NDVI
-
-Meas**,**NDVI
-
-Theo** (a panel referencia-reflektanciájának NDVI
-
--értéke) és **Δ**— kizárólag Bayer multispektrális kamerák esetében. Az „NDVI
-
-Meas” után található kis jelölés jelzi, hogy a mért NDVI
-
--értéket miből számították ki:**ρ**(reflektancia — fényérzékelő-leolvasás áll rendelkezésre),**L**(sugárzás — nincs fényérzékelő-érték) vagy**DN**(nyers kameraértékek). Csak a**ρ** NDVI
-
-összehasonlítható az NDVI
-
-Theo-val: L és DN esetén a Δ oszlop szürkén jelenik meg, és egy megjegyzés jelzi ezt („Nincs fényérzékelő-leolvasás: az NDVI
-
-a sugárzási értékből származik, ezért a Δ nem kalibrációs ellenőrzés” / „Az NDVI
-
-a nyers kamerás értékekből származik, ezért a Δ nem kalibrációs ellenőrzés”). ρ esetén a Δ 0,02 alatt zöld, 0,05 alatt sárga, egyéb esetben piros.
+* **NDVI Meas**,**NDVI Theo** (a panel referencia-reflektanciájának NDVI-értéke) és **Δ**— kizárólag Bayer multispektrális kamerák esetében. Az „NDVI Meas” után található kis jelölés jelzi, hogy a mért NDVI-értéket miből számították ki:**ρ**(reflektancia — fényérzékelő-leolvasás áll rendelkezésre),**L**(sugárzás — nincs fényérzékelő-érték) vagy**DN**(nyers kameraértékek). Csak a**ρ** NDVI összehasonlítható az NDVI Theo-val: L és DN esetén a Δ oszlop szürkén jelenik meg, és egy megjegyzés jelzi ezt („Nincs fényérzékelő-leolvasás: az NDVI a sugárzási értékből származik, ezért a Δ nem kalibrációs ellenőrzés” / „Az NDVI a nyers kamerás értékekből származik, ezért a Δ nem kalibrációs ellenőrzés”). ρ esetén a Δ 0,02 alatt zöld, 0,05 alatt sárga, egyéb esetben piros.
 
 <!-- SCREENSHOT-NEEDED: a 1.3.0 Calibration Target table under a live feed in list view — a Bayer camera's table showing the band columns, Sat, and "NDVI Meas ρ" / NDVI Theo / Δ; ideally next to a mono camera's single-band table with no NDVI columns. -->
 
@@ -218,21 +142,11 @@ Az itt található összes numerikus beviteli mező gyorsított forgatógombot h
 | **Fényes részek védelme** | Szigorú (1 %) / Normál (5 %) / Laza (15 %) | Szigorú | Azok a kamerák, amelyeknél ez a beállítás elérhető | A képkocka mekkora része válhat fehérré, mielőtt az AE elsötétíti a képet. |
 
 {% hint style="info" %}
-**Fényigény a Bayer multispektrális kamerákhoz (RGN
-
-/ OCN
-
-/ NGB
-
-):** a jelenetnek mindhárom csatornában elegendő fénynek kell lennie, különben a kalibrálás nem működik megfelelően — egyetlen érzékelő expozíciója lefedi mindhárom spektrumot. Használjon DAQ fényérzékelőt a fény méréséhez, vagy váltson teljes monó (M3M) üzemmódra, hogy minden sáv saját expozíciót kapjon. Ha egy felvétel megsérti ezt a feltételt, az Chloros
-
-észleli és figyelmezteti Önt (az unmix-clamp értesítés). Élő kép esetén egy csatorna-felosztott mozaik **„Alacsony megbízhatóságú sávadatok · N%”** feliratot jelenít meg, ha az unmix a sáv pixeljeinek 25%-ánál vagy annál nagyobb arányban korlátozta azt.
+**Fényigény a Bayer multispektrális kamerákhoz (RGN / OCN / NGB):** a jelenetnek mindhárom csatornában elegendő fénynek kell lennie, különben a kalibrálás nem működik megfelelően — egyetlen érzékelő expozíciója lefedi mindhárom spektrumot. Használjon DAQ fényérzékelőt a fény méréséhez, vagy váltson teljes monó (M3M) üzemmódra, hogy minden sáv saját expozíciót kapjon. Ha egy felvétel megsérti ezt a feltételt, az Chloros észleli és figyelmezteti Önt (az unmix-clamp értesítés). Élő kép esetén egy csatorna-felosztott mozaik **„Alacsony megbízhatóságú sávadatok · N%”** feliratot jelenít meg, ha az unmix a sáv pixeljeinek 25%-ánál vagy annál nagyobb arányban korlátozta azt.
 {% endhint %}
 
 {% hint style="info" %}
-**Hogyan osztja el az automatikus expozíció az expozíciós időt és az erősítést (1.3.0).** Ha az erősítés automatikus beállításon van, a Chloros
-
-0 dB-en tartja az erősítést, amíg az expozíció el nem éri a megengedett leghosszabb értéket (az AE felső határát, egy tömb trigger periódusát vagy a DAQ expozíciós felső határát); csak ezután emelkedik az erősítés. Egy tömbben a trigger frekvencia az elsődleges: az automatikus expozíció kitölti a frekvencia által megadott periódust, majd emeli az erősítést, így a sötétedő jelenet már nem csökkenti az automatikus triggerfrekvenciát (az 1.2.0-s verzióban még csökkentette). Ha egy sorozat tagján **kézi**expozíciót állítunk be, amely hosszabb, mint a trigger periódus, a sorozat triggerje lelassul, hogy ehhez igazodjon; az automatikus frekvencia akkor áll vissza, ha minden olyan elem, amely lelassította, újra automatikus expozícióra vált. Ha az**Expozíció**és az**AE célfényerő** beállítások egyaránt automatikusak, és a DAQ fényérzékelő értéket jelez, az egyes kamerák expozíciója az automatikus expozíció stabilizálódása után változatlan marad, mindaddig, amíg a mért fényerő ±25 %-os tartományon belül marad; egy nagyobb, tartós fényváltozás, a beállítások újraindítása (például egy ROI-változás) vagy a saját expozíciós beállítások módosítása újraindítja a rendszert.
+**Hogyan osztja el az automatikus expozíció az expozíciós időt és az erősítést (1.3.0).** Ha az erősítés automatikus beállításon van, a Chloros 0 dB-en tartja az erősítést, amíg az expozíció el nem éri a megengedett leghosszabb értéket (az AE felső határát, egy tömb trigger periódusát vagy a DAQ expozíciós felső határát); csak ezután emelkedik az erősítés. Egy tömbben a trigger frekvencia az elsődleges: az automatikus expozíció kitölti a frekvencia által megadott periódust, majd emeli az erősítést, így a sötétedő jelenet már nem csökkenti az automatikus triggerfrekvenciát (az 1.2.0-s verzióban még csökkentette). Ha egy sorozat tagján **kézi**expozíciót állítunk be, amely hosszabb, mint a trigger periódus, a sorozat triggerje lelassul, hogy ehhez igazodjon; az automatikus frekvencia akkor áll vissza, ha minden olyan elem, amely lelassította, újra automatikus expozícióra vált. Ha az**Expozíció**és az**AE célfényerő** beállítások egyaránt automatikusak, és a DAQ fényérzékelő értéket jelez, az egyes kamerák expozíciója az automatikus expozíció stabilizálódása után változatlan marad, mindaddig, amíg a mért fényerő ±25 %-os tartományon belül marad; egy nagyobb, tartós fényváltozás, a beállítások újraindítása (például egy ROI-változás) vagy a saját expozíciós beállítások módosítása újraindítja a rendszert.
 {% endhint %}
 
 {% hint style="info" %}
@@ -273,34 +187,18 @@ Ebben a szakaszban minden **kizárólag a kijelzőre vonatkozik**— megváltozt
 | --- | --- | --- | --- | --- |
 | **Renderelési felbontás** | 360p (leggyorsabb) / 480p / 720p / 1080p / Natív érzékelő felbontás (a leglassabb) | 720p | Minden | Az a magasság, amelyen a háttérrendszer futtatja a radiometrikus előnézeti láncot. Az alacsonyabb érték nagyobb képkockasebességet biztosít a látómező megváltoztatása nélkül. |
 | **Index**| Engedélyezés jelölőnégyzet + fogaskerék | Ki | Csak Bayer multispektrális,**nem** kombinált sorozatú elemek | Élő növényzet-index előnézet. A fogaskerék megnyitja a megosztott [Indexkalkulátor](#index-calculator-pane) ablakot, amelybe előre betöltve vannak a kamera szűrőinek természetes sávjai (pl. `Red_660_RGN`, `Green_550_RGN`, `NIR_850_RGN`). Az egyéni kifejezés és a LUT (be/ki, alapértelmezett szint 7-stop, alapértelmezett min. 0,2, alapértelmezett max. 1) minden előnézeti képkockán kiszámításra kerül. A kombinált tömb tagjai elrejtik ezt a sort — a tömb egy megosztott indexet tartalmaz. |
-| **Fehér egyensúly** | Ki / Egyszer / Folyamatos + újrafelvétel gomb | Folyamatos | Csak RGB
-
-| Élő fehéregyensúly. A frissítés gomb újra rögzíti a fehéregyensúlyt az aktuális DLS-spektrumból (ki van kapcsolva, ha az üzemmód Ki). |
-| **Gamma** | Be / Ki | Be | Csak RGB
-
-| Gamma (γ = 2,2 LUT) megjelenítése az élő előnézeten. A mentett felvételek lineárisak maradnak. |
+| **Fehér egyensúly** | Ki / Egyszer / Folyamatos + újrafelvétel gomb | Folyamatos | Csak RGB | Élő fehéregyensúly. A frissítés gomb újra rögzíti a fehéregyensúlyt az aktuális DLS-spektrumból (ki van kapcsolva, ha az üzemmód Ki). |
+| **Gamma** | Be / Ki | Be | Csak RGB | Gamma (γ = 2,2 LUT) megjelenítése az élő előnézeten. A mentett felvételek lineárisak maradnak. |
 | **Zajszűrés** | Jelölőnégyzet + erősség 0–100 | Ki / 50 | Minden (kameránként, még a tömbökön belül is) | Kétoldalas szűrő az élő előnézeten. Magasabb érték = simább, de lágyabb részletek. |
 | **Élesség** | Jelölőnégyzet + erősség 0–100 | Ki / 30 | Minden | Élességmaszk az élő előnézetben, utoljára alkalmazva. Fokozhatja a zajt. Csak előnézetben. |
 | **Vignette**| Jelölőnégyzet + erősség 0–100 | Ki / 0 | Minden | Kézi maradék vignettálás-eltávolítás (fényesíti a sarkokat), a sorozat Smart Vignette becslésére rétegezve.**Radiometrikus — hatással van az élő nézetre ÉS az exportokra**, ellentétben a Zajszűréssel/Élességgel. |
-| **Színprofil** | Raw / Lineáris / Természetes / Fokozott / Egyéni hőmérséklet | Természetes | Csak RGB
-
-| Lásd alább. |
-| **Színhőmérséklet** | 2000–10000 K, 100-as lépésenként | 5500 K | Csak RGB
-
-, Egyéni hőmérséklet profil | A fehér egyensúlyt egy rögzített korrelált színhőmérséklethez rögzíti (a DLS-bemenet figyelmen kívül marad). A legutóbb kiválasztott Kelvin-érték profilváltáskor is megmarad. |
-| **Fényes részek** | −100–0, 1-es lépésenként | 0 (ki) | Csak RGB
-
-| Újdonság a 1.3.0-s verzióban. A kép legfényesebb, legfehérebb területeit sötétíti (0 = változatlan, −100 = legerősebb). Alkalmazható az élő előnézetre **és a kijelzőszintű (Előnézet) felvételekre**, amelyek rögzítik a beállítást (`Chloros:DisplayHighlights`); a sugárzási és visszaverődési értékek exportálására ez soha nem hat. Nem képes helyreállítani a túlexponált érzékelőadatokat — ehhez csökkentse az expozíciót. A zebra-réteg a sötétített képet követi. A Raw színprofil használata esetén letiltva („A Raw színprofil használata esetén nem alkalmazható.”). |
-| **Telítettség** | 0–200 (100 = semleges) | 100 | Csak RGB
-
-| HSV-telítettség az élő előnézetben. |
-| **Kontraszt** | 0–200 (100 = semleges) | 100 | Csak RGB
-
-| Lineáris kontraszt a közép-szürke környékén az élő előnézetben. |
+| **Színprofil** | Raw / Lineáris / Természetes / Fokozott / Egyéni hőmérséklet | Természetes | Csak RGB | Lásd alább. |
+| **Színhőmérséklet** | 2000–10000 K, 100-as lépésenként | 5500 K | Csak RGB, Egyéni hőmérséklet profil | A fehér egyensúlyt egy rögzített korrelált színhőmérséklethez rögzíti (a DLS-bemenet figyelmen kívül marad). A legutóbb kiválasztott Kelvin-érték profilváltáskor is megmarad. |
+| **Fényes részek** | −100–0, 1-es lépésenként | 0 (ki) | Csak RGB | Újdonság a 1.3.0-s verzióban. A kép legfényesebb, legfehérebb területeit sötétíti (0 = változatlan, −100 = legerősebb). Alkalmazható az élő előnézetre **és a kijelzőszintű (Előnézet) felvételekre**, amelyek rögzítik a beállítást (`Chloros:DisplayHighlights`); a sugárzási és visszaverődési értékek exportálására ez soha nem hat. Nem képes helyreállítani a túlexponált érzékelőadatokat — ehhez csökkentse az expozíciót. A zebra-réteg a sötétített képet követi. A Raw színprofil használata esetén letiltva („A Raw színprofil használata esetén nem alkalmazható.”). |
+| **Telítettség** | 0–200 (100 = semleges) | 100 | Csak RGB | HSV-telítettség az élő előnézetben. |
+| **Kontraszt** | 0–200 (100 = semleges) | 100 | Csak RGB | Lineáris kontraszt a közép-szürke környékén az élő előnézetben. |
 | **Tükör H / Tükör V** | Jelölőnégyzetek | Ki | Minden | Az előnézet vízszintes / függőleges tükrözése. |
-| **Forgatás**| 0° / 90° / 180° / 270° | 0° | Minden | Az előnézet elforgatása. A tájolás a háttér előnézeti lánc végén kerül alkalmazásra.**Mentett felvételek (1.3.0):**egy önálló kamera Előnézet, Sugárzás, Fényvisszaverődés és Index termékei a Tükör/Forgatás funkcióval forgathatók, míg**a Raw és a Debayered fájlok a kamera natív tájolását tartják meg**; minden felvételi fájl rögzíti a beállítást az XMP-jében, így a raw fájl későbbi feldolgozása során ugyanúgy alkalmazza azt.**A tömb tagfájljai natív állapotban maradnak** (a beállítás rögzítésre kerül, de nem kerül alkalmazásra), és a tömb összetett nézetei figyelmen kívül hagyják azt. |**Színprofil-szemantika** (RGB
-
--kamerák):
+| **Forgatás**| 0° / 90° / 180° / 270° | 0° | Minden | Az előnézet elforgatása. A tájolás a háttér előnézeti lánc végén kerül alkalmazásra.**Mentett felvételek (1.3.0):**egy önálló kamera Előnézet, Sugárzás, Fényvisszaverődés és Index termékei a Tükör/Forgatás funkcióval forgathatók, míg**a Raw és a Debayered fájlok a kamera natív tájolását tartják meg**; minden felvételi fájl rögzíti a beállítást az XMP-jében, így a raw fájl későbbi feldolgozása során ugyanúgy alkalmazza azt.**A tömb tagfájljai natív állapotban maradnak** (a beállítás rögzítésre kerül, de nem kerül alkalmazásra), és a tömb összetett nézetei figyelmen kívül hagyják azt. |**Színprofil-szemantika** (RGB-kamerák):
 
 * **Raw** — teljes mértékben megkerüli a feldolgozási láncot.
 * **Lineáris** — sötétjel + síkkép + fehéregyensúly; nincs színmátrix, nincs gamma.
@@ -325,20 +223,12 @@ Ezek kizárólag a felhasználói felületen jelennek meg — a videóra rajzol�
 | **Rács** | Ki / 3 × 3 / 9 × 9 | Ki | Kompozíciós rács. |
 | **Hisztogram** | Jelölőnégyzet + a képkocka szélességének 0,10–0,90-es aránya | Ki / 0,25 | A streamen megjelenő hisztogramcsík. |
 | **Fókuszcsúcs** | Jelölőnégyzet + küszöbérték 20–200 + színminta | Ki / 80 / `#ff5722` | Sobel-élkiemelés a fókuszáláshoz. |
-| **Csatornafelosztás** | „Felosztások megjelenítése (Red
-
-/ Green
-
-/ NIR
-
-)” / „Osztások elrejtése” gomb | Elrejtve | Három független, csatornánkénti szürkeárnyalatos mezőt ad hozzá a kompozit kép mellé (a gomb felirata a kamera szűrőcsatornáit követi). Minden osztott mező húzható, és a kamera keret színét veszi át. Monokróm kamerákon nem elérhető. A projekttel együtt mentésre kerül. |
+| **Csatornafelosztás** | „Felosztások megjelenítése (Red / Green / NIR)” / „Osztások elrejtése” gomb | Elrejtve | Három független, csatornánkénti szürkeárnyalatos mezőt ad hozzá a kompozit kép mellé (a gomb felirata a kamera szűrőcsatornáit követi). Minden osztott mező húzható, és a kamera keret színét veszi át. Monokróm kamerákon nem elérhető. A projekttel együtt mentésre kerül. |
 
 ### Pontmérő
 
 * **Kattintás a mintavételhez**jelölőnégyzet: kattintson az élő képre egy pixel mintavételéhez (egy célkereszt jelöli meg), vagy kattintson és húzza a kurzort egy területre a pixelek átlagának kiszámításához. A**Törlés**gomb törli a mintát és a célkeresztet. Kizárja egymást az AE-ROI**Célzás** móddal.
-* ****Megjelenítés**legördülő menü:**Raw (bitmélység)**— natív digitális értékek az érzékelő bitmélységében (pl. 12-bit → 0..4095) — vagy**Kijelző (8-bit)** (alapértelmezett). Ha élő index aktív, a Kijelző helyette a kiszámított indexértéket (pl. NDVI
-
-) jeleníti meg.
+* ****Megjelenítés**legördülő menü:**Raw (bitmélység)**— natív digitális értékek az érzékelő bitmélységében (pl. 12-bit → 0..4095) — vagy**Kijelző (8-bit)** (alapértelmezett). Ha élő index aktív, a Kijelző helyette a kiszámított indexértéket (pl. NDVI) jeleníti meg.
 * A kijelzőpanel felsorolja a képpontkoordinátákat, a képkocka méretét, a képpontformátumot, a bitmélységet, valamint egy csatornatáblázatot (Chan / Érték / %) a sávcímkékkel és hullámhosszakkal; a Bayer zöld párok átlagolva vannak; a régióminták „N px avg” feliratot jelenítik meg.
 
 A pontmérő állapota csak a munkamenetre vonatkozik.
@@ -360,18 +250,10 @@ Ez a szakasz csak akkor jelenik meg, ha **legalább egy DAQ fényérzékelő van
 | **Jelenet-reflektancia**|**ρ újrakalibrálása** gomb | — | Újra becsüli a megoldó által használt jelenet-reflektancia tényezőt. |
 
 {% hint style="info" %}
-**A tömbösszekapcsolás alapértelmezés szerint kikapcsolja a prediktív AE-t** — tömbök esetén a Chloros
-
-intelligens AE-je és a kamera oldali automatikus expozíció kezeli az expozíciót (telítettségvédelemmel), és a prediktív AE egyetlen jelenetrereflektancia-becslése vegyes jelenetek esetén nem megbízható. Itt kameránként újra bekapcsolhatja, ha kifejezetten DLS-vezérelt radiometrikus expozíciót szeretne.
+**A tömbösszekapcsolás alapértelmezés szerint kikapcsolja a prediktív AE-t** — tömbök esetén a Chloros intelligens AE-je és a kamera oldali automatikus expozíció kezeli az expozíciót (telítettségvédelemmel), és a prediktív AE egyetlen jelenetrereflektancia-becslése vegyes jelenetek esetén nem megbízható. Itt kameránként újra bekapcsolhatja, ha kifejezetten DLS-vezérelt radiometrikus expozíciót szeretne.
 {% endhint %}
 
-**DAQ-vezérelt expozíciós felső határ és beeső fényre rögzített AE.** A fenti jelölőnégyzettől függetlenül, ha egy DAQ fényérzékelőt rendelnek egy RGB
-
--kamerához, a Chloros
-
-— a mért abszolút lefelé irányuló besugárzás alapján — kiszámítja azt a maximális expozíció×erősítést, amelynél egy 100%-os fényvisszaverő felület a clipping alatt marad, és ezt **felső határ**az automatikus expozícióra. Az 1.3.0-s verziótól kezdve a felső határ csak akkor érvényes, ha egy kalibrációs célpont a kamera látómezejében van (az elmúlt 10 másodpercben a képkockáján belül látható); ha nincs cél a látómezőben, akkor a kamera szokásos automatikus expozíciója lép működésbe a saját fénycsúcs-védelmével, így a jelenet többi része nem marad szükségtelenül sötétebb. Amíg a felső határ aktív, a kamera**beeső fényre rögzített**: nyitott hurkú üzemmódban működik a beeső fény alapján mért expozícióval, 0 dB-es erősítéssel — az expozíció a mért fényt követi, nem a jelenet tartalmát. Mivel a felső határ csak lerövidítheti az expozíciót, önmagában nem okozhat túlvilágosodást. Az 1.3.0-s verziótól kezdve a felső határt a kamera saját expozíciós állandójával számítja ki a kalibrációs csomagjából (csak akkor használja a flottaátlagot, ha a csomag nem tartalmaz ilyet). A felső határ automatikusan kikapcsol — és a normál jelenet-AE újraindul —, ha nincs kalibrációs cél a látómezőben, hiányzik a DAQ-leolvasás, elavult (&gt;30 s), sötét, vagy ha a képkocka ≥15 %-a a rögzített expozíció mellett túlvilágosodik (vagyis az érzékelő és a kamera eltérő megvilágítást érzékel). Nincs erre vonatkozó GUI-kapcsoló; ez a szokásos viselkedés, amikor egy RGB
-
--kamerához DAQ van társítva.
+**DAQ-vezérelt expozíciós felső határ és beeső fényre rögzített AE.** A fenti jelölőnégyzettől függetlenül, ha egy DAQ fényérzékelőt rendelnek egy RGB-kamerához, a Chloros — a mért abszolút lefelé irányuló besugárzás alapján — kiszámítja azt a maximális expozíció×erősítést, amelynél egy 100%-os fényvisszaverő felület a clipping alatt marad, és ezt **felső határ**az automatikus expozícióra. Az 1.3.0-s verziótól kezdve a felső határ csak akkor érvényes, ha egy kalibrációs célpont a kamera látómezejében van (az elmúlt 10 másodpercben a képkockáján belül látható); ha nincs cél a látómezőben, akkor a kamera szokásos automatikus expozíciója lép működésbe a saját fénycsúcs-védelmével, így a jelenet többi része nem marad szükségtelenül sötétebb. Amíg a felső határ aktív, a kamera**beeső fényre rögzített**: nyitott hurkú üzemmódban működik a beeső fény alapján mért expozícióval, 0 dB-es erősítéssel — az expozíció a mért fényt követi, nem a jelenet tartalmát. Mivel a felső határ csak lerövidítheti az expozíciót, önmagában nem okozhat túlvilágosodást. Az 1.3.0-s verziótól kezdve a felső határt a kamera saját expozíciós állandójával számítja ki a kalibrációs csomagjából (csak akkor használja a flottaátlagot, ha a csomag nem tartalmaz ilyet). A felső határ automatikusan kikapcsol — és a normál jelenet-AE újraindul —, ha nincs kalibrációs cél a látómezőben, hiányzik a DAQ-leolvasás, elavult (>30 s), sötét, vagy ha a képkocka ≥15 %-a a rögzített expozíció mellett túlvilágosodik (vagyis az érzékelő és a kamera eltérő megvilágítást érzékel). Nincs erre vonatkozó GUI-kapcsoló; ez a szokásos viselkedés, amikor egy RGB-kamerához DAQ van társítva.
 
 ### Adatgyűjtés és kiváltás
 
@@ -421,11 +303,7 @@ Kombinált és különálló tömbök esetén egyaránt megjelenik:
 
 Saját csoportja közvetlenül a Környezeti fényérzékelő után található, mind a kombinált, mind az elkülönített tömbök esetében:
 
-* **Engedélyezés** jelölőnégyzet — „MAPIR
-
-ArUco célpont észlelése és az NDVI
-
--nek a panel reflexiójával kapcsolatos LUT-val való összehasonlítása”; ez vezérli a kombinált csempe célpont-átfedését és érvényesítési tábláit. **Különálló** sorozat esetén minden elem saját [Kalibrációs célpont tábláját](#the-calibration-target-table) (a listanézetben kamerasoronként egy-egy).
+* **Engedélyezés** jelölőnégyzet — „MAPIR ArUco célpont észlelése és az NDVI-nek a panel reflexiójával kapcsolatos LUT-val való összehasonlítása”; ez vezérli a kombinált csempe célpont-átfedését és érvényesítési tábláit. **Különálló** sorozat esetén minden elem saját [Kalibrációs célpont tábláját](#the-calibration-target-table) (a listanézetben kamerasoronként egy-egy).
 
 ### Felvétel — egységes érzékelőbeállítások
 

@@ -1,8 +1,6 @@
 # NVIDIA Jetson útmutató Az NVIDIA Jetsonon futó
 
-Chloros
-lehetővé teszi a multispektrális képfeldolgozást a periférián — a terepen, drónokon és távoli telepítésekben egyaránt. A Chloros
-1.3.0 indításkor felismeri a Jetson-modellt, és az észlelt hardverhez igazítja a feldolgozási stratégiát. **Nincs szükség kézi beállításra.**
+Chloros lehetővé teszi a multispektrális képfeldolgozást a periférián — a terepen, drónokon és távoli telepítésekben egyaránt. A Chloros 1.3.0 indításkor felismeri a Jetson-modellt, és az észlelt hardverhez igazítja a feldolgozási stratégiát. **Nincs szükség kézi beállításra.**
 {% hint style="info" %}
 **Az 1.3.0-s Jetson-csomag a Jetson GPU-ján végzi a feldolgozást.** Az `chloros_1.3.0_arm64_jp6.deb` a JetPack 6-hoz készült, és a JetPack 6 CUDA-alapú PyTorch-verzióját használja, így a feldolgozás – beleértve a Texture Aware debayert is – az Orin GPU-ján fut. A csomag maga nem tartalmazza a CUDA-t: a JetPack 6 által telepített CUDA- és cuDNN-könyvtárakat használja (`sudo apt install nvidia-jetpack` olyan képen, amelyeken ezek hiányoznak). Ha nincs használható CUDA-GPU, a feldolgozás a CPU-n fut, és a Texture Aware a Standard debayert használja.
 {% endhint %}
@@ -18,8 +16,7 @@ lehetővé teszi a multispektrális képfeldolgozást a periférián — a terep
 | **Jetson Orin Nano** | 8 GB megosztott     | `GPU_SINGLE` (1 munkaszerver, szekvenciális)                     | Belépő szintű peremszámítás                                 |
 
 {% hint style="info" %}
-A Linux
-arm64 csomaghoz **JetPack 6** szükséges, amely a Jetson Orin termékcsaládon elérhető. A régebbi modellek (Nano, TX2, Xavier NX) nem képesek futtatni a JetPack 6-ot, és a jelenlegi csomag nem támogatja őket.
+A Linux arm64 csomaghoz **JetPack 6** szükséges, amely a Jetson Orin termékcsaládon elérhető. A régebbi modellek (Nano, TX2, Xavier NX) nem képesek futtatni a JetPack 6-ot, és a jelenlegi csomag nem támogatja őket.
 {% endhint %}
 
 ***
@@ -28,10 +25,7 @@ arm64 csomaghoz **JetPack 6** szükséges, amely a Jetson Orin termékcsaládon 
 
 * **JetPack 6.x** (a legújabb verzió ajánlott)
 * **NVIDIA CUDA és cuDNN** a JetPack 6-ból (`sudo apt install nvidia-jetpack`, ha a képben hiányoznak)
-* **Fizetős Chloros
-+ csomag** — Copper szint vagy magasabb (minden CLI
-/SDK
--hozzáféréshez szükséges; szerveroldalon érvényesítve)
+* **Fizetős Chloros+ csomag** — Copper szint vagy magasabb (minden CLI/SDK-hozzáféréshez szükséges; szerveroldalon érvényesítve)
 
 ## Telepítés
 
@@ -48,15 +42,10 @@ python3 -c "import chloros_sdk; print(chloros_sdk.__version__)"   # the .deb ins
 chloros-cli selftest
 ```
 
-Az `.deb` telepíti a rendszerhez tartozó Python SDK
--t (Python
-), amely megfelel ennek a buildnek. Csak egy virtualenv-be kell telepíteni a csomagban található wheel fájlt: `pip install /usr/lib/chloros/sdk/chloros_sdk-*.whl` (teljesen offline). Általános Linux
--telepítési részletek, fájlhelyek és hibaelhárítás tekintetében lásd a [Linux
--telepítés](linux-installation.md) című részt.
+Az `.deb` telepíti a rendszerhez tartozó Python SDK-t (Python), amely megfelel ennek a buildnek. Csak egy virtualenv-be kell telepíteni a csomagban található wheel fájlt: `pip install /usr/lib/chloros/sdk/chloros_sdk-*.whl` (teljesen offline). Általános Linux-telepítési részletek, fájlhelyek és hibaelhárítás tekintetében lásd a [Linux-telepítés](linux-installation.md) című részt.
 
 {% hint style="info" %}
-**Indításkor már nincs szükség kicsomagolásra.** Az 1.3.0-s verziótól kezdve a háttérprogram és a CLI
--program kicsomagolatlanul kerülnek telepítésre az `/usr/lib/chloros/` könyvtárba, így indításkor már nem csomagolják ki magukat egy ideiglenes könyvtárba. Az ideiglenes fájlok továbbra is automatikusan az `/mnt/ssd/tmp` mappába kerülnek, ha az létezik; ellenkező esetben az `TMPDIR`-et beállíthatja az NVMe-n található egy útvonalra (`export TMPDIR=/mnt/nvme/tmp`).
+**Indításkor már nincs szükség kicsomagolásra.** Az 1.3.0-s verziótól kezdve a háttérprogram és a CLI-program kicsomagolatlanul kerülnek telepítésre az `/usr/lib/chloros/` könyvtárba, így indításkor már nem csomagolják ki magukat egy ideiglenes könyvtárba. Az ideiglenes fájlok továbbra is automatikusan az `/mnt/ssd/tmp` mappába kerülnek, ha az létezik; ellenkező esetben az `TMPDIR`-et beállíthatja az NVMe-n található egy útvonalra (`export TMPDIR=/mnt/nvme/tmp`).
 {% endhint %}
 
 ***
@@ -65,8 +54,7 @@ Az `.deb` telepíti a rendszerhez tartozó Python SDK
 
 ### Hogyan működik?
 
-Indításkor a Chloros
-profilozza a rendszert:
+Indításkor a Chloros profilozza a rendszert:
 
 1. **Az `/proc/device-tree/model` segítségével felismeri a Jetson modellt**
 
@@ -111,11 +99,9 @@ A teljes számítási adaptációs útmutatóért lásd a [Dinamikus számítás
 
 ## A GPU frekvenciájának korlátozása a Texture Aware esetében a Nano és Orin Nano modelleken
 
-A Texture Aware debayer GPU-alapú neurális hálózati következtetést futtat, ami **túláram-figyelmeztetéseket**válthat ki az alacsony fogyasztású Jetson modelleken (10–15 W-os osztály) teljes GPU-órajel mellett. Ha az `--debayer texture-aware` parancsot adja meg egy**Jetson Nano vagy Orin Nano** eszközön, a CLI
-ellenőrzi a GPU maximális frekvenciáját, és **510 MHz**-re (510000000) korlátozza azt, ha az jelenleg ennél magasabb:
+A Texture Aware debayer GPU-alapú neurális hálózati következtetést futtat, ami **túláram-figyelmeztetéseket**válthat ki az alacsony fogyasztású Jetson modelleken (10–15 W-os osztály) teljes GPU-órajel mellett. Ha az `--debayer texture-aware` parancsot adja meg egy**Jetson Nano vagy Orin Nano** eszközön, a CLI ellenőrzi a GPU maximális frekvenciáját, és **510 MHz**-re (510000000) korlátozza azt, ha az jelenleg ennél magasabb:
 
-* Ha a CLI
-írhat a GPU frekvenciájának sysfs-csomópontjába, a korlátozás **automatikusan alkalmazásra kerül**, és a rendszer megjeleníti a visszaigazolást.
+* Ha a CLI írhat a GPU frekvenciájának sysfs-csomópontjába, a korlátozás **automatikusan alkalmazásra kerül**, és a rendszer megjeleníti a visszaigazolást.
 * Ha nem (root jogosultság szükséges), aCLI
 kijelzi a pontos `sudo` parancsot a korlátozás kézi alkalmazásához, egy pillanatig vár, hogy elolvashassa, majd folytatja a műveletet — a feldolgozás továbbra is fut, de túláram-figyelmeztetéseket jelezhet.
 
@@ -128,20 +114,18 @@ echo 510000000 | sudo tee /sys/devices/platform/bus@0/17000000.gpu/devfreq/17000
 A nagyobb teljesítményű modellek (Orin NX 25W, AGX Orin 60W) teljes GPU-sebességgel futnak; nincs korlátozás alkalmazva. A Standard debayer egyetlen modellen sem váltja ki a korlátozást.
 
 {% hint style="info" %}
-**A Texture Aware a Jetsonon mindig egyszerre csak egy képet dolgoz fel.** Minden munkavégzőnek szüksége lenne saját CUDA-kontextusra (~1 GB), valamint a zajszűrő modell saját másolatára, amit az egységes memória nem tud biztosítani — ezért a Jetsonon a Texture Aware útvonal egyetlen munkavégzőhöz van rögzítve, a GPU-hozzáférés sorosítva. A Texture Aware várhatóan jelentősen lassabb lesz, mint a Standard bármelyik Jetsonon. A „Texture Aware” a Survey3
-képekre vonatkozik: a LATTICE-felvételek mindig a „Standard” debayert kapják. Használható CUDA GPU hiányában a futtatás a „Standard” módot használja, és a háttérrendszer egy `[DEBAYER] … needs a CUDA GPU …` sorral naplózza az okot (az `chloros-cli --verbose`-szel együtt látható).
+**A Texture Aware a Jetsonon mindig egyszerre csak egy képet dolgoz fel.** Minden munkavégzőnek szüksége lenne saját CUDA-kontextusra (~1 GB), valamint a zajszűrő modell saját másolatára, amit az egységes memória nem tud biztosítani — ezért a Jetsonon a Texture Aware útvonal egyetlen munkavégzőhöz van rögzítve, a GPU-hozzáférés sorosítva. A Texture Aware várhatóan jelentősen lassabb lesz, mint a Standard bármelyik Jetsonon. A „Texture Aware” a Survey3 képekre vonatkozik: a LATTICE-felvételek mindig a „Standard” debayert kapják. Használható CUDA GPU hiányában a futtatás a „Standard” módot használja, és a háttérrendszer egy `[DEBAYER] … needs a CUDA GPU …` sorral naplózza az okot (az `chloros-cli --verbose`-szel együtt látható).
 {% endhint %}
 
 ***
 
 ## Hőkezelés
 
-A Jetson-eszközök hőkezelési tartaléka korlátozott, különösen zárt térben vagy légi alkalmazások esetén. Az Chloros
-figyeli a SoC hőmérsékletét, és automatikusan korlátozza a kötegméreteket:
+A Jetson-eszközök hőkezelési tartaléka korlátozott, különösen zárt térben vagy légi alkalmazások esetén. Az Chloros figyeli a SoC hőmérsékletét, és automatikusan korlátozza a kötegméreteket:
 
 | Hőmérséklet         | Művelet                                            |
 | ------------------- | ------------------------------------------------- |
-| **&lt; 70 °C**          | Normál működés — teljes feldolgozási sebesség          |
+| **< 70 °C**          | Normál működés — teljes feldolgozási sebesség          |
 | **70 °C** (Figyelmeztetés) | A kötegméret fokozatosan csökken (100% → 50% 70 °C és 80 °C között) |
 | **80 °C** (Kritikus) | Erőteljes korlátozás (50% → 0% 80 °C és 90 °C között) |
 | **90 °C** (Leállítás) | A GPU feldolgozásának teljes leállítása — lehűtés szükséges |
@@ -158,8 +142,7 @@ A Jetson eszközök **egységes memóriát** használnak — a GPU és a CPU ugy
 
 ### Swap-figyelmeztetés és ajánlások
 
-A Jetsonon történő feldolgozás előtt a CLI
-megszámolja a bemeneti mappában található RAW-képeket (`.tif`, `.tiff`, `.raw`, `.dng` — a JPG-előnézeteket nem számolja), megbecsüli a futtatáshoz szükséges maximális memóriaterületet, és **a futtatás megkezdése előtt figyelmeztet**, ha a RAM + swap valószínűleg nem lesz elegendő. A figyelmeztetés címe `LOW MEMORY WARNING - Jetson Detected`, kinyomtatja a képek számát, a RAM-ot, az aktuális swap-területet és a becsült csúcsértéket, majd megadja a pontos, a (soha nem kisebb, mint 8 GB). Néhány másodpercre szünetet tart, hogy az üzenet ne vesszen el a görgetési történetben, majd folytatódik a feldolgozás.**A figyelmeztetés által használt memória-becslések:**
+A Jetsonon történő feldolgozás előtt a CLI megszámolja a bemeneti mappában található RAW-képeket (`.tif`, `.tiff`, `.raw`, `.dng` — a JPG-előnézeteket nem számolja), megbecsüli a futtatáshoz szükséges maximális memóriaterületet, és **a futtatás megkezdése előtt figyelmeztet**, ha a RAM + swap valószínűleg nem lesz elegendő. A figyelmeztetés címe `LOW MEMORY WARNING - Jetson Detected`, kinyomtatja a képek számát, a RAM-ot, az aktuális swap-területet és a becsült csúcsértéket, majd megadja a pontos, a (soha nem kisebb, mint 8 GB). Néhány másodpercre szünetet tart, hogy az üzenet ne vesszen el a görgetési történetben, majd folytatódik a feldolgozás.**A figyelmeztetés által használt memória-becslések:**
 
 | Debayer mód | Alap | Képenként |
 | --- | --- | --- |
@@ -189,8 +172,7 @@ echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 
 ### OOM (Out of Memory) kezelése
 
-A feldolgozás során a Chloros
-figyeli a GPU memóriáját, és összeomlás helyett zökkenőmentesen csökkenti a teljesítményt:
+A feldolgozás során a Chloros figyeli a GPU memóriáját, és összeomlás helyett zökkenőmentesen csökkenti a teljesítményt:
 
 1. Amikor a GPU-memória kihasználtsága meghaladja a **85%-ot**, a kötegméreteket megelőzően csökkentik
 2. Ha mégis memóriahiány lép fel, a kötegméret **felére csökken**, és minden további OOM esetén ismét felére csökken; minden következő sikeres köteg feldolgozása egy lépéssel visszavonja ezt a korlátozást
@@ -218,12 +200,9 @@ Tervezze meg az energiaigényét a folyamatos feldolgozáshoz — a csúcsáramf
 * Az SD-kártyák túl lassúak a feldolgozáshoz — csak rendszerindító adathordozóként használja őket
 * A feldolgozott kimenethez a nyers képadatok méretének 2–3-szorosát tervezze be
 
-### Headless működés SSH
--en keresztül A
+### Headless működés SSH-en keresztül A
 
-Chloros
-CLI
-ideális a headless Jetson-telepítésekhez:
+Chloros CLI ideális a headless Jetson-telepítésekhez:
 
 ```bash
 # SSH into the Jetson
@@ -238,16 +217,14 @@ chloros-cli export-status
 
 ### Állandóan aktív háttérszolgáltatás a LATTICE / DAQ-E időszinkronizálásához
 
-Ha a Jetson headless módon vezérli a LATTICE kamerákat vagy a DAQ-E fényérzékelőket, engedélyezze a háttér systemd szolgáltatást **a saját felhasználói fiókjával**, hogy a PTP grandmaster folyamatosan futhasson, és az SDK
--parancsfájlok működő háttérrendszert találjanak (az egység telepítve van, de alapértelmezés szerint nincs engedélyezve):
+Ha a Jetson headless módon vezérli a LATTICE kamerákat vagy a DAQ-E fényérzékelőket, engedélyezze a háttér systemd szolgáltatást **a saját felhasználói fiókjával**, hogy a PTP grandmaster folyamatosan futhasson, és az SDK-parancsfájlok működő háttérrendszert találjanak (az egység telepítve van, de alapértelmezés szerint nincs engedélyezve):
 
 ```bash
 sudo systemctl enable --now chloros-backend@$USER.service    # $USER expands to your user name
 chloros-cli time-sync status
 ```
 
-A háttérszolgáltatás ezután az Ön nevében fut: az általa írt rögzítések az Önéi, és az Ön `chloros-cli login`-jét használja. A részleteket, beleértve a root `chloros-backend.service`-et és azt, hogy a csomag hogyan teszi a 319/320-as PTP-portokat root jogosultság nélkül is hozzárendelhetővé, lásd a [Linux
--telepítés](linux-installation.md#always-on-ptp-for-headless-hosts) című részben.
+A háttérszolgáltatás ezután az Ön nevében fut: az általa írt rögzítések az Önéi, és az Ön `chloros-cli login`-jét használja. A részleteket, beleértve a root `chloros-backend.service`-et és azt, hogy a csomag hogyan teszi a 319/320-as PTP-portokat root jogosultság nélkül is hozzárendelhetővé, lásd a [Linux-telepítés](linux-installation.md#always-on-ptp-for-headless-hosts) című részben.
 
 ### Automatizált feldolgozás a systemd segítségével
 
@@ -307,9 +284,7 @@ chloros-cli process /data/flights/flight_042 \
     --indices NDVI GNDVI OSAVI
 ```
 
-### Python
-SDK
-a Jetsonon
+### Python SDK a Jetsonon
 
 ```python
 from chloros_sdk import ChlorosLocal
@@ -353,26 +328,15 @@ Terepi és légi alkalmazásokhoz vegye fontolóra a következő Jetson Orin NX 
 * **Robusztus terepi használat**: IP67/IP69K vízálló burkolatok PoE GigE kameracsatlakozással
 * **Minimális/költséghatékony**: Fejlesztői készletek kiegészítő burkolatokkal
 
-Vegye fel a kapcsolatot a [MAPIR
-ügyfélszolgálattal](https://www.mapir.camera/community/contact), ha konkrét hardverajánlásra van szüksége a telepítési forgatókönyvéhez.
+Vegye fel a kapcsolatot a [MAPIR ügyfélszolgálattal](https://www.mapir.camera/community/contact), ha konkrét hardverajánlásra van szüksége a telepítési forgatókönyvéhez.
 
 ***
 
 ## Következő lépések
 
-* [Linux
-telepítés](linux-installation.md) — Általános Linux
-telepítési részletek
+* [Linux telepítés](linux-installation.md) — Általános Linux telepítési részletek
 * [Dinamikus számítási adaptáció](../processing-architecture/dynamic-compute-adaptation.md) — Teljes számítási stratégia-áttekintés
 * [Feldolgozási folyamat](../processing-architecture/processing-pipeline.md) — A 4-szálas folyamat megértése
-* [CLI: Parancssor](../CLI.md) — A CLI
-útmutató
-* [API
-: Python
-SDK
-](../api-python-sdk.md) — Az SDK
-útmutató
-* [CLI
--referencia](../reference/cli-reference.md) és [SDK
--referencia](../reference/sdk-reference.md) — A 1.3.0-s verzió teljes parancs- és API
--listája
+* [CLI: Parancssor](../CLI.md) — A CLI útmutató
+* [API: Python SDK](../api-python-sdk.md) — Az SDK útmutató
+* [CLI-referencia](../reference/cli-reference.md) és [SDK-referencia](../reference/sdk-reference.md) — A 1.3.0-s verzió teljes parancs- és API-listája

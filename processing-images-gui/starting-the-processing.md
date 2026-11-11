@@ -63,7 +63,7 @@ Chloros a licencétől függően két különböző feldolgozási módban műkö
 2. **Feldolgozás** – Kalibrálás alkalmazása és képek exportálása**Feldolgozási idő:**
 
 * Sokkal lassabb, mint a Chloros+ párhuzamos módja
-* Kis és közepes méretű adatkészletekhez alkalmas (&lt; 200 kép)
+* Kis és közepes méretű adatkészletekhez alkalmas (< 200 kép)
 
 ### Chloros+ mód (párhuzamos feldolgozás)
 
@@ -306,7 +306,7 @@ A teljes szemantikaért lásd [a CLI-referenciát](../reference/cli-reference.md
 **Megoldások:**
 
 1. Tárolja a projekteket rövidebb mappában — módosítsa a**Munkakönyvtárat** a [Projektbeállítások](../project-settings/project-settings.md) menüpontban, majd hozza létre újra a projektet, vagy
-2. Kapcsolja be a Windows hosszú elérési útjait, és indítsa újra a Chloros programot: futtassa újra a Chloros telepítőjét az **Enable Windows long paths** (Windows hosszú elérési utak engedélyezése) jelölőnégyzet bejelölésével (ez alapértelmezés szerint be van jelölve), vagy használja a Csoportházirendet: *Számítógép konfigurációja &gt; Felügyeleti sablonok &gt; Rendszer &gt; Fájlrendszer &gt; Win32 hosszú elérési utak engedélyezése*.
+2. Kapcsolja be a Windows hosszú elérési útjait, és indítsa újra a Chloros programot: futtassa újra a Chloros telepítőjét az **Enable Windows long paths** (Windows hosszú elérési utak engedélyezése) jelölőnégyzet bejelölésével (ez alapértelmezés szerint be van jelölve), vagy használja a Csoportházirendet: *Számítógép konfigurációja > Felügyeleti sablonok > Rendszer > Fájlrendszer > Win32 hosszú elérési utak engedélyezése*.
 
 ### „Nincs célpont észlelve” figyelmeztetés
 

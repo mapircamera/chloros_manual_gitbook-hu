@@ -26,28 +26,10 @@ Három módgomb található az ablak tetején:
 | **Folyamatos**| Egymást követő rögzítések egy leállási feltétel teljesüléséig. | Leállás**felvételek száma** alapján (alapértelmezett: 1) *vagy* **felvételi időtartam** alapján (alapértelmezett: 10 s; mértékegységek: másodperc / perc / óra / nap). |
 | **Intervallum**(időfelvétel) | Időzített sorozatfelvételek. |**Felvételek / intervallum**(alapértelmezés: 1) ·**Minden**N egység után (alapértelmezés: 5 másodperc) ·**N** egységig (alapértelmezés: 1 perc). |
 
-Folyamatos vagy Intervallum módban a „Minden felvétel” gomb futás közben **Leállítás (N)** gombbá válik, és számolja a beérkező felvételeket. Egy teljes meghajtó leállítja a futást (lásd [Az „Összes rögzítés” folyamat](#the-capture-all-flow)).**A tömbökön történő folyamatos rögzítés a háttérben fut (új a 1.3.0-ban).** Ha a listában szereplő összes kamera egy tömbhöz tartozik (az önálló kamerák el vannak rejtve vagy kizárva), a „Folyamatos” üzemmód már nem küld minden rögzítés után egy-egy kérést: a Chloros
-
-háttérrendszer maga futtatja a rögzítési ciklust, egy szinkronizált csoportot írva, miközben kiválasztja a következőt, és a gomb lekérdezi a számlálót. Ha a listában önálló kamerák is szerepelnek, a Chloros
-
-a korábbiakhoz hasonlóan passzonként rögzít.
+Folyamatos vagy Intervallum módban a „Minden felvétel” gomb futás közben **Leállítás (N)** gombbá válik, és számolja a beérkező felvételeket. Egy teljes meghajtó leállítja a futást (lásd [Az „Összes rögzítés” folyamat](#the-capture-all-flow)).**A tömbökön történő folyamatos rögzítés a háttérben fut (új a 1.3.0-ban).** Ha a listában szereplő összes kamera egy tömbhöz tartozik (az önálló kamerák el vannak rejtve vagy kizárva), a „Folyamatos” üzemmód már nem küld minden rögzítés után egy-egy kérést: a Chloros háttérrendszer maga futtatja a rögzítési ciklust, egy szinkronizált csoportot írva, miközben kiválasztja a következőt, és a gomb lekérdezi a számlálót. Ha a listában önálló kamerák is szerepelnek, a Chloros a korábbiakhoz hasonlóan passzonként rögzít.
 
 {% hint style="warning" %}
-**Gyors rögzítés Windows
-
-rendszeren: a Chloros
-
-háttérprogramot kizárva kell tartani a Microsoft Defender vizsgálatából.** A nagy sebességű rögzítés során írt minden fájl valós idejű vizsgálata a MAPIR
-
-tesztjei szerint a rögzítési sebesség körülbelül 30 %-át veszi igénybe (másodpercenként több száz fájl egy kis ROI esetén). A Windows
-
--telepítő felajánlja a **„Chloros
-
--háttérprogram kizárása a Microsoft Defender vizsgálatából (sokkal gyorsabb kamerarögzítés; ajánlott)”** opciót, amely alapértelmezés szerint be van jelölve, és az eltávolításkor eltávolítja a kizárást. Ha ezt a jelölőnégyzetet törölte, futtassa újra a telepítőt bejelölt állapotban, vagy adjon hozzá egy Defender-folyamatkizárást az `chloros-backend.exe` fájlra (a Chloros
-
-telepítőmappa `backend` mappájában). Amikor a Defender egy vagy több CPU-magot használ egy tömb folyamatos rögzítése közben, a Chloros
-
--háttérprogram ezt egyszer rögzíti a naplójában, ugyanezekkel a két megoldással.
+**Gyors rögzítés Windows rendszeren: a Chloros háttérprogramot kizárva kell tartani a Microsoft Defender vizsgálatából.** A nagy sebességű rögzítés során írt minden fájl valós idejű vizsgálata a MAPIR tesztjei szerint a rögzítési sebesség körülbelül 30 %-át veszi igénybe (másodpercenként több száz fájl egy kis ROI esetén). A Windows-telepítő felajánlja a **„Chloros-háttérprogram kizárása a Microsoft Defender vizsgálatából (sokkal gyorsabb kamerarögzítés; ajánlott)”** opciót, amely alapértelmezés szerint be van jelölve, és az eltávolításkor eltávolítja a kizárást. Ha ezt a jelölőnégyzetet törölte, futtassa újra a telepítőt bejelölt állapotban, vagy adjon hozzá egy Defender-folyamatkizárást az `chloros-backend.exe` fájlra (a Chloros telepítőmappa `backend` mappájában). Amikor a Defender egy vagy több CPU-magot használ egy tömb folyamatos rögzítése közben, a Chloros-háttérprogram ezt egyszer rögzíti a naplójában, ugyanezekkel a két megoldással.
 {% endhint %}
 
 <!-- SCREENSHOT-NEEDED: the capture-mode area of Capture Settings with Interval selected — showing the "Captures / interval", "Every N (unit)" and "For N (unit)" rows with their defaults (1, 5 s, 1 m). -->
@@ -67,26 +49,16 @@ A panel súgószövege összefoglalja: válassza ki, mely kamerák és exporttí
 
 Hat exporttípus létezik: **Raw, Debayered, Radiance, Reflectance, Preview, Index**. Az egyes kamerák sorában csak az adott kamerára vonatkozó típusok jelennek meg:
 
-| Exporttípus | Tartalom | RGB
-
-(FRGB) | Bayer multispektrális (FRGN/FOCN/FNGB) | Mono (M3M) |
+| Exporttípus | Tartalom | RGB (FRGB) | Bayer multispektrális (FRGN/FOCN/FNGB) | Mono (M3M) |
 | --- | --- | --- | --- | --- |
 | **Raw** | Bayer-mozaik (mono: az egyetlen sáv) közvetlenül az érzékelőből | ✓ | ✓ | ✓ |
-| **Debayered** | Lineáris demosaik: a kalibrációs csomag sötételtolása (DSNU) eltávolítva a nyers adatból, majd élek figyelembevételével végzett demosaik — lineáris korrekció, síkkép-korrekció vagy színszétválasztás nélkül. 3-csatornás RGB
-
-TIFF
-
--ként mentve (mono: 1-csatornás szürkeárnyalatos) | ✓ | ✓ | ✓ |
-| **Előnézet** | Teljes megjelenítési lánc (fehér egyensúly + gamma a kamera profilja szerint, valamint az RGB
-
--kamera „Highlights” beállítása; multispektrális: hamis színű kiterjesztés) | ✓ | ✓ | ✓ |
+| **Debayered** | Lineáris demosaik: a kalibrációs csomag sötételtolása (DSNU) eltávolítva a nyers adatból, majd élek figyelembevételével végzett demosaik — lineáris korrekció, síkkép-korrekció vagy színszétválasztás nélkül. 3-csatornás RGB TIFF-ként mentve (mono: 1-csatornás szürkeárnyalatos) | ✓ | ✓ | ✓ |
+| **Előnézet** | Teljes megjelenítési lánc (fehér egyensúly + gamma a kamera profilja szerint, valamint az RGB-kamera „Highlights” beállítása; multispektrális: hamis színű kiterjesztés) | ✓ | ✓ | ✓ |
 | **Sugárzás** | float32 W/m²/sr/nm a teljes radiometrikus láncon keresztül | — (nem elérhető) | ✓ | ✓ |
 | **Fényvisszaverődés** | uint16 ρ (32768 = 1,0) | — (nem elérhető) | ✓ — csak akkor jelenik meg, ha a kamera rendelkezik DAQ fényérzékelővel (saját vagy a sorozatból örökölt) | ugyanaz, mint a multispektrális |
 | **Index** | Vegetációs index (LUT) megjelenítés | — | ✓ — a kamerán engedélyezett, nem üres indexkifejezést igényel, és kombinált sorozat tagjai számára nem elérhető (a sorozat egy közös indexszel rendelkezik) | — (az indexhez ≥2 sáv szükséges; lásd [Mono kamerák és vegetációs indexek](mono-indices.md)) |
 
-A sugárzás és a visszaverődés soha nem elérhető az RGB
-
--kameráknál — a Bayer-mátrixonkénti sugárzás szélessávú fotometrikus érzékelő esetén nem értelmezhető.
+A sugárzás és a visszaverődés soha nem elérhető az RGB-kameráknál — a Bayer-mátrixonkénti sugárzás szélessávú fotometrikus érzékelő esetén nem értelmezhető.
 
 ### Leggyorsabb rögzítés
 
@@ -151,15 +123,11 @@ A rögzítéseket a megnyitott projekt alatt az `<project>/captures/` mappába m
 * **Egy tudnivaló eltérés:** a megjelenítési szint az `preview/` nevű mappában kerül tárolásra, míg a fájlok neve továbbra is `_display` marad — a mappa és az utótag csak ezen a szinten tér el egymástól.
 * Az ismeretlen szintek a saját nevüket viselő mappába kerülnek; ha nem lehet almappát létrehozni, a fájl nem vész el, hanem a felvételek gyökérmappájába kerül.
 * A TIFF-felvételek alapértelmezés szerint veszteségmentesen vannak tömörítve (DEFLATE), és a teljes kalibrációs és feldolgozási metaadatokat **a fájl XMP-jében** — a felvételek önleíróak, az `.daq` olvasási fájlon (és annak `.daq.cameras.json` fájlján) kívül nincsenek kiegészítő fájljaik.
-* **Clamp-maszkok (újdonság az 1.3.0-ban).**Ahol a 3×3-as spektrális szétválasztásnak legalább egy képponton 0-ra kellett korlátoznia egy sávot, a sugárzási, visszaverődési és indextermékek képpontonkénti maszkot kapnak, `clamp_masks/<product folder>/<product name>_clampmask.tif` (0. bit = a termék R-csatornájában lévő sáv, 1. bit = G, 2. bit = B); a termék `Chloros:UnmixClampMask` XMP-címkéje erre mutat. A maszkok a termékmappák**mellett** találhatók, soha nem azok belsejében, így egy olyan termékmappa, mint például az `reflectance/`, változatlan formában átadható a fotogrammetriai szoftvernek. Az Chloros
-
-saját importálója kihagyja a maszkokat.
+* **Clamp-maszkok (újdonság az 1.3.0-ban).**Ahol a 3×3-as spektrális szétválasztásnak legalább egy képponton 0-ra kellett korlátoznia egy sávot, a sugárzási, visszaverődési és indextermékek képpontonkénti maszkot kapnak, `clamp_masks/<product folder>/<product name>_clampmask.tif` (0. bit = a termék R-csatornájában lévő sáv, 1. bit = G, 2. bit = B); a termék `Chloros:UnmixClampMask` XMP-címkéje erre mutat. A maszkok a termékmappák**mellett** találhatók, soha nem azok belsejében, így egy olyan termékmappa, mint például az `reflectance/`, változatlan formában átadható a fotogrammetriai szoftvernek. Az Chloros saját importálója kihagyja a maszkokat.
 * **Tájolás (1.3.0).** Egy önálló kamera Preview, Radiance, Reflectance és Index termékei a Mirror/Rotation beállítás szerint forognak; a Raw és a Debayered fájlok úgy maradnak, ahogyan az érzékelő kiolvasta őket. A tömb tagfájljai mind natív formátumban maradnak. Minden fájl rögzíti a beállítást az XMP-jében, így az újrafeldolgozás is ugyanúgy alkalmazza azt.
 * **Melyik kamerához tartozik egy `.daq` fájl (1.3.0).** Egy felvétel `.daq` azonosítóját a feldolgozás során kizárólag azokhoz a kamerákhoz tartozó képekhez rendeli hozzá, amelyeket az `.daq.cameras.json` azonosítója megnevez. Egy önálló kamera, amelynek nincs saját fényérzékelője, ezért már nem veszi át egy másik kamera mérési adatait — rendeljen hozzá egy érzékelőt, vagy rögzítsen egyet a Fényérzékelők fülön. Egy fényérzékelő-bejegyzés (és bármely `.daq`, amelyben nincs ilyen fájl, beleértve a régebbi rögzítéseket is) továbbra is minden kamerát kiszolgál.
 
-Ez ugyanaz az elrendezés, amelyet az `chloros-cli lattice capture` / `array-capture` fájlok írnak az `-o` könyvtárba — dokumentálva a [CLI
-
--referencia § Hogyan néz ki egy rögzítési mappa](../reference/cli-reference.md#what-a-captures-folder-looks-like) című részben dokumentálva.
+Ez ugyanaz az elrendezés, amelyet az `chloros-cli lattice capture` / `array-capture` fájlok írnak az `-o` könyvtárba — dokumentálva a [CLI-referencia § Hogyan néz ki egy rögzítési mappa](../reference/cli-reference.md#what-a-captures-folder-looks-like) című részben dokumentálva.
 
 <!-- SCREENSHOT-NEEDED: OS file explorer showing a real <project>/captures/ folder after a multi-level array capture — the raw/debayered/radiance/reflectance/preview subfolders, the daq/ and clamp_masks/ folders, and sync_<ts>_SN<serial>_<level>.tif filenames visible inside one subfolder. -->
 
@@ -179,11 +147,7 @@ Az `process` általában csak a megadott mappát importálja, de ha az a mappa n
 A szint almappájának közvetlen megnevezése (pl. `…/captures/raw/`) szintén működik, de az `daq/` mappát hátrahagyja — másolja át mellé, amikor-radiometrikus terméket származtat az `raw/`-ből, különben az időbélyeg-egyeztetésnek nincs mihez viszonyítania.
 
 {% hint style="warning" %}
-**A feldolgozás mindig az `raw`-től indul.** Minden felvételen belül a nyers képkocka a feldolgozási folyamat forrása; az `debayered`, `radiance`, `reflectance`, és az `preview` megjeleníthető módokként jelennek meg, de soha nem kerülnek vissza a feldolgozási folyamatba — egy származtatott termék újrafeldolgozása újra alkalmazná a pixelekbe már beépített vignettázást, színeket és sugárzási számításokat, ezért az Chloros
-
-inkább elutasítja, mintsem kétszer feldolgozza. Az `index/` és az `composite/` rendereléseket egyáltalán nem dolgozza fel a rendszer (ezek kimenetek, nem rögzítések). A „captures” mappa **nyers adatok importálása nélkül** is normálisan menthető és jeleníthető meg, de az `process` kihagyja, és erről értesítést is ad; az `--input-level {raw,debayered,processed}` egy szándékosan beépített menekülési út, amely kényszeríti a belépési pontot. A pontos kihagyási üzeneteket lásd a [CLI
-
--referenciában](../reference/cli-reference.md#what-a-captures-folder-looks-like).
+**A feldolgozás mindig az `raw`-től indul.** Minden felvételen belül a nyers képkocka a feldolgozási folyamat forrása; az `debayered`, `radiance`, `reflectance`, és az `preview` megjeleníthető módokként jelennek meg, de soha nem kerülnek vissza a feldolgozási folyamatba — egy származtatott termék újrafeldolgozása újra alkalmazná a pixelekbe már beépített vignettázást, színeket és sugárzási számításokat, ezért az Chloros inkább elutasítja, mintsem kétszer feldolgozza. Az `index/` és az `composite/` rendereléseket egyáltalán nem dolgozza fel a rendszer (ezek kimenetek, nem rögzítések). A „captures” mappa **nyers adatok importálása nélkül** is normálisan menthető és jeleníthető meg, de az `process` kihagyja, és erről értesítést is ad; az `--input-level {raw,debayered,processed}` egy szándékosan beépített menekülési út, amely kényszeríti a belépési pontot. A pontos kihagyási üzeneteket lásd a [CLI-referenciában](../reference/cli-reference.md#what-a-captures-folder-looks-like).
 {% endhint %}
 
 Még két viselkedés, amit érdemes tudni az újrafeldolgozás szkriptelése során:
@@ -191,15 +155,11 @@ Még két viselkedés, amit érdemes tudni az újrafeldolgozás szkriptelése so
 * Egy olyan `chloros-cli process` futtatás, amely termékeket kért, de **nem írt ki képtermékeket, hangosan meghiúsul és nem nulla kóddal lép ki** — soha nem kaphat csendes, üres futtatást. A sikeres futtatások jelentik a termékek számát. (Egy szándékosan csak metaadatokra korlátozott futtatás is sikernek számít.)
 * Az újraimportált, feldolgozott exportok soha nem foglalják el a rögzítés nyers adatsorát — az eredeti nyers adat mindig a feldolgozási folyamat forrása marad.
 
-## CLI
-
--megfelelők
+## CLI-megfelelők
 
 Az ezen az oldalon található összes művelet parancssorból is végrehajtható. A grafikus felület (GUI) rögzítési módjai közvetlenül az `chloros-cli lattice array-capture` parancshoz rendelődnek:
 
-| GUI | CLI
-
-|
+| GUI | CLI |
 | --- | --- |
 | Egyszeri | `chloros-cli lattice array-capture` |
 | Folyamatos | `array-capture --continuous [--count N] [--duration S]` |
@@ -210,6 +170,4 @@ Az ezen az oldalon található összes művelet parancssorból is végrehajthat�
 | Indexvideó rögzítése | `chloros-cli lattice array-record` |
 | Nyers sorozatfelvétel rögzítése / Videó összeállítása | `chloros-cli lattice array-burst` / `array-build-video` |
 
-A teljes jelzőtáblák, az intelligens AE-vel történő rögzítés opció (`--smart`) és a folyamatos sebességű modell leírása a [CLI
-
--referencia § Rögzítési módok, rögzítők és offline újrafeldolgozás](../reference/cli-reference.md#capture-modes-recorders--offline-reprocess) című részben található.
+A teljes jelzőtáblák, az intelligens AE-vel történő rögzítés opció (`--smart`) és a folyamatos sebességű modell leírása a [CLI-referencia § Rögzítési módok, rögzítők és offline újrafeldolgozás](../reference/cli-reference.md#capture-modes-recorders--offline-reprocess) című részben található.

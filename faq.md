@@ -27,15 +27,9 @@ Igen. A Chloros 1.3.0 teljes körűen támogatja a LATTICE M3C és M3M kameramod
 
 <summary>Kalibrálhatom-e a képeimet reflektancia szempontjából kalibrációs célpont nélkül?</summary>
 
-**Survey3
+**Survey3:** Nem. Ha a nem kalibrációs célpontról készült képek rögzítésekor nem készít képet a kalibrációs célpontról is, akkor nem fogja tudni a kép pixelértékeit egy ismert reflektancia-százalékhoz rendelni. Ha a MAPIR fényérzékelő naplófájlját sem csatolja, akkor a környezeti fény spektruma nem kerül mérésre, és a reflexió eredményei nem lesznek pontosak.
 
-:** Nem. Ha a nem kalibrációs célpontról készült képek rögzítésekor nem készít képet a kalibrációs célpontról is, akkor nem fogja tudni a kép pixelértékeit egy ismert reflektancia-százalékhoz rendelni. Ha a MAPIR
-
-fényérzékelő naplófájlját sem csatolja, akkor a környezeti fény spektruma nem kerül mérésre, és a reflexió eredményei nem lesznek pontosak.
-
-**LATTICE:** Igen. A reflexió a panel helyett egy DAQ fényérzékelővel mért lefelé irányuló besugárzási intenzitáshoz viszonyítható (ρ = π·L/E). Ha egy minőségbiztosítási (QA) ellenőrzésen átment, a képkockán belüli célpont *jelen van*, az alapértelmezés szerint abszolút referenciává válik (`--reflectance-source auto`), kivéve, ha egy jelzővel halad át, amely esetben a célpont és a DAQ-láncok a mért pontszám alapján versenyeznek egymással. Egy kivétel: „Az F988 fényvisszaverődést egy a jelenetben lévő fényvisszaverő panel segítségével kalibrálják: a sáv a DAQ fényérzékelő kalibrált tartományán kívül esik, ezért az Chloros
-
-a legutóbbi panelről készült felvételt alkalmazza, és azt a panel megfigyelései között megőrzi.” Lásd [Kalibrációs célpontok](calibration-targets.md).
+**LATTICE:** Igen. A reflexió a panel helyett egy DAQ fényérzékelővel mért lefelé irányuló besugárzási intenzitáshoz viszonyítható (ρ = π·L/E). Ha egy minőségbiztosítási (QA) ellenőrzésen átment, a képkockán belüli célpont *jelen van*, az alapértelmezés szerint abszolút referenciává válik (`--reflectance-source auto`), kivéve, ha egy jelzővel halad át, amely esetben a célpont és a DAQ-láncok a mért pontszám alapján versenyeznek egymással. Egy kivétel: „Az F988 fényvisszaverődést egy a jelenetben lévő fényvisszaverő panel segítségével kalibrálják: a sáv a DAQ fényérzékelő kalibrált tartományán kívül esik, ezért az Chloros a legutóbbi panelről készült felvételt alkalmazza, és azt a panel megfigyelései között megőrzi.” Lásd [Kalibrációs célpontok](calibration-targets.md).
 
 </details>
 
@@ -43,9 +37,7 @@ a legutóbbi panelről készült felvételt alkalmazza, és azt a panel megfigye
 
 <summary>Szükségem van DAQ fényérzékelőre?</summary>
 
-A sugárzáshoz nem: a LATTICE sugárzási exportjai az egyes kamerák gyári radiometrikus kalibrációjából származnak, és sem DAQ-érzékelőre, sem célpontra nincs szükségük. A **reflektancia**esetében szükség van a környezeti fényre vonatkozó referenciára – akár egy DAQ fényérzékelő lefelé irányuló mérésére, akár egy képkockán belüli kalibrációs célpontra. A DAQ-érzékelő segítségével**anélkül állíthat elő kalibrált reflektanciát, hogy bármilyen panelt elhelyezne a jelenetben**. A rögzített `.daq` fájlok időbélyeg alapján automatikusan illeszkednek a felvételeihez. Lásd a [Kalibrációs célpontokat](calibration-targets.md) és a [CLI
-
--referenciát](reference/cli-reference.md).
+A sugárzáshoz nem: a LATTICE sugárzási exportjai az egyes kamerák gyári radiometrikus kalibrációjából származnak, és sem DAQ-érzékelőre, sem célpontra nincs szükségük. A **reflektancia**esetében szükség van a környezeti fényre vonatkozó referenciára – akár egy DAQ fényérzékelő lefelé irányuló mérésére, akár egy képkockán belüli kalibrációs célpontra. A DAQ-érzékelő segítségével**anélkül állíthat elő kalibrált reflektanciát, hogy bármilyen panelt elhelyezne a jelenetben**. A rögzített `.daq` fájlok időbélyeg alapján automatikusan illeszkednek a felvételeihez. Lásd a [Kalibrációs célpontokat](calibration-targets.md) és a [CLI-referenciát](reference/cli-reference.md).
 
 </details>
 
@@ -143,9 +135,7 @@ A fájlkezelő táblázatában a jobb oldali oszlopban a célképek előzetes ki
 
 <summary>Ha feltöltöm a képeimet <a href="https://www.mapir.camera/collections/software/products/mapir-cloud-subscription">a</a> <a href="https://www.mapir.camera/collections/software/products/mapir-cloud-subscription">MAPIR </a>Cloudra, feldolgoznom kell őket a Chlorosban a feltöltés előtt?</summary>
 
-Ha feltöltést tervez az online feldolgozó platformunkra [MAPIR
-
-Cloud](https://www.mapir.camera/collections/software/products/mapir-cloud-subscription), ne szerkessze a képeket a feltöltés előtt. A Cloud elvégzi ugyanazokat a feldolgozási lépéseket, sőt még többet is.
+Ha feltöltést tervez az online feldolgozó platformunkra [MAPIR Cloud](https://www.mapir.camera/collections/software/products/mapir-cloud-subscription), ne szerkessze a képeket a feltöltés előtt. A Cloud elvégzi ugyanazokat a feldolgozási lépéseket, sőt még többet is.
 
 </details>
 
@@ -186,9 +176,7 @@ Igen! A Chloros tartalmazza a [dinamikus számítási adaptációt](processing-a
 <summary>Mi az a 4-szálas feldolgozási folyamat?</summary>
 A
 
-Chloros
-4-szálas, csővezetékes architektúrát használ a Chloros
-+ felhasználók számára: Az 1. szál (Detection) betölti a képeket és felismeri a kalibrációs célpontokat, a 2. szál (Calibration) kiszámítja a reflexiós kalibrációt, a 3. szál (Processing) elvégzi a GPU-val gyorsított debayeringet és az indexszámítást, míg a 4. szál (Export) írja a kimeneti fájlokat. A maximális átviteli sebesség elérése érdekében több kép is egyidejűleg feldolgozható különböző szálakon. A részleteket lásd a [Feldolgozási folyamat](processing-architecture/processing-pipeline.md) című részben.
+Chloros 4-szálas, csővezetékes architektúrát használ a Chloros+ felhasználók számára: Az 1. szál (Detection) betölti a képeket és felismeri a kalibrációs célpontokat, a 2. szál (Calibration) kiszámítja a reflexiós kalibrációt, a 3. szál (Processing) elvégzi a GPU-val gyorsított debayeringet és az indexszámítást, míg a 4. szál (Export) írja a kimeneti fájlokat. A maximális átviteli sebesség elérése érdekében több kép is egyidejűleg feldolgozható különböző szálakon. A részleteket lásd a [Feldolgozási folyamat](processing-architecture/processing-pipeline.md) című részben.
 
 </details>
 

@@ -1,7 +1,6 @@
 # A feldolgozás befejezése
 
-Miután a Chloros
-befejezte a feldolgozást, itt az ideje áttekinteni az eredményeket, ellenőrizni a kimeneti minőséget, és előkészíteni a feldolgozott képeket a munkafolyamatban való felhasználásra. Ez az oldal végigvezeti Önt a záró lépéseken és a következő teendőkön.
+Miután a Chloros befejezte a feldolgozást, itt az ideje áttekinteni az eredményeket, ellenőrizni a kimeneti minőséget, és előkészíteni a feldolgozott képeket a munkafolyamatban való felhasználásra. Ez az oldal végigvezeti Önt a záró lépéseken és a következő teendőkön.
 
 ## A feldolgozás befejezésének jelzése
 
@@ -13,10 +12,7 @@ Amikor a feldolgozás sikeresen befejeződik, több jelzés is megjelenik:
 * ✅ **Kimeneti fájlok**: Az összes feldolgozott kép elmentésre került a projekt kimeneti mappájába (lent)
 
 {% hint style="warning" %}
-**Ha a futtatás során nem kerülnek mentésre képek, az a folyamat sikertelenségét jelenti.** Ha képtermékeket kért, és a futtatás nem írt ki egyet sem, a Chloros
-hibaüzenetet jelez – az `[RUN-SUMMARY]` a naplónevében utal a valószínűsíthető okra (semmit sem importáltak, nem észleltek célpontot, vagy minden kért terméket kihagytak, mert nem volt alkalmazható). A CLI
--megfelelője nem nulla kóddal lép ki. A szándékosan csak metaadatokra korlátozott futtatás (minden exporttermék kikapcsolva, nincs index) továbbra is sikeresnek minősül. Lásd [a CLI
--referenciát](../reference/cli-reference.md#a-run-that-writes-no-images-fails).
+**Ha a futtatás során nem kerülnek mentésre képek, az a folyamat sikertelenségét jelenti.** Ha képtermékeket kért, és a futtatás nem írt ki egyet sem, a Chloros hibaüzenetet jelez – az `[RUN-SUMMARY]` a naplónevében utal a valószínűsíthető okra (semmit sem importáltak, nem észleltek célpontot, vagy minden kért terméket kihagytak, mert nem volt alkalmazható). A CLI-megfelelője nem nulla kóddal lép ki. A szándékosan csak metaadatokra korlátozott futtatás (minden exporttermék kikapcsolva, nincs index) továbbra is sikeresnek minősül. Lásd [a CLI-referenciát](../reference/cli-reference.md#a-run-that-writes-no-images-fails).
 {% endhint %}
 
 ***
@@ -47,10 +43,8 @@ A termékek **a projektmappa alatt, kameránként, majd fájlformátum szerint c
         └── Radiance_Images/             # float32 radiance always lands here
 ```
 
-* **Kamera mappa**: `LATT-<sensor>-<lens>-F<filter>` a LATTICE esetében (megegyezik a felvétel EXIF-adatával: `Model`), `<model>_<filter>` a Survey3
--hoz (pl. `Survey3N_RGN`). Két olyan kamera, amely ugyanazt az érzékelőt és szűrőt használja, de az objektívük eltérő, külön fa struktúrákat tart fenn — a vignettálás, a látómező és a torzítás eltérő.
-* **Formátummappa**: az exportformátum-beállításnak megfelelően — `tiff16`, `tiff8`, `png8`, `jpg8`, vagy `tiff32` TIFF
-esetén (32 bites, százalékos). A sugárzás értéke mindig float32 típusú, és mindig az `tiff32` mappába kerül.
+* **Kamera mappa**: `LATT-<sensor>-<lens>-F<filter>` a LATTICE esetében (megegyezik a felvétel EXIF-adatával: `Model`), `<model>_<filter>` a Survey3-hoz (pl. `Survey3N_RGN`). Két olyan kamera, amely ugyanazt az érzékelőt és szűrőt használja, de az objektívük eltérő, külön fa struktúrákat tart fenn — a vignettálás, a látómező és a torzítás eltérő.
+* **Formátummappa**: az exportformátum-beállításnak megfelelően — `tiff16`, `tiff8`, `png8`, `jpg8`, vagy `tiff32` TIFF esetén (32 bites, százalékos). A sugárzás értéke mindig float32 típusú, és mindig az `tiff32` mappába kerül.
 * **Termékmappák**:
   * `Reflectance_Calibrated_Images/` — kalibrált reflexió
   * `Debayered_Images/` — lineáris debayering (LATTICE): a sötét eltolás eltávolítva és demosaicingelve, flat field vagy unmix nélkül, az érzékelő natív tájolásában
@@ -69,8 +63,7 @@ esetén (32 bites, százalékos). A sugárzás értéke mindig float32 típusú,
 
 ### Hány fájlnak kell lennie?
 
-Ne számoljon képlet alapján — a kimenetek száma attól függ, hogy mely termékeket engedélyezték, és melyek vonatkoznak az egyes kamerákra (pl. az RGB
--kamerák nem kapnak sugárzási/visszaverődési adatokat). A hiteles szám a naplóban található: az utolsó `[RUN-SUMMARY]` sor pontosan jelzi, hány fájl került írásra, a magyarázó sorok pedig elmagyarázzák, mi maradt ki.
+Ne számoljon képlet alapján — a kimenetek száma attól függ, hogy mely termékeket engedélyezték, és melyek vonatkoznak az egyes kamerákra (pl. az RGB-kamerák nem kapnak sugárzási/visszaverődési adatokat). A hiteles szám a naplóban található: az utolsó `[RUN-SUMMARY]` sor pontosan jelzi, hány fájl került írásra, a magyarázó sorok pedig elmagyarázzák, mi maradt ki.
 
 ***
 
@@ -78,32 +71,24 @@ Ne számoljon képlet alapján — a kimenetek száma attól függ, hogy mely te
 
 ### Gyors előnézet a Fájlkezelőben
 
-**A Windows
-be épített előnézet:**
+**A Windows be épített előnézet:**
 
 1. Keresse meg a termékmappát (pl. `tiff16/Reflectance_Calibrated_Images/`)
 2. Válasszon ki egy képfájlt
-3. Az előnézet megjelenik a Windows
--fájlkezelő előnézeti ablakában
+3. Az előnézet megjelenik a Windows-fájlkezelő előnézeti ablakában
 4. A nyílgombokkal lapozhat a képek között
 
 ### Előnézet külső képnézegetőkben
 
 **Ajánlott képnézegetők:*** **QGIS** – Ingyenes GIS-szoftver (legalkalmasabb georeferált multispektrális elemzéshez)
-* **IrfanView** – Gyors, könnyű képnézegető (támogatja a TIFF
-formátumot)
-* **Adobe Photoshop** – Professzionális képszerkesztő (TIFF
-támogatás)
+* **IrfanView** – Gyors, könnyű képnézegető (támogatja a TIFF formátumot)
+* **Adobe Photoshop** – Professzionális képszerkesztő (TIFF támogatás)
 * **GIMP** – Ingyenes alternatíva a Photoshophoz
-* **Windows
-Photos** – Alapvető képnézegetés (lehet, hogy nem támogatja a 16 bites TIFF
-formátumot)
+* **Windows Photos** – Alapvető képnézegetés (lehet, hogy nem támogatja a 16 bites TIFF formátumot)
 
-### Előnézet a Chloros
-képnézegetőben
+### Előnézet a Chloros képnézegetőben
 
-Használja a Chloros
-beépített képnézegetőjét a fejlett megjelenítéshez:
+Használja a Chloros beépített képnézegetőjét a fejlett megjelenítéshez:
 
 1. Kattintson egy kép miniatűrjére a Fájlkezelőben
 2. A kép megnyílik a fő előnézeti területen
@@ -122,9 +107,7 @@ A reflexió egész számú DN-ként van tárolva, és **az a DN-érték, amely �
 | Forrás          | ρ = 1,0 értéke | Hogyan lehet megállapítani                                        |
 | --------------- | ---------- | -------------------------------------------------- |
 | LATTICE (M3C/M3M) | **32768** (tartalék ρ 2,0-ig) | Az XMP-címke `Chloros:PixelScale=32768` szerepel a fájlban |
-| Survey3
-         | **65535** (1,0-nál levágva)     | Nincs `Chloros:PixelScale` címke — ez a hiánya jelzi a helyzetet (a Survey3
-termékek egyéb `Chloros:*` feldolgozási címkéket viselnek) |
+| Survey3          | **65535** (1,0-nál levágva)     | Nincs `Chloros:PixelScale` címke — ez a hiánya jelzi a helyzetet (a Survey3 termékek egyéb `Chloros:*` feldolgozási címkéket viselnek) |
 
 **Olvassa be az `Chloros:PixelScale` címkét, és ossza el vele**, ahelyett, hogy általánosan 65535-öt feltételezne — a LATTICE-reflektancia 65535-tel történő osztása minden értéket észrevétlenül felére csökkenti. Az 1.3.0-ás verzió előtti, 8 bites formátumban írt reflektanciafájl nem lett átméretezve, hanem levágva, és nincs benne skála-címke: az osztás helyett exportálja újra 16 bites vagy 32 bites formátumban. A teljes leírásért lásd a [Kimeneti képformátumok](../output-image-formats.md) részt.***
 
@@ -152,15 +135,12 @@ megrontja a LATTICE kimenetét), és az `ExifImageWidth` / `ExifImageHeight` kiz
 mert az eredeti rögzítést írják le — egy átméretezett export egyébként
 olyan méreteket jelölne meg, amelyek ellentmondanak a saját raszterének.
 
-A Chloros
-emellett saját `Chloros:*` XMP-címkéket is ír, amelyek leírják, hogy mit végeztek az egyes termékekkel
+A Chloros emellett saját `Chloros:*` XMP-címkéket is ír, amelyek leírják, hogy mit végeztek az egyes termékekkel
 (például `Chloros:ProcessingLevel`, `Chloros:CalibrationApplied`,
-`Chloros:VignetteCorrected`). Az 1.3.0-s verziótól kezdve a Survey3
--termékek minden feldolgozási
+`Chloros:VignetteCorrected`). Az 1.3.0-s verziótól kezdve a Survey3-termékek minden feldolgozási
 módban hordozzák őket; az indextermékek magukat az indexeket írják le (`Chloros:ProcessingLevel=index`, a
 képletet, valamint azt, hogy a reflexióból vagy a sugárzásból számították-e ki), ahelyett, hogy megismételnék a
-forrás nyersadatok címkéit; továbbá a 260 karakternél mélyebb mappákban található termékek is megőrzik a metaadataikat
-. Lásd [Kimeneti képformátumok](../output-image-formats.md#index-products) című részt.
+forrás nyersadatok címkéit; továbbá a 260 karakternél mélyebb mappákban található termékek is megőrzik a metaadataikat. Lásd [Kimeneti képformátumok](../output-image-formats.md#index-products) című részt.
 
 ***
 
@@ -173,22 +153,18 @@ fület
 2. Görgessen végig az üzeneteken
 3. Keresse meg a sárga figyelmeztetéseket vagy a piros hibákat
 4. Olvassa el az `[RUN-SUMMARY]` sorokat és az esetleges tippeket
-5. Forduljon a MAPIR
-ügyfélszolgálathoz segítségért
+5. Forduljon a MAPIR ügyfélszolgálathoz segítségért
 
 ### A napló mentése
 
-A feldolgozás nyomon követése vagy a MAPIR
-ügyfélszolgálatnak való elküldés céljából:
+A feldolgozás nyomon követése vagy a MAPIR ügyfélszolgálatnak való elküldés céljából:
 
 1. Kattintson a **„Másolás”**vagy a**„Letöltés”** gombra
 2. Mentse szöveges fájlként a projektmappába
 3. Csatolja a projekt dokumentációjához
-4. Probléma esetén küldje el a MAPIR
-ügyfélszolgálatnak
+4. Probléma esetén küldje el a MAPIR ügyfélszolgálatnak
 
-Ha egy problémát közvetlenül a MAPIR
--nek szeretne elküldeni, használja a Hibaelhárítási napló fül tetején található hibaikonot (**Hiba jelentése**) — lásd [Hiba jelentése a napló fülről](monitoring-the-processing.md#reporting-a-bug-from-the-log-tab).***
+Ha egy problémát közvetlenül a MAPIR-nek szeretne elküldeni, használja a Hibaelhárítási napló fül tetején található hibaikonot (**Hiba jelentése**) — lásd [Hiba jelentése a napló fülről](monitoring-the-processing.md#reporting-a-bug-from-the-log-tab).***
 
 ## Gyakori kimeneti problémák és megoldások
 
@@ -196,8 +172,7 @@ Ha egy problémát közvetlenül a MAPIR
 
 **Lehetséges okok:**
 
-* A termék nem alkalmazható az adott kamerára (pl. sugárzás/visszaverődés RGB
--kamerák esetén — ezt a napló is jelzi)
+* A termék nem alkalmazható az adott kamerára (pl. sugárzás/visszaverődés RGB-kamerák esetén — ezt a napló is jelzi)
 * Hiányzott egy szükséges hivatkozás (pl. reflektancia célpont és `.daq` lefelé irányuló sugárzás nélkül)
 * A termék exportálási jelölőnégyzete le volt tiltva a Projektbeállításokban
 * Az exportálás közben elfogyott a lemezterület
@@ -214,16 +189,14 @@ Ha egy problémát közvetlenül a MAPIR
 **Lehetséges okok:**
 
 * A vignettálás-korrekció ki van kapcsolva
-* A kamera/objektív nem szerepel a Chloros
-profiladatbázisban
+* A kamera/objektív nem szerepel a Chloros profiladatbázisban
 * A vignettálás olyan mértékű, hogy a korrekció nem képes kijavítani
 
 **Megoldások:**
 
 1. Ellenőrizze, hogy a projektbeállításokban engedélyezve van-e a vignettálás-korrekció
 2. Ellenőrizze, hogy a kamera modellje helyesen lett-e felismerve
-3. Ha a vignettálás továbbra is fennáll, vegye fel a kapcsolatot a MAPIR
-ügyfélszolgálattal
+3. Ha a vignettálás továbbra is fennáll, vegye fel a kapcsolatot a MAPIR ügyfélszolgálattal
 
 ### Probléma: Helytelen színek vagy értékek
 
@@ -241,11 +214,9 @@ profiladatbázisban
 3. Ellenőrizze a célképek minőségét
 4. Végezze el újra a feldolgozást a megfelelő célpontok kijelölésével
 
-### Probléma: Az NDVI
--értékek helytelennek tűnnek
+### Probléma: Az NDVI-értékek helytelennek tűnnek
 
-**Várható NDVI
--tartományok:*** **Víz, sziklák, talaj**: -0,1 és 0,2 között
+**Várható NDVI-tartományok:*** **Víz, sziklák, talaj**: -0,1 és 0,2 között
 * **Ritka/egészségtelen növényzet**: 0,2 és 0,4 között
 * **Közepes sűrűségű növényzet**: 0,4 és 0,6 között
 * **Egészséges, sűrű növényzet**: 0,6–0,9**Ha az értékek ezen tartományokon kívül esnek:**
@@ -272,10 +243,8 @@ profiladatbázisban
    * WebODM
 2. **Az EXIF-metaadatok megőrzése**: Gondoskodjon arról, hogy a GPS-adatok megmaradjanak a geotagoláshoz
 3. **Kalibrált munkafolyamatok**: Használjon reflektancia-képeket a tudományos pontosság érdekében — a LATTICE reflektancia-képek tartalmazzák azokat az XMP-kalibrációs címkéket, amelyeket a Pix4D olvas
-4. **Indexmozaikok feldolgozása**: Készítsen NDVI
--ortomozaikokat az egyes indexképekből
-5. **GeoTIFF
-fájlok exportálása földrajzi hivatkozással**: GIS-alkalmazásokban való felhasználáshoz
+4. **Indexmozaikok feldolgozása**: Készítsen NDVI-ortomozaikokat az egyes indexképekből
+5. **GeoTIFF fájlok exportálása földrajzi hivatkozással**: GIS-alkalmazásokban való felhasználáshoz
 
 ### GIS-elemzéshez
 
@@ -283,11 +252,8 @@ fájlok exportálása földrajzi hivatkozással**: GIS-alkalmazásokban való fe
 
 1.**Töltse be a QGIS-be, az ArcGIS-be vagy hasonló programba**
 
-2.**Használjon 16 bites TIFF
-** reflektancia-képeket többsávos elemzéshez (ossza el a fájl `Chloros:PixelScale` értékével)
-3. **Használjon indexképeket** (NDVI
-, NDRE
-) azonnal használható növényzetrétegekként
+2.**Használjon 16 bites TIFF** reflektancia-képeket többsávos elemzéshez (ossza el a fájl `Chloros:PixelScale` értékével)
+3. **Használjon indexképeket** (NDVI, NDRE) azonnal használható növényzetrétegekként
 4. **Raszterkalkulátor**: Sávok kombinálása egyedi elemzéshez
 5. **Exportálás**: Osztályozási térképek, változásérzékelés, növényzet-egészségügyi térképek készítése
 
@@ -296,8 +262,7 @@ fájlok exportálása földrajzi hivatkozással**: GIS-alkalmazásokban való fe
 **Ajánlott munkafolyamat:**
 
 1.**Használjon LUT-színekkel ellátott indexképeket** vizuális jelentésekhez
-2. **Statisztikák kivonása**: Átlagos NDVI
-érték mezőnként/parcellánként
+2. **Statisztikák kivonása**: Átlagos NDVI érték mezőnként/parcellánként
 3. **Idősorok**: Indexek összehasonlítása több munkamenet között
 4. **Jelentések készítése**: Térképek, statisztikák és vizualizációk beépítése***
 
@@ -338,29 +303,19 @@ Több munkamenet/adatkészlet esetén:**
 
 **
 
-2. lehetőség: Chloros
-CLI
-(csak Chloros
-+ esetén)**
+2. lehetőség: Chloros CLI (csak Chloros+ esetén)**
 
 * Automatizálja a kötegelt feldolgozást
 * Több mappát dolgozzon fel szkriptekkel
-* Lásd a [CLI
--dokumentációt](../CLI.md) és a [CLI
--referenciát](../reference/cli-reference.md)
+* Lásd a [CLI-dokumentációt](../CLI.md) és a [CLI-referenciát](../reference/cli-reference.md)
 
 **
 
-3. lehetőség: Python
-SDK
-(csak Chloros
-+)**
+3. lehetőség: Python SDK (csak Chloros+)**
 
 * Programozási vezérlés
 * Integráció elemzési folyamatokba
-* Lásd az [API
--dokumentációt](../api-python-sdk.md) és az [SDK
--referenciát](../reference/sdk-reference.md)
+* Lásd az [API-dokumentációt](../api-python-sdk.md) és az [SDK-referenciát](../reference/sdk-reference.md)
 
 ***
 
@@ -371,8 +326,7 @@ SDK
 Ha az eredmények nem kielégítőek:
 
 1. Őrizze meg az eredeti képeket (soha ne törölje őket)
-2. Nyissa meg ugyanazt a projektet a Chloros
--ban 3. Állítsa be a beállításokat a Projektbeállítások panelen
+2. Nyissa meg ugyanazt a projektet a Chloros-ban 3. Állítsa be a beállításokat a Projektbeállítások panelen
 4. Végezze el újra a feldolgozást — a kimeneti fájlok ugyanabba a termékmappába kerülnek, így az előző futtatásból származó azonos nevű fájlok felülíródnak
 
 ### Képek egy részhalmazának feldolgozása
@@ -391,15 +345,13 @@ Ha problémákba ütközik:
 * 📧 **E-mail**: info@mapir.camera (csatolja a hibakeresési naplót)
 * 🌐 **Támogatás**: [https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
 * 📚 **GYIK**: [Gyakran feltett kérdések](../faq.md)
-* 📖 **Dokumentáció**: [Chloros
--kézikönyv](../)
+* 📖 **Dokumentáció**: [Chloros-kézikönyv](../)
 
 ***
 
 ## Összefoglalás: Teljes munkafolyamat
 
-Most már végigjártad a teljes Chloros
--feldolgozási munkafolyamatot:
+Most már végigjártad a teljes Chloros-feldolgozási munkafolyamatot:
 
 1. ✅ **Projekt létrehozása** – Lásd: [Projektek](../projects.md)
 2. ✅ **Fájlok hozzáadása** – Lásd: [Fájlok hozzáadása](adding-files-to-a-project.md)
@@ -421,13 +373,9 @@ Most már végigjártad a teljes Chloros
 
 ### Automatizálás és integráció
 
-* [**CLI
--dokumentáció**](../CLI.md) – Parancssori kötegelt feldolgozás
-* [**Python
-SDK
-**](../api-python-sdk.md) – Programozási automatizálás
-* [**A Chloros
-+ funkciói**](../#chloros) – Fejlett feldolgozási lehetőségek
+* [**CLI-dokumentáció**](../CLI.md) – Parancssori kötegelt feldolgozás
+* [**Python SDK**](../api-python-sdk.md) – Programozási automatizálás
+* [**A Chloros+ funkciói**](../#chloros) – Fejlett feldolgozási lehetőségek
 
 ### Támogatás és oktatás
 

@@ -84,7 +84,7 @@ Minden GPS-adatokkal rendelkező képhez egy jelölő tartozik a koordinátáin.
 
 Válassza ki a térkép réteg típusát a gombokkal (balról jobbra):
 
-![](&lt;../.gitbook/assets/image (14).png&gt;)
+![](<../.gitbook/assets/image (14).png>)
 
 | Típus                 | Megjelenít                                                                |
 | -------------------- | -------------------------------------------------------------------- |

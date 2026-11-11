@@ -10,17 +10,11 @@
 <!-- SCREENSHOT-UPDATE: banner shows CLI 1.1.0; reshoot the CLI welcome/banner output on the 1.3.0 build so the version line reads "Chloros CLI 1.3.0" -->
 
 
-## Mi az a CLI
-?
+## Mi az a CLI?
 
-Az `chloros-cli` a Chloros
-asztali alkalmazás által használt feldolgozó motor parancssori felülete. Ez egy vékony HTTP
--kliens a Chloros
--háttérrendszer felett (egy helyi szerver az `127.0.0.1:5000`-en) — a legtöbb parancs automatikusan elindítja a háttérrendszert, így egy szkriptnek csupán egy `chloros-cli process …`-hívásra van szüksége. A háttér ezután tovább fut a következő parancsra várva: az `chloros-cli logout` parancsra leáll (kivéve, ha az alkalmazás nyitva van, vagy futás vagy összeállítás van folyamatban), az `chloros-cli backend stop` parancsra, vagy önmagától 30 perc elteltével, ha nincs kliens, futás vagy csatlakoztatott eszköz. Az `chloros-cli backend status` parancs jelzi ezt.
+Az `chloros-cli` a Chloros asztali alkalmazás által használt feldolgozó motor parancssori felülete. Ez egy vékony HTTP-kliens a Chloros-háttérrendszer felett (egy helyi szerver az `127.0.0.1:5000`-en) — a legtöbb parancs automatikusan elindítja a háttérrendszert, így egy szkriptnek csupán egy `chloros-cli process …`-hívásra van szüksége. A háttér ezután tovább fut a következő parancsra várva: az `chloros-cli logout` parancsra leáll (kivéve, ha az alkalmazás nyitva van, vagy futás vagy összeállítás van folyamatban), az `chloros-cli backend stop` parancsra, vagy önmagától 30 perc elteltével, ha nincs kliens, futás vagy csatlakoztatott eszköz. Az `chloros-cli backend status` parancs jelzi ezt.
 
-**Windows
-10/11 (x64)**és**Linux
-(x86_64, valamint NVIDIA Jetson arm64 a JetPack 6-on)** rendszereken fut, bármely terminálon, GUI nélkül. Ellenőrizze a telepítést a következő paranccsal:
+**Windows 10/11 (x64)**és**Linux (x86_64, valamint NVIDIA Jetson arm64 a JetPack 6-on)** rendszereken fut, bármely terminálon, GUI nélkül. Ellenőrizze a telepítést a következő paranccsal:
 
 ```bash
 chloros-cli --version    # prints "Chloros CLI 1.3.0"
@@ -28,45 +22,34 @@ chloros-cli --version    # prints "Chloros CLI 1.3.0"
 
 A parancscsaládok áttekintése:
 
-* **Feldolgozás és fiók** — `process`, `login`, `logout`, `status`, `export-status`, `language` (38 nyelv — lásd [Támogatott nyelvek](supported-languages.md)), `set-project-folder` / `get-project-folder` / `reset-project-folder`, `selftest`, `update` (csak Linux
-/Jetson)
+* **Feldolgozás és fiók** — `process`, `login`, `logout`, `status`, `export-status`, `language` (38 nyelv — lásd [Támogatott nyelvek](supported-languages.md)), `set-project-folder` / `get-project-folder` / `reset-project-folder`, `selftest`, `update` (csak Linux/Jetson)
 * **Élő hardver** — `lattice` (LATTICE kamera vezérlés, több mint 45 alparancs), `daq pool-*` (DAQ fényérzékelők), `time-sync` (PTP)
-* **Automatizálás** — `project` (Chloros
--projekt vezérlése headless módban, beleértve a YAML-rögzítési receptjeit is)
+* **Automatizálás** — `project` (Chloros-projekt vezérlése headless módban, beleértve a YAML-rögzítési receptjeit is)
 
-Érdemes tudni a következő globális beállításokat: `--port N` (háttérport, alapértelmezett: `5000`), `-v/--verbose`, `--restart` (a háttérprogram kényszerű újraindítása), `--backend-exe PATH`. A teljes listát lásd a [CLI
--referenciában](reference/cli-reference.md).
+Érdemes tudni a következő globális beállításokat: `--port N` (háttérport, alapértelmezett: `5000`), `-v/--verbose`, `--restart` (a háttérprogram kényszerű újraindítása), `--backend-exe PATH`. A teljes listát lásd a [CLI-referenciában](reference/cli-reference.md).
 
 ***
 
 ## Telepítés
 
-A CLI
-**minden platformon a Chloros
--telepítőben** található — nincs külön CLI
--letöltés. A telepítőt a [Letöltés](download.md) oldalról töltheti le.
+A CLI **minden platformon a Chloros-telepítőben** található — nincs külön CLI-letöltés. A telepítőt a [Letöltés](download.md) oldalról töltheti le.
 
 ### Windows
 
 
-A telepítő a következő helyre helyezi a CLI
--t:
+A telepítő a következő helyre helyezi a CLI-t:
 
 ```
 
 C:\Program Files\Chloros\cli\chloros-cli.exe
 ```
 
-és egyszer hozzáadja ezt a mappát a rendszer `PATH`-éhez (a frissítés eltávolítja a korábbi telepítők által hagyott duplikált bejegyzéseket is) — a telepítés után **nyisson meg egy új terminált**, hogy a rendszer felismerje a frissített `PATH`-et. A telepítő emellett elindító szkripteket (`Chloros_CLI.bat` / `Chloros_CLI.ps1`) is elhelyez a telepítési gyökérkönyvtárban, valamint egy**Chloros
-CLI
-** Start-menü parancsikont is, amelyek mindegyike megnyit egy terminált, ahol az `chloros-cli` már használatra kész állapotban van.
+és egyszer hozzáadja ezt a mappát a rendszer `PATH`-éhez (a frissítés eltávolítja a korábbi telepítők által hagyott duplikált bejegyzéseket is) — a telepítés után **nyisson meg egy új terminált**, hogy a rendszer felismerje a frissített `PATH`-et. A telepítő emellett elindító szkripteket (`Chloros_CLI.bat` / `Chloros_CLI.ps1`) is elhelyez a telepítési gyökérkönyvtárban, valamint egy**Chloros CLI** Start-menü parancsikont is, amelyek mindegyike megnyit egy terminált, ahol az `chloros-cli` már használatra kész állapotban van.
 
 ### Linux
 
 
-Telepítse az architektúrájához megfelelő `.deb` fájlt az `apt` paranccsal (ne az `dpkg -i` paranccsal, amely kihagyja a Python
-SDK
-ajánlott követelményeit):
+Telepítse az architektúrájához megfelelő `.deb` fájlt az `apt` paranccsal (ne az `dpkg -i` paranccsal, amely kihagyja a Python SDK ajánlott követelményeit):
 
 ```bash
 # Linux x86_64
@@ -76,12 +59,7 @@ sudo apt install ./chloros_1.3.0_amd64.deb
 sudo apt install ./chloros_1.3.0_arm64_jp6.deb
 ```
 
-Ezzel az `chloros-cli`-t telepíti az `/usr/bin/chloros-cli`-re (már az `PATH`-en található), a háttérprogramot és a CLI
--programokat, amelyek az `/usr/lib/chloros/backend/` és az `/usr/lib/chloros/cli/` mappákba vannak kicsomagolva (az `/usr/lib/chloros/chloros-backend` egy indítóprogram, amely elindítja a háttérprogramot), az Arena SDK
-futásidejét, amelyre a háttérprogramnak szüksége van a LATTICE kamerákhoz, valamint a rendszerhez tartozó Python
-SDK
--t (`python3`). A részleteket lásd a [Linux
--telepítés](linux/linux-installation.md) című részben.
+Ezzel az `chloros-cli`-t telepíti az `/usr/bin/chloros-cli`-re (már az `PATH`-en található), a háttérprogramot és a CLI-programokat, amelyek az `/usr/lib/chloros/backend/` és az `/usr/lib/chloros/cli/` mappákba vannak kicsomagolva (az `/usr/lib/chloros/chloros-backend` egy indítóprogram, amely elindítja a háttérprogramot), az Arena SDK futásidejét, amelyre a háttérprogramnak szüksége van a LATTICE kamerákhoz, valamint a rendszerhez tartozó Python SDK-t (`python3`). A részleteket lásd a [Linux-telepítés](linux/linux-installation.md) című részben.
 
 ### Ellenőrzés
 
@@ -95,14 +73,7 @@ chloros-cli status       # license tier + logged-in user
 
 ## Bejelentkezés és licencelés
 
-A CLI
-(és a Python
-SDK
-) eléréséhez **fizetős Chloros
-+ csomag**szükséges – ez minden fizetős csomagban benne van, az ingyenes csomagban viszont nem. A korlátozást**szerveroldalon** a háttérprogram érvényesíti, nem a CLI
-bináris fájl: a kijelentkezett állapotból érkező hívást `401 AUTH_REQUIRED` kóddal utasítja el, a bejelentkezett felhasználó által az ingyenes csomagból indított hívás pedig az `403 PLAN_UPGRADE_REQUIRED` hibakóddal, függetlenül attól, hogy az `chloros-cli`-ből, az SDK
--ből vagy egy saját fejlesztésű HTTP
--kliensből érkezik-e. Frissítsen a [https://cloud.mapir.camera/pricing](https://cloud.mapir.camera/pricing) oldalon.
+A CLI (és a Python SDK) eléréséhez **fizetős Chloros+ csomag**szükséges – ez minden fizetős csomagban benne van, az ingyenes csomagban viszont nem. A korlátozást**szerveroldalon** a háttérprogram érvényesíti, nem a CLI bináris fájl: a kijelentkezett állapotból érkező hívást `401 AUTH_REQUIRED` kóddal utasítja el, a bejelentkezett felhasználó által az ingyenes csomagból indított hívás pedig az `403 PLAN_UPGRADE_REQUIRED` hibakóddal, függetlenül attól, hogy az `chloros-cli`-ből, az SDK-ből vagy egy saját fejlesztésű HTTP-kliensből érkezik-e. Frissítsen a [https://cloud.mapir.camera/pricing](https://cloud.mapir.camera/pricing) oldalon.
 
 **Gépenként egyszer** jelentkezzen be:
 
@@ -116,8 +87,7 @@ chloros-cli status
 
 
 {% hint style="warning" %}
-**Különleges karaktereket tartalmazó jelszavak**(az `$`, `!`, spaces): wrap the password in**single quotes**, as shown above. In PowerShell double quotes, `$$`-et a shell eltorzítja (a CLI
-ezt 401-es hibakóddal észleli és automatikusan újrapróbálja, de az egyszerű idézőjelek teljesen elkerülik a problémát).
+**Különleges karaktereket tartalmazó jelszavak**(az `$`, `!`, spaces): wrap the password in**single quotes**, as shown above. In PowerShell double quotes, `$$`-et a shell eltorzítja (a CLI ezt 401-es hibakóddal észleli és automatikusan újrapróbálja, de az egyszerű idézőjelek teljesen elkerülik a problémát).
 {% endhint %}
 
 A munkamenet az `~/.chloros/user_session.json`-ben kerül tárolásra, és a csomag türelmi ideje alatt (havi csomagok esetén 30 napig, éves csomagok esetén a lejáratig) offline módban is működik. Az `chloros-cli status` fizetett terv nélkül is működik, így az elutasítás oka mindig látható.
@@ -130,8 +100,7 @@ A munkamenet az `~/.chloros/user_session.json`-ben kerül tárolásra, és a cso
 
 ## Az első feldolgozási futtatás
 
-Irányítsa az `process` parancsot a rögzítések mappájára — a program automatikusan felismeri a Survey3
--at (`.raw` + `.jpg`), a LATTICE-t (`.tif`/`.tiff`), az `.dng`-et, vagy ezek kombinációját:
+Irányítsa az `process` parancsot a rögzítések mappájára — a program automatikusan felismeri a Survey3-at (`.raw` + `.jpg`), a LATTICE-t (`.tif`/`.tiff`), az `.dng`-et, vagy ezek kombinációját:
 
 ```bash
 chloros-cli process "C:\Images\flight_001"          # Windows
@@ -143,9 +112,7 @@ A folyamatok élőben haladnak a pipeline szálak szerint (felismerés, elemzés
 <!-- SCREENSHOT-NEEDED: terminal capture of a `chloros-cli process` run on a LATTICE captures folder completing successfully — per-thread progress lines visible and the final "Image products written: N (plus M clamp masks)" summary line -->
 
 
-Ha már fut egy Chloros
--háttérprogram (például a desktop alkalmazásé), az `process` azt használja, és abban nyitja meg a projektet. Az alkalmazás által megnyitott projekten futó folyamatot elutasítja: indítsa el az alkalmazásból, vagy zárja be azt a projektet. Ha egy korábbi futtatás még befejeződik, akkor legfeljebb 15 másodpercig vár rá, mielőtt elutasítaná. Az `--restart` új háttérprogramot indít. Linux
-rendszeren a systemd szolgáltatás által futtatott háttérprogram soha nem indul újra: az `process` úgy használja, ahogy van, és ahol egyébként újraindítaná (`--restart`, vagy egy olyan import, amely nem talált semmit), az `sudo systemctl restart <unit>` üzenetet írja ki, majd kilép (`1`).
+Ha már fut egy Chloros-háttérprogram (például a desktop alkalmazásé), az `process` azt használja, és abban nyitja meg a projektet. Az alkalmazás által megnyitott projekten futó folyamatot elutasítja: indítsa el az alkalmazásból, vagy zárja be azt a projektet. Ha egy korábbi futtatás még befejeződik, akkor legfeljebb 15 másodpercig vár rá, mielőtt elutasítaná. Az `--restart` új háttérprogramot indít. Linux rendszeren a systemd szolgáltatás által futtatott háttérprogram soha nem indul újra: az `process` úgy használja, ahogy van, és ahol egyébként újraindítaná (`--restart`, vagy egy olyan import, amely nem talált semmit), az `sudo systemctl restart <unit>` üzenetet írja ki, majd kilép (`1`).
 
 ### Hová kerülnek a kimenetek
 
@@ -159,13 +126,7 @@ Az `process` egy **projektmappába** ír, nem a bemeneti mappádba:
 {% endhint %}
 
 {% hint style="warning" %}
-**Windows
-: tartsa rövidre a projektmappát, hacsak a hosszú elérési útvonalak nincsenek bekapcsolva.** Ha a Windows
--ben a hosszú elérési útvonalak ki vannak kapcsolva (ez a Windows
-alapértelmezett beállítása), egyetlen fájl elérési útvonala sem lehet hosszabb 260 karakternél, és a termékek legfeljebb körülbelül 130 karakterrel helyezkedhetnek el a projektmappa alatt. `process` ezt ellenőrzi az indítás előtt: a túl mély projektmappát **„A projektmappa túl mély ehhez a számítógéphez”** üzenettel elutasítja, megadja a leghosszabb megengedett projektmappát, valamint a hosszú útvonalak bekapcsolásának módját — semmi más nem kerül feldolgozásra. Használjon rövidebb `-o` (vagy `set-project-folder`) beállítást, vagy engedélyezze a Windows
-hosszú elérési útjait (a telepítő **Windows
-hosszú elérési útjainak engedélyezése** opciója, amely alapértelmezés szerint be van jelölve), majd indítsa újra a Chloros
-programot.
+**Windows: tartsa rövidre a projektmappát, hacsak a hosszú elérési útvonalak nincsenek bekapcsolva.** Ha a Windows-ben a hosszú elérési útvonalak ki vannak kapcsolva (ez a Windows alapértelmezett beállítása), egyetlen fájl elérési útvonala sem lehet hosszabb 260 karakternél, és a termékek legfeljebb körülbelül 130 karakterrel helyezkedhetnek el a projektmappa alatt. `process` ezt ellenőrzi az indítás előtt: a túl mély projektmappát **„A projektmappa túl mély ehhez a számítógéphez”** üzenettel elutasítja, megadja a leghosszabb megengedett projektmappát, valamint a hosszú útvonalak bekapcsolásának módját — semmi más nem kerül feldolgozásra. Használjon rövidebb `-o` (vagy `set-project-folder`) beállítást, vagy engedélyezze a Windows hosszú elérési útjait (a telepítő **Windows hosszú elérési útjainak engedélyezése** opciója, amely alapértelmezés szerint be van jelölve), majd indítsa újra a Chloros programot.
 {% endhint %}
 
 A projekten belül a termékek **kameránként, majd fájlformátum szerint** vannak csoportosítva:
@@ -184,8 +145,7 @@ A projekten belül a termékek **kameránként, majd fájlformátum szerint** va
         └── Radiance_Images/             # float32 radiance always lands here
 ```
 
-A kamera mappa neve a LATTICE esetében `LATT-<sensor>-<lens>-F<filter>` (megegyezik a felvétel EXIF-adatával: `Model`), a Survey3 esetében pedig `<model>_<filter>` (pl. `Survey3N_RGN`) a Survey3
-esetében. A formátum mappa a `--format` után a következő: `tiff16`, `tiff8`, `png8`, `jpg8` vagy `tiff32` az `TIFF (32-bit, Percent)` esetében.
+A kamera mappa neve a LATTICE esetében `LATT-<sensor>-<lens>-F<filter>` (megegyezik a felvétel EXIF-adatával: `Model`), a Survey3 esetében pedig `<model>_<filter>` (pl. `Survey3N_RGN`) a Survey3 esetében. A formátum mappa a `--format` után a következő: `tiff16`, `tiff8`, `png8`, `jpg8` vagy `tiff32` az `TIFF (32-bit, Percent)` esetében.
 
 Multispektrális M3C kamera esetén a formátummappában a termékmappák mellett megjelenhet egy `clamp_masks/` mappa is (például `tiff16/clamp_masks/Reflectance_Calibrated_Images/` és `tiff32/clamp_masks/Radiance_Images/`). Ez tartalmazza azoknak a sugárzási és visszaverődési termékeknek a képpontonkénti maszkjait, amelyekben a sávszétválasztás során a negatív értékeket nullára korlátozták — lásd [Korlátozó maszkok](output-image-formats.md#clamp-masks). Egyetlen termékmappa sem tartalmaz maszkot.
 
@@ -199,17 +159,14 @@ Multispektrális M3C kamera esetén a formátummappában a termékmappák mellet
 | --- | --- | --- |
 | `-o, --output PATH` | alapértelmezett projektmappa | A projektmappa helye (lásd fent). |
 | `-n, --project-name NAME` | időbélyeg | Projektnév. |
-| `--format FMT` | `TIFF (16-bit)` | Az alábbiak közül az egyik: `TIFF (16-bit)`, `TIFF (8-bit)`, `TIFF (32-bit, Percent)`, `PNG (8-bit)`, `JPG (8-bit)` közül az egyik. A Chloros
-nem nagyítja fel a képet: az összes 8 bites képen a mélyebb formátumot `TIFF (8-bit)` néven írja, és ezt egyszer jelzi. |
+| `--format FMT` | `TIFF (16-bit)` | Az alábbiak közül az egyik: `TIFF (16-bit)`, `TIFF (8-bit)`, `TIFF (32-bit, Percent)`, `PNG (8-bit)`, `JPG (8-bit)` közül az egyik. A Chloros nem nagyítja fel a képet: az összes 8 bites képen a mélyebb formátumot `TIFF (8-bit)` néven írja, és ezt egyszer jelzi. |
 | `--indices NAME [NAME ...]` | nincs | Exportálandó vegetációs indexek (lásd [Vegetációs indexek](#vegetation-indices)). |
-| `--debayer {standard,texture-aware}` | `standard` | `texture-aware` = neurális debayer, lassabb, legmagasabb minőség (Chloros
-+, CUDA GPU szükséges: ennek hiányában a futtatás az `standard`-et használja; elutasítva a LATTICE-felvételek esetében, amelyek mindig az `standard`-et kapják). |
+| `--debayer {standard,texture-aware}` | `standard` | `texture-aware` = neurális debayer, lassabb, legmagasabb minőség (Chloros+, CUDA GPU szükséges: ennek hiányában a futtatás az `standard`-et használja; elutasítva a LATTICE-felvételek esetében, amelyek mindig az `standard`-et kapják). |
 | `--vignette / --no-vignette` | be | Vignettakorrekció. |
 | `--reflectance / --no-reflectance` | be | Reflektancia-kalibrálás; a LATTICE esetében ez egyben a reflektancia-szorzat kapcsolója is. |
 | `--input-level {auto,raw,debayered,processed}` | `auto` | A feldolgozási folyamat belépési pontjának kényszerítése LATTICE TIFF-ek esetén. |
 
-Minden egyéb beállítás – célpont-felismerés hangolása, PPK, expozíciós pontok, tömb-igazítási jelzők – tekintse meg az [CLI
--referencia `process` szakaszát](reference/cli-reference.md).
+Minden egyéb beállítás – célpont-felismerés hangolása, PPK, expozíciós pontok, tömb-igazítási jelzők – tekintse meg az [CLI-referencia `process` szakaszát](reference/cli-reference.md).
 
 ***
 
@@ -224,9 +181,7 @@ A LATTICE feldolgozás **egy lépésben**minden alkalmazható termékre kiterjed
 | `--radiance` | float32 sugárzási intenzitás, W/m²/sr/nm → `Radiance_Images/` (mindig `tiff32/`) |
 | `--reflectance` | uint16 fényvisszaverődés, Pix4D-kompatibilis → `Reflectance_Calibrated_Images/` |
 
-Az RGB
--es főkamerák kizárólag debayered + előnézeti adatokat bocsátanak ki — a sávonkénti sugárzás/reflektancia szélessávú érzékelő esetében értelmetlen, ezért ezek a kapcsolók számukra hatástalanok. A Survey3
--as `.raw` figyelmen kívül hagyja a kapcsolókat, és a szabványos reflektancia/célútvonalat követi.
+Az RGB-es főkamerák kizárólag debayered + előnézeti adatokat bocsátanak ki — a sávonkénti sugárzás/reflektancia szélessávú érzékelő esetében értelmetlen, ezért ezek a kapcsolók számukra hatástalanok. A Survey3-as `.raw` figyelmen kívül hagyja a kapcsolókat, és a szabványos reflektancia/célútvonalat követi.
 
 ```bash
 # Radiance only — no DAQ downwelling needed
@@ -236,13 +191,10 @@ chloros-cli process ~/captures/lattice_flight --no-debayered --no-preview --no-r
 **`--reflectance-source {auto,target,daq}`** (alapértelmezett: `auto`) kiválasztja a reflexió-referenciát: `auto` a minőségbiztosításon átment, a képkockán belüli [kalibrációs céltárgyat](calibration-targets.md) tekinti abszolút referenciának, és cél hiányában a DAQ fényérzékelőjének lefelé irányuló fényeloszlására (ρ = π·L/E) értékre, ha nincs jelen célpont (a minőségbiztosítást jelzővel teljesítő célpont a mért pontszám tekintetében versenyez a DAQ-val); az `target` szigorú (nincs DAQ-helyettesítés); az `daq` a DAQ-nak ad elsőbbséget. Egységenkénti mért célpont-letapogatások az `--target-reflectance-dir`-szel adhatók meg.
 
 {% hint style="info" %}
-**Reflektancia-pixelek olvasása:**a ρ = 1,0-t jelentő DN**forrásonkénti** — a LATTICE-fájlok az XMP-be az `Chloros:PixelScale=32768` címkét illesztik be; a Survey3
--fájlok a 65535 értéket használják, és nem tartalmaznak `Chloros:PixelScale` címkét (viszont tartalmaznak más `Chloros:*` feldolgozási címkéket). Olvassa be a címkét, és osztja el azzal, ahelyett, hogy állandót feltételezne. A részletek és az egyetlen szándékos, nem skálázott szélsőséges eset a [CLI
--referenciában](reference/cli-reference.md) találhatók.
+**Reflektancia-pixelek olvasása:**a ρ = 1,0-t jelentő DN**forrásonkénti** — a LATTICE-fájlok az XMP-be az `Chloros:PixelScale=32768` címkét illesztik be; a Survey3-fájlok a 65535 értéket használják, és nem tartalmaznak `Chloros:PixelScale` címkét (viszont tartalmaznak más `Chloros:*` feldolgozási címkéket). Olvassa be a címkét, és osztja el azzal, ahelyett, hogy állandót feltételezne. A részletek és az egyetlen szándékos, nem skálázott szélsőséges eset a [CLI-referenciában](reference/cli-reference.md) találhatók.
 {% endhint %}
 
-**A feldolgozás mindig az `raw`-től indul.** A származtatott termékek (debayered/radiance/reflectance exportok) soha nem kerülnek vissza a feldolgozási folyamatba — újbóli importálásuk és feldolgozásuk a kalibrációs számítások kétszeri alkalmazását jelentené, ezért az Chloros
-kihagyja őket, és erről tájékoztatást is ad. Az `--input-level` egy szándékosan beépített menekülési útvonal arra az esetre, ha valóban szükség van egy belépési pont kényszerítésére.
+**A feldolgozás mindig az `raw`-től indul.** A származtatott termékek (debayered/radiance/reflectance exportok) soha nem kerülnek vissza a feldolgozási folyamatba — újbóli importálásuk és feldolgozásuk a kalibrációs számítások kétszeri alkalmazását jelentené, ezért az Chloros kihagyja őket, és erről tájékoztatást is ad. Az `--input-level` egy szándékosan beépített menekülési útvonal arra az esetre, ha valóban szükség van egy belépési pont kényszerítésére.
 
 ***
 
@@ -250,12 +202,10 @@ kihagyja őket, és erről tájékoztatást is ad. Az `--input-level` egy szánd
 
 Az 1.2.0-s verziótól kezdve az `process` hangosan jelzi a hibát, ahelyett, hogy látható eredmény nélkül „sikeresnek” tűnne:
 
-* Az a futtatás, amely **termékeket kért, de egyet sem írt ki**— csak az `project.json` és az `calibration_data.json` — kiírja az `Processing finished but wrote no image products.` kódot, és**nem nulla értékkel lép ki**, így a szkriptek felismerhetik. A szokásos okok: a bemeneti mappát nem ismerte fel a rendszer rögzítésként (ellenőrizze az elrendezést és az `--input-level` fájlt), vagy az összes kért termék alkalmazhatatlan volt az adott kamerák esetében (pl. sugárzási/visszaverődési értékek kérése kizárólag RGB
--kameráktól).
+* Az a futtatás, amely **termékeket kért, de egyet sem írt ki**— csak az `project.json` és az `calibration_data.json` — kiírja az `Processing finished but wrote no image products.` kódot, és**nem nulla értékkel lép ki**, így a szkriptek felismerhetik. A szokásos okok: a bemeneti mappát nem ismerte fel a rendszer rögzítésként (ellenőrizze az elrendezést és az `--input-level` fájlt), vagy az összes kért termék alkalmazhatatlan volt az adott kamerák esetében (pl. sugárzási/visszaverődési értékek kérése kizárólag RGB-kameráktól).
 * Egy **szándékosan csak metaadatokra korlátozott futtatás** (minden termék kikapcsolva, nincs `--indices`) továbbra is sikeresnek minősül — ebben az esetben az üres kép kimenet a helyes eredmény.
 * Futtassa újra az `--verbose` beállítással, és ellenőrizze a háttérnaplóban az `[LATTICE-EXPORT]` / `[EXPORT-CHECK]` sorokat, amelyek kameránkénti kihagyásokat magyarázzák.
-*Windows
-rendszeren, ha a hosszú elérési utak ki vannak kapcsolva, a 260 karakteres elérési út-korlátot meghaladó mélységű projektmappát a feldolgozás megkezdése **előtt** elutasítja a rendszer, és a leghosszabb, a korlátba beleférő projektmappát használja (lásd [Hová kerülnek a kimenetek](#where-the-outputs-land)).
+*Windows rendszeren, ha a hosszú elérési utak ki vannak kapcsolva, a 260 karakteres elérési út-korlátot meghaladó mélységű projektmappát a feldolgozás megkezdése **előtt** elutasítja a rendszer, és a leghosszabb, a korlátba beleférő projektmappát használja (lásd [Hová kerülnek a kimenetek](#where-the-outputs-land)).
 * A rögzítési parancsok (`lattice capture`, `lattice array-capture` és a többi rögzítési parancscsalád) felsorolják az összes olyan fájlt, amelyet nem tudtak írni, majd kilépnek (`1`); az ismételt rögzítések leállnak, ha a meghajtó megtelik.
 
 Kilépési kódok: `0` siker · `1` általános hiba · `2` argumentumhiba · `130` a Ctrl+C billentyűkombinációval megszakítva.
@@ -274,8 +224,7 @@ A 22 előre beállított név, amelyet az `process --indices` elfogad:
 
 `NDVI` `GNDVI` `NDRE` `OSAVI` `SAVI` `MSAVI2` `EVI` `MSR` `TDVI` `LAI` `GCI` `GRVI` `GSAVI` `GOSAVI` `NLI` `MNLI` `RDVI` `WDRVI` `CVI` `ENDVI` `GLI` `VARI`
 
-A projektbe felkerül egy olyan név, amely még nem szerepel a listában. Azokat a neveket, amelyek nem előre beállítottak, vagy amelyeket a kamerák sávjai nem tudnak létrehozni, a rendszer figyelmeztetéssel kihagyja, megnevezve azokat. Ha a CLI
-nem tudja beolvasni a projekt aktuális indexlistáját, a listát változatlanul hagyja, és figyelmeztetést ad ki, ahelyett, hogy felülírná.
+A projektbe felkerül egy olyan név, amely még nem szerepel a listában. Azokat a neveket, amelyek nem előre beállítottak, vagy amelyeket a kamerák sávjai nem tudnak létrehozni, a rendszer figyelmeztetéssel kihagyja, megnevezve azokat. Ha a CLI nem tudja beolvasni a projekt aktuális indexlistáját, a listát változatlanul hagyja, és figyelmeztetést ad ki, ahelyett, hogy felülírná.
 
 {% hint style="warning" %}
 **Három indexlista létezik — ne keverje össze őket!**A GUI „Projektbeállítások” legördülő menüjében 27 képlet található (hozza hozzá az `FCI1`, `FCI2`, `GARI`, `GEMI`, `LCI` — ez az öt kizárólag a grafikus felületen használható, és**nem** érvényes az `--indices`-re). Az élő/offline `lattice index --preset` parancs saját, külön 22-es beállítási listát használ. A képletek és a sávszámítások leírása a [Multispektrális indexképletek](project-settings/multispectral-index-formulas.md) című dokumentumban található.
@@ -285,12 +234,7 @@ nem tudja beolvasni a projekt aktuális indexlistáját, a listát változatlanu
 
 ## DAQ fényérzékelők: Rövid áttekintés
 
-Az `daq pool-*` család a háttérrendszer állandó poolján keresztül vezérli a MAPIR
-DAQ spektrális érzékelőit (CLI-en keresztül a DAQ-U-t, BLE-n keresztül a DAQ-M-et, Etherneten keresztül a DAQ-E-t) — a grafikus felhasználói felület, a parancssori felület (CLI
-) és az SDK
-mind egy élő kezelőt használnak. **Az `pool-*` a szállított CLI
-által támogatott DAQ-útvonal**; az egyéb `daq` alparancsok, amelyekre hivatkozhatnak, a MAPIR
-belső, kizárólag forrásként szolgáló felületét jelentik, és egy kifejezett hibaüzenettel lépnek ki, amely az `pool-*`-re irányít.
+Az `daq pool-*` család a háttérrendszer állandó poolján keresztül vezérli a MAPIR DAQ spektrális érzékelőit (CLI-en keresztül a DAQ-U-t, BLE-n keresztül a DAQ-M-et, Etherneten keresztül a DAQ-E-t) — a grafikus felhasználói felület, a parancssori felület (CLI) és az SDK mind egy élő kezelőt használnak. **Az `pool-*` a szállított CLI által támogatott DAQ-útvonal**; az egyéb `daq` alparancsok, amelyekre hivatkozhatnak, a MAPIR belső, kizárólag forrásként szolgáló felületét jelentik, és egy kifejezett hibaüzenettel lépnek ki, amely az `pool-*`-re irányít.
 
 ```bash
 # 1. Open a pooled session (pick the line matching your sensor)
@@ -333,14 +277,11 @@ chloros-cli lattice array-connect --serials SN1,SN2,SN3,SN4       # persistent s
 chloros-cli lattice array-capture --processing reflectance -o out/
 ```
 
-Ehhez kapcsolódóan: az `chloros-cli time-sync` jelentést készít a PTP grandmasterről, amelyet a Chloros
--gazdagép futtat (a LATTICE kamerák és a DAQ-E érzékelők ehhez kapcsolódnak az eszközök közötti időbélyegek érdekében), az `chloros-cli project` pedig megnyit egy mentett Chloros
--projektet, és vezérli a kameráit, szenzortömbjeit és érzékelőit headless módban — beleértve a szkriptelt YAML-felvételi receptjeit is.
+Ehhez kapcsolódóan: az `chloros-cli time-sync` jelentést készít a PTP grandmasterről, amelyet a Chloros-gazdagép futtat (a LATTICE kamerák és a DAQ-E érzékelők ehhez kapcsolódnak az eszközök közötti időbélyegek érdekében), az `chloros-cli project` pedig megnyit egy mentett Chloros-projektet, és vezérli a kameráit, szenzortömbjeit és érzékelőit headless módban — beleértve a szkriptelt YAML-felvételi receptjeit is.
 
 Ez a három család (`lattice`, `project`, `daq pool-*`) az egyetlenek, amelyek támogatják az `CHLOROS_BACKEND_URL` parancsot **távoli** háttérrendszer vezérléséhez; az alapvető parancsok mindig a helyi gépet célozzák meg.
 
-A teljes útmutatók a kézikönyv LATTICE fejezeteiben találhatók; minden kapcsoló a [CLI
--referenciában](reference/cli-reference.md) szerepel.
+A teljes útmutatók a kézikönyv LATTICE fejezeteiben találhatók; minden kapcsoló a [CLI-referenciában](reference/cli-reference.md) szerepel.
 
 ***
 
@@ -349,15 +290,10 @@ A teljes útmutatók a kézikönyv LATTICE fejezeteiben találhatók; minden kap
 | Tünet | Megoldás |
 | --- | --- |
 | Az `Login required` vagy egy ütemezett feladat lefagy az `Email:` parancssorban | Futtassa egyszer az `chloros-cli login EMAIL 'PASSWORD'` parancsot ezen a gépen — a gyors hibaüzenet helyett a gyorsítótárban nem tárolt munkamenet nélküli parancsok interaktív módon futnak. |
-| `backend unreachable` | Indítsa el a Chloros
-asztali alkalmazást, vagy indítsa el saját maga a háttérprogramot: `"C:\Program Files\Chloros\backend\chloros-backend.exe"` Windows
-rendszeren (a telepítési mappa `backend` mappájában; az `PATH`-en nincs), `chloros-backend`-et Linux
-on. Az `chloros-cli backend status` jelzi, hogy fut-e valamelyik; az `lattice`/`project`/`daq pool-*` soha ne indítson el egyet sem. Ha távoli háttérprogramra irányítja őket, ellenőrizze az `CHLOROS_BACKEND_URL` fájlt. |
-| A tömbcsatlakozás blokkolva: `FRAMES WILL DROP` / `Reduce ROI to enable` | A gazdagép hálózati kártyájának vételi gyűrűje alapértelmezett értékekre állt vissza — ez a leggyakoribb oka annak, hogy egy korábban működő rendszer nem hajlandó csatlakozni, általában egy hálózati kártya-illesztőprogram frissítése után. Futtassa az `chloros-cli lattice network --fix` parancsot egy **feljogosított** terminálról (vagy állítsa be az `ReceiveBufferLen=256`, `PendingReceives=64` parancsokat); lásd a kézikönyv *Host NIC Setup &amp; Tuning* című részét. |
-| Az `daq` alparancs kilép: „a teljes DAQ-csomag szükséges…” | Használja az `daq pool-*` parancsokat, amelyek a háttérrendszeren keresztül vezérlik ugyanazt az érzékelőt: csatlakozás, adatfolyam, rögzítés, csatornaválasztás, valamint DAQ-E esetén a hálózati beállítások, az újraindítás és a firmware-frissítések (vagy az `chloros_sdk.connect_daq_sensor()` parancs Python
-ból). |
-| A Jetson nagy mappák előtt swap-figyelmeztetést jelenít meg | Adjon hozzá fájlalapú swap-ot — a CLI
-kijelzi a futtatandó pontos `fallocate`/`swapon` parancsokat. |
+| `backend unreachable` | Indítsa el a Chloros asztali alkalmazást, vagy indítsa el saját maga a háttérprogramot: `"C:\Program Files\Chloros\backend\chloros-backend.exe"` Windows rendszeren (a telepítési mappa `backend` mappájában; az `PATH`-en nincs), `chloros-backend`-et Linux on. Az `chloros-cli backend status` jelzi, hogy fut-e valamelyik; az `lattice`/`project`/`daq pool-*` soha ne indítson el egyet sem. Ha távoli háttérprogramra irányítja őket, ellenőrizze az `CHLOROS_BACKEND_URL` fájlt. |
+| A tömbcsatlakozás blokkolva: `FRAMES WILL DROP` / `Reduce ROI to enable` | A gazdagép hálózati kártyájának vételi gyűrűje alapértelmezett értékekre állt vissza — ez a leggyakoribb oka annak, hogy egy korábban működő rendszer nem hajlandó csatlakozni, általában egy hálózati kártya-illesztőprogram frissítése után. Futtassa az `chloros-cli lattice network --fix` parancsot egy **feljogosított** terminálról (vagy állítsa be az `ReceiveBufferLen=256`, `PendingReceives=64` parancsokat); lásd a kézikönyv *Host NIC Setup & Tuning* című részét. |
+| Az `daq` alparancs kilép: „a teljes DAQ-csomag szükséges…” | Használja az `daq pool-*` parancsokat, amelyek a háttérrendszeren keresztül vezérlik ugyanazt az érzékelőt: csatlakozás, adatfolyam, rögzítés, csatornaválasztás, valamint DAQ-E esetén a hálózati beállítások, az újraindítás és a firmware-frissítések (vagy az `chloros_sdk.connect_daq_sensor()` parancs Python ból). |
+| A Jetson nagy mappák előtt swap-figyelmeztetést jelenít meg | Adjon hozzá fájlalapú swap-ot — a CLI kijelzi a futtatandó pontos `fallocate`/`swapon` parancsokat. |
 
 ***
 
@@ -370,10 +306,6 @@ chloros-cli lattice --help
 chloros-cli daq --help          # lists the pool-* subcommands
 ```
 
-* **Minden jelző, minden alparancs:** [CLI
--referencia](reference/cli-reference.md)
-* **Python
--megfelelő:** [Python
-SDK
-](api-python-sdk.md) és az [SDK Reference](reference/sdk-reference.md)
+* **Minden jelző, minden alparancs:** [CLI-referencia](reference/cli-reference.md)
+* **Python-megfelelő:** [Python SDK](api-python-sdk.md) és az [SDK Reference](reference/sdk-reference.md)
 * **Támogatás:** info@mapir.camera · [https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)

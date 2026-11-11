@@ -1,10 +1,6 @@
 # A feldolgozás nyomon követése
 
-A feldolgozás megkezdése után a Chloros
-
-számos lehetőséget kínál a folyamat nyomon követésére, a problémák felismerésére és az adatkészlet állapotának megértésére. Ez az oldal bemutatja, hogyan lehet nyomon követni a feldolgozást, és hogyan kell értelmezni a Chloros
-
-által nyújtott információkat.
+A feldolgozás megkezdése után a Chloros számos lehetőséget kínál a folyamat nyomon követésére, a problémák felismerésére és az adatkészlet állapotának megértésére. Ez az oldal bemutatja, hogyan lehet nyomon követni a feldolgozást, és hogyan kell értelmezni a Chloros által nyújtott információkat.
 
 ## A haladási sáv áttekintése
 
@@ -12,9 +8,7 @@ A felső fejlécben található haladási sáv valós időben mutatja a feldolgo
 
 ### Haladási sáv ingyenes módban
 
-Chloros
-
-+ licenc nélküli felhasználók számára:
+Chloros+ licenc nélküli felhasználók számára:
 
 **Kétlépcsős haladási kijelzés:**
 
@@ -25,13 +19,9 @@ Chloros
 * Az aktuális szakasz neve
 * Egyszerű vízszintes sávos megjelenítés
 
-### Chloros
+### Chloros+ haladási sáv
 
-+ haladási sáv
-
-Chloros
-
-+ licenccel rendelkező felhasználók számára:
+Chloros+ licenccel rendelkező felhasználók számára:
 
 **4-fokozatú haladási kijelzés:**
 
@@ -44,11 +34,7 @@ Chloros
 * Minden szakasz a saját előrehaladását mutatja (0–100%)
 
 {% hint style="info" %}
-**A CLI
-
--vel való összhang**: egy `chloros-cli process` futtatás során ugyanaz a négy szál jelenti az „Észlelés”, „Elemzés”, „Feldolgozás” és „Exportálás” állapotokat, míg az `chloros-cli export-status` egy másik terminálról élőben mutatja a 4. szál exportálásának előrehaladását. Lásd a [CLI
-
--referenciát](../reference/cli-reference.md).
+**A CLI-vel való összhang**: egy `chloros-cli process` futtatás során ugyanaz a négy szál jelenti az „Észlelés”, „Elemzés”, „Feldolgozás” és „Exportálás” állapotokat, míg az `chloros-cli export-status` egy másik terminálról élőben mutatja a 4. szál exportálásának előrehaladását. Lásd a [CLI-referenciát](../reference/cli-reference.md).
 {% endhint %}
 
 ***
@@ -63,9 +49,7 @@ Chloros
 
 **Mi történik:**
 
-* A Chloros
-
-beolvassa azokat a képeket, amelyeket a „Cél” jelölőnégyzet bejelölésével jelölt meg (ha egyik sem jelölve, akkor az összes képet)
+* A Chloros beolvassa azokat a képeket, amelyeket a „Cél” jelölőnégyzet bejelölésével jelölt meg (ha egyik sem jelölve, akkor az összes képet)
 * A számítógépes látás algoritmusai azonosítják a kalibrációs paneleket
 * Minden panelből kivonják a reflexiós értékeket
 * A megfelelő kalibrációs ütemezés érdekében rögzítik a célok időbélyegeit
@@ -94,9 +78,7 @@ beolvassa azokat a képeket, amelyeket a „Cél” jelölőnégyzet bejelölés
 * A képek EXIF-metaadatainak olvasása (időbélyegek, expozíciós beállítások)
 * A kalibrációs stratégia meghatározása a célpontok időbélyegei és a rendelkezésre álló DAQ lefelé irányuló adatok alapján
 * A képfeldolgozási sor rendezése
-* A párhuzamos feldolgozást végző munkások előkészítése (csak Chloros
-
-+)
+* A párhuzamos feldolgozást végző munkások előkészítése (csak Chloros+)
 
 **Időtartam:** 5–30 másodperc**Haladási jelző:**
 
@@ -123,9 +105,7 @@ beolvassa azokat a képeket, amelyeket a „Cél” jelölőnégyzet bejelölés
 * Feldolgozott képek / Összes kép
 
 **Feldolgozási mód:*** **Szabad mód**: Egyszerre egy képet dolgoz fel egymás után
-* **„Chloros
-
-+” mód**: Hardverhez alkalmazkodó munkavállalói csoportot futtat – 1–4 párhuzamos munkavállaló GPU-rendszereken (a VRAM-tól függően), egy munkavállaló fizikai magonként (mínusz egy) kizárólag CPU-val rendelkező rendszereken. Lásd [Dinamikus számítási adaptáció](../processing-architecture/dynamic-compute-adaptation.md)
+* **„Chloros+” mód**: Hardverhez alkalmazkodó munkavállalói csoportot futtat – 1–4 párhuzamos munkavállaló GPU-rendszereken (a VRAM-tól függően), egy munkavállaló fizikai magonként (mínusz egy) kizárólag CPU-val rendelkező rendszereken. Lásd [Dinamikus számítási adaptáció](../processing-architecture/dynamic-compute-adaptation.md)
 * **GPU-gyorsítás**: Jelentősen felgyorsítja ezt a szakaszt**Mire kell figyelni:**
 
 * A képek számának egyenletes növekedése
@@ -171,17 +151,13 @@ ikonra
 
 ### A naplóüzenetek értelmezése A
 
-Chloros
-
--napló sorai előtt zárójelben szereplő címkék jelzik az alrendszer nevét – például `[PROCESSING]`, `[RUN-SUMMARY]`, `[LATTICE-EXPORT]`, `[EXPORT-CHECK]`, `[IMPORT-LEVEL]`. A legfontosabb, amit tudni kell, az a **futásösszefoglaló**, amely minden futás végén megjelenik (beleértve a leállított futásokat is):
+Chloros-napló sorai előtt zárójelben szereplő címkék jelzik az alrendszer nevét – például `[PROCESSING]`, `[RUN-SUMMARY]`, `[LATTICE-EXPORT]`, `[EXPORT-CHECK]`, `[IMPORT-LEVEL]`. A legfontosabb, amit tudni kell, az a **futásösszefoglaló**, amely minden futás végén megjelenik (beleértve a leállított futásokat is):
 
 ```
 [RUN-SUMMARY] 49 image(s) in 2 camera group(s); 4 target(s) detected; 45 image(s) calibrated; 180 file(s) written.
 ```
 
-További `[RUN-SUMMARY]` segítő sorok következnek, ha valamire magyarázatot kell adni — például egy olyan futtatás esetén, amely nem eredményezett semmit, vagy egy olyan kamera, amelynek kért termékét alkalmazhatatlannak minősítve kihagyták. Az `[EXPORT-CHECK]` sorok kameránkénti kihagyásokat magyarázzák (pl. miért nem kapott egy RGB
-
--kamera sugárzási terméket).
+További `[RUN-SUMMARY]` segítő sorok következnek, ha valamire magyarázatot kell adni — például egy olyan futtatás esetén, amely nem eredményezett semmit, vagy egy olyan kamera, amelynek kért termékét alkalmazhatatlannak minősítve kihagyták. Az `[EXPORT-CHECK]` sorok kameránkénti kihagyásokat magyarázzák (pl. miért nem kapott egy RGB-kamera sugárzási terméket).
 
 Az üzenetek általános súlyossági szintjei (az alábbi példák szemléltető jellegűek, nem szó szerinti idézetek):
 
@@ -212,17 +188,9 @@ Kritikus problémák, amelyek a feldolgozás meghiúsulásához vezethetnek – 
 | Nem találtak célpontokat                      | Nem észleltek kalibrációs célpontokat               | Jelölje meg a célképeket, vagy tiltsa le a reflexiós kalibrációt |
 | Nem elegendő lemezterület               | Nincs elegendő tárhely a kimenethez                 | Szabadítson fel lemezterületet                                    |
 | A sérült fájl kihagyása               | A képfájl sérült                         | Másolja át újra a fájlt az SD-kártyáról                             |
-| `[IMPORT-LEVEL] Skipping ... no raw source` | A nyers képkocka nélküli felvétel nem feldolgozható | Végezzen új felvételt nyers képkockával, vagy használja a CLI
-
--t `--input-level`  |
+| `[IMPORT-LEVEL] Skipping ... no raw source` | A nyers képkocka nélküli felvétel nem feldolgozható | Végezzen új felvételt nyers képkockával, vagy használja a CLI-t `--input-level`  |
 | `[RUN-SUMMARY] ... 0 file(s) written` | A futtatás nem eredményezett képtermékeket — hibaüzenet jelent meg tippekkel | Olvassa el a tippsorokat; ellenőrizze, mit hagyott ki a rendszer és miért |
-| `[PROCESS] refused: The project folder is too deep for this computer…` | A Windows
-
-hosszú elérési útjai ki vannak kapcsolva, és a projektmappa túl mély a 260 karakteres elérési útkorlát miatt; semmi sem került feldolgozásra | Használjon rövidebb projektmappát (az üzenet megadja a leghosszabb megengedett nevet), vagy kapcsolja be a Windows
-
-hosszú elérési útjait, és indítsa újra a Chloros
-
--t — lásd [A feldolgozás elindítása](starting-the-processing.md#the-project-folder-is-too-deep-for-this-computer) |
+| `[PROCESS] refused: The project folder is too deep for this computer…` | A Windows hosszú elérési útjai ki vannak kapcsolva, és a projektmappa túl mély a 260 karakteres elérési útkorlát miatt; semmi sem került feldolgozásra | Használjon rövidebb projektmappát (az üzenet megadja a leghosszabb megengedett nevet), vagy kapcsolja be a Windows hosszú elérési útjait, és indítsa újra a Chloros-t — lásd [A feldolgozás elindítása](starting-the-processing.md#the-project-folder-is-too-deep-for-this-computer) |
 | `[unmix-clamp-mask] …` | Egy LATTICE-termék clamp maszkja nem írható; maga a termék rendben van, és a következő üzenetet jeleníti meg: `Chloros:UnmixClampMask=unavailable` | Ellenőrizze a lemezterületet és a mappa jogosultságait, majd ha szüksége van a maszkra, futtassa újra a feldolgozást |
 
 ### Naplóadatok másolása
@@ -232,32 +200,18 @@ A hibaelhárítás vagy a támogatás céljából a napló másolásához:
 1. Nyissa meg a Debug Log panelt
 2. Kattintson a **Másolás**gombra (a napló a vágólapra kerül), vagy a**Letöltés** gombra, hogy szöveges fájlként mentse
 3. Illessze be egy szöveges fájlba vagy e-mailbe
-4. Szükség esetén küldje el a MAPIR
-
-ügyfélszolgálatnak
+4. Szükség esetén küldje el a MAPIR ügyfélszolgálatnak
 
 ### Hiba jelentése a Naplófülről
 
-Újdonság az 1.3.0-s verzióban: a **Hiba jelentése**ikon a**Hibakeresési napló** fül tetején közvetlenül a MAPIR
-
--hez küldi a jelentést.
+Újdonság az 1.3.0-s verzióban: a **Hiba jelentése**ikon a**Hibakeresési napló** fül tetején közvetlenül a MAPIR-hez küldi a jelentést.
 
 1. Kattintson a **Hibakeresési napló** fül tetején található hiba ikonra
 2. Írja le a problémát: mit csinált, mire számított, és mi történt helyette (kötelező)
 3. Opcionálisan jelölje be az **Adjon hozzá néhány képet (legfeljebb 10)**lehetőséget, és válasszon ki képeket a megnyitott projektből, vagy használja a**Tallózás...** gombot bármely más képfájlhoz
 4. Kattintson a **Küldés** gombra
 
-A jelentés tartalmazza a leírását, az esetlegesen csatolt képeket, a Chloros
-
--naplókat és a rendszer adatait (Chloros
-
--verzió, operációs rendszer, GPU és projektbeállítások). A jelentés elküldéséhez be kell jelentkeznie a Chloros
-
-ba (**Felhasználó** fül). A küldés közben bezárhatja az ablakot; amikor befejeződik, a naplóba egy hivatkozási szám kerül beírásra, például `Bug report sent. Reference: BR-…` — ezt idézze meg, amikor kapcsolatba lép a MAPIR
-
--rel. Ha a jelentés nem tölthető fel (például internetkapcsolat hiánya miatt), a Chloros
-
-elmenti azt a számítógépére, és megjeleníti az elérési utat, így e-mailben elküldheti az support@mapir.camera címre.
+A jelentés tartalmazza a leírását, az esetlegesen csatolt képeket, a Chloros-naplókat és a rendszer adatait (Chloros-verzió, operációs rendszer, GPU és projektbeállítások). A jelentés elküldéséhez be kell jelentkeznie a Chloros ba (**Felhasználó** fül). A küldés közben bezárhatja az ablakot; amikor befejeződik, a naplóba egy hivatkozási szám kerül beírásra, például `Bug report sent. Reference: BR-…` — ezt idézze meg, amikor kapcsolatba lép a MAPIR-rel. Ha a jelentés nem tölthető fel (például internetkapcsolat hiánya miatt), a Chloros elmenti azt a számítógépére, és megjeleníti az elérési utat, így e-mailben elküldheti az support@mapir.camera címre.
 
 ***
 
@@ -271,33 +225,25 @@ elmenti azt a számítógépére, és megjeleníti az elérési utat, így e-mai
 * A többi mag tétlen vagy rendelkezésre áll
 * A rendszer továbbra is reagál
 
-**„Chloros
-
-+” párhuzamos mód:**
+**„Chloros+” párhuzamos mód:**
 
 * Több mag magas kihasználtsággal – a számuk a [Dinamikus számítási adaptáció](../processing-architecture/dynamic-compute-adaptation.md) által választott stratégiától függ
 * A rendszer reagálóképessége romolhat
 
 **Figyeléshez:**
 
-* Windows
-
-Feladatkezelő (Ctrl+Shift+Esc)
+* Windows Feladatkezelő (Ctrl+Shift+Esc)
 * Teljesítmény fül → CPU szakasz
-* Keresse meg a „Chloros
-
-” vagy „chloros-backend” folyamatokat
+* Keresse meg a „Chloros” vagy „chloros-backend” folyamatokat
 
 ### Memória (RAM) használat
 
 **Jellemző használat:**
 
-* Kis projektek (&lt; 100 kép): 2–4 GB
+* Kis projektek (< 100 kép): 2–4 GB
 * Közepes projektek (100–500 kép): 4–8 GB
 * Nagy projektek (500+ kép): 8–16 GB
-* A „Chloros
-
-+” párhuzamos üzemmód több RAM-ot igényel
+* A „Chloros+” párhuzamos üzemmód több RAM-ot igényel
 
 **Ha kevés a memória:**
 
@@ -305,9 +251,7 @@ Feladatkezelő (Ctrl+Shift+Esc)
 * Zárja be az egyéb alkalmazásokat
 * Növelje a RAM-kapacitást, ha rendszeresen nagy adathalmazokat dolgoz fel
 
-### GPU-használat (Chloros
-
-+ CUDA-val)
+### GPU-használat (Chloros+ CUDA-val)
 
 Ha a GPU-gyorsítás engedélyezve van:
 
@@ -345,9 +289,7 @@ Ha a GPU-gyorsítás engedélyezve van:
 
 * Ellenőrizze a hibajelentést (Debug Log)
 * Ellenőrizze a rendelkezésre álló lemezterületet
-* A Feladatkezelőben ellenőrizze, hogy a Chloros
-
-fut-e
+* A Feladatkezelőben ellenőrizze, hogy a Chloros fut-e
 
 **Gyakran megjelenő hibaüzenetek:**
 
@@ -357,9 +299,7 @@ fut-e
 
 **A rendszer nem reagál:**
 
-* A Chloros
-
-párhuzamos módja túl sok erőforrást igényel
+* A Chloros párhuzamos módja túl sok erőforrást igényel
 * Fontolja meg az egyidejű feladatok számának csökkentését vagy a hardver frissítését
 * A szabad mód kevésbé erőforrás-igényes
 
@@ -398,9 +338,7 @@ párhuzamos módja túl sok erőforrást igényel
 
 1. Ha a folyamat éppen most indult és az „Észlelés” szakaszban van: Állítsa le, jelölje meg a célokat, indítsa újra
 2. A jövőben: Használjon SSD-t, csökkentse az indexek számát, frissítse a hardvert
-3. Nagy adathalmazok kötegelt feldolgozásához fontolja meg a parancssori felület (CLI
-
-) használatát
+3. Nagy adathalmazok kötegelt feldolgozásához fontolja meg a parancssori felület (CLI) használatát
 
 ### „Lemezterület” figyelmeztetések
 
@@ -410,9 +348,7 @@ párhuzamos módja túl sok erőforrást igényel
 2. Helyezze át a projektet egy nagyobb tárhellyel rendelkező meghajtóra
 3. Csökkentse az exportálandó indexek számát
 4. Tiltsa le a felesleges LATTICE exporttermékeket (Projektbeállítások → Feldolgozás)
-5. Használjon JPG formátumot a TIFF
-
-helyett (kisebb fájlok)
+5. Használjon JPG formátumot a TIFF helyett (kisebb fájlok)
 
 ### Gyakori „Sérült fájl” üzenetek
 
@@ -429,9 +365,7 @@ helyett (kisebb fájlok)
 
 1. Gondoskodjon megfelelő szellőzésről
 2. Tisztítsa meg a számítógép szellőzőnyílásait a portól
-3. Csökkentse a feldolgozási terhelést (használja a „Free” módot a „Chloros
-
-+” helyett)
+3. Csökkentse a feldolgozási terhelést (használja a „Free” módot a „Chloros+” helyett)
 4. A feldolgozást a nap hűvösebb óráiban végezze
 
 ***

@@ -6,23 +6,10 @@ metaLinks:
 
 # Támogatott kamerák A
 
-Chloros
-**minden platformon** (Windows
-, Linux
-amd64 és Linux
-arm64/Jetson) feldolgozza a két MAPIR
-kameracsalád által készített felvételeket:
+Chloros **minden platformon** (Windows, Linux amd64 és Linux arm64/Jetson) feldolgozza a két MAPIR kameracsalád által készített felvételeket:
 
-* **Survey3** — Survey3W
-(széles látószögű) és Survey3N
-(keskeny látószögű) kamerák. Bemenet: `RAW+JPG`.
-* **LATTICE**— M3C és M3M multispektrális kameramodulok. Bemenet: `.tif`/`.tiff` felvételek. A LATTICE kamerák**élőben is vezérelhetők** a Chloros
--ból — a GUI „Cameras” fülén keresztül (Windows
-) vagy az `chloros-cli lattice` / a Python
-SDK
--en keresztül (Windows
-és Linux
-) — beleértve a szinkronizált többkamerás rendszereket is. Lásd a [LATTICE útmutatót](lattice/).
+* **Survey3** — Survey3W (széles látószögű) és Survey3N (keskeny látószögű) kamerák. Bemenet: `RAW+JPG`.
+* **LATTICE**— M3C és M3M multispektrális kameramodulok. Bemenet: `.tif`/`.tiff` felvételek. A LATTICE kamerák**élőben is vezérelhetők** a Chloros-ból — a GUI „Cameras” fülén keresztül (Windows) vagy az `chloros-cli lattice` / a Python SDK-en keresztül (Windows és Linux) — beleértve a szinkronizált többkamerás rendszereket is. Lásd a [LATTICE útmutatót](lattice/).
 
 A feldolgozási folyamat `.dng` bemeneti fájlokat is elfogad.
 
@@ -36,9 +23,7 @@ A LATTICE sorozat egy moduláris multispektrális kamerarendszer, amely a Sony I
 <sensor>-<lens>-F<filter>        e.g.  M3C-L41-FRGN,  M3M-L87-F550
 ``` Az
 
-Chloros
-
-ezt az `LATT-` előtaggal jeleníti meg (például `LATT-M3M-L41-F550`), és ez a modellszöveg vezérli az összes további lépést — az érzékelőprofil, a sávelrendezés és a kalibrálás automatikusan meghatározódik; kameránként nincs szükség semmilyen beállításra. Az objektívszám a **fokban kifejezett vízszintes látómező**: `L41` = keskeny 41°, `L87` = széles 87°.
+Chloros ezt az `LATT-` előtaggal jeleníti meg (például `LATT-M3M-L41-F550`), és ez a modellszöveg vezérli az összes további lépést — az érzékelőprofil, a sávelrendezés és a kalibrálás automatikusan meghatározódik; kameránként nincs szükség semmilyen beállításra. Az objektívszám a **fokban kifejezett vízszintes látómező**: `L41` = keskeny 41°, `L87` = széles 87°.
 
 Két érzékelőkonfiguráció létezik:
 
@@ -49,52 +34,20 @@ Két érzékelőkonfiguráció létezik:
 
 ### M3C (Bayer) szűrőopciók
 
-| Szűrő | Sávok (név @ középpont nm / FWHM
-
-nm)       |
+| Szűrő | Sávok (név @ középpont nm / FWHM nm)       |
 | ------ | ---------------------------------------- |
-| `FRGB` | Blue
+| `FRGB` | Blue 475/30 · Green 550/30 · Red 625/30  |
+| `FRGN` | Red 660/21 · Green 550/30 · NIR 850/30   |
+| `FOCN` | Orange 618,4/46 · Cyan 494,1/40 · NIR 821,6/54 (mért — lásd alább) |
+| `FNGB` | Blue 475/30 · Green 550/30 · NIR 850/30  |
 
-475/30 · Green
-
-550/30 · Red
-
-625/30  |
-| `FRGN` | Red
-
-660/21 · Green
-
-550/30 · NIR
-
-850/30   |
-| `FOCN` | Orange
-
-618,4/46 · Cyan
-
-494,1/40 · NIR
-
-821,6/54 (mért — lásd alább) |
-| `FNGB` | Blue
-
-475/30 · Green
-
-550/30 · NIR
-
-850/30  |
-
-Az `FOCN` esetében az értékek a szűrő **mért** félmaximális sávszélességei (Chloros
-
-1.3.0 és újabb verziók; a korábbi verziók a műszaki adatlap értékeit használták: 615/21 · 490/38 · 808/14). A sávnevek változatlanok maradnak: `Orange_615`, `Cyan_490` és `NIR_808`, a mért középérték és szélesség pedig az, amit a Chloros
-
-minden kalibrált exportfájlba bejegyz.
+Az `FOCN` esetében az értékek a szűrő **mért** félmaximális sávszélességei (Chloros 1.3.0 és újabb verziók; a korábbi verziók a műszaki adatlap értékeit használták: 615/21 · 490/38 · 808/14). A sávnevek változatlanok maradnak: `Orange_615`, `Cyan_490` és `NIR_808`, a mért középérték és szélesség pedig az, amit a Chloros minden kalibrált exportfájlba bejegyz.
 
 ### M3M (mono) szűrőkatalógus — 23 SKU
 
 Az F-szám az SKU-címke; a mért sáv (amelyet minden kalibrált exporttermékre rányomtatnak) a tételenkénti szűrő-letapogatás eredménye:
 
-| SKU    | Közép (nm, mért) | FWHM
-
--szélek (nm) | Szélesség (nm) |
+| SKU    | Közép (nm, mért) | FWHM-szélek (nm) | Szélesség (nm) |
 | ------ | --------------------- | --------------- | ---------- |
 | F385   | 379,4                 | 367–392         | 25         |
 | F405   | 403,9                 | 390–417         | 27         |
@@ -126,8 +79,6 @@ tételenkénti szűrőletapogatásai alapján — ugyanazokat az értékeket, am
 
 minden kalibrált exportba bejegyz.”_ „— (névleges)” = még nincs tételhez tartozó szkennelés; ezeknél az SKU-knél a megadott középérték az SKU-szám, a szélesség pedig a gyártó által megadott érték.
 
-† „Az F988 reflexióját egy helyszíni reflexiós panel segítségével kalibrálják: a sáv a DAQ fényérzékelő kalibrált tartományán kívül esik, ezért a Chloros
-
-a legfrissebb panelről készült felvételt alkalmazza, és azt a panelek közötti mérések között is megtartja.” Lásd a [Kalibrációs célpontok](calibration-targets.md) című részt.
+† „Az F988 reflexióját egy helyszíni reflexiós panel segítségével kalibrálják: a sáv a DAQ fényérzékelő kalibrált tartományán kívül esik, ezért a Chloros a legfrissebb panelről készült felvételt alkalmazza, és azt a panelek közötti mérések között is megtartja.” Lásd a [Kalibrációs célpontok](calibration-targets.md) című részt.
 
 Az élő kameravezérlés, a mátrixok, a hálózati beállítások és a radiometrikus feldolgozási lánc tekintetében lásd a [LATTICE útmutatót](lattice/).

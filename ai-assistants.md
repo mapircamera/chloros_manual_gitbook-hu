@@ -43,7 +43,7 @@ A szerveres eszközök lefedik a [Python SDK](api-python-sdk.md) funkcióit. Az 
 claude mcp add chloros -- chloros-mcp
 ```
 
-**Claude Desktop:**ezt add hozzá az `claude_desktop_config.json` fájlhoz (a**Beállítások &gt; Fejlesztő &gt; Konfiguráció szerkesztése**menüponttal nyitható meg), majd indítsd újra a Claude Desktopot. A**kurzor** ugyanazt a bejegyzést veszi át az `~/.cursor/mcp.json` fájlba.
+**Claude Desktop:**ezt add hozzá az `claude_desktop_config.json` fájlhoz (a**Beállítások > Fejlesztő > Konfiguráció szerkesztése**menüponttal nyitható meg), majd indítsd újra a Claude Desktopot. A**kurzor** ugyanazt a bejegyzést veszi át az `~/.cursor/mcp.json` fájlba.
 
 ```json
 {

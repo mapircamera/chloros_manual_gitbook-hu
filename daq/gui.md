@@ -43,9 +43,7 @@ Minden csatlakoztatott érzékelő egy sort kap (plusz egy sor minden Ambient+Ob
 | Átviteli jelvény | `DAQ-U` / `DAQ-M` / `DAQ-E`, vagy zöld `REF` jelvény az Ambient+Object fényvisszaverődési csoport esetében. |
 | Eszköz neve | Alapértelmezés szerint az érzékelő sorozatszáma (a kalibráláshoz, az `.daq` fájlnevekhez és az importáláshoz szükséges állandó azonosító); az egyedi nevek projektenként megmaradnak. |
 | **Kalibrálva** jelölő (zöld) | Akkor jelenik meg, ha az érzékelő gyári kalibrációs csomagja betöltődött, azaz a spektrumok valódi W/m²/nm értékeket mutatnak. |
-| **Frissítés elérhető** jelölő (borostyánszínű, csak DAQ-E esetén) | A futó firmware régebbi, mint a jelenlegi Chloros
-
--verzióhoz mellékelt kép. A frissítés során valós idejű haladást jelenít meg (`Flashing… N%`, `Restarting sensor…`, majd `Updated X → Y` vagy `Failed`). |
+| **Frissítés elérhető** jelölő (borostyánszínű, csak DAQ-E esetén) | A futó firmware régebbi, mint a jelenlegi Chloros-verzióhoz mellékelt kép. A frissítés során valós idejű haladást jelenít meg (`Flashing… N%`, `Restarting sensor…`, majd `Updated X → Y` vagy `Failed`). |
 | Szem | Be- és kikapcsolja az érzékelő láthatóságát a grafikonon. |
 | Fogaskerék | Megnyitja az érzékelőnkénti beállítások modális ablakát (lent). |
 | ✕ (piros) | Leválasztja az érzékelőt, vagy eltávolít egy „Környezet+Objektum” csoportot. |
@@ -82,15 +80,9 @@ Az érzékelősoron található fogaskerék-ikonnal nyitható meg. A tartalom so
 * **Hostname / IP** — a készülék aktuális címe.
 * **Firmware**— az aktuális firmware-verzió, valamint egy műveleti mező: egy**Frissítés a \<version\>
 
-** gomb jelenik meg, ha ez a Chloros
-
--verzió egy újabb DAQ-E firmware-képet tartalmaz. A frissítés körülbelül 30 másodperc alatt történik a hálózaton keresztül; az érzékelő automatikusan újraindul és újra csatlakozik, és egy megszakadt átvitel esetén az aktuális firmware sértetlen marad. A folyamat élőben követhető (`Flashing… N%` → `Restarting sensor…` → `Updated X → Y`), és a mezőben az `Up to date` érték jelenik meg, ha az aktuális.
-* **PTP-szinkronizálás** — az élő PTP-állapot (visszatér az `unknown` értékre). A DAQ-E 1.2.0-ás vagy újabb firmware-verziója kizárólag szolgaóraként vesz részt az IEEE 1588 PTPv2-ben; a Chloros
-
--gazdagép háttérrendszere a PTP grandmaster, és minden LAN-on lévő DAQ-E és LATTICE kamera a 0. tartományban szolgaállapotban van hozzá, így az időbélyegek eltérése nagyjából 1 ms-on belül marad.
-* **Hálózat**— az a cím, amelyen az egység fut, és hogy hogyan szerezte meg (DHCP, link-local vagy statikus), valamint egy mentett beállítás, amely újraindítás után is érvényben marad. A**Módosítás…**gomb megnyit egy űrlapot:**Automatikus (DHCP)**vagy**Statikus IP**, IP-címmel, alhálózati maszkkal és opcionális átjáróval. Az**Alkalmazás és újraindítás** gomb elmenti a beállításokat, újraindítja az érzékelőt és újra csatlakoztatja azt. A számítógép hálózatán kívüli statikus címet a rendszer elutasítja, mivel a Chloros
-
-az újraindítás után nem tudná elérni az érzékelőt; ekkor megjelenik egy jelölőnégyzet, amely lehetővé teszi a cím használatát olyan számítógépek esetében, amelyek átcímkézésre kerülnek, vagy átirányításra kerülnek az adott hálózatra. A **Stream at power-on**beállítás határozza meg, hogy az érzékelő a bekapcsolás után azonnal megkezdi-e az adatfolyam-átvitelt, még mielőtt bármely szoftver csatlakozna hozzá. Az**Érzékelő újraindítása** gomb újraindítja az érzékelőt, és az aktuális beállításokkal újra csatlakoztatja. Az érzékelő rögzítése közben az újraindítás nem lehetséges. Újdonság a 1.3.0-s verzióban.
+** gomb jelenik meg, ha ez a Chloros-verzió egy újabb DAQ-E firmware-képet tartalmaz. A frissítés körülbelül 30 másodperc alatt történik a hálózaton keresztül; az érzékelő automatikusan újraindul és újra csatlakozik, és egy megszakadt átvitel esetén az aktuális firmware sértetlen marad. A folyamat élőben követhető (`Flashing… N%` → `Restarting sensor…` → `Updated X → Y`), és a mezőben az `Up to date` érték jelenik meg, ha az aktuális.
+* **PTP-szinkronizálás** — az élő PTP-állapot (visszatér az `unknown` értékre). A DAQ-E 1.2.0-ás vagy újabb firmware-verziója kizárólag szolgaóraként vesz részt az IEEE 1588 PTPv2-ben; a Chloros-gazdagép háttérrendszere a PTP grandmaster, és minden LAN-on lévő DAQ-E és LATTICE kamera a 0. tartományban szolgaállapotban van hozzá, így az időbélyegek eltérése nagyjából 1 ms-on belül marad.
+* **Hálózat**— az a cím, amelyen az egység fut, és hogy hogyan szerezte meg (DHCP, link-local vagy statikus), valamint egy mentett beállítás, amely újraindítás után is érvényben marad. A**Módosítás…**gomb megnyit egy űrlapot:**Automatikus (DHCP)**vagy**Statikus IP**, IP-címmel, alhálózati maszkkal és opcionális átjáróval. Az**Alkalmazás és újraindítás** gomb elmenti a beállításokat, újraindítja az érzékelőt és újra csatlakoztatja azt. A számítógép hálózatán kívüli statikus címet a rendszer elutasítja, mivel a Chloros az újraindítás után nem tudná elérni az érzékelőt; ekkor megjelenik egy jelölőnégyzet, amely lehetővé teszi a cím használatát olyan számítógépek esetében, amelyek átcímkézésre kerülnek, vagy átirányításra kerülnek az adott hálózatra. A **Stream at power-on**beállítás határozza meg, hogy az érzékelő a bekapcsolás után azonnal megkezdi-e az adatfolyam-átvitelt, még mielőtt bármely szoftver csatlakozna hozzá. Az**Érzékelő újraindítása** gomb újraindítja az érzékelőt, és az aktuális beállításokkal újra csatlakoztatja. Az érzékelő rögzítése közben az újraindítás nem lehetséges. Újdonság a 1.3.0-s verzióban.
 
 Egy „Környezet+Objektum” csoport esetében a fogaskerék-modál csak a csoport forrásérzékelőit, az eszköz nevét és a grafikon vonalának színét jeleníti meg.
 
@@ -100,9 +92,7 @@ Egy „Környezet+Objektum” csoport esetében a fogaskerék-modál csak a csop
 
 ### Fedél kiválasztása
 
-A **Fedél** legördülő menü megadja a Chloros
-
--nak, hogy melyik fizikai fedél van felszerelve az érzékelő diffúzorára, és minden spektrumra alkalmazza az adott fedél gyárilag mért korrekciós profilját. A választási lehetőségek a modelltől függenek:
+A **Fedél** legördülő menü megadja a Chloros-nak, hogy melyik fizikai fedél van felszerelve az érzékelő diffúzorára, és minden spektrumra alkalmazza az adott fedél gyárilag mért korrekciós profilját. A választási lehetőségek a modelltől függenek:
 
 | Modell | Fedélválasztási lehetőségek |
 | --- | --- |
@@ -110,9 +100,7 @@ A **Fedél** legördülő menü megadja a Chloros
 | DAQ-M | Nincs (csupasz érzékelő), Sunshine (koszinuszkorrektor) |
 | DAQ-E | Nincs (csupasz érzékelő), FOV 15°, FOV 45°, FOV 90°, Sunshine (koszinuszkorrektor) |
 
-**Minden modell alapértelmezett beállítása a „Napfény” (koszinuszkorrektor)** — a MAPIR
-
-minden DAQ-t a „Napfény” fedéllel felszerelve szállít, és ez a szabványos kültéri konfiguráció: 180°-os félgömb alakú látómező, ahol a koszinusz-hiba 60°-ig ≤ ±4 %, 70°-ig pedig ≤ ±4,5 % (kb. 15°-os napmagasság alatt nem ajánlott), tervezés szerinti csillapítással (~12×). A választás a projektben megmarad.
+**Minden modell alapértelmezett beállítása a „Napfény” (koszinuszkorrektor)** — a MAPIR minden DAQ-t a „Napfény” fedéllel felszerelve szállít, és ez a szabványos kültéri konfiguráció: 180°-os félgömb alakú látómező, ahol a koszinusz-hiba 60°-ig ≤ ±4 %, 70°-ig pedig ≤ ±4,5 % (kb. 15°-os napmagasság alatt nem ajánlott), tervezés szerinti csillapítással (~12×). A választás a projektben megmarad.
 
 {% hint style="warning" %}
 **A fedél kiválasztásának meg kell egyeznie a fizikailag felszerelt fedéllel.**Sem az érzékelő, sem a szoftver nem képes felismerni, hogy melyik fedél van felszerelve. A kiválasztás hatással van mind az élő korrekcióra, mind az minden `.daq` fájlba beírt jelölésre — a Sunshine fedél ~12-szeres csillapításával egy be nem jelentett fedélcsere nagyjából ezzel a tényezővel tévesen korrigálja a spektrumokat. (Ugyanazon fedél eltávolítása és újbóli felszerelése körülbelül 1,5 %-os eltérést eredményez.) A**None (csupasz érzékelő)** lehetőséget csak akkor válassza, ha a fedél fizikailag eltávolítva van; egy DAQ-E esetében a „None” beállítás még mindig a gyári geometriai profilt alkalmazza a süllyesztett üvegdiffúzorra – ez nem egy „no-op” művelet –, és a fedél nélküli DAQ-E egy laboratóriumi konfiguráció, nem pedig támogatott terepi konfiguráció.
@@ -150,13 +138,7 @@ A **telítettség** nem jelenik meg magán a diagramon: egy telített érzékel�
 A diagram alatt, lista nézetben, 500 ms-enként frissül:
 
 * **Minden modell**: Fény színminta (sRGB a CIE XYZ-ből), Telített (Igen/Nem), CIE 1931 X/Y/Z, Színkoordináták x/y, CIE u′/v′, CCT (K), CRI (Ra), domináns hullámhossz (nm), csúcshullámhossz (nm), gerjesztési tisztaság, Duv, CIE L\*/a\*/b\* és Munsell H/V/C.
-* **Kizárólag kalibrált érzékelők**(bármelyik DAQ-U / DAQ-M / DAQ-E, miután betöltötték a gyári kalibrációs csomagot — ezt a zöld**Kalibrált** jelölés jelzi az érzékelő sorában): Teljes teljesítmény (W/m²), fotopikus lux (lx), skotopikus lux (lx), S/P arány, PPFD, valamint PPFD Red
-
-/Green
-
-/Blue
-
-(µmol/m²/s), továbbá az opikus besugárzási erősségek — S-kúp, melanopikus, rodopikus, M-kúp, L-kúp (mind W/m²).
+* **Kizárólag kalibrált érzékelők**(bármelyik DAQ-U / DAQ-M / DAQ-E, miután betöltötték a gyári kalibrációs csomagot — ezt a zöld**Kalibrált** jelölés jelzi az érzékelő sorában): Teljes teljesítmény (W/m²), fotopikus lux (lx), skotopikus lux (lx), S/P arány, PPFD, valamint PPFD Red /Green /Blue (µmol/m²/s), továbbá az opikus besugárzási erősségek — S-kúp, melanopikus, rodopikus, M-kúp, L-kúp (mind W/m²).
 
 <!-- SCREENSHOT-NEEDED: list view live data table for a DAQ-E showing both the colorimetric rows and the power-calibrated rows (Total Power, Photopic/Scotopic Lux, PPFD, opic irradiances) -->
 
@@ -169,9 +151,7 @@ Két összekapcsolt érzékelő kombinálható egy élő reflexiókijelzővé �
 1. Rácsnézetben kattintson a **+**gombra egy diagramlapkán, majd válassza a**Környezeti + Objektum kombinálása** lehetőséget.
 2. Válasszon ki egy **Környezeti fényforrás**érzékelőt és egy**Objektum-szkennert**(két különböző érzékelőt), majd kattintson a**Létrehozás** gombra. A
 
-Chloros
-
-a két élő adatfolyamból hullámhosszonként kiszámítja az R(λ) = objektum(λ) / környezeti(λ) értéket (0, ha a környezeti ≤ 0). A csoport címkéje az érzékelők kalibrációs osztályától függ:
+Chloros a két élő adatfolyamból hullámhosszonként kiszámítja az R(λ) = objektum(λ) / környezeti(λ) értéket (0, ha a környezeti ≤ 0). A csoport címkéje az érzékelők kalibrációs osztályától függ:
 
 * Mindkét érzékelő kalibrálva (csomag betöltve) → **„Látszólagos reflexió”**.
 * Bármelyik érzékelő nem kalibrálva → **„Relatív visszaverődés”**.
@@ -186,34 +166,10 @@ A **+**menüben elérhető az**Új érzékelő hozzáadása** opció is, három 
 
 ### Növényzetindex-táblázat
 
-Lista nézetben a növényzetindex-táblázat a reflektancia-csoport diagramja alatt helyezkedik el, amelyet a sávközpontok élő reflektanciájából számítanak ki: **kék 450 / zöld 550 / vörös 670 / NIR
+Lista nézetben a növényzetindex-táblázat a reflektancia-csoport diagramja alatt helyezkedik el, amelyet a sávközpontok élő reflektanciájából számítanak ki: **kék 450 / zöld 550 / vörös 670 / NIR 800 nm** sávközpontok élő reflektanciájából számított (értékek 4 tizedesjegyig, `---`, ha nem számítható; az index nevére mutatva megjelenik a teljes neve):
 
-800 nm** sávközpontok élő reflektanciájából számított (értékek 4 tizedesjegyig, `---`, ha nem számítható; az index nevére mutatva megjelenik a teljes neve):
-
-* **Mindig megjelenik** (skála-invariáns, bármilyen érzékelő-kombináció esetén): NDVI
-
-, GNDVI
-
-, ENDVI, WDRVI
-
-, GRVI
-
-, CVI
-
-, GCI
-
-, MSR.
-* **Csak akkor, ha mindkét érzékelő teljesítménykalibrálva van** (mindkét csomag betöltve): EVI
-
-, SAVI
-
-, OSAVI
-
-, GSAVI, GOSAVI, MSAVI2, RDVI, TDVI, LAI
-
-, NLI, MNLI, FCI, GEMI
-
-.
+* **Mindig megjelenik** (skála-invariáns, bármilyen érzékelő-kombináció esetén): NDVI, GNDVI, ENDVI, WDRVI, GRVI, CVI, GCI, MSR.
+* **Csak akkor, ha mindkét érzékelő teljesítménykalibrálva van** (mindkét csomag betöltve): EVI, SAVI, OSAVI, GSAVI, GOSAVI, MSAVI2, RDVI, TDVI, LAI, NLI, MNLI, FCI, GEMI.
 
 <!-- SCREENSHOT-NEEDED: an Ambient+Object reflectance group in list view — reflectance chart labeled "Apparent Reflectance" with the vegetation index table below it showing live NDVI etc. -->
 
@@ -237,13 +193,9 @@ A kvantitatív besugárzási értékekhez legalább 15 másodpercnyi adatot kell
 ## Többérzékelős elrendezések és a projekt állapotának megőrzése
 
 * Több érzékelőt egyesíthet egy grafikonon (közös tengelyek), külön grafikonokat tarthat fenn (automatikus rácsos elrendezés), érzékelőket mozgathat a grafikonok között, sorokat/lapokat húzással rendezhet át, valamint a szem ikonra kattintva elrejtheti az egyes érzékelőket.
-* Chloros
-
-projektként tárolja: az eszközneveket, a grafikon színeit, a diagram méretét, a nézet módot, valamint az egyes érzékelők beállításait (integrációs idő, képkockák átlagolása, AE állapot, sapka kiválasztása).
+* Chloros projektként tárolja: az eszközneveket, a grafikon színeit, a diagram méretét, a nézet módot, valamint az egyes érzékelők beállításait (integrációs idő, képkockák átlagolása, AE állapot, sapka kiválasztása).
 * **A projekt újbóli megnyitásakor az érzékelők automatikusan újra csatlakoznak** a címük alapján — COM-port a DAQ-U esetében, BLE-eszköz a DAQ-M esetében, mDNS-gazdagépnév a DAQ-E esetében (még akkor is feloldódik, ha a készülék IP-címe megváltozott) —, és újraalkalmazza az egyes érzékelők mentett sapkaprofilját, képkockák átlagolását, AE-állapotát és a kézi integrációs időt.***
 
 ## Kamera párosítása (DLS)
 
-Nincs mit párosítani. Ellentétben a drónos DLS-munkafolyamatokkal, amelyek előre összekapcsolják a fényérzékelőt a kamerával, a Chloros
-
-a DAQ-adatokat utólag illeszti a képekhez: az importálás/feldolgozás során az `.daq` mérési eredményeit interpolálják az egyes felvételek expozíciós időbélyegéhez. Bármely csatlakoztatott érzékelővel rögzíthet (az `.daq` automatikusan bekerül a projektbe), és a reflexiófeldolgozás idő szerint megtalálja a megfelelő mérési értékeket — a lefelé irányuló adatok felhasználásáról lásd a [DAQ fényérzékelők](README.md) részt. **Élő**LATTICE-felvételek esetén válassza ki az érzékelőt a Kamerák fül**Fényérzékelő** legördülő menüjéből; ekkor minden felvétel elmenti a felhasznált mérési értéket, amely kizárólag az adott felvétel kameráihoz van rendelve (lásd [Reflektancia-munkafolyamatok](reflectance.md)).</version\>
+Nincs mit párosítani. Ellentétben a drónos DLS-munkafolyamatokkal, amelyek előre összekapcsolják a fényérzékelőt a kamerával, a Chloros a DAQ-adatokat utólag illeszti a képekhez: az importálás/feldolgozás során az `.daq` mérési eredményeit interpolálják az egyes felvételek expozíciós időbélyegéhez. Bármely csatlakoztatott érzékelővel rögzíthet (az `.daq` automatikusan bekerül a projektbe), és a reflexiófeldolgozás idő szerint megtalálja a megfelelő mérési értékeket — a lefelé irányuló adatok felhasználásáról lásd a [DAQ fényérzékelők](README.md) részt. **Élő**LATTICE-felvételek esetén válassza ki az érzékelőt a Kamerák fül**Fényérzékelő** legördülő menüjéből; ekkor minden felvétel elmenti a felhasznált mérési értéket, amely kizárólag az adott felvétel kameráihoz van rendelve (lásd [Reflektancia-munkafolyamatok](reflectance.md)).</version\>

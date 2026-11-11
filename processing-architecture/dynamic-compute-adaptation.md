@@ -1,17 +1,14 @@
 # Dinamikus számítási alkalmazkodás A
 
-Chloros
-1.3.0 hardverfelismerést és automatikus feldolgozási stratégia-kiválasztást alkalmaz. A feldolgozó motor manuális beállítás nélkül alkalmazkodik a hardveredhez — a Jetson Orin Nanótól a több GPU-val rendelkező munkaállomásig.
+Chloros 1.3.0 hardverfelismerést és automatikus feldolgozási stratégia-kiválasztást alkalmaz. A feldolgozó motor manuális beállítás nélkül alkalmazkodik a hardveredhez — a Jetson Orin Nanótól a több GPU-val rendelkező munkaállomásig.
 
 ***
 
 ## Hogyan működik?
 
-A Chloros
-indításakor profilozza a rendszert:
+A Chloros indításakor profilozza a rendszert:
 
-1. **Felismeri az operációs rendszert** — Windows
-vagy Linux
+1. **Felismeri az operációs rendszert** — Windows vagy Linux
 2. **Azonosítja a CPU-magokat és a teljes RAM-kapacitást**
 
 3.**Felismeri a GPU jelenlétét** — NVIDIA CUDA-kompatibilitás, VRAM, modell
@@ -24,19 +21,16 @@ Az észlelt profil a munkamenet idejére a memóriában és a lemezen is gyorsí
 
 | Platform | Gyorsítótárba helyezett profil |
 | --- | --- |
-| **Linux
-/ Jetson** | `~/.config/chloros/system_config.json` (figyelembe veszi az `XDG_CONFIG_HOME`-et) |
+| **Linux / Jetson** | `~/.config/chloros/system_config.json` (figyelembe veszi az `XDG_CONFIG_HOME`-et) |
 | **Windows** | `%LOCALAPPDATA%\Chloros\config\system_config.json` |
 
-A fájl törlésével kényszerítheti az újbóli felismerést — ez hasznos lehet GPU vagy további RAM hozzáadása után. A Chloros
-automatikusan újrafelismeri a profilt akkor is, ha a gyorsítótárat egy összeférhetetlen régebbi verzió írta.
+A fájl törlésével kényszerítheti az újbóli felismerést — ez hasznos lehet GPU vagy további RAM hozzáadása után. A Chloros automatikusan újrafelismeri a profilt akkor is, ha a gyorsítótárat egy összeférhetetlen régebbi verzió írta.
 
 ***
 
 ## Számítási stratégiák
 
-A Chloros
-a hardver alapján három számítási stratégia közül választ egyet:
+A Chloros a hardver alapján három számítási stratégia közül választ egyet:
 
 | Stratégia | Mikor választódik | Munkások | Végrehajtó | Folyamat |
 | --- | --- | --- | --- | --- |
@@ -50,11 +44,7 @@ Példák az `GPU_PARALLEL` munkavállalói képletre: 12 GB VRAM → 2 munkavál
 **A GPU-stratégiákhoz olyan PyTorch szükséges, amely képes a CUDA használatára.** Az a gép, amelynek PyTorch-ja nem rendelkezik használható CUDA-eszközzel, az `CPU_PARALLEL` besorolást kapja, függetlenül a GPU-jától. Az 1.3.0-s Jetson-csomag a JetPack 6 CUDA-alapú PyTorch-verzióját használja, így egy Jetson akkor felel meg a követelményeknek, ha a JetPack CUDA- és cuDNN-könyvtárai telepítve vannak. A 12 GB-nál kevesebb RAM-mal rendelkező Jetson mindig egyszerre csak egy képet dolgoz fel, folyamat közben (`GPU_SINGLE` kóddal naplózva).
 {% endhint %}
 
-A GPU-stratégiák egy munkavégző folyamatokból álló csoportot futtatnak, amelyek mindegyike külön operációs rendszer-folyamat, saját CUDA-kontextussal; ezeket a Chloros
-úgy indítja el, hogy újra elindítja a saját, telepített háttérprogramját (nem a Python
-`multiprocessing` parancsán keresztül, amelynek munkavégző folyamatainak elindítása a csomagolt alkalmazáson belül nem működik). A CPU-stratégia szálkészletet használ (a Python
-`ThreadPoolExecutor` parancsát). A Chloros
-nem használ semmilyen harmadik féltől származó elosztott keretrendszert (például a Ray-t).
+A GPU-stratégiák egy munkavégző folyamatokból álló csoportot futtatnak, amelyek mindegyike külön operációs rendszer-folyamat, saját CUDA-kontextussal; ezeket a Chloros úgy indítja el, hogy újra elindítja a saját, telepített háttérprogramját (nem a Python `multiprocessing` parancsán keresztül, amelynek munkavégző folyamatainak elindítása a csomagolt alkalmazáson belül nem működik). A CPU-stratégia szálkészletet használ (a Python `ThreadPoolExecutor` parancsát). A Chloros nem használ semmilyen harmadik féltől származó elosztott keretrendszert (például a Ray-t).
 
 ### Feldolgozási útvonalak
 
@@ -75,8 +65,7 @@ A futásidejű tartaléklánc mindig a következő: `fused_gpu` → `tiled_gpu` 
 CHLOROS_STRATEGY=CPU_PARALLEL chloros-cli process ~/datasets/flight001
 ```
 
-A változó nagy- és kisbetűk közötti különbséget nem tesz; mindent, ami nem a három név egyikéhez tartozik, figyelmen kívül hagy, és az automatikus felismerés normál módon folytatódik. Felülírás esetén a Chloros
-továbbra is kiválasztja az Ön számára a munkavállalók számát:
+A változó nagy- és kisbetűk közötti különbséget nem tesz; mindent, ami nem a három név egyikéhez tartozik, figyelmen kívül hagy, és az automatikus felismerés normál módon folytatódik. Felülírás esetén a Chloros továbbra is kiválasztja az Ön számára a munkavállalók számát:
 
 | Felülírás | Használt munkavállalók száma |
 | --- | --- |
@@ -124,8 +113,7 @@ A diszkrét GPU-k csak 0,5 GB-ot tartanak fenn a rendszer számára, mivel nem o
 
 ## Dinamikus GPU-memória-allokáció
 
-A Chloros
-egy [4 szálas feldolgozási folyamatot](processing-pipeline.md) használ:
+A Chloros egy [4 szálas feldolgozási folyamatot](processing-pipeline.md) használ:
 
 * **
 
@@ -160,26 +148,23 @@ A futásidőben ténylegesen használt érték a platformprofil allokációja é
 
 ## Textúra-tudatos feldolgozás
 
-A Texture Aware debayer (**csak Chloros
-+** — `--debayer texture-aware`) egy olyan AI/ML zajszűrő modellt futtat, amely másolatonként körülbelül 1,75 GB VRAM-ot igényel FP16-ban, így sokkal több GPU-memóriát használ, mint a Standard módszer:
+A Texture Aware debayer (**csak Chloros+** — `--debayer texture-aware`) egy olyan AI/ML zajszűrő modellt futtat, amely másolatonként körülbelül 1,75 GB VRAM-ot igényel FP16-ban, így sokkal több GPU-memóriát használ, mint a Standard módszer:
 
 * A **7 GB alatti VRAM-mal**rendelkező rendszerek a textúraérzékeny feldolgozást**szinkron ciklusban, egyszerre egy kép** feldolgozásával végzik — több modellmásolat nem fér el, és a munkavállalói pool csak további versengést okozna
 * A **7 GB-nál több VRAM-mal** rendelkező rendszerek párhuzamosan tudják feldolgozni a Texture Aware-t, bár a Standard módszerhez képest csökkentett munkavállalói számmal
 * A **Jetson** esetében a Texture Aware mindig egyetlen munkavégzőhöz van rendelve
 * **Használható CUDA GPU** hiányában a futtatás a Standard debayert használja, és a háttérrendszer egy `[DEBAYER] … needs a CUDA GPU …` sorral jelzi az okot
-* Az alacsony fogyasztású Jetson-készülékeken (Nano, Orin Nano) a CLI
-GPU-frekvenciakorlátozást alkalmaz, ha a Texture Aware-t kéri — lásd az [NVIDIA Jetson útmutatót](../linux/nvidia-jetson-guide.md#gpu-frequency-cap-for-texture-aware-on-nano-and-orin-nano)
+* Az alacsony fogyasztású Jetson-készülékeken (Nano, Orin Nano) a CLI GPU-frekvenciakorlátozást alkalmaz, ha a Texture Aware-t kéri — lásd az [NVIDIA Jetson útmutatót](../linux/nvidia-jetson-guide.md#gpu-frequency-cap-for-texture-aware-on-nano-and-orin-nano)
 
 ***
 
 ## Hőkezelés (Jetson)
 
-A Jetson-eszközök hőmérsékleti korlátozásoknak vannak kitéve, különösen zárt térben vagy repülőgépeken történő telepítés esetén. Az Chloros
-figyeli a Jetson beépített hőmérséklet-érzékelőit, és automatikusan méretezi a kötegméreteket:
+A Jetson-eszközök hőmérsékleti korlátozásoknak vannak kitéve, különösen zárt térben vagy repülőgépeken történő telepítés esetén. Az Chloros figyeli a Jetson beépített hőmérséklet-érzékelőit, és automatikusan méretezi a kötegméreteket:
 
 | Hőmérséklet | Reakció |
 | --- | --- |
-| **&lt; 70 °C** | Normál működés — teljes sebesség |
+| **< 70 °C** | Normál működés — teljes sebesség |
 | **70 °C** (Figyelmeztetés) | A kötegméret fokozatosan csökken (100% → 50% 70 °C és 80 °C között) |
 | **80 °C** (Kritikus) | Erőteljes teljesítménycsökkentés (50% → 0% 80 °C és 90 °C között) |
 | **90 °C** (Leállítás) | A GPU-feldolgozás teljes leállítása |
@@ -190,11 +175,9 @@ A megfelelő hűtéssel rendelkező asztali rendszereken a hőterhelés miatti t
 
 ## Memóriaigény kezelése
 
-A Chloros
-a feldolgozás során folyamatosan figyeli a GPU memóriáját, és három szinten reagál.
+A Chloros a feldolgozás során folyamatosan figyeli a GPU memóriáját, és három szinten reagál.
 
-**Kötegméret meghatározása.** Egy köteg a fenti táblázatokban szereplő platform-szorzóval megszorozott 8 képből indul. A Chloros
-ezután ellenőrzi a szabad VRAM-ot, annak 20%-át a PyTorch saját overheadjére tartalékolja, és 12 MP-os képenként körülbelül 100 MB GPU-memóriával számol — a köteg mérete a memóriából származó határérték és a platform alapértéke közül a kisebbik. Soha nem csökken 1 alá.
+**Kötegméret meghatározása.** Egy köteg a fenti táblázatokban szereplő platform-szorzóval megszorozott 8 képből indul. A Chloros ezután ellenőrzi a szabad VRAM-ot, annak 20%-át a PyTorch saját overheadjére tartalékolja, és 12 MP-os képenként körülbelül 100 MB GPU-memóriával számol — a köteg mérete a memóriából származó határérték és a platform alapértéke közül a kisebbik. Soha nem csökken 1 alá.
 
 **Megelőző csökkentés.** **85%-os VRAM-kihasználtság** felett a kötegméreteket csökkentik, mielőtt bármilyen hiba lépne fel.**Szálankénti allokáció-csökkentés.** Ahogy az aktuális kihasználtság emelkedik, az egyes szálak GPU-keretét visszafogják: 80%-os kihasználtság felett ×0,75-re, 90%-os felett ×0,5-re. A monitor sávjai: 70% (konzervatív), 85% (normál működési határ) és 95% (OOM-kockázat).**OOM-visszavonulás és helyreállítás.** Ha mégis memóriahiány lép fel:
 
@@ -202,8 +185,7 @@ ezután ellenőrzi a szabad VRAM-ot, annak 20%-át a PyTorch saját overheadjér
 * az aktív szálak allokációi a jelenlegi értékük 70%-ára csökkennek, és az allokátor átvált konzervatív stratégiájára, amely sikeres allokációk sorozata után ismét enyhül
 * súlyos terhelés esetén a feldolgozási folyamat az `fused_gpu`-ről az `tiled_gpu`-re vált, végső esetben pedig az `cpu_fallback`-re
 
-**Gazdagép RAM (Jetson).** A feldolgozás előtt a CLI
-a képek számából és a debayer módból becsüli a gazdagép memóriájának csúcsigényét, és figyelmeztet, ha a RAM és a fájlalapú swap valószínűleg nem lesz elegendő, kinyomtatva a swap hozzáadásához szükséges pontos parancsokat — lásd az [NVIDIA Jetson útmutatót](../linux/nvidia-jetson-guide.md#swap-warning-and-recommendations).
+**Gazdagép RAM (Jetson).** A feldolgozás előtt a CLI a képek számából és a debayer módból becsüli a gazdagép memóriájának csúcsigényét, és figyelmeztet, ha a RAM és a fájlalapú swap valószínűleg nem lesz elegendő, kinyomtatva a swap hozzáadásához szükséges pontos parancsokat — lásd az [NVIDIA Jetson útmutatót](../linux/nvidia-jetson-guide.md#swap-warning-and-recommendations).
 
 ***
 
@@ -227,22 +209,17 @@ A 7. ellenőrzés kinyomtatja az `CUDA: <bool>, Denoiser: <bool>` értéket — 
 
 ### Háttérrendszer-naplók
 
-A stratégiát és a munkavállalók számát a háttérrendszer választja ki minden futtatás elején — ezeket nem jelzi semmilyen CLI
--banner. Ha valami váratlanul viselkedik (egy GPU-útvonal visszaesése, memóriahiány, vagy egy nem betöltődő zajszűrő), akkor az adott munkamenet háttérnaplójában jelenik meg:
+A stratégiát és a munkavállalók számát a háttérrendszer választja ki minden futtatás elején — ezeket nem jelzi semmilyen CLI-banner. Ha valami váratlanul viselkedik (egy GPU-útvonal visszaesése, memóriahiány, vagy egy nem betöltődő zajszűrő), akkor az adott munkamenet háttérnaplójában jelenik meg:
 
 | Platform | Napló helye |
 | --- | --- |
-| **Linux
-/ Jetson** | `~/.cache/chloros/logs/backend_<YYYYMMDD_HHMMSS>.log` (indításonként egy fájl) |
-| **Linux
-, CLI
--ből indított háttérrendszer** | szintén `~/.chloros/backend.log` |
+| **Linux / Jetson** | `~/.cache/chloros/logs/backend_<YYYYMMDD_HHMMSS>.log` (indításonként egy fájl) |
+| **Linux, CLI-ből indított háttérrendszer** | szintén `~/.chloros/backend.log` |
 | **Windows** | `%LOCALAPPDATA%\Chloros\logs\` |
 
 ### Élő haladás
 
-A futás során a CLI
-szálankénti élő haladást jelenít meg (Észlelés, Elemzés, Feldolgozás, Exportálás), amelyet Server-Sent Events-en keresztül továbbít — ez ad gyakorlati képet arról, hogy a 3. szál jelent-e szűk keresztmetszetet. Lásd [Feldolgozási folyamat](processing-pipeline.md).
+A futás során a CLI szálankénti élő haladást jelenít meg (Észlelés, Elemzés, Feldolgozás, Exportálás), amelyet Server-Sent Events-en keresztül továbbít — ez ad gyakorlati képet arról, hogy a 3. szál jelent-e szűk keresztmetszetet. Lásd [Feldolgozási folyamat](processing-pipeline.md).
 
 ***
 
@@ -250,8 +227,5 @@ szálankénti élő haladást jelenít meg (Észlelés, Elemzés, Feldolgozás, 
 
 * [Feldolgozási folyamat](processing-pipeline.md) — A 4-szálas folyamatarchitektúra megértése
 * [NVIDIA Jetson útmutató](../linux/nvidia-jetson-guide.md) — Jetson-specifikus telepítés és optimalizálás
-* [CLI
-: Parancssor](../CLI.md) — A CLI
-útmutató
-* [CLI
--referencia](../reference/cli-reference.md) — A 1.3.0-s verzió parancsainak teljes listája
+* [CLI: Parancssor](../CLI.md) — A CLI útmutató
+* [CLI-referencia](../reference/cli-reference.md) — A 1.3.0-s verzió parancsainak teljes listája

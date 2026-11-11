@@ -165,7 +165,7 @@ $$
 
 A grafikus felhasználói felületen (GUI) és a parancssori felületen (CLI)/SDK előre beállított listájában ez a szimbólumképlet: `(z/y)*(x/y)`, ahol x=Red, y=Green, z=NIR (egy RGN kamera sávjai); a LATTICE indexmotor előre beállított értéke `nir * red / green**2`. Minden felület ugyanazt az indexet számítja ki.
 
-_Hivatkozás: Vincini, M., E. Frazzi és P. D&#x27;Alessio. „A Broad-Band Leaf Chlorophyll Vegetation Index at the Canopy Scale.” Precision Agriculture 9 (2008): 303–319._
+_Hivatkozás: Vincini, M., E. Frazzi és P. D'Alessio. „A Broad-Band Leaf Chlorophyll Vegetation Index at the Canopy Scale.” Precision Agriculture 9 (2008): 303–319._
 
 ***
 
@@ -207,7 +207,7 @@ $$
 
 Az erdős területek alacsonyabb FCI1-értékeket mutatnak a fák alacsonyabb visszaverődése és a lombkorona árnyékai miatt.
 
-_Hivatkozás: Becker, Sarah J., Craig S.T. Daughtry és Andrew L. Russ. „Robusztus erdőborítás-indexek multispektrális képekhez.” Photogrammetric Engineering &amp; Remote Sensing 84.8 (2018): 505–512._
+_Hivatkozás: Becker, Sarah J., Craig S.T. Daughtry és Andrew L. Russ. „Robusztus erdőborítás-indexek multispektrális képekhez.” Photogrammetric Engineering & Remote Sensing 84.8 (2018): 505–512._
 
 ***
 
@@ -223,7 +223,7 @@ $$
 
 Az erdős területek alacsonyabb FCI2-értékeket mutatnak a fák alacsonyabb visszaverődése és a lombkorona árnyékainak jelenléte miatt.
 
-_Hivatkozás: Becker, Sarah J., Craig S.T. Daughtry és Andrew L. Russ. „Robusztus erdőborítási indexek multispektrális képekhez.” Photogrammetric Engineering &amp; Remote Sensing 84.8 (2018): 505–512._
+_Hivatkozás: Becker, Sarah J., Craig S.T. Daughtry és Andrew L. Russ. „Robusztus erdőborítási indexek multispektrális képekhez.” Photogrammetric Engineering & Remote Sensing 84.8 (2018): 505–512._
 
 ***
 
@@ -489,7 +489,7 @@ $$
 TDVI = 1.5 * {(NIR- Red) \over \sqrt{NIR^{2} + Red + 0.5}  }
 $$
 
-_Hivatkozás: Bannari, A., H. Asalhi és P. Teillet. „Transformed Difference Vegetation Index (TDVI) for Vegetation Cover Mapping” In Proceedings of the Geoscience and Remote Sensing Symposium, IGARSS &#x27;02, IEEE International, 5. kötet (2002)._
+_Hivatkozás: Bannari, A., H. Asalhi és P. Teillet. „Transformed Difference Vegetation Index (TDVI) for Vegetation Cover Mapping” In Proceedings of the Geoscience and Remote Sensing Symposium, IGARSS '02, IEEE International, 5. kötet (2002)._
 
 ***
 

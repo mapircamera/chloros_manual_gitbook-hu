@@ -1,8 +1,12 @@
-# Linux telepítése
+# Linux-telepítés
 
-Az Chloros az Linux számára `.deb` csomagként kerül forgalomba, amely az CLI-et és a háttérszervert telepíti. Az Python SDK egy különálló pip-csomag (amely az `.deb`-ben is megtalálható, verziójával egyező wheel formájában).
+A Chloros a Linux rendszerre `.deb` csomagok formájában kerül forgalomba, amelyek telepítik a CLI-t, a háttérszervert és a Python SDK-t (az `python3` rendszerhez, valamint egy verzióhoz illeszkedő wheel fájlt a virtualenvs-hez).
 
-A csomagfájlok neve tartalmazza a verziót és az architektúrát: `chloros_1.2.0_amd64.deb` az x86_64-hez, és `chloros_1.2.0_arm64_jp6.deb` a JetPack 6 Jetson-összeállításokhoz. Az alábbi parancsokban helyettesítse be a ténylegesen letöltött fájl nevét.
+A csomagfájlok neve tartalmazza a verziót és az architektúrát: `chloros_1.3.0_amd64.deb` az x86_64-hez, az `chloros_1.3.0_arm64_jp6.deb` pedig az arm64-hez (NVIDIA Jetson, JetPack 6). Az alábbi parancsokban helyettesítse be a ténylegesen letöltött fájl nevét.
+
+{% hint style="info" %}
+**Újdonság az 1.3.0-ban: a programok kicsomagolt állapotban kerülnek szállításra.** A háttérprogram és a CLI mappaként kerülnek telepítésre, `/usr/lib/chloros/backend/` és `/usr/lib/chloros/cli/` néven, nem pedig önkicsomagoló fájlként. Már nem csomagolják ki magukat ideiglenes mappába minden indításkor, így sokkal gyorsabban indulnak el (x86_64-en a háttérprogram korábban minden indításkor körülbelül 100 másodpercet töltött a kicsomagolással) és már nincs szükség több GB szabad helyre az `/tmp` mappában. Az amd64 `.deb` mérete is körülbelül a felére csökkent.
+{% endhint %}
 
 ***
 
@@ -17,33 +21,32 @@ A csomagfájlok neve tartalmazza a verziót és az architektúrát: `chloros_1.2
 | **Memória (RAM)** | 8 GB | 16 GB vagy több |
 | **Grafikus kártya** | Nincs (CPU-feldolgozás) | NVIDIA GPU 4 GB vagy több VRAM-mal (12 GB vagy több feloldja az `GPU_PARALLEL` funkciót, 7 GB vagy több kikapcsolja a Texture Aware funkciót az egyképes útvonalon) |
 | **Tárhely** | 2 GB szabad hely | SSD 10 GB vagy több szabad hellyel |
-| **Python** | Python 3.7 vagy újabb (az SDK-hez) | Python 3.10+ |
+| **Python** | Python 3.7 vagy újabb (az SDK-hez) | Python 3.10 vagy újabb |
 
 > **Az Ubuntu 20.04 és a Debian 11 nem támogatott.** Az `.deb` függőségi listája
-> abból származik, hogy az Chloros háttérprogram valójában mire hivatkozik, és ez magában foglalja
-> az `libc6 (>= 2.34)`-et is. A Focal és a bullseye egyaránt a glibc 2.31-et tartalmazza, ezért az `apt` egyenesen elutasítja a
+> abból származik, amire a Chloros háttérprogram ténylegesen hivatkozik, és ez magában foglal egy
+> a focal és a bullseye kiadásokban szereplő glibc 2.31-nél újabb `libc6`-et is, ezért az `apt` egyenesen elutasítja a
 > telepítést, ahelyett, hogy később, futásidőben hagyja meghiúsulni azt.
 
 ### Telepítés
 
 ```bash
-sudo dpkg -i chloros_1.2.0_amd64.deb
-sudo apt-get install -f    # pulls the declared dependencies (libibverbs1, libcap2-bin)
+sudo apt install ./chloros_1.3.0_amd64.deb
 ```
 
 {% hint style="info" %}
-Az `dpkg -i` nem oldja meg a függőségeket. Ha hiányzó csomagokat jelzi, az `sudo apt-get install -f` (vagy az `sudo apt --fix-broken install`) befejezi a telepítést — ez a normális folyamat, nem hiba.
+**Használja az `apt install ./…`-et, ne az `dpkg -i`-et.** Az `apt` megoldja a csomag függőségeit, és telepíti az általa ajánlott elemeket is: a Python SDK követelményeit, az `python3-numpy`-et és az `python3-requests`-et. Az `dpkg -i` egyikét sem telepíti. A parancssori felület (CLI) és a háttérprogram önállóak, és ezek nélkül is futnak, de az `import chloros_sdk`-nek szüksége van rájuk; a telepítés kimenete felsorolja az esetleg hiányzó elemeket. Tartsa meg az `./`-et, hogy az `apt` telepítse a fájlt, ahelyett, hogy egy ilyen nevű csomagot keresne. A csomag az `libgl1`-et is deklarálja, amelyet a csomagban lévő OpenCV betölt, és amely egy minimális szerverképből hiányozhat.
 {% endhint %}
 
 Ellenőrizze a telepítést:
 
-
-
-<!-- SCREENSHOT-NEEDED: Terminal on Ubuntu 22.04 immediately after `sudo dpkg -i chloros_1.2.0_amd64.deb`, showing the full postinst output: the "Chloros installed successfully!" banner, the Usage lines, the "Python SDK:" block naming the bundled wheel path under /usr/lib/chloros/sdk/, any "GPU Acceleration:" detection line, and the closing "Systemd Service (optional): sudo systemctl enable --now chloros-backend.service" hint -->
-
 ```bash
-chloros-cli --version    # prints "Chloros CLI 1.2.0"
-```***
+chloros-cli --version    # prints "Chloros CLI 1.3.0"
+```
+
+<!-- SCREENSHOT-NEEDED: Terminal on Ubuntu 22.04 immediately after `sudo apt install ./chloros_1.3.0_amd64.deb`, showing the full postinst output: the "Chloros installed successfully!" banner, the Usage lines, the "Python SDK:" block ("chloros_sdk 1.3.0 for python3" and the "In a virtualenv: pip install /usr/lib/chloros/sdk/chloros_sdk-*.whl" line), any "GPU Acceleration:" detection line, and the closing "Systemd Service (optional): sudo systemctl enable --now chloros-backend@<user>.service" hint -->
+
+***
 
 ## Linux arm64 (NVIDIA Jetson)
 
@@ -53,55 +56,48 @@ chloros-cli --version    # prints "Chloros CLI 1.2.0"
 | --- | --- | --- |
 | **Platform** | NVIDIA Jetson JetPack 6-tal | Jetson Orin NX 16 GB vagy AGX Orin |
 | **JetPack** | JetPack 6.x | Legújabb JetPack 6 |
-| **Memória (RAM)** | 8 GB (megosztott GPU/CPU) | 16 GB+ megosztott (12 GB+ a párhuzamos GPU-munkások küszöbértéke) |
-| **Tárhely** | 2 GB szabad hely | NVMe SSD 10 GB+ szabad hellyel |
-| **Python** | Python 3.7+ (az SDK esetében) | Python 3.10+ |
+| **Memória (RAM)** | 8 GB (megosztott GPU/CPU) | 16 GB+ megosztott (12 GB+ a párhuzamos feldolgozás küszöbértéke) |
+| **Tárolókapacitás** | 2 GB szabad hely | NVMe SSD 10 GB+ szabad hellyel |
+| **Python** | Python 3.7+ (az SDK-hez) | Python 3.10+ |
 
 ### Telepítés
 
 ```bash
-sudo dpkg -i chloros_1.2.0_arm64_jp6.deb
-sudo apt-get install -f
+sudo apt install ./chloros_1.3.0_arm64_jp6.deb
 chloros-cli --version
 ```
 
-Ugyanaz az elrendezés, mint az amd64 `.deb` esetében, a Jetson Orin / Orin NX / Orin Nano rendszerekhez hangolt CUDA-verzióval. A Jetson memóriájával, hőkezelésével és terepi telepítéssel kapcsolatos viselkedésről lásd az [NVIDIA Jetson útmutatót](nvidia-jetson-guide.md).
+Ugyanaz az elrendezés, mint az amd64 `.deb` esetében (Python SDK, vételi pufferek és háttérszolgáltatások is benne vannak), a **JetPack 6** (L4T R36) rendszeren futó Jetson Orin / Orin NX / Orin Nano készülékekhez. A PyTorch a JetPack 6 Orinra készült CUDA-verziója, így a GPU-feldolgozás – beleértve a Texture Aware debayert is – a Jetson GPU-ján fut. A csomag maga nem tartalmazza a CUDA-t: a JetPack 6 által telepített CUDA- és cuDNN-könyvtárakat használja (`sudo apt install nvidia-jetpack` olyan képen, amelyeken ezek hiányoznak). Ha nincs használható CUDA-GPU, a feldolgozás a CPU-n fut, és az `--debayer texture-aware` a Standard debayert használja (a háttérprogram egy `[DEBAYER] … needs a CUDA GPU …` sorban naplózza, hogy miért). A Jetson memóriájával, hőkezelésével és terepi telepítésével kapcsolatos viselkedésről lásd az [NVIDIA Jetson útmutatót](nvidia-jetson-guide.md).***
 
-***
+## Python SDK telepítése (minden Linux-verzió)**Az `.deb` automatikusan telepíti az SDK-t.** Mindkét csomag (amd64 és Jetson) a rendszerre telepíti az `python3`-et, így az `import chloros_sdk` a telepítés után azonnal működik, pip és hálózat nélkül. A csomagjai (`chloros_sdk`, `lattice_sdk`, `lattice_cam`, `arena_api` és a projektbetöltők) az `/usr/lib/python3/dist-packages`-be kerülnek, amely a csomag tulajdonában van: egy frissítés felülírja őket, a csomag eltávolítása pedig eltávolítja őket. A verzió mindig megegyezik a telepített CLI-vel és háttérprogrammal.
 
-## Python SDK telepítése (minden Linux)
+Az SDK saját követelményei, az `python3-numpy` és az `python3-requests`, **ajánlottak, nem kötelezőek** a csomag által: az `sudo apt install ./chloros_<version>_<arch>.deb` telepíti őket, az `dpkg -i` viszont nem. A telepítési kimenet jelenti az `python3` által importált SDK-verziót, az esetleges hiányzó követelményeket, valamint az `chloros_sdk` elérési útjának más pontján található, a csomag példányát felülíró elemeket (például egy korábban az `pip install --user`-szel telepítettet).**Egy virtualenv-ben**, amely nem látja a rendszer csomagjait, telepítse bele a csomagban lévő wheel fájlt (teljesen offline módban):
 
-Az SDK egy tisztán Python alapú kliens a háttérrendszerhez, így ugyanaz a csomag működik amd64 és arm64 architektúrákon egyaránt. Két forrás:**A PyPI-ről** — a közzétett stabil kiadás:
+```bash
+pip install /usr/lib/chloros/sdk/chloros_sdk-*.whl
+```
+
+**A PyPI-ről** — kizárólag olyan gépre, amelyre nincs telepítve a Chloros csomag, és amelynek SDK-je egy másik gépen futó háttérprogramot vezérel (lásd [Távoli háttérprogram mód](../reference/sdk-reference.md#remote-backend-mode-pip-only-host-via-tunnel)):
 
 ```bash
 pip install chloros-sdk
 ```
 
-**A csomagban található wheel-ből** — garantáltan illeszkedik az imént telepített CLI/backendhez (használd ezt, ha az `.deb`-ed újabb, mint a PyPI-n található):
-
-```bash
-pip install --user /usr/lib/chloros/sdk/chloros_sdk-*.whl
-```
-
-{% hint style="warning" %}
-**A PEP 668-nak megfelelő disztribúciók** (Ubuntu 23.10+, Debian 12+) nem engedélyezik a rendszer szintű pip telepítéseket. Használja az `pip install --user …`-et, egy virtuális környezetet vagy az `sudo pip install --break-system-packages …`-et. A csomagtelepítő soha nem telepíti automatikusan az SDK-et a rendszer Python-ébe — ezt a döntést Önre bízza.
-{% endhint %}
-
-Opcionális kiegészítők:
+Opcionális kiegészítők pip telepítéshez (virtuális környezetben vagy a PyPI-ről):
 
 | Kiegészítő | Parancs | Hozzáad |
 | --- | --- | --- |
-| `progress` | `pip install chloros-sdk[progress]` | `sseclient-py` az élő előrehaladás-közvetítéshez |
-| `camera` | `pip install chloros-sdk[camera]` | `bleak` BLE (DAQ-M) átvitelhez |
+| `progress` | `pip install chloros-sdk[progress]` | `sseclient-py` az élő haladás-streameléshez |
+| `camera` | `pip install chloros-sdk[camera]` | `bleak` BLE (DAQ-M) adatátvitelhez |
 
-Ellenőrizze az SDK fájlt:
+Ellenőrizze az SDK-t:
 
 ```bash
-python -c "import chloros_sdk; print(chloros_sdk.__version__)"
+python3 -c "import chloros_sdk; print(chloros_sdk.__version__)"
 ```
 
 {% hint style="info" %}
-Az `.deb` telepíti az Chloros CLI-et és a háttérprogramot. Az Python SDK egy helyi HTTP API (`http://127.0.0.1:5000`) hálózaton keresztül kommunikál azzal a háttérszolgáltatással, és szükség esetén automatikusan elindítja azt. Mindig a szó szerinti IPv4-címet használja az `localhost` helyett — az `localhost` feloldódhat az `::1`-re, és kérésenként körülbelül két másodpercbe kerül.
+A Python SDK kommunikál a háttérrel, amelyet az `.deb` telepít egy helyi HTTP API-n (`http://127.0.0.1:5000`) keresztül. Az `ChlorosLocal` és a csatlakozási segédprogramok szükség esetén automatikusan elindítják azt; egy mentett projekt `connect_all()`-je soha nem indítja el, ezért egy headless gépen futtassa a háttérprogramot [szolgáltatásként](#always-on-ptp-for-headless-hosts). Mindig a konkrét IPv4-címet használja az `localhost` helyett — az `localhost` az `::1`-re oldódhat fel, és kérésenként körülbelül két másodpercbe kerül.
 {% endhint %}
 
 ***
@@ -110,7 +106,7 @@ Az `.deb` telepíti az Chloros CLI-et és a háttérprogramot. Az Python SDK egy
 
 ### 1. Bejelentkezés
 
-Az CLI és az SDK eléréséhez fizetős Chloros+ szint (**Copper** vagy magasabb), amelyet szerveroldalon érvényesítenek: a kijelentkezett felhasználó az `401 AUTH_REQUIRED` kódot kapja, az ingyenes (Iron) csomaggal rendelkező felhasználó pedig az `403 PLAN_UPGRADE_REQUIRED` kódot.
+A CLI-hez és az SDK-hez való hozzáféréshez fizetős Chloros+ szint (**Copper** vagy magasabb) szükséges, amelyet szerveroldalon érvényesítenek: a kijelentkezett hívó az `401 AUTH_REQUIRED` címet kapja, míg az ingyenes szintű (Iron) hívó az `403 PLAN_UPGRADE_REQUIRED` címet kapja.
 
 ```bash
 chloros-cli login your@email.com 'your-password'
@@ -118,17 +114,17 @@ chloros-cli login your@email.com 'your-password'
 
 A hitelesítő adatok az `~/.chloros/user_session.json` fájlban kerülnek tárolásra.
 
-{% hint style="warning" %}
-**Minden telepítés vagy frissítés után újra be kell jelentkeznie.** A csomag `prerm` szkriptje szándékosan törli az `~/.chloros/user_session.json` fájlt és a gyorsítótárban tárolt licencet a gépen lévő minden felhasználó esetében, így egy új verzió mindig újraérvényesíti a licencet, ahelyett, hogy egy elavult gyorsítótárra támaszkodna.
+{% hint style="info" %}
+**A frissítések megőrzik a bejelentkezési adatait; az eltávolítás törli azokat.** Ha egy újabb `.deb` verziót telepít egy meglévő telepítésre (beleértve az `chloros-cli update`-en keresztül történő telepítést is), az `~/.chloros/user_session.json` és a gyorsítótárban tárolt licenc megmarad, így a headless CLI/SDK feladatok továbbra is működnek. A csomag (`sudo apt remove chloros`) eltávolítása törli a gépen minden felhasználó számára a mentett bejelentkezési adatokat és a licenc-gyorsítótárat, ezért egy új telepítéshez ismét szükség van az `chloros-cli login`-re.
 {% endhint %}
 
-### 2. Ellenőrizze a licenc állapotát
+### 2. Ellenőrizze a licencállapotát
 
 ```bash
 chloros-cli status
 ```
 
-Az `chloros-cli status` minden szinten (beleértve az ingyeneset is) működik, így mindig láthatja, miért érhető el vagy nem érhető el a hozzáférés.
+Az `chloros-cli status` bármely szinten (beleértve az ingyeneset is) működik, így mindig láthatja, miért érhető el vagy nem érhető el a hozzáférés.
 
 ### 3. Futtassa a rendszerdiagnosztikát
 
@@ -140,12 +136,12 @@ Hét ellenőrzés fut sorban, és a parancs nem nulla kóddal lép ki, ha bárme
 
 | # | Ellenőrzés | Mit igazol |
 | --- | --- | --- |
-| 1 | **Verzió** | Az CLI jelenti a verzióját (`v1.2.0`). |
-| 2 | **Port elérhető** | Az 5000-es port szabad, *vagy* már válaszolt rá egy működőképes Chloros háttérprogram (ez sikernek számít). |
-| 3 | **Háttérprogram indítása** | A háttérprogram elindul. |
-| 4 | **API teszt (`/api/test`)** | A háttérprogram válaszol az `status: ok`-re. |
+| 1 | **Verzió** | A CLI jelenti a verzióját (`v1.3.0`). |
+| 2 | **Port elérhető** | Az 5000-es port szabad, *vagy* már válaszolt rá egy működőképes Chloros-háttérprogram (ez sikernek számít). |
+| 3 | **Háttérprogram indítása** | A háttérprogram bináris fájlja elindul. |
+| 4 | **API-teszt (`/api/test`)** | A háttérprogram `status: ok`-et válaszol. |
 | 5 | **Rendszerinformáció** | Kinyomtatja az `GPU: <name>, CUDA: <bool>, PyTorch: <version>` értéket az `/api/system-info`-ből. |
-| 6 | **Zajszűrő modellek** | Megtalálja az `*.pth.enc` modelleket (az Linux-en: `/usr/lib/chloros/models`). |
+| 6 | **Zajszűrő modellek** | Megtalálja az `*.pth.enc` modelleket (Linux rendszeren: `/usr/lib/chloros/models`). |
 | 7 | **CUDA + zajszűrő**| A Texture Aware valóban használható — CUDA-ra**és** legalább egy modellfájlra van szükség. |
 
 A futtatás az `N/7 checks passed`-szel zárul, felsorolva az esetleges hibákat név szerint.
@@ -160,67 +156,74 @@ chloros-cli process ~/datasets/flight001
 
 ## Fájlok és könyvtárak
 
-### Felhasználónként
+### A felhasználónkénti
 
-Az Chloros hitelesítő adatait és az CLI konfigurációját egyetlen, platformfüggetlen könyvtárban tárolja, az **`~/.chloros/`** (az Windows rendszeren: `%USERPROFILE%\.chloros\`) könyvtárban tárolja hitelesítő adatait és az CLI konfigurációját. Két Linux-specifikus gyorsítótár viszont az XDG-konvenciókat követi – ezek az `XDG_CONFIG_HOME` / `XDG_CACHE_HOME` beállításokat veszik figyelembe, ha azok meg vannak adva.
+Chloros a hitelesítő adatait és a CLI-konfigurációját egyetlen, platformfüggetlen könyvtárban, az **`~/.chloros/`**-ben (Windows rendszeren: `%USERPROFILE%\.chloros\`). Két Linux-specifikus gyorsítótár viszont az XDG-konvenciókat követi — ezek az `XDG_CONFIG_HOME` / `XDG_CACHE_HOME` neveket használják, ha be vannak állítva.
 
 | Útvonal | Cél |
 | --- | --- |
-| `~/.chloros/user_session.json` | Az `chloros-cli login` által írt bejelentkezési munkamenet-gyorsítótár (minden csomag telepítésekor/frissítésekor törlődik) |
+| `~/.chloros/user_session.json` | Az `chloros-cli login` által írt bejelentkezési munkamenet-gyorsítótár (a csomagfrissítések során megmarad; a csomag eltávolításakor törlődik) |
 | `~/.chloros/working_directory.txt` | Alapértelmezett projektmappa felülírása (`chloros-cli set-project-folder` / `get-project-folder` / `reset-project-folder`) |
-| `~/.chloros/cli_language.json` | CLI nyelvi beállítás (`chloros-cli language <code>`) |
-| `~/.chloros/user.json` | Az Windows grafikus felhasználói felülettel megosztott nyelvi beállítás — az itt megadott `language` érték elsőbbséget élvez az `cli_language.json` értékkel szemben |
-| `~/.chloros/update_cache.json` | Egy órás gyorsítótár az Linux/Jetson indításkori frissítés-ellenőrzéshez |
-| `~/.chloros/backend.log` | Háttérnapló, amikor a háttérprogramot az CLI indította el |
+| `~/.chloros/cli_language.json` | A CLI-nyelvi beállítás (`chloros-cli language <code>`) |
+| `~/.chloros/user.json` | A nyelvi beállítás megosztása a Windows-felülettel — az itt megadott `language` beállítás elsőbbséget élvez az `cli_language.json` beállítással szemben |
+| `~/.chloros/update_cache.json` | Egyórás gyorsítótár a Linux/Jetson indításkori frissítés-ellenőrzéshez |
+| `~/.chloros/backend.log` | Háttérnapló, amikor a háttérprogramot a CLI indította el |
 | `~/.chloros/camera_cal/<serial>/<bundle_sha>/` | Kameránkénti LATTICE kalibrációs csomagok gyorsítótárban, sorozatszám és csomag-hash alapján indexelve |
-| `~/.chloros/daq_cap_profiles/<u\|m\|e>/<cap_id>.json` | Opcionális felhasználói felülírások a DAQ kap-korrekciós profilokhoz |
-| `~/.config/chloros/system_config.json` | A Dynamic Compute Adaptation rendszerből származó, gyorsítótárba mentett hardverprofil — törölje, hogy új hardverfelismerést kényszerítsen |
+| `~/.chloros/daq_cap_profiles/<u\|m\|e>/<cap_id>.json` | Opcionális felhasználói felülírások a DAQ cap-korrekciós profilokhoz |
+| `~/.config/chloros/system_config.json` | A Dynamic Compute Adaptation által tárolt hardverprofil – törölje, ha új hardverfelismerést szeretne kényszeríteni |
 | `~/.cache/chloros/logs/backend_<YYYYMMDD_HHMMSS>.log` | Háttérszerver-naplók, indításonként egy fájl |
-| `~/Chloros Projects/` | Alapértelmezett projektmappa, ha nincs felülírás beállítva |
+| `~/Documents/MAPIR/Chloros Projects/` | Alapértelmezett projektmappa, ha nincs felülírás beállítva |
 
 ### Rendszer-szintű
 
-| Útvonal | Cél |
+| Elérési út | Cél |
 | --- | --- |
-| `/usr/bin/chloros-cli` | Wrapper szkript — beállítja az `LD_LIBRARY_PATH` értéket a csomagban lévő natív könyvtárakhoz, majd futtatja a valódi bináris fájlt |
-| `/usr/bin/chloros-backend` | Wrapper szkript — ugyanaz, plusz az `CHLOROS_PRODUCTION=1` beállítás, így a háttérrendszer hitelesítési kapuja soha nem tudja magát észrevétlenül letiltani |
-| `/usr/lib/chloros/chloros-cli`, `/usr/lib/chloros/chloros-backend` | A lefordított bináris fájlok |
-| `/usr/lib/chloros/arena_runtime/` | A LATTICE kamerák által igényelt Arena SDK futási környezet |
+| `/usr/bin/chloros-cli` | Wrapper szkript — beállítja az `LD_LIBRARY_PATH` értéket a csomagban lévő natív könyvtárakhoz (és az `TMPDIR` értéket `/mnt/ssd/tmp`-re, ha az a mappa létezik), majd futtatja a valódi bináris fájlt |
+| `/usr/bin/chloros-backend` | Wrapper szkript — ugyanez vonatkozik a háttérprogramra is, amelyet telepített termelési verzióként jelöl meg |
+| `/usr/lib/chloros/cli/`, `/usr/lib/chloros/backend/` | A lefordított CLI és háttérprogram, kicsomagolt állapotban telepítve (újdonság az 1.3.0-ban); a programok nevei: `cli/chloros-cli` és `backend/chloros-backend` |
+| `/usr/lib/chloros/chloros-cli`, `/usr/lib/chloros/chloros-backend` | Két soros indító szkriptek, amelyek elindítják a fenti valódi programokat — ezeken az elérési útvonalakon vannak tárolva, mert az SDK, a CLI és a régebbi szkriptek itt keresik őket |
+| `/usr/lib/chloros/arena_runtime/` | A LATTICE kamerákhoz szükséges Arena SDK-futásidejű környezet |
 | `/usr/lib/chloros/models/*.pth.enc` | A Texture Aware debayer által használt titkosított zajszűrő modellek |
-| `/usr/lib/chloros/sdk/chloros_sdk-*.whl` | Python SDK – ehhez a konkrét összeállításhoz illeszkedő csomag |
-| `/usr/lib/chloros/exiftool` | Csomagban szereplő exiftool (csak akkor szimbolikus linkkel kapcsolódik az `/usr/local/bin/exiftool`-hez, ha nincs rendszerbeli exiftool) |
-| `/etc/chloros/update.conf` | Az `chloros-cli update` által beolvasott frissítési csatorna konfiguráció |
-| `/etc/sysctl.d/60-chloros-ptp.conf` | Beállítja az `net.ipv4.ip_unprivileged_port_start = 319` fájlt, hogy a háttérprogram root jogosultság nélkül tudja lekötni a PTP-portokat |
+| `/usr/lib/python3/dist-packages/chloros_sdk/` (és `lattice_sdk`, `lattice_cam`, `arena_api`, a projektbetöltők) | A Python SDK, amely az `python3` rendszerhez van telepítve, és a csomaghoz tartozik |
+| `/usr/lib/chloros/sdk/chloros_sdk-*.whl` | A virtuális környezethez tartozó, pontosan ehhez a verzióhoz illeszkedő Python SDK wheel |
+| `/usr/lib/chloros/exiftool` | A csomagban található ExifTool indító (csak akkor van szimbolikus linkkel összekötve az `/usr/local/bin/exiftool`-hez, ha nincs rendszerbeli exiftool). Az 1.3.0-s verziótól kezdve az ExifTool szkript saját Perl-könyvtárral érkezik az `/usr/lib/chloros/exiftool-dist/`-ben, így a rendszer `libimage-exiftool-perl` csomagja nélkül is fut |
+| `/etc/chloros/update.conf` | Az `chloros-cli update` által olvasott frissítési csatorna konfiguráció |
+| `/etc/sysctl.d/60-chloros-ptp.conf` | Beállítja az `net.ipv4.ip_unprivileged_port_start = 319`-et, hogy a háttérprogram root jogosultság nélkül tudjon kapcsolódni a PTP-portokhoz |
+| `/etc/sysctl.d/60-chloros-gige.conf` | A LATTICE kamerák adatfolyamaihoz 32 MB-ra növeli a kernel socket-fogadó puffereit (`net.core.rmem_max`, `net.core.rmem_default`) 32 MB-ra a LATTICE kamerák adatfolyamaihoz, és ezeket a telepítéskor alkalmazza (a már magasabbra beállított értéket nem módosítja). A kernel alapértelmezett beállításainál a kamera-csomagok elvésznek a kernelben, és a rendszer képkockákat és képkockasebességet veszít; az `chloros-cli lattice network` jelzi, ha a pufferek szintje alacsony. Lásd [Linux-gépek — socket-fogadó pufferek](../reference/cli-reference.md#linux-hosts--socket-receive-buffers) |
 | `/etc/ld.so.conf.d/Arena_SDK.conf` | A dinamikus betöltőt az `/usr/lib/chloros/arena_runtime`-re irányítja |
 | `/lib/udev/rules.d/70-chloros-daq.rules` | Hozzáférést biztosít a bejelentkezett felhasználónak a DAQ-U USB soros hídhoz (CP2102N, `10c4:ea60`) |
-| `/lib/systemd/system/chloros-backend.service` | Az állandóan futó háttérszolgáltatás bekapcsolása (telepítve, **nem engedélyezve**) |
+| `/lib/systemd/system/chloros-backend@.service` | Beállítható, állandóan futó háttérszolgáltatás, amely a háttérprogramot az Ön által megadott felhasználóként futtatja (telepítve, **nem engedélyezve**) — ezt kell engedélyezni, lásd [Always-On PTP](#always-on-ptp-for-headless-hosts) |
+| `/lib/systemd/system/chloros-backend.service` | Ugyanaz a szolgáltatás, amely a háttérszolgáltatást **root**ként futtatja (telepítve,**nem engedélyezve**), azért tartják meg, hogy az a gép, amelyen engedélyezték, továbbra is működjön |
+| `/var/log/chloros/` | A root szolgáltatás részletes naplója, amelyet az `adm` csoport olvashat (a csomag eltávolításakor törlődik) |
 | `/usr/share/applications/chloros-cli.desktop` | „Chloros CLI” alkalmazásmenü-bejegyzés, amely megnyit egy terminált |
 
-## A háttérprogram végrehajtható fájljának helye
+**Tűzfal (új a 1.3.0-ban).** Ha a telepítéskor az `ufw` vagy az `firewalld` aktív, a csomag megnyitja az `5002` (DAQ-E adatok), az `5353` (mDNS-felfedezés), az `319` és az `320` (PTP) portokat, és a csomag eltávolításakor eltávolítja ezeket a szabályokat. Ha tűzfal van telepítve, de nem aktív, a csomag nem ad hozzá semmit, és kinyomtatja az engedélyezendő portokat arra az esetre, ha később engedélyezné a tűzfalat. Nem nyit meg TCP-portot: a DAQ-E firmware-frissítés, amelynek során az érzékelő TCP-n keresztül csatlakozik vissza ehhez a számítógéphez a kép begyűjtése érdekében, `… device never connected back on TCP <port> …` hibával végződik, ha egy aktív tűzfal blokkolja azt a kapcsolatot.
 
-Az CLI és az SDK automatikusan felismeri a háttérprogramot:
+## A háttérprogram helye
+
+A CLI és az SDK automatikusan felismeri a háttérprogramot:
 
 | Komponens | Útvonal |
 | --- | --- |
 | CLI | `/usr/bin/chloros-cli` |
-| Háttérprogram | `/usr/lib/chloros/chloros-backend` |
+| Háttér | `/usr/lib/chloros/chloros-backend` (az `/usr/lib/chloros/backend/chloros-backend` indítója) |
 
-A háttér elérési útját felülírhatja az `--backend-exe` CLI jelzővel vagy az `backend_exe` SDK konstruktorparaméterrel, a portot pedig az `--port` értékkel (alapértelmezés: `5000`).
+A háttérprogram elérési útját az `--backend-exe` CLI-flaggel vagy az `backend_exe` SDK-konstruktorparaméterrel, a portot pedig az `--port` parancssor-opcióval (alapértelmezés: `5000`).
 
 {% hint style="info" %}
-`CHLOROS_BACKEND_URL` a **`lattice`**,**`project`**, és**`daq pool-*`** parancscsaládokra egy távoli háttérrendszerben. Az alapvető parancsok (`process`, `login`, `logout`, `status`, `export-status`, `time-sync`, `selftest`) szándékosan figyelmen kívül hagyják azt, és mindig az `http://127.0.0.1:<port>`-et célozzák meg.
+Az `CHLOROS_BACKEND_URL` a **`lattice`**,**`project`**és**`daq pool-*`** parancscsaládokra egy távoli háttérrendszerben. Az alapvető parancsok (`process`, `login`, `logout`, `status`, `export-status`, `time-sync`, `selftest`) szándékosan figyelmen kívül hagyják ezt, és mindig az `http://127.0.0.1:<port>`-et célozzák meg.
 {% endhint %}
 
 ***
 
-## LATTICE kamerák és DAQ fényérzékelők az Linux-en
+## LATTICE kamerák és DAQ fényérzékelők Linux rendszeren
 
-A live-hardware parancscsaládok mindegyike működik az Linux-en (amd64 és Jetson):
+A live-hardware parancscsaládok mindegyike működik Linux rendszeren (amd64 és Jetson):
 
-* **`chloros-cli lattice`** — LATTICE kamerák és szinkronizált tömbök felismerése, csatlakoztatása, konfigurálása és felvétele. Az `.deb` tartalmazza a szükséges Arena SDK futásidejű környezetet, és regisztrálja azt a dinamikus betöltőben.
-* **`chloros-cli daq pool-*`** — DAQ-U/M/E fényérzékelők csatlakoztatása a háttérpoolon keresztül, kalibrált spektrumok streamelése és `.daq` fájlok rögzítése. A lefordított CLI kizárólag az `pool-*` családot tartalmazza: `pool-connect`, `pool-disconnect`, `pool-list`, `pool-latest`, `pool-stream`, `pool-record`, `pool-set-cap`.
+* **`chloros-cli lattice`** — LATTICE kamerák és szinkronizált tömbök felismerése, csatlakoztatása, konfigurálása és felvétele. Az `.deb` csomagja tartalmazza a szükséges Arena SDK futásidejű környezetet, és regisztrálja azt a dinamikus betöltőnél.
+* **`chloros-cli daq pool-*`** — DAQ-U/M/E fényérzékelők csatlakoztatása a háttérpoolon keresztül, kalibrált spektrumok streamelése, `.daq` fájlok rögzítése és cap-profilok cseréje, valamint DAQ-E esetén a hálózati beállítások módosítása, újraindítása és a firmware frissítése. Az `chloros-cli daq discover` megkeresi a csatlakoztatható érzékelőket, az `chloros-cli daq --help` pedig felsorolja az `pool-*` alparancsokat.
 * **`chloros-cli project`** — egy mentett projekt (kamerái, érzékelői és feldolgozási beállításai) vezérlése headless módban.
-* **`chloros-cli time-sync`** — a PTP-grandmaster ellenőrzése, amelyen az Chloros háttérprogram fut a LATTICE kamerák és a DAQ-E érzékelők számára.
+* **`chloros-cli time-sync`** — ellenőrzi a PTP grandmastert, amelyet a Chloros háttérprogram futtat a LATTICE kamerák és a DAQ-E érzékelők számára.
 
 ```bash
 # DAQ-E at a known address — the reliable path on multi-homed hosts
@@ -234,10 +237,10 @@ chloros-cli daq pool-list
 chloros-cli daq pool-latest --sensor-id daq-e-a1b2c3 --json
 ```
 
-Az `--sensor-id` szükséges az `pool-latest`, az `pool-stream`, `pool-record` és az `pool-set-cap` számára szükséges; az `pool-list` a poolban jelenleg található azonosítókat jeleníti meg.
+Az `--sensor-id` parancs az `pool-latest`, az `pool-stream`, az `pool-record` és az `pool-set-cap` számára; az `pool-list` a poolban jelenleg található azonosítókat jeleníti meg.
 
 {% hint style="info" %}
-**Több hálózati kapcsolattal rendelkező gépen az első DAQ-E-kapcsolat létrehozásához az `--eth-host` azonosítót részesítse előnyben.** Az automatikus felismerés az mDNS-t vizsgálja át, és előfordulhat, hogy a hideg ARP-gyorsítótár miatt nem találja meg az érzékelő interfészét, ezért a rendszerindítás utáni első `pool-connect --eth` meghívás sikertelen lehet, még akkor is, ha az érzékelő tökéletesen működik. Az érzékelő IP-címének vagy gazdagépnevének megadása esetén a felismerés teljesen kihagyásra kerül.
+**Az `--eth-host` kihagyja a felderítést.** Az `pool-connect --eth` mDNS segítségével talál egy DAQ-E-t, olyan ARP-visszaeséssel, amely egy üres ARP-gyorsítótárból is működik; az érzékelő IP-címének vagy gazdagépnevének az `--eth-host`-szel történő átadásával közvetlenül csatlakozik hozzá.
 {% endhint %}
 
 **A DAQ-U soros engedélyeket** a telepített udev-szabály kezeli (`uaccess` + csoport `dialout`). Ha egy már csatlakoztatott érzékelő továbbra sem érhető el, töltse be újra a szabályokat, vagy csatlakoztassa újra:
@@ -247,27 +250,36 @@ sudo udevadm control --reload-rules
 sudo udevadm trigger --subsystem-match=tty
 ```
 
-A teljes parancssorozatot lásd az [CLI referencia](../CLI.md) alatt.
+A teljes parancssorozatot lásd a [CLI-referenciában](../CLI.md).
 
-### Állandóan aktív PTP fej nélküli gazdagépekhez
+### Folyamatosan aktív PTP fej nélküli gazdagépekhez
 
-Az első telepítéskor a rendszer létrehozza az `chloros-backend.service` systemd egységet, de **nem aktiválja**. Egy kijelző nélküli Jetsonon vagy szerveren, ahol a PTP időszinkronizálásnak folyamatosan futnia kell a DAQ-E érzékelők és a LATTICE kamerák számára, aktiválja azt:
+A csomag két systemd szolgáltatást telepít a háttérrendszerhez, amelyek egyike sem engedélyezett. Olyan kijelző nélküli Jetson-on vagy szerveren, ahol a DAQ-E érzékelők és a LATTICE kamerák számára folyamatosan futnia kell a PTP időszinkronizálásnak, vagy ahol az SDK-parancsfájlok csatlakoznak a mentett projektekhez (az `connect_all()` soha nem indítja el a háttérrendszert), engedélyezze a szolgáltatást **a saját felhasználói fiókjával**:
 
 ```bash
-sudo systemctl enable --now chloros-backend.service
-sudo systemctl status chloros-backend.service
+sudo systemctl enable --now chloros-backend@$USER.service    # $USER expands to your user name
+systemctl status chloros-backend@$USER.service
 ```
 
-Enélkül a PTP csak akkor fut, amíg az Chloros háttérprogram fut — vagyis egy aktív CLI/SDK munkamenet alatt.
+Az `chloros-backend@<user>.service` az adott felhasználóként futtatja a háttérrendszert: az általa írt rögzítések az ő tulajdonát képezik, a részletes naplója az ő `~/.cache/chloros/logs` fájljában található, és az ő `chloros-cli login` (`~/.chloros`) fájlt használja, ezért először jelentkezzen be egyszer azzal a felhasználóval. A csomag telepítésekor a rendszer kinyomtatja ezt a parancsot, a felhasználónevével kitöltve.
 
-A készülék a háttérprogramot az `127.0.0.1:5000` -hez (az egység belsejében található `CHLOROS_HOST` / `CHLOROS_PORT` környezeti beállítások; felülírható az `sudo systemctl edit chloros-backend.service` beállítással), és hiba esetén 5 másodperc elteltével újraindítja.
+Szolgáltatás nélkül a háttérprogram (és vele együtt a PTP grandmaster) csak akkor fut, ha valami elindítja – egy `chloros-cli` parancs vagy egy SDK-parancsfájl.
 
-**Hogyan szerzi meg a PTP a portjait?** A PTP az UDP 319/320 portokat használja, amelyek mindkettő a szokásos 1024-es kiváltságos portok alsó határánál alacsonyabbak. A csomag `postinst` parancsa az `/etc/sysctl.d/60-chloros-ptp.conf` fájlt az `net.ipv4.ip_unprivileged_port_start = 319` értékkel írja fel, ami lehetővé teszi a háttérprogram számára, hogy a felhasználó nevében futva ezekhez a portokhoz kapcsolódjon. Biztonsági intézkedésként az `setcap cap_net_bind_service,cap_net_raw=+ep`-et is alkalmazza a háttérprogram bináris fájljára — ezért szerepel az `libcap2-bin` a csomag deklarált függőségei között.***
+Az egység a háttérprogramot az `127.0.0.1:5000` (az egység belsejében található `CHLOROS_HOST` / `CHLOROS_PORT` környezeti beállítások; felülírható az `sudo systemctl edit chloros-backend@.service` paranccsal), és hiba esetén 5 másodperc múlva újraindítja.
+
+**A root szolgáltatás.**Az `chloros-backend.service` a háttérprogramot**root**ként futtatja. Továbbra is telepítve van, így az a gép, amelyen engedélyezték, továbbra is működik, de minden, amit a root háttérprogram ír, a root tulajdonát képezi, így a felhasználó nem tudja törölni a saját rögzítéseit; a naplója az `/var/log/chloros` fájlban található, amelyet az `adm` csoport olvashat. A saját felhasználói fiókra való átváltáshoz:
+
+```bash
+sudo systemctl disable --now chloros-backend.service
+sudo systemctl enable --now chloros-backend@$USER.service
+```
+
+**A szolgáltatás háttérprogramja megosztott, az ügyfél soha nem állíthatja le.** Az `chloros-cli` és az SDK szkriptek úgy használják, ahogyan megtalálják: az `process` ezen fut, és a legutóbbi helyett a saját projektjét tölti be. Ahol a CLI-nek egyébként újra kellene indítania a háttérrendszert (`--restart`, vagy egy `process`, amelynek importja nem talált semmit), megnevezi az egységet, kinyomtatja az `sudo systemctl restart <unit>` parancsot, majd kilép az `1`-ből, mert egy ilyen módon leállított háttérprogram leállt állapotban maradna. Indítsa újra saját maga az `sudo systemctl restart chloros-backend@$USER.service` parancs segítségével. Egy szolgáltatás háttérfolyamata soha nem áll le magától tétlenség esetén, és az `chloros-cli backend stop` elutasítja ezt, megnevezve az `systemctl stop` parancsot.**Hogyan szerzi meg a PTP a portjait?** A PTP az UDP 319/320 portokat használja, amelyek mindkettő a szokásos 1024-es kiváltságos portok alsó határánál alacsonyabbak. A csomag `postinst` parancsa az `/etc/sysctl.d/60-chloros-ptp.conf` fájlt írja az `net.ipv4.ip_unprivileged_port_start = 319` parancs segítségével, ami lehetővé teszi a háttérprogram számára, hogy az Ön felhasználójaként futva hozzájuk kössön. Az 1.3.0-s verziótól kezdve a csomag nem állít be fájlkapacitásokat (`setcap`) a háttérprogramon, és az `libcap2-bin` már nem függőség: a kicsomagolt háttérprogramon egy fájlkapacitás megakadályozná az indítását, ezért ne adjon hozzá ilyet saját maga.***
 
 ## Bash szkriptelési példák
 
 {% hint style="info" %}
-**Szkriptelésre alkalmas kilépési kódok.**Az `chloros-cli process` siker esetén az `0` értéket adja vissza,**hibás futás esetén pedig nullától eltérő értéket – ideértve azokat a futtatásokat is, amelyek képtermékeket kértek, de egyet sem írtak ki** (kiírja az `Processing finished but wrote no image products.` kódot, megnevezi a projektmappát és a szokásos okokat). A sikeres futtatások jelentik, hogy hány képtermék került írásra (`Image products written: N`). Kilépési kódok: `0` siker, `1` hiba, `2` argumentumhiba, `130` megszakítás.
+**Szkriptelésre alkalmas kilépési kódok.**Az `chloros-cli process` sikeres futás esetén az `0` kóddal lép ki,**hibás futás esetén pedig nullától eltérő értékkel — ideértve azokat a futtatásokat is, amelyek képtermékeket kértek, de egyet sem írtak ki** (kiírja az `Processing finished but wrote no image products.` kódot, megnevezi a projektmappát és a szokásos okokat). A sikeres futtatások jelentik, hogy hány képtermék került írásra (`Image products written: N`, valamint `(plus M clamp masks)`, ha maszkok is íródtak). Kilépési kódok: `0` siker, `1` hiba, `2` argumentumhiba, `130` megszakítás.
 {% endhint %}
 
 ### Több adatkészlet feldolgozása
@@ -291,7 +303,7 @@ done
 chloros-cli process ~/datasets/field_a \
     --output ~/output/field_a \
     --format "TIFF (32-bit, Percent)" \
-    --indices NDVI NDRE GNDVI \
+    --indices NDVI GNDVI OSAVI \
     --debayer texture-aware \
     --no-vignette
 ```
@@ -301,6 +313,7 @@ Az érvényes `--format` értékek száma pontosan négy, és szóközöket tart
 | `--format` érték | Kimeneti mappa |
 | --- | --- |
 | `TIFF (16-bit)` *(alapértelmezett)* | `tiff16` |
+| `TIFF (8-bit)` | `tiff8` |
 | `TIFF (32-bit, Percent)` | `tiff32` |
 | `PNG (8-bit)` | `png8` |
 | `JPG (8-bit)` | `jpg8` |
@@ -314,7 +327,7 @@ Az `--debayer` elfogadja az `standard` (alapértelmezett) vagy az `texture-aware
 0 2 * ** /usr/bin/chloros-cli process /data/incoming --output /data/processed >> /var/log/chloros.log 2>&1
 ```
 
-### Python SDK példa
+### Példa a Python-SDK-re
 
 ```python
 from chloros_sdk import process_folder
@@ -322,7 +335,7 @@ from chloros_sdk import process_folder
 # One-line processing
 result = process_folder(
     "/home/user/datasets/flight001",
-    indices=["NDVI", "NDRE"],
+    indices=["NDVI", "OSAVI"],
     export_format="TIFF (32-bit, Percent)"
 )
 ```
@@ -331,7 +344,7 @@ result = process_folder(
 
 ## Hibaelhárítás
 
-### Az CLI nem található a telepítés után
+### A telepítés után nem található a CLI
 
 ```bash
 # Check if the binary exists
@@ -349,21 +362,20 @@ source ~/.bashrc
 
 ```bash
 sudo chmod +x /usr/bin/chloros-cli
-sudo chmod +x /usr/lib/chloros/chloros-backend
+sudo chmod +x /usr/lib/chloros/chloros-backend /usr/lib/chloros/backend/chloros-backend
 ```
 
-### „setcap failed” hiba a telepítés során
+### A háttérprogram nem indul el a fájljogosultságok hozzáadása után
 
-Az `.deb` az `cap_net_bind_service`-et alkalmazza az `/usr/lib/chloros/chloros-backend`-re, hogy root jogosultság nélkül is képes legyen a 319/320-as PTP-portokat root jogosultság nélkül is lekötözhesse. Ha a telepítéskor hiányzott az `libcap2-bin`, akkor a hívás kihagyásra kerül. Telepítse azt, majd telepítse újra a csomagot:
+Ne futtassa az `setcap` parancsot a háttérprogramban. Az 1.3.0-s verziótól kezdve a csomag nem állít be fájlképességeket, és a PTP 319/320-as portjai a [Hogyan kapja meg a PTP a portjait](#always-on-ptp-for-headless-hosts) című részben leírt `sysctl` beállításból származnak. A fájlkapacitás a kicsomagolt háttérprogramot biztonságos végrehajtási módba helyezi, amelyben nem találja meg saját könyvtárait, így nem indul el. Ha hozzáadott ilyet, távolítsa el:
 
 ```bash
-sudo apt install libcap2-bin
-sudo apt reinstall chloros
+sudo setcap -r /usr/lib/chloros/backend/chloros-backend
 ```
 
-### A PTP nem indul el / nem tudja lekötni a 319-es portot
+### A PTP nem indul el / nem tud csatlakozni a 319-es porthoz
 
-Ellenőrizze, hogy a nem privilegizált portok alsó határértéke csökkent-e, és ha nem, akkor alkalmazza újra az aktuális indításra:
+Ellenőrizze, hogy a nem privilegizált portok alsó határértékét csökkentették-e, és ha nem, akkor alkalmazza újra az aktuális indításra:
 
 ```bash
 sysctl net.ipv4.ip_unprivileged_port_start     # expect 319
@@ -377,13 +389,12 @@ chloros-cli time-sync status
 chloros-cli time-sync peers
 ```
 
-### „A LATTICE kamera illesztőprogramjai nem találhatók”
+### `lattice` Parancsok hibaüzenettel buknak: „LATTICE kamera illesztőprogramok nem találhatók”
 
-Az Arena SDK futásideje nem oldódik meg. Ellenőrizze, hogy a csomag által írt betöltőkonfiguráció jelen van-e és frissült-e:
+A háttérprogram nem tudta betölteni a vele együtt telepített LATTICE kamera futásidejű környezetet. Minden `lattice` parancs a háttérprogramban fut; maga a CLI nem tartalmaz kamera-illesztőprogramokat. Telepítse újra a Chloros-t (`sudo apt install --reinstall ./chloros_1.3.0_<arch>.deb`): az `.deb` a futásidejű környezetet a háttérprogram mellé telepíti az `/usr/lib/chloros/arena_runtime` mappába, és regisztrálja azt a dinamikus betöltőben. A regisztráció ellenőrzéséhez:
 
 ```bash
 cat /etc/ld.so.conf.d/Arena_SDK.conf     # expect /usr/lib/chloros/arena_runtime
-sudo ldconfig
 ls /usr/lib/chloros/arena_runtime | head
 ```
 
@@ -400,19 +411,20 @@ kill $(lsof -t -i :5000)
 chloros-cli --port 5001 process ~/datasets/flight001
 ```
 
-A sikertelen indítás háttérprogram-naplói az `~/.cache/chloros/logs/` fájlban találhatók.
+A sikertelen indításhoz tartozó háttérszolgáltatási naplófájlok az `~/.cache/chloros/logs/` mappában találhatók. Ha az 5000-es port egy háttérszolgáltatáshoz tartozik (`systemctl status chloros-backend@$USER.service`), akkor a folyamat leállítása helyett indítsa újra a szolgáltatást.
 
 ### CUDA nem észlelve
 
 ```bash
-# Check NVIDIA driver installation
+# Check NVIDIA driver installation (x86_64)
 nvidia-smi
 
 # Check CUDA availability
 nvcc --version
 
-# On Jetson, check JetPack version
+# On Jetson, check the L4T release (JetPack 6 is R36) and that JetPack's CUDA libraries are installed
 cat /etc/nv_tegra_release
+sudo apt install nvidia-jetpack
 ```
 
 Az `chloros-cli selftest` ugyanezt jelenti egy sorban: `GPU: <name>, CUDA: <bool>, PyTorch: <version>`.
@@ -423,13 +435,13 @@ Az `chloros-cli selftest` ugyanezt jelenti egy sorban: `GPU: <name>, CUDA: <bool
 sudo apt-get update
 sudo apt-get install -f
 
-# Check for missing libraries
-ldd /usr/lib/chloros/chloros-backend | grep "not found"
+# Check for missing libraries (the program itself, not the launcher script)
+ldd /usr/lib/chloros/backend/chloros-backend | grep "not found"
 ```
 
 ### Lassú indítás SD-kártyás rendszereken
 
-A lefordított bináris fájlok minden indításkor kibontják magukat egy ideiglenes könyvtárba. Ha az `/mnt/ssd/tmp` létezik, az Chloros automatikusan azt használja; ellenkező esetben állítsa be az `TMPDIR`-et egy gyors fájlrendszerre:
+Az 1.3.0-s verziótól kezdve a háttérszolgáltatás és a CLI-program kicsomagolatlanul kerül telepítésre, így már nem csomagolják ki magukat egy ideiglenes könyvtárba minden indításkor. Az ideiglenes fájlok automatikusan az `/mnt/ssd/tmp` mappába kerülnek, ha az létezik; ellenkező esetben egy gyors fájlrendszerre irányíthatja őket:
 
 ```bash
 export TMPDIR=/mnt/nvme/tmp
@@ -437,9 +449,9 @@ export TMPDIR=/mnt/nvme/tmp
 
 ***
 
-## Az Chloros frissítése az Linux rendszeren
+## A Chloros frissítése Linux rendszeren
 
-Az `update` parancs kizárólag az Linux/Jetson rendszereken használható. Ellenőrzi az `/etc/chloros/update.conf`-ben konfigurált frissítési csatornán közzétett verziót, és felajánlja a megfelelő `.deb` verzió letöltését és telepítését:
+Az `update` parancs kizárólag Linux/Jetson rendszereken használható. Ellenőrzi az `/etc/chloros/update.conf` alatt konfigurált frissítési csatornában közzétett verziót, és felajánlja a megfelelő `.deb` letöltését és telepítését:
 
 ```bash
 # Check for updates without installing
@@ -449,7 +461,9 @@ chloros-cli update --check
 chloros-cli update
 ```
 
-Az Linux/Jetson rendszeren az CLI parancs minden indításkor elvégzi a nem blokkoló frissítésellenőrzést is (az eredmény egy órán át tárolódik az `~/.chloros/update_cache.json`-ben), és az `Update available: vX.Y.Z` üzenetet jeleníti meg, ha újabb verzió áll rendelkezésre. A beállítások és a projektek a frissítés után is megmaradnak; utána azonban újra be kell jelentkezni.
+Linux/Jetson rendszeren a CLI minden indításkor elvégzi a frissítések blokkolásmentes ellenőrzését is (az eredményt egy órán át tárolja az `~/.chloros/update_cache.json`), és kinyomtatja az `Update available: vX.Y.Z` üzenetet, ha újabb verzió áll rendelkezésre. A beállítások, projektek és bejelentkezési adatok a frissítés után is megmaradnak.
+
+A csomag frissítése a telepítés során minden háttérszolgáltatást leállít, így egy futó szkript elveszíti a kameráit és érzékelőit, majd újraindítja az összes engedélyezett szolgáltatást (azt, amelyet kézzel indítottak el, de soha nem engedélyeztek, leállt állapotban marad, akárcsak újraindítás után).
 
 ## Eltávolítás
 
@@ -457,14 +471,14 @@ Az Linux/Jetson rendszeren az CLI parancs minden indításkor elvégzi a nem blo
 sudo apt remove chloros
 ```
 
-Az eltávolítás leállítja az `chloros-backend.service` futását, visszaállítja az alapértelmezett, nem privilegizált port alsó határértékét (1024), eltávolítja a mellékelt exiftool szimbolikus linket és az Arena betöltő konfigurációját, valamint törli a gyorsítótárban tárolt hitelesítő adatokat. A projektjei és az `~/.chloros/` adatfájlok érintetlenek maradnak.
+Az eltávolítás leállítja és letiltja az összes háttérszolgáltatást, visszaállítja az alapértelmezett, nem privilegizált port alsó határértékét (1024), eltávolítja a receive-buffer beállítási fájlt (a futó értékek az újraindításig megmaradnak), a csomagban található exiftool szimbolikus linket, az Arena loader konfigurációját, a csomag által hozzáadott tűzfalszabályokat és a telepített Python SDK-t, valamint törli a gyorsítótárban tárolt hitelesítő adatokat. A projektjei és az `~/.chloros/` adatfájlok érintetlenek maradnak. Az `sudo apt purge chloros` az `/var/log/chloros` fájlt is törli.
 
 ***
 
 ## Következő lépések
 
 * [NVIDIA Jetson útmutató](nvidia-jetson-guide.md) — Jetson-specifikus optimalizálás és telepítés
-* [CLI : Parancssor](../CLI.md) — az CLI útmutató
-* [API : Python SDK](../api-python-sdk.md) — az SDK útmutató
-* [CLI Referencia](../reference/cli-reference.md) és [SDK Referencia](../reference/sdk-reference.md) — a 1.2.0-s verzió teljes parancs- és API-listája
-* [Dinamikus számítási alkalmazkodás](../processing-architecture/dynamic-compute-adaptation.md) — hogyan alkalmazkodik az Chloros a hardveréhez
+* [CLI: Parancssor](../CLI.md) — a CLI útmutató
+* [API: Python SDK](../api-python-sdk.md) — az SDK útmutató
+* [CLI-referencia](../reference/cli-reference.md) és [SDK-referencia](../reference/sdk-reference.md) — a 1.3.0-s verzió teljes parancs- és API-listája
+* [Dinamikus számítási alkalmazkodás](../processing-architecture/dynamic-compute-adaptation.md) — hogyan alkalmazkodik aChlorosa a hardveréhez

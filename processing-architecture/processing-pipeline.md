@@ -15,7 +15,9 @@ Images In → [Thread 1: Detection] → [Thread 2: Calibration] → [Thread 3: P
 
 Minden kép sorrendben halad át mind a négy szálon. A Chloros+ többszálas feldolgozásával több kép is egyszerre foglalhatja el a különböző szálakat – miközben a 3. szál egy képet dolgoz fel, az 1. szál már a következőt észlelheti, a 2. szál egy másikat kalibrálhat, a 4. szál pedig a kész képet írhatja a lemezre.
 
-Az előrehaladásról szálonként készül jelentés, amely a Server-Sent Events-en keresztül kerül továbbításra (a háttérrendszer ezeket az `/api/events`-en teszi közzé). A parancssori felület (CLI) élő előrehaladási kijelzőjén a négy szakasz a következőképpen van megjelölve: **Felismerés, Elemzés, Feldolgozás, Exportálás**.***
+Az előrehaladásról szálonként készül jelentés, amely a Server-Sent Events-en keresztül kerül továbbításra (a háttérrendszer ezeket az `/api/events`-en teszi közzé). A parancssori felület (CLI) élő előrehaladási kijelzőjén a négy szakasz a következőképpen van megjelölve: **Felismerés, Elemzés, Feldolgozás, Exportálás**.
+
+***
 
 ## Szálak részletei
 

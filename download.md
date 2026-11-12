@@ -192,7 +192,9 @@ Chloros+ előfizetéssel hozzáférhet a fejlett funkciókhoz:
 * **🐻 Fejlett, textúraérzékeny debayer-módszer** – kiváló minőségű, élekkel számoló debayer, amely egy AI/ML zajszűrő modellel kombinálva szinte teljesen eltávolítja a debayeringből származó zajt.
 * 🧮 **Egyéni képletek** – Egyéni multispektrális indexek létrehozása
 
-<p align="center"><a href="https://cloud.mapir.camera/pricing" class="button primary">Chloros+ csomagok és árak megtekintése</a></p>***
+<p align="center"><a href="https://cloud.mapir.camera/pricing" class="button primary">Chloros+ csomagok és árak megtekintése</a></p>
+
+***
 
 ## Telepítési segítség
 
@@ -231,7 +233,9 @@ Segítségre van szüksége a telepítéssel vagy a beállítással kapcsolatban
 * 📧 **E-mail**: info@mapir.camera
 * 🌐 **Weboldal**: [https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
 * 📚 **Dokumentáció**: [Első lépések](./)
-* ❓ **GYIK**: [Gyakran feltett kérdések](faq.md)***
+* ❓ **GYIK**: [Gyakran feltett kérdések](faq.md)
+
+***
 
 ## Szoftverfrissítések A
 

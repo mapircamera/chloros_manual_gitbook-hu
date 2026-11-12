@@ -198,7 +198,9 @@ Ebben a szakaszban minden **kizárólag a kijelzőre vonatkozik**— megváltozt
 | **Telítettség** | 0–200 (100 = semleges) | 100 | Csak RGB | HSV-telítettség az élő előnézetben. |
 | **Kontraszt** | 0–200 (100 = semleges) | 100 | Csak RGB | Lineáris kontraszt a közép-szürke környékén az élő előnézetben. |
 | **Tükör H / Tükör V** | Jelölőnégyzetek | Ki | Minden | Az előnézet vízszintes / függőleges tükrözése. |
-| **Forgatás**| 0° / 90° / 180° / 270° | 0° | Minden | Az előnézet elforgatása. A tájolás a háttér előnézeti lánc végén kerül alkalmazásra.**Mentett felvételek (1.3.0):**egy önálló kamera Előnézet, Sugárzás, Fényvisszaverődés és Index termékei a Tükör/Forgatás funkcióval forgathatók, míg**a Raw és a Debayered fájlok a kamera natív tájolását tartják meg**; minden felvételi fájl rögzíti a beállítást az XMP-jében, így a raw fájl későbbi feldolgozása során ugyanúgy alkalmazza azt.**A tömb tagfájljai natív állapotban maradnak** (a beállítás rögzítésre kerül, de nem kerül alkalmazásra), és a tömb összetett nézetei figyelmen kívül hagyják azt. |**Színprofil-szemantika** (RGB-kamerák):
+| **Forgatás**| 0° / 90° / 180° / 270° | 0° | Minden | Az előnézet elforgatása. A tájolás a háttér előnézeti lánc végén kerül alkalmazásra.**Mentett felvételek (1.3.0):**egy önálló kamera Előnézet, Sugárzás, Fényvisszaverődés és Index termékei a Tükör/Forgatás funkcióval forgathatók, míg**a Raw és a Debayered fájlok a kamera natív tájolását tartják meg**; minden felvételi fájl rögzíti a beállítást az XMP-jében, így a raw fájl későbbi feldolgozása során ugyanúgy alkalmazza azt.**A tömb tagfájljai natív állapotban maradnak** (a beállítás rögzítésre kerül, de nem kerül alkalmazásra), és a tömb összetett nézetei figyelmen kívül hagyják azt. |
+
+**Színprofil-szemantika** (RGB-kamerák):
 
 * **Raw** — teljes mértékben megkerüli a feldolgozási láncot.
 * **Lineáris** — sötétjel + síkkép + fehéregyensúly; nincs színmátrix, nincs gamma.

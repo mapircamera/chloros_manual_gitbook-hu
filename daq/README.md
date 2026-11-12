@@ -17,7 +17,9 @@ MAPIR **DAQ** fényérzékelői a környezeti fényt radiometrikusan kalibrált 
 | --- | --- | --- |
 | **DAQ-U** | USB (soros) | soros porton keresztüli keresés |
 | **DAQ-M** | Bluetooth Low Energy | név szerinti BLE-keresés |
-| **DAQ-E** | Ethernet (IPv4, PoE-táplálás) | mDNS `_daq-e._tcp` (gazdagépnév `daq-e-<id>.local`) |**DAQ-E-S (újdonság a 1.3.0-s verzióban).** Egy DAQ-E állandó diffúzorral és dőlésérzékelővel. Az Chloros az `DAQ-E-S` néven szerepelteti, és pontosan úgy működik, mint egy DAQ-E, azzal a különbséggel, hogy nem igényel sapkakorrekciót, és minden leolvasott érték tartalmazza a készülék dőlését, forgását és emelkedését. Lásd [DAQ-E-S: rögzített diffúzor és dőlésszög](caps-and-range.md#daq-e-s-fixed-diffuser-and-tilt).
+| **DAQ-E** | Ethernet (IPv4, PoE-táplálás) | mDNS `_daq-e._tcp` (gazdagépnév `daq-e-<id>.local`) |
+
+**DAQ-E-S (újdonság a 1.3.0-s verzióban).** Egy DAQ-E állandó diffúzorral és dőlésérzékelővel. Az Chloros az `DAQ-E-S` néven szerepelteti, és pontosan úgy működik, mint egy DAQ-E, azzal a különbséggel, hogy nem igényel sapkakorrekciót, és minden leolvasott érték tartalmazza a készülék dőlését, forgását és emelkedését. Lásd [DAQ-E-S: rögzített diffúzor és dőlésszög](caps-and-range.md#daq-e-s-fixed-diffuser-and-tilt).
 
 Mindhárom készülék ugyanazt a vezetékes protokollt használja, és azonos adatokat szolgáltat:
 

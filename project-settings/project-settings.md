@@ -32,7 +32,9 @@ fülre
 * **Lehetőségek**: `Default (512 px)`, `1024 px`, `2048 px`, `Full resolution`
 * **Alapértelmezett**: Alapértelmezett (512 px)
 * **Leírás**: Az a felbontás (a leghosszabb él hossza, pixelben kifejezve), amelyen a kép-rácsos miniatűrök megjelennek. A magasabb értékek nagyításkor élesebb képet adnak, de lassabban töltődnek be és több memóriát igényelnek. A teljes felbontás az eredeti kép méretét adja vissza.
-* **Megjegyzés**: Csak megjelenítésre szolgál — ez soha nem befolyásolja a feldolgozást vagy az exportált fájlokat.***
+* **Megjegyzés**: Csak megjelenítésre szolgál — ez soha nem befolyásolja a feldolgozást vagy az exportált fájlokat.
+
+***
 
 ## Célpont-felismerés
 
@@ -184,7 +186,9 @@ Az egységenkénti **mért** célérték-letapogatások a cél egység sorozatsz
   * Egy kamera + egy csatlakozó: A 2. csatlakozó automatikusan „Ne használja” értékre van állítva
   * Egy kamera + két csatlakozó: A 2. csatlakozó automatikusan „Ne használja” értékre van állítva
   * Több kamera: Kézi kiválasztás szükséges
-* **Megjegyzés**: Ugyanaz a kamera nem rendelhető hozzá egyszerre az 1. és a 2. csatlakozóhoz.***
+* **Megjegyzés**: Ugyanaz a kamera nem rendelhető hozzá egyszerre az 1. és a 2. csatlakozóhoz.
+
+***
 
 ## DAQ fényérzékelő
 
@@ -205,7 +209,9 @@ Minden sor tartalmazza a fájlt, az érzékelő modelljét és az adott fájlra 
 * **Leírás**: Az `Auto` az egyes fájlokban rögzített fedelet használja (ha nincs rögzítve semmi, akkor a Sunshine fedelet veszi alapul, de a DAQ-U, DAQ-M és DAQ-E készülékek fedél nélkül kerülnek forgalomba, és az Chloros nem tudja megállapítani, hogy mi van felszerelve, ezért a feldolgozás figyelmeztet a feltételezett korlátra: válassza ki a ténylegesen felszerelt korlátot). Egy konkrét korlát kiválasztása felülírja a projektben található **minden** lefelé irányuló fájlt, kivéve a DAQ-E-S-ét, amelynek diffúzora a kalibrációjának része; egy kizárólag DAQ-E-S-ből álló projektben nem jelenik meg legördülő menü: a nyers felvételeket ezzel korrigálják, azok a felvételek pedig, amelyek már tartalmaznak fedelet, újra referenciálódnak (a rögzített korrekció visszavonásra kerül, és a kiválasztott kerül alkalmazásra).
 * **Fontos**: A kiválasztott fedélnek meg kell egyeznie azzal a fedéllel, amelyet a felvétel során fizikailag felszereltek. Sem az érzékelő, sem a szoftver nem képes felismerni a fizikai fedelet — egy nem megfelelő fedél-azonosító helytelenül korrigálja a spektrumokat.
 
-Szándékosan **csak egy**, a teljes projektre kiterjedő vezérlőelem van a fájlonkénti legördülő menük helyett: a beállítás a projekt minden lefelé irányuló forrására kiterjed.***
+Szándékosan **csak egy**, a teljes projektre kiterjedő vezérlőelem van a fájlonkénti legördülő menük helyett: a beállítás a projekt minden lefelé irányuló forrására kiterjed.
+
+***
 
 ## Tömb-igazítás
 
@@ -276,7 +282,9 @@ Minden hozzáadott index a képletét matematikai kifejezésként jeleníti meg,
   * Operátorok: `+`, `-`, `*`, `/`, `^` és `()` csoportosításhoz
   * Funkciók: `sqrt()`, `log()`, `ln()`, `abs()`, `sign()`, `log1p()`, `log2()`
 * **Miért szimbólumok, és nem zenekarnevek?**: az `(y-x)/(y+x)` formában megadott képlet bármelyik kamerán működik, mivel a drag-and-drop leképezés határozza meg, hogy az `y` egy RGN szűrő 850 nm-es NIR-je-e, vagy egy OCN szűrő 808 nm-es NIR-je-e. A beépített előre beállított értékek is ugyanúgy vannak tárolva — az összes 27 szimbólum pontos formáját lásd a [Multispektrális indexképletek](multispectral-index-formulas.md) oldalon.
-* **Hol használhatók**: az egyéni képleteket a projektbeállításokkal együtt menti a rendszer, és felhasználhatók az [Index/LUT Sandbox](../image-viewer-gui/index-lut-sandbox.md) környezetben, valamint a feldolgozás során is. Az CLI/SDK `--indices` névlista **nem** fogadja el őket, mivel az csak a 22 beépített előre beállított név kiterjesztését tartalmazza.***
+* **Hol használhatók**: az egyéni képleteket a projektbeállításokkal együtt menti a rendszer, és felhasználhatók az [Index/LUT Sandbox](../image-viewer-gui/index-lut-sandbox.md) környezetben, valamint a feldolgozás során is. Az CLI/SDK `--indices` névlista **nem** fogadja el őket, mivel az csak a 22 beépített előre beállított név kiterjesztését tartalmazza.
+
+***
 
 ## Exportálás
 

@@ -153,7 +153,9 @@ Ez a szakasz **csak** akkor jelenik meg, ha a projektben legalább egy kép tart
 
 * **Tömb igazítás alkalmazása** (alapértelmezés: be): minden feldolgozott terméket (debayered / előnézet / sugárzás / visszaverődés / index) a tömb közös referencia-geometriájához igazít. Ki = exportálás a szenzor natív geometriájában.
 * **Kivágás a közös átfedésre** (alapértelmezés: be): az igazított exportált adatokat a modulok által közösen használt területre vágja ki, így minden sáv lábnyoma megegyezik. Ki kapcsolás esetén az érzékelő teljes felülete megmarad (a forráson kívül fekete kitöltés).
-* **Újramintavétel**:**Bilineáris (sima, alapértelmezett)**,**Legközelebbi (a pontos értékek megőrzése)**— nincs pixelek közötti keverés, szigorú radiometrikus elemzéshez — vagy**Kubikus (legélesebb)**.***
+* **Újramintavétel**:**Bilineáris (sima, alapértelmezett)**,**Legközelebbi (a pontos értékek megőrzése)**— nincs pixelek közötti keverés, szigorú radiometrikus elemzéshez — vagy**Kubikus (legélesebb)**.
+
+***
 
 ## Beállítások mentése és betöltése
 

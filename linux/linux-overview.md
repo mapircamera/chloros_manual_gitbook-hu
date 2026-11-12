@@ -10,7 +10,8 @@ A Chloros 1.3.0 natív Linux-támogatást biztosít a **CLI**és a**Python SDK**
 
 ## Platformtámogatási táblázat
 
-| Funkció | Windows (GUI) | Windows (CLI/SDK) | Linux amd64 (CLI/ --- | --- | --- | --- |
+| Funkció | Windows (GUI) | Windows (CLI/SDK) | Linux amd64 (CLI/SDK) | Linux arm64 / Jetson (CLI/SDK) |
+| --- | --- | --- | --- | --- |
 | **Asztali grafikus felület** | Igen | N/A | Nem | Nem |
 | **Parancssori felület (CLI)** (`chloros-cli`) | Igen | Igen | Igen | Igen |
 | **Python SDK** (`chloros-sdk`) | Igen | Igen | Igen | Igen |
@@ -22,7 +23,9 @@ A Chloros 1.3.0 natív Linux-támogatást biztosít a **CLI**és a**Python SDK**
 | **Textúraérzékeny debayer** (CUDA GPU szükséges) | Igen (Chloros+) | Igen (Chloros+) | Igen (Chloros+) | Igen (Chloros+) |
 | **Dinamikus számítási adaptáció** | Igen | Igen | Igen | Igen |
 | **Háttérprogram rendszer szolgáltatásként** (`chloros-backend@<user>.service`) | Nem | Nem | Igen (beállítható) | Igen (beállítható) |
-| **Helyben történő frissítő** (`chloros-cli update`) | Nem (futtassa a telepítőt) | Nem (futtassa a telepítőt) | Igen | Igen |***
+| **Helyben történő frissítő** (`chloros-cli update`) | Nem (futtassa a telepítőt) | Nem (futtassa a telepítőt) | Igen | Igen |
+
+***
 
 ## Támogatott architektúrák
 
@@ -35,7 +38,9 @@ A Chloros 1.3.0 natív Linux-támogatást biztosít a **CLI**és a**Python SDK**
 
 * **Ubuntu 22.04 LTS vagy újabb** (amd64)
 * **Debian 12 vagy újabb** (amd64)
-* **NVIDIA JetPack 6** (arm64 — Jetson Orin platformok)***
+* **NVIDIA JetPack 6** (arm64 — Jetson Orin platformok)
+
+***
 
 ## Mit kapnak a Linux-felhasználók
 
@@ -54,7 +59,9 @@ A Chloros 1.3.0 natív Linux-támogatást biztosít a **CLI**és a**Python SDK**
 
 * **Asztali grafikus felület** — nincs grafikus felület; minden interakció CLI-en vagy a Python SDK-en keresztül történik
 * **Képnézegető** — nincs interaktív képnézegető, rácsnézet vagy térképjelölők
-* **Vizuális projektkezelés** — a projektek létrehozása és irányítása CLI-parancsokkal és SDK-hívásokkal történik (maga a hardver — kamerák, érzékelők, rögzítés — továbbra is teljes mértékben vezérelhető a terminálról)***
+* **Vizuális projektkezelés** — a projektek létrehozása és irányítása CLI-parancsokkal és SDK-hívásokkal történik (maga a hardver — kamerák, érzékelők, rögzítés — továbbra is teljes mértékben vezérelhető a terminálról)
+
+***
 
 ## Licenckövetelmény
 

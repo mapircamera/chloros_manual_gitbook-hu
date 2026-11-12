@@ -62,7 +62,9 @@ output/
 * A nyers adatok **importálása nélkül** mentett felvételi mappa normálisan jelenik meg, de a feldolgozás kihagyja, és ezt a naplóban is jelzi. (Az `--input-level` CLI-jelzővel ebben az esetben kényszeríthető a belépési pont – lásd [a CLI-referenciát](../reference/cli-reference.md#what-a-captures-folder-looks-like).)
 * Az 1.3.0-s verziótól kezdve egy felvételi mappa tartalmazhat egy `clamp_masks/` mappát is (pixelenkénti maszkok a sugárzási és visszaverődési szintekhez — lásd [Kimeneti képformátumok](../output-image-formats.md#clamp-masks)). A maszkok nem a jelenet képei, és az Chloros az importálás során figyelmen kívül hagyja őket, bárhol is legyenek.
 
-**A LATTICE hub munkamenetek** ugyanúgy importálhatók: az „Add Folder” (Mappa hozzáadása) gombra kattintva válassza ki a hubból másolt munkamenetmappát (amely tartalmazza az `raw/` és az `previews/` mappákat), valamint az esetleges DAQ-M `.csv` lefelé irányuló napfény-naplót. Ha a kamera vagy a DAQ kalibrációja még nincs tárolva a számítógépén, a Chloros az importáláskor automatikusan letölti azt a sorozatszám alapján (ehhez egyszeri internetkapcsolatra van szükség).***
+**A LATTICE hub munkamenetek** ugyanúgy importálhatók: az „Add Folder” (Mappa hozzáadása) gombra kattintva válassza ki a hubból másolt munkamenetmappát (amely tartalmazza az `raw/` és az `previews/` mappákat), valamint az esetleges DAQ-M `.csv` lefelé irányuló napfény-naplót. Ha a kamera vagy a DAQ kalibrációja még nincs tárolva a számítógépén, a Chloros az importáláskor automatikusan letölti azt a sorozatszám alapján (ehhez egyszeri internetkapcsolatra van szükség).
+
+***
 
 ## A fájlkezelő táblázat megértése
 
@@ -104,7 +106,9 @@ A táblázat feletti jobb felső sarokban található kapcsoló gombra kattintva
 
 * Az `.daq` és `.csv` fájlok megjelennek a Fájlkezelő listájában, de nem kattintható képek — ezek a reflexiós kalibráláshoz szükséges lefelé irányuló sugárzási intenzitást biztosítják.
 * Minden importált `.daq`/`.csv` fájl felkerül a **Projektbeállítások → DAQ fényérzékelő** menüpontba, ahol ellenőrizheti az egyes fájlokra érvényes diffúzor-fedél korrekciót. Lásd: [A projektbeállítások módosítása](adjusting-project-settings.md).
-* A **Fényérzékelők** fülön készített felvételek automatikusan hozzáadódnak a megnyitott projekthez — nincs szükség kézi importálásra.***
+* A **Fényérzékelők** fülön készített felvételek automatikusan hozzáadódnak a megnyitott projekthez — nincs szükség kézi importálásra.
+
+***
 
 ## Fájlok kezelése a projektben
 
@@ -221,7 +225,9 @@ Ha a projekt több MAPIR-kamerából származó képeket tartalmaz:
 
 ### A újra megnyitott projekt hiányzó fájlokat jelez
 
-Ha a forrásfájlokat a projekt legutóbbi megnyitása óta áthelyezték vagy törölték, a Chloros nem egy üres rácsot nyit meg, hanem jelzi, **mely**fájlok hiányoznak. Ha maga a projektmappa került áthelyezésre, a Chloros a forrásútvonalakat átirányítja arra a mappára, amelyben az `project.json` jelenleg található, és biztonsági másolatot készít (`project.json.before-relink-<date>-<time>`). Ha így sem találja meg őket, a**Forrásfájlok nem találhatók**ablakban a**Tallózás** gomb segítségével megadhatja az új helyet, majd választhat az Új projekt vagy a Projekt törlése lehetőségek közül. A parancssorból (CLI) használja az `chloros-cli project open PATH --relink FOLDER` parancsot; az SDK-ből az `open_project(path, relink=...)` parancsot.***
+Ha a forrásfájlokat a projekt legutóbbi megnyitása óta áthelyezték vagy törölték, a Chloros nem egy üres rácsot nyit meg, hanem jelzi, **mely**fájlok hiányoznak. Ha maga a projektmappa került áthelyezésre, a Chloros a forrásútvonalakat átirányítja arra a mappára, amelyben az `project.json` jelenleg található, és biztonsági másolatot készít (`project.json.before-relink-<date>-<time>`). Ha így sem találja meg őket, a**Forrásfájlok nem találhatók**ablakban a**Tallózás** gomb segítségével megadhatja az új helyet, majd választhat az Új projekt vagy a Projekt törlése lehetőségek közül. A parancssorból (CLI) használja az `chloros-cli project open PATH --relink FOLDER` parancsot; az SDK-ből az `open_project(path, relink=...)` parancsot.
+
+***
 
 ## Következő lépések
 

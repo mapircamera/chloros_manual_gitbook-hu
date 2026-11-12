@@ -144,7 +144,9 @@ Két szabály szabályozza az értékeket:
 * Az a szál, amely **az egyetlen** aktív szál, megkapja a profiljában megadott maximális allokációt.
 * Ha egynél több *igényes* GPU-feladat aktív, az egyes igényes feladatok alapallokációját felosztják közöttük (soha nem kerülhet a beállított minimum alá).
 
-A futásidőben ténylegesen használt érték a platformprofil allokációja és a GPU-memóriamonitor élő ajánlása közül a **kisebb**, így egy leterhelt kártya mindig elsőbbséget élvez egy optimista profillal szemben.***
+A futásidőben ténylegesen használt érték a platformprofil allokációja és a GPU-memóriamonitor élő ajánlása közül a **kisebb**, így egy leterhelt kártya mindig elsőbbséget élvez egy optimista profillal szemben.
+
+***
 
 ## Textúra-tudatos feldolgozás
 

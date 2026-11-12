@@ -170,7 +170,9 @@ chloros-cli daq pool-reboot --sensor-id daq-e-def330
 chloros-cli daq pool-update-firmware --sensor-id daq-e-def330
 ```
 
-`pool-info` megjeleníti az érzékelő firmware-jét (és azt, hogy ez a Chloros-kiadás tartalmaz-e újabbat), a címét és annak megszerzésének módját, a mentett hálózati beállításokat, amennyiben azok eltérnek a futó beállításoktól, valamint a bekapcsoláskori adatfolyamot és a PTP-t. Az `pool-set-network` újraindítja az érzékelőt a változtatások alkalmazásához, és a korábbi beállításokkal csatlakoztatja újra; az `--no-reboot` csak elmenti azokat. A statikus címnek a számítógép hálózatán belül kell lennie, különben a Chloros elutasítja; az `--force` felülírja ezt, de csak olyan számítógép esetében, amelyet átcímkéznek vagy oda irányítanak. Az újraindítások nem engedélyezettek, amíg az érzékelő adatokat rögzít. Az `pool-update-firmware` <version\>a parancssorban </version\>a grafikus felhasználói felület **Update to \<version\>** </version\>parancsának felel meg<version\>, és ez a módszer a DAQ-E frissítésére Linux rendszeren, ahol nincs grafikus felhasználói felület. Újdonság a 1.3.0-s verzióban.***
+`pool-info` megjeleníti az érzékelő firmware-jét (és azt, hogy ez a Chloros-kiadás tartalmaz-e újabbat), a címét és annak megszerzésének módját, a mentett hálózati beállításokat, amennyiben azok eltérnek a futó beállításoktól, valamint a bekapcsoláskori adatfolyamot és a PTP-t. Az `pool-set-network` újraindítja az érzékelőt a változtatások alkalmazásához, és a korábbi beállításokkal csatlakoztatja újra; az `--no-reboot` csak elmenti azokat. A statikus címnek a számítógép hálózatán belül kell lennie, különben a Chloros elutasítja; az `--force` felülírja ezt, de csak olyan számítógép esetében, amelyet átcímkéznek vagy oda irányítanak. Az újraindítások nem engedélyezettek, amíg az érzékelő adatokat rögzít. Az `pool-update-firmware` <version\>a parancssorban </version\>a grafikus felhasználói felület **Update to \<version\>** </version\>parancsának felel meg<version\>, és ez a módszer a DAQ-E frissítésére Linux rendszeren, ahol nincs grafikus felhasználói felület. Újdonság a 1.3.0-s verzióban.
+
+***
 
 ## Parancsok összefoglalása
 

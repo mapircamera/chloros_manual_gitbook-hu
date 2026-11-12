@@ -100,4 +100,4 @@ Részletek a szigorú igazításra szoruló felhasználók számára:
 | Broadcast-tartomány | A gazdagép és az érzékelő ugyanazon az L2-szegmensen van; az mDNS nem továbbítja a forgalmat |
 | Tűzfal | Windows: a telepítő **Chloros Backend (UDP-In)** szabálya engedélyezi a DAQ-E adatfolyam (UDP 5002), az mDNS (5353) és a PTP (319/320) bejövő forgalmát; egy harmadik féltől származó tűzfal esetében ugyanez szükséges. Linux: az `.deb` csak akkor nyitja meg ezeket a portokat az `ufw` / `firewalld` fájlokban, ha a tűzfal a telepítéskor aktív volt — később engedélyezze őket saját maga egy bekapcsolt tűzfalban |
 | Több hálózati kártyával rendelkező gazdagép | A felderítés az mDNS-t böngészi, ARP-visszaeséssel; az `--eth-host <ip-or-hostname>` kihagyja a felderítést, és közvetlenül csatlakozik |
-| GUI-újrakeresés | A felderítés csak a csatlakozási párbeszédablak nyitva tartása alatt fut; használja a Frissítés gombot |</version>
+| GUI-újrakeresés | A felderítés csak a csatlakozási párbeszédablak nyitva tartása alatt fut; használja a Frissítés gombot |

@@ -194,7 +194,9 @@ A kvantitatív besugárzási értékekhez legalább 15 másodpercnyi adatot kell
 
 * Több érzékelőt egyesíthet egy grafikonon (közös tengelyek), külön grafikonokat tarthat fenn (automatikus rácsos elrendezés), érzékelőket mozgathat a grafikonok között, sorokat/lapokat húzással rendezhet át, valamint a szem ikonra kattintva elrejtheti az egyes érzékelőket.
 * Chloros projektként tárolja: az eszközneveket, a grafikon színeit, a diagram méretét, a nézet módot, valamint az egyes érzékelők beállításait (integrációs idő, képkockák átlagolása, AE állapot, sapka kiválasztása).
-* **A projekt újbóli megnyitásakor az érzékelők automatikusan újra csatlakoznak** a címük alapján — COM-port a DAQ-U esetében, BLE-eszköz a DAQ-M esetében, mDNS-gazdagépnév a DAQ-E esetében (még akkor is feloldódik, ha a készülék IP-címe megváltozott) —, és újraalkalmazza az egyes érzékelők mentett sapkaprofilját, képkockák átlagolását, AE-állapotát és a kézi integrációs időt.***
+* **A projekt újbóli megnyitásakor az érzékelők automatikusan újra csatlakoznak** a címük alapján — COM-port a DAQ-U esetében, BLE-eszköz a DAQ-M esetében, mDNS-gazdagépnév a DAQ-E esetében (még akkor is feloldódik, ha a készülék IP-címe megváltozott) —, és újraalkalmazza az egyes érzékelők mentett sapkaprofilját, képkockák átlagolását, AE-állapotát és a kézi integrációs időt.
+
+***
 
 ## Kamera párosítása (DLS)
 

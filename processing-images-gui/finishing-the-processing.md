@@ -109,7 +109,9 @@ A reflexió egész számú DN-ként van tárolva, és **az a DN-érték, amely �
 | LATTICE (M3C/M3M) | **32768** (tartalék ρ 2,0-ig) | Az XMP-címke `Chloros:PixelScale=32768` szerepel a fájlban |
 | Survey3          | **65535** (1,0-nál levágva)     | Nincs `Chloros:PixelScale` címke — ez a hiánya jelzi a helyzetet (a Survey3 termékek egyéb `Chloros:*` feldolgozási címkéket viselnek) |
 
-**Olvassa be az `Chloros:PixelScale` címkét, és ossza el vele**, ahelyett, hogy általánosan 65535-öt feltételezne — a LATTICE-reflektancia 65535-tel történő osztása minden értéket észrevétlenül felére csökkenti. Az 1.3.0-ás verzió előtti, 8 bites formátumban írt reflektanciafájl nem lett átméretezve, hanem levágva, és nincs benne skála-címke: az osztás helyett exportálja újra 16 bites vagy 32 bites formátumban. A teljes leírásért lásd a [Kimeneti képformátumok](../output-image-formats.md) részt.***
+**Olvassa be az `Chloros:PixelScale` címkét, és ossza el vele**, ahelyett, hogy általánosan 65535-öt feltételezne — a LATTICE-reflektancia 65535-tel történő osztása minden értéket észrevétlenül felére csökkenti. Az 1.3.0-ás verzió előtti, 8 bites formátumban írt reflektanciafájl nem lett átméretezve, hanem levágva, és nincs benne skála-címke: az osztás helyett exportálja újra 16 bites vagy 32 bites formátumban. A teljes leírásért lásd a [Kimeneti képformátumok](../output-image-formats.md) részt.
+
+***
 
 ## Az exportált fájlokba átvitt metaadatok
 
@@ -164,7 +166,9 @@ A feldolgozás nyomon követése vagy a MAPIR ügyfélszolgálatnak való elkül
 3. Csatolja a projekt dokumentációjához
 4. Probléma esetén küldje el a MAPIR ügyfélszolgálatnak
 
-Ha egy problémát közvetlenül a MAPIR-nek szeretne elküldeni, használja a Hibaelhárítási napló fül tetején található hibaikonot (**Hiba jelentése**) — lásd [Hiba jelentése a napló fülről](monitoring-the-processing.md#reporting-a-bug-from-the-log-tab).***
+Ha egy problémát közvetlenül a MAPIR-nek szeretne elküldeni, használja a Hibaelhárítási napló fül tetején található hibaikonot (**Hiba jelentése**) — lásd [Hiba jelentése a napló fülről](monitoring-the-processing.md#reporting-a-bug-from-the-log-tab).
+
+***
 
 ## Gyakori kimeneti problémák és megoldások
 

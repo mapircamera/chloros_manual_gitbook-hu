@@ -64,7 +64,9 @@ Teljes útmutató: [Chloros használata AI-asszisztensekkel](ai-assistants.md).
 * **Egyértelmű hiba-szemantika.** Egy olyan `chloros-cli process` futtatás, amely termékeket kért, de egyet sem írt ki, most egyértelműen hibaüzenetet ad és nem nulla kóddal lép ki; a sikeres futtatások jelentik, hogy hány képterméket írtak ki.
 * **Új kimeneti elrendezés.** A termékek az `<project>/<camera>/<format>/<Product>_Images/` mappákba kerülnek, és megtartják a forrásfájl nevét — a mappanév, nem pedig a fájlnév kiterjesztése azonosítja a terméket. Lásd [Kimeneti képformátumok](output-image-formats.md).
 * **Több bemeneti lehetőség, terv és nyelv.** `.dng` bemeneti támogatás; mind a 38 felületi nyelv teljes körűen elérhető; tervenkénti hardverkorlátozások, ingyenes (bejelentkezés nélküli) használat esetén legfeljebb 4 kamera és 2 fényérzékelő használatával.
-* **Megbízhatóság.** A „Feldolgozás leállítása” funkció tisztán leállítja a folyamatot, pontos futási összefoglalóval; a többkamerás projektek minden kamerát exportálnak, és a telepítő frissítései már nem jelentik ki a felhasználót.***
+* **Megbízhatóság.** A „Feldolgozás leállítása” funkció tisztán leállítja a folyamatot, pontos futási összefoglalóval; a többkamerás projektek minden kamerát exportálnak, és a telepítő frissítései már nem jelentik ki a felhasználót.
+
+***
 
 A Chloros 3 felhasználói felületen érhető el:
 

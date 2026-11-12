@@ -10,7 +10,9 @@ A jobb felső sarokban található nagyítócsúszkával állíthatja be a képm
 * A **Ctrl + `+`**/**Ctrl + `=`**és**Ctrl + `−`** billentyűkombinációk minden lenyomásra 4 px-rel növelik vagy csökkentik a méretet. A billentyűparancsok segítségével a méret a kisebbik végén 64 px-nél, a nagyobbik végén pedig annál a méretnél áll meg, amely pontosan két miniatűrt foglal el soronként az aktuális ablakban.
 * A kiválasztott méret a projekthez kerül mentésre (`UI → Grid thumbnail size` az `project.json`-ben, alapértelmezés szerint `160`), így a projekt újbóli megnyitásakor visszaáll.
 
-<figure><img src="../.gitbook/assets/chloros_grid_zoom.gif" alt=""><figcaption></figcaption></figure>A miniatűr *felbontása* a miniatűr *méretétől* független beállítás: lásd a **Kijelző → Képminiatűr felbontása** menüpontot a [Projektbeállítások](../project-settings/project-settings.md) menüben (alapértelmezés szerint 512 px a hosszú oldalon). A méret azt határozza meg, hogy a csempe milyen nagynak jelenik meg; a felbontás pedig azt, hogy mennyi részletet tölt be a csempe kitöltéséhez.***
+<figure><img src="../.gitbook/assets/chloros_grid_zoom.gif" alt=""><figcaption></figcaption></figure>A miniatűr *felbontása* a miniatűr *méretétől* független beállítás: lásd a **Kijelző → Képminiatűr felbontása** menüpontot a [Projektbeállítások](../project-settings/project-settings.md) menüben (alapértelmezés szerint 512 px a hosszú oldalon). A méret azt határozza meg, hogy a csempe milyen nagynak jelenik meg; a felbontás pedig azt, hogy mennyi részletet tölt be a csempe kitöltéséhez.
+
+***
 
 ## A rács eszköztár
 

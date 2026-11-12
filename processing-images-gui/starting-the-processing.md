@@ -181,7 +181,9 @@ Az indítás után a teljes folyamat automatikusan lefut:
 * A leállított futtatás pontosan jelenti, hogy mit végzett el (lásd az `[RUN-SUMMARY]` sorokat a naplóban)
 * Egy új futtatás az elejétől indítja el a feldolgozási folyamatot
 
-**Tervezési tipp:** Nagyon nagy projektek esetén fontolja meg a feldolgozás kötegenkénti elvégzését vagy a CLI használatát a jobb ellenőrzés érdekében.***
+**Tervezési tipp:** Nagyon nagy projektek esetén fontolja meg a feldolgozás kötegenkénti elvégzését vagy a CLI használatát a jobb ellenőrzés érdekében.
+
+***
 
 ## A feldolgozás figyelemmel kísérése
 

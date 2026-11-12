@@ -78,7 +78,9 @@ Minden GPS-adatokkal rendelkező képhez egy jelölő tartozik a koordinátáin.
 | Szolgáltató        | Megjegyzések                                                                                                                                                             |
 | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Google Maps** | Széles körű világszintű lefedettség; mind a négy csempe típust támogat                                                                                                            |
-| **Esri ArcGIS**| Bizonyos régiókban gyakran nagyobb felbontású légi felvételek. Az**Terrain** csempe típus nem elérhető az Esri esetében, és a gombja le van tiltva, amíg az Esri van kiválasztva |***
+| **Esri ArcGIS**| Bizonyos régiókban gyakran nagyobb felbontású légi felvételek. Az**Terrain** csempe típus nem elérhető az Esri esetében, és a gombja le van tiltva, amíg az Esri van kiválasztva |
+
+***
 
 ## Térképcsempe-típusok
 
@@ -93,7 +95,9 @@ Válassza ki a térkép réteg típusát a gombokkal (balról jobbra):
 | **Műholdas**        | Részletes műholdas felvételek, feliratok nélkül — a legnagyobb sávszélességet igénylő opció |
 | **Hibrid** (alapértelmezett) | Műholdas felvételek, amelyekre utak és feliratok vannak rajzolva                |
 
-A Térkép fül **Hibrid** módban nyílik meg. A választásod átviszi a szolgáltatóváltást is, amennyiben a szolgáltató támogatja ezt.***
+A Térkép fül **Hibrid** módban nyílik meg. A választásod átviszi a szolgáltatóváltást is, amennyiben a szolgáltató támogatja ezt.
+
+***
 
 ## Térképnavigáció
 
@@ -141,7 +145,9 @@ A Térkép fül **Hibrid** módban nyílik meg. A választásod átviszi a szolg
 
 ### A térkép üres, vagy a csempék betöltése leáll
 
-A térképcsempék szolgáltatói online szolgáltatások. Ha a térképcsempék betöltése leáll, ellenőrizze a készülék hálózati kapcsolatát, majd próbáljon meg szolgáltatót váltani. Ha túlzottan nagyított a képet, nyomja meg a **×** visszaállítási gombot, hogy visszatérjen a normál nagyítási szintre, és hagyja, hogy a térkép újra kérje a térképcsempéket.***
+A térképcsempék szolgáltatói online szolgáltatások. Ha a térképcsempék betöltése leáll, ellenőrizze a készülék hálózati kapcsolatát, majd próbáljon meg szolgáltatót váltani. Ha túlzottan nagyított a képet, nyomja meg a **×** visszaállítási gombot, hogy visszatérjen a normál nagyítási szintre, és hagyja, hogy a térkép újra kérje a térképcsempéket.
+
+***
 
 ## Kapcsolódó oldalak
 

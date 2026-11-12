@@ -71,7 +71,9 @@ A teljes képlet-referenciához – mindhárom előre beállított lista és az 
 
 ### Az Index jelölőnégyzet bejelölve, de LUT nélkül
 
-A kép **szürkeárnyalatos** formában jelenik meg, a két küszöbérték között kiterjesztve. Ez szándékos: az indexkép skaláris adat, és a szürkeárnyalatos megjelenítés adja vissza a leghitelesebben. Ha színt szeretne, adjon hozzá egy LUT-ot.***
+A kép **szürkeárnyalatos** formában jelenik meg, a két küszöbérték között kiterjesztve. Ez szándékos: az indexkép skaláris adat, és a szürkeárnyalatos megjelenítés adja vissza a leghitelesebben. Ha színt szeretne, adjon hozzá egy LUT-ot.
+
+***
 
 ## LUT-okkal (Look-Up Tables) való munka
 
@@ -137,7 +139,9 @@ Példa az NDVI ablakokra:
 | Csak egészséges növényzet                 | 0,5  | 0,9 |
 | Stressz kiemelése                        | 0,2  | 0,5 |
 
-Az ablak szűkítése növeli a kontrasztot a vizsgált területen belül, és minden mást a tartományon kívülre tol — ahol a **Kivágási mód** határozza meg, mi történik velük.***
+Az ablak szűkítése növeli a kontrasztot a vizsgált területen belül, és minden mást a tartományon kívülre tol — ahol a **Kivágási mód** határozza meg, mi történik velük.
+
+***
 
 ## Kivágási módok
 

@@ -57,7 +57,9 @@ A „tényleges” nagyítás a GSD-blokk méretét veszi figyelembe: 8-as blokk
 | **←**                           | Teljes képernyő | Előző kép                      |
 | **Ctrl + R**                    | Teljes képernyő | Az index/LUT sandbox visszaállítása         |
 | **Ctrl + `+`**/**Ctrl + `=`** | Rács        | Nagyobb miniatűrök (gombnyomásonként 4 px)  |
-| **Ctrl + `−`**                  | Rács        | Kisebb miniatűrök (4 px gombnyomásonként) |***
+| **Ctrl + `−`**                  | Rács        | Kisebb miniatűrök (4 px gombnyomásonként) |
+
+***
 
 ## A kurzor értékei
 
@@ -126,7 +128,9 @@ A hisztogram felett három gomb található:
 | **INDEX**| Be      | Csak akkor jelenik meg, ha index aktív. Átváltja a hisztogramot a forrás sávokról az**indexérték-eloszlásra**, ahol a két vágási küszöbérték narancssárga szaggatott vonalakkal, a kurzor indexértéke pedig fehér vonallal jelenik meg                                                          |
 | **RGB**| Ki     | Átvált a kombinált görbéről a csatornánkénti görbékre. Monokróm érzékelő esetén ez a gomb**MONO** feliratot jelenít meg, és letiltva van — csak egy csatorna jeleníthető meg                                                                                                                                  |
 
-A hisztogramot a **látható blokkok** alapján számítja ki, nem a mögöttük lévő forráspixelek alapján: a GSD-blokkméret megváltoztatásával az eloszlás újraszámításra kerül, így a hisztogram, a kurzorjelölő és a megjelenített kép mindig egyezik.***
+A hisztogramot a **látható blokkok** alapján számítja ki, nem a mögöttük lévő forráspixelek alapján: a GSD-blokkméret megváltoztatásával az eloszlás újraszámításra kerül, így a hisztogram, a kurzorjelölő és a megjelenített kép mindig egyezik.
+
+***
 
 ## GSD-blokkméret
 

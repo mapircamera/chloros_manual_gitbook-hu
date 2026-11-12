@@ -685,7 +685,7 @@ False         # export in native sensor geometry / skip the common-overlap crop
 
 #### Radiometrikus kimenet (LATTICE multispektrális feldolgozási folyamat)
 
-Az `process` feldolgozási folyamat LATTICE multispektrális (M3C/M3M) exportszintje — `reflectance` (alapértelmezett), `radiance`, `sensor-response` vagy `all` (minden alkalmazható mód képenként) — beállítja a projekt **„Export radiance”**és**„Export reflectance”**** termékeit: az `radiance` csak a sugárzást exportálja, az `reflectance` csak a visszaverődést, az `sensor-response` egyikét sem (csak a debayered és az előnézeti termékek), az `all` mindkettőt. A debayered és az előnézeti termékek nem a szint feladata megváltoztatni. Az `configure()`-nek erre van egy külön kulcsszava:
+Az `process` feldolgozási folyamat LATTICE multispektrális (M3C/M3M) exportszintje — `reflectance` (alapértelmezett), `radiance`, `sensor-response` vagy `all` (minden alkalmazható mód képenként) — beállítja a projekt **„Export radiance”** és **„Export reflectance”** termékeit: az `radiance` csak a sugárzást exportálja, az `reflectance` csak a visszaverődést, az `sensor-response` egyikét sem (csak a debayered és az előnézeti termékek), az `all` mindkettőt. A debayered és az előnézeti termékek nem a szint feladata megváltoztatni. Az `configure()`-nek erre van egy külön kulcsszava:
 
 ```python
 with chloros_sdk.ChlorosLocal() as cl:

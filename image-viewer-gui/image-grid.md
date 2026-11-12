@@ -26,7 +26,7 @@ Ha az ablak túl keskeny ahhoz, hogy mindet befogadja, a csoportok jobbról balr
 
 <!-- SCREENSHOT-NEEDED: Image grid toolbar of a LATTICE array project at full width, showing all three button groups inline: Per Trigger / Per Camera, three camera filter buttons labelled "LATT-M3M (serial)", and the export/view buttons including TIFF, RAW (Original), RAW (Radiance), RAW (Reflectance). -->
 
-*****
+***
 
 ## Exportálási és megtekintési gombok
 

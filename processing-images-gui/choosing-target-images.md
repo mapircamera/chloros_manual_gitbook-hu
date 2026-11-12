@@ -32,7 +32,9 @@ Ha **nincs** bejelölt kép, az Chloros visszatér a projektben található öss
 
 Nézze át az importált képeket a Fájlkezelőben, és azonosítsa, mely képek tartalmaznak kalibrációs célokat.
 
-**Gyakori esetek:*** **Felvétel előtti cél**: A munkamenet megkezdése előtt rögzítve
+**Gyakori esetek:**
+
+* **Felvétel előtti cél**: A munkamenet megkezdése előtt rögzítve
 * **Felvétel utáni cél**: A munkamenet befejezése után rögzítve
 * **Helyszíni célok**: A felvételi területen elhelyezett célok
 * **Több cél**: Munkamenetenként 2–3 célkép (ajánlott)
@@ -140,9 +142,17 @@ Ezzel az oszloppal ellenőrizheti, hogy a projektben minden kameratípushoz megj
 
 ### A felismerési érzékenység beállítása
 
-Ha a Chloros nem ismeri fel megfelelően a célpontjait, állítsa be ezeket a beállításokat a [Projektbeállítások](adjusting-project-settings.md) menüpontban:**Minimális kalibrációs mintafelület (px):*** **Alapértelmezett**: 25 képpont
+Ha a Chloros nem ismeri fel megfelelően a célpontjait, állítsa be ezeket a beállításokat a [Projektbeállítások](adjusting-project-settings.md) menüpontban:
+
+**Minimális kalibrációs mintafelület (px):**
+
+* **Alapértelmezett**: 25 képpont
 * **Növelje**, ha kis méretű tárgyaknál téves észlelések jelentkeznek
-* **Csökkentse**, ha a célpontok nem kerülnek észlelésre**Minimális célpont-csoportosítás (0–100):*** **Alapértelmezett**: 60
+* **Csökkentse**, ha a célpontok nem kerülnek észlelésre
+
+**Minimális célpont-csoportosítás (0–100):**
+
+* **Alapértelmezett**: 60
 * **Növelje**, ha a célpontok több észlelésre oszlanak szét
 * **Csökkentse**, ha a színváltozással rendelkező célpontok nem kerülnek teljes mértékben észlelésre
 

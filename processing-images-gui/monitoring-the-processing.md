@@ -28,7 +28,11 @@ Chloros+ licenccel rendelkező felhasználók számára:
 1.**Észlelés** – Kalibrációs célpontok keresése
 2. **Elemzés** – Képek vizsgálata és a feldolgozási folyamat előkészítése
 3. **Kalibrálás** – Vignettázás- és reflexiókorrekciók alkalmazása
-4. **Exportálás** – A feldolgozott fájlok mentése**Interaktív funkciók:*** **Vigye az egérmutatót** a haladási sáv fölé a kibővített 4-fázisú panel megjelenítéséhez
+4. **Exportálás** – A feldolgozott fájlok mentése
+
+**Interaktív funkciók:**
+
+* **Vigye az egérmutatót** a haladási sáv fölé a kibővített 4-fázisú panel megjelenítéséhez
 * **Kattintson** a haladási sávra a kibővített panel rögzítéséhez/kijelöléséhez
 * **Kattintson újra** a rögzítés feloldásához, és az egér elhagyásakor a panel automatikusan elrejtődik
 * Minden szakasz a saját előrehaladását mutatja (0–100%)
@@ -92,7 +96,9 @@ Chloros+ licenccel rendelkező felhasználók számára:
 
 ### 3. szakasz: Kalibrálás
 
-**Mi történik:*** **Debayering**: A RAW Bayer-minta 3 csatornára történő konvertálása (a LATTICE monokróm modulok esetében kihagyásra kerül, megjegyzéssel)
+**Mi történik:**
+
+* **Debayering**: A RAW Bayer-minta 3 csatornára történő konvertálása (a LATTICE monokróm modulok esetében kihagyásra kerül, megjegyzéssel)
 * **Vignettakorrekció**: Az objektív szélén jelentkező sötétedés eltávolítása
 * **Fényvisszaverődési kalibrálás**: Normalizálás a célértékek és/vagy a DAQ-lefelé irányuló jel alapján
 * **Indexszámítás**: Multispektrális indexek kiszámítása
@@ -104,7 +110,9 @@ Chloros+ licenccel rendelkező felhasználók számára:
 * Jelenleg feldolgozás alatt álló kép
 * Feldolgozott képek / Összes kép
 
-**Feldolgozási mód:*** **Szabad mód**: Egyszerre egy képet dolgoz fel egymás után
+**Feldolgozási mód:**
+
+* **Szabad mód**: Egyszerre egy képet dolgoz fel egymás után
 * **„Chloros+” mód**: Hardverhez alkalmazkodó munkavállalói csoportot futtat – 1–4 párhuzamos munkavállaló GPU-rendszereken (a VRAM-tól függően), egy munkavállaló fizikai magonként (mínusz egy) kizárólag CPU-val rendelkező rendszereken. Lásd [Dinamikus számítási adaptáció](../processing-architecture/dynamic-compute-adaptation.md)
 * **GPU-gyorsítás**: Jelentősen felgyorsítja ezt a szakaszt**Mire kell figyelni:**
 

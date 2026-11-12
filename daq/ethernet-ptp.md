@@ -70,9 +70,9 @@ A grafikus felhasználói felületen a DAQ-E beállítások ablakában egy élő
 
 ```bash
 chloros-cli daq pool-enable-ptp --sensor-id daq-e-def330
-``` A
+```
 
-Chloros soha nem kapcsolja vissza önállóan az egységeket, mivel a kikapcsolt állapot szándékos is lehet.
+A Chloros soha nem kapcsolja vissza önállóan az egységeket, mivel a kikapcsolt állapot szándékos is lehet.
 
 Részletek a szigorú igazításra szoruló felhasználók számára:
 

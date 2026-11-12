@@ -255,10 +255,15 @@ Chloros ellenőrzi a frissítéseket, értesít, ha új verzió érhető el, és
 
 **Kiadás dátuma: 2026. február 10.**
 
-**Új funkciók*** **Textúraérzékeny debayer-módszer \[Csak Chloros+] -** A Textúraérzékeny funkció egy kiváló minőségű, élekkel számoló debayer-módszert használ, amelyet egy AI/ML zajszűrő modellel kombinálnak, így szinte az összes debayer-zajt eltávolítja.
-* **T4P kalibrációs célok támogatása*** **Gyorsabb Chloros+ GPU-feldolgozás, jobb memóriakezelés**
+**Új funkciók**
 
-**Hibajavítások*** Teljesen új felhasználói felület (GUI), amely mostantól minden Windows-számítógépen működnie kell.
+* **Textúraérzékeny debayer-módszer \[Csak Chloros+] -** A Textúraérzékeny funkció egy kiváló minőségű, élekkel számoló debayer-módszert használ, amelyet egy AI/ML zajszűrő modellel kombinálnak, így szinte az összes debayer-zajt eltávolítja.
+* **T4P kalibrációs célok támogatása**
+* **Gyorsabb Chloros+ GPU-feldolgozás, jobb memóriakezelés**
+
+**Hibajavítások**
+
+* Teljesen új felhasználói felület (GUI), amely mostantól minden Windows-számítógépen működnie kell.
 
 </details>
 
@@ -268,14 +273,18 @@ Chloros ellenőrzi a frissítéseket, értesít, ha új verzió érhető el, és
 
 **Kiadás dátuma: 2026. január 5.**
 
-**Új funkciók*** **Kép/metaadatok váltás**: Hozzáadott váltógomb a Fájlkezelőben, amellyel a kiválasztott kép metaadatai táblázatban jeleníthetők meg a képrajz helyett
+**Új funkciók**
+
+* **Kép/metaadatok váltás**: Hozzáadott váltógomb a Fájlkezelőben, amellyel a kiválasztott kép metaadatai táblázatban jeleníthetők meg a képrajz helyett
 * **Képrajz nagyítási csúszka**: Új felhasználói felületi csúszka a miniatűrök méretének beállításához (a CTRL + egérgörgő kombinációt is támogatja)
 * **Képrács export gombok**: A felső sorban található gombok segítségével a miniatűrök JPG formátumból feldolgozott exportformátumokra (Célok, Reflektancia, Index, LUT) válthatók át
 * **Térkép fül**: Új interaktív 2D-térkép, amelyen a képek GPS-helyjelölői láthatók
   * Támogatja a Google Maps és az ESRI térképcsempéket (a nagyítási szint elérhetősége alapján automatikusan kiválasztja a legjobb csempeszolgáltatást)
   * Egérrel a térképjelölők fölé viszve megjelenik a miniatűr előnézete
 
-**Hibajavítások*** Javított támogatás a Chloros telepítéséhez nem angol nyelvű számítógépeken
+**Hibajavítások**
+
+* Javított támogatás a Chloros telepítéséhez nem angol nyelvű számítógépeken
 
 </details>
 
@@ -285,13 +294,21 @@ Chloros ellenőrzi a frissítéseket, értesít, ha új verzió érhető el, és
 
 **Kiadás dátuma: 2025. december 20.**
 
-**Új funkciók*** Első kiadás
+**Új funkciók**
 
-**Továbbfejlesztések*** Első kiadás
+* Első kiadás
 
-**Hibajavítások*** Első kiadás
+**Továbbfejlesztések**
 
-**Ismert problémák*** Első kiadás
+* Első kiadás
+
+**Hibajavítások**
+
+* Első kiadás
+
+**Ismert problémák**
+
+* Első kiadás
 
 </details>
 

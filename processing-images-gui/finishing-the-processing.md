@@ -80,7 +80,9 @@ Ne számoljon képlet alapján — a kimenetek száma attól függ, hogy mely te
 
 ### Előnézet külső képnézegetőkben
 
-**Ajánlott képnézegetők:*** **QGIS** – Ingyenes GIS-szoftver (legalkalmasabb georeferált multispektrális elemzéshez)
+**Ajánlott képnézegetők:**
+
+* **QGIS** – Ingyenes GIS-szoftver (legalkalmasabb georeferált multispektrális elemzéshez)
 * **IrfanView** – Gyors, könnyű képnézegető (támogatja a TIFF formátumot)
 * **Adobe Photoshop** – Professzionális képszerkesztő (TIFF támogatás)
 * **GIMP** – Ingyenes alternatíva a Photoshophoz
@@ -220,7 +222,9 @@ Ha egy problémát közvetlenül a MAPIR-nek szeretne elküldeni, használja a H
 
 ### Probléma: Az NDVI-értékek helytelennek tűnnek
 
-**Várható NDVI-tartományok:*** **Víz, sziklák, talaj**: -0,1 és 0,2 között
+**Várható NDVI-tartományok:**
+
+* **Víz, sziklák, talaj**: -0,1 és 0,2 között
 * **Ritka/egészségtelen növényzet**: 0,2 és 0,4 között
 * **Közepes sűrűségű növényzet**: 0,4 és 0,6 között
 * **Egészséges, sűrű növényzet**: 0,6–0,9**Ha az értékek ezen tartományokon kívül esnek:**
@@ -274,12 +278,18 @@ Ha egy problémát közvetlenül a MAPIR-nek szeretne elküldeni, használja a H
 
 ### Ajánlott biztonsági mentési stratégia
 
-**Mit kell menteni:*** ✅ **Eredeti RAW/JPG képek vagy LATTICE nyers felvételek** – Archiválja külön meghajtóra/felhőbe; a nyers adat a feldolgozási folyamat forrása, és minden más abból újra előállítható
+**Mit kell menteni:**
+
+* ✅ **Eredeti RAW/JPG képek vagy LATTICE nyers felvételek** – Archiválja külön meghajtóra/felhőbe; a nyers adat a feldolgozási folyamat forrása, és minden más abból újra előállítható
 * ✅ **`.daq` / `.csv` fényérzékelő-fájlok** – Később a reflexió újbóli kiszámításához szükségesek
 * ✅ **Feldolgozott kimenetek** – A kalibrált képeket és indexeket meg kell őrizni
 * ✅ **Projektmappa** (`project.json` és kiegészítői) – Tartalmazza az újrafeldolgozáshoz szükséges összes beállítást, ha szükséges
 * ✅ **Hibakeresési napló** – Dokumentálja a feldolgozás részleteit
-* ✅ **Kalibrációs célképek** – Ellenőrzéshez és újrafeldolgozáshoz**Tárolási ajánlások:*** **Azonnali biztonsági mentés**: Külső merevlemez
+* ✅ **Kalibrációs célképek** – Ellenőrzéshez és újrafeldolgozáshoz
+
+**Tárolási ajánlások:**
+
+* **Azonnali biztonsági mentés**: Külső merevlemez
 * **Hosszú távú archiválás**: Felhőalapú tárhely (Google Drive, Dropbox stb.)
 * **Kritikus adatok**: Tartsunk 2–3 másolatot különböző helyeken***
 

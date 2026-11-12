@@ -102,7 +102,9 @@ A nézőprogram, az index/LUT sandbox és az index-export egyaránt ugyanazon eg
 Két fontos következmény:
 
 * Egy **32-bites százalékos**TIFF a DN/65535-öt float típusúként tárolja, míg egy**8 bites** PNG/JPG export a DN × 255/65535 értéket tárolja — a néző mindkettőt visszaalakítja, mielőtt százalékot jelenít meg.
-* Egy eset nem állítható vissza: egy **8-bites forrásból származó felvétel**8-bites TIFF** exportja nem kerül átméretezésre, hanem 0–255-re van korlátozva, és szándékosan nem tartalmaz méretarány-címkét. Ezeknél a fájloknál a panel csak a DN-értéket jeleníti meg, százalékos oszlop nélkül. Ez a valós helyzet, nem pedig hiba.***
+* Egy eset nem állítható vissza: egy **8-bites forrásból származó felvétel 8-bites TIFF** exportja nem kerül átméretezésre, hanem 0–255-re van korlátozva, és szándékosan nem tartalmaz méretarány-címkét. Ezeknél a fájloknál a panel csak a DN-értéket jeleníti meg, százalékos oszlop nélkül. Ez a valós helyzet, nem pedig hiba.
+
+***
 
 ## A réteg hisztogramja
 

@@ -79,7 +79,11 @@ Chloros a licencétől függően két különböző feldolgozási módban műkö
 1. **Észlelés** (1. szál) – Kalibrációs célpontok keresése
 2. **Elemzés** (2. szál) – A kép metaadatainak vizsgálata és a kalibrálás kiszámítása
 3. **Kalibrálás** (3. szál) – Debayering, vignettakorrekció, kalibrálás, indexszámítás
-4. **Exportálás** (4. szál) – A feldolgozott képek és indexek mentése**A haladási sáv kezelése:*** **Vigye az egérmutatót** a sáv fölé a részletes, 4 szakaszból álló legördülő panel megjelenítéséhez
+4. **Exportálás** (4. szál) – A feldolgozott képek és indexek mentése
+
+**A haladási sáv kezelése:**
+
+* **Vigye az egérmutatót** a sáv fölé a részletes, 4 szakaszból álló legördülő panel megjelenítéséhez
 * **Kattintson** a haladási sávra a legördülő panel rögzítéséhez
 * **Kattintson újra** a panel rögzítésének feloldásához és elrejtéséhez**Feldolgozási idő:**
 
@@ -117,7 +121,9 @@ Chloros a licencétől függően két különböző feldolgozási módban műkö
 
 ### 3. szakasz: Kalibrálás
 
-**A Chloros feladata:*** **Vignettálás-korrekció**: Eltávolítja a lencse szélein jelentkező sötétedést
+**A Chloros feladata:**
+
+* **Vignettálás-korrekció**: Eltávolítja a lencse szélein jelentkező sötétedést
 * **Fényvisszaverődési kalibrálás**: Normalizálja a képet a célfényvisszaverődési értékek és/vagy a DAQ lefelé irányuló sugárzási adatok alapján
 * A korrekciókat minden sávra/csatornára alkalmazza
 * Időbélyeg alapján minden képhez a megfelelő kalibrációs referenciát használja

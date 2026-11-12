@@ -230,7 +230,7 @@ Ezek kizárólag a felhasználói felületen jelennek meg — a videóra rajzol�
 ### Pontmérő
 
 * **Kattintás a mintavételhez**jelölőnégyzet: kattintson az élő képre egy pixel mintavételéhez (egy célkereszt jelöli meg), vagy kattintson és húzza a kurzort egy területre a pixelek átlagának kiszámításához. A**Törlés**gomb törli a mintát és a célkeresztet. Kizárja egymást az AE-ROI**Célzás** móddal.
-* ****Megjelenítés**legördülő menü:**Raw (bitmélység)**— natív digitális értékek az érzékelő bitmélységében (pl. 12-bit → 0..4095) — vagy**Kijelző (8-bit)** (alapértelmezett). Ha élő index aktív, a Kijelző helyette a kiszámított indexértéket (pl. NDVI) jeleníti meg.
+* **Megjelenítés** legördülő menü:**Raw (bitmélység)**— natív digitális értékek az érzékelő bitmélységében (pl. 12-bit → 0..4095) — vagy**Kijelző (8-bit)** (alapértelmezett). Ha élő index aktív, a Kijelző helyette a kiszámított indexértéket (pl. NDVI) jeleníti meg.
 * A kijelzőpanel felsorolja a képpontkoordinátákat, a képkocka méretét, a képpontformátumot, a bitmélységet, valamint egy csatornatáblázatot (Chan / Érték / %) a sávcímkékkel és hullámhosszakkal; a Bayer zöld párok átlagolva vannak; a régióminták „N px avg” feliratot jelenítik meg.
 
 A pontmérő állapota csak a munkamenetre vonatkozik.
@@ -365,7 +365,7 @@ A Chloros mindkét megjelenítési módban automatikusan igazítja az összes t�
 * *Csak kombinált módban:* **Renderelési felbontás**legördülő menü (ugyanazok az előre beállított értékek, mint kameránként, alapértelmezés szerint 720p): az élőképi stream magassága**és** a mentett kompozit exportméret. Megjegyzés a panelen: „Előnézet + mentett kompozit méret. A kameránkénti képek mindig teljes felbontásban kerülnek exportálásra.”
 
 ### Megjelenítési rétegek *(csak kombinált módban)** **Engedélyezés** jelölőnégyzet (alapértelmezés szerint ki van kapcsolva — a fő kamera képe közvetlenül jelenik meg; be = réteges kompozíció).
-* ****Előtér**/**Háttér**legördülő menük: az egyes tagkamerák (név szerint) vagy**Index**. Ha az Előtér beállítása Index, a LUT Min/Max határain kívül eső pixelek a Háttér réteget jelenítik meg.
+* **Előtér** /**Háttér**legördülő menük: az egyes tagkamerák (név szerint) vagy**Index**. Ha az Előtér beállítása Index, a LUT Min/Max határain kívül eső pixelek a Háttér réteget jelenítik meg.
 
 ### Osztott nézet *(csak kombinált esetben)*
 
@@ -377,7 +377,7 @@ A Chloros mindkét megjelenítési módban automatikusan igazítja az összes t�
 
 * **Szintcímke**: „Egyidejű rögzítés” (zöld) · „Egyidejű rögzítés (FTD-eltolt kibocsátás)” (zöld) · „Eltolt rögzítés (100 ms eltolás)” (sárga) · „Túl nagy konfiguráció” (piros).
 * **Képkocka-állapot**: „x,xx % hiányos” — zöld 1 % alatt, sárga 5 % alatt, piros 5 % vagy annál több esetén.
-* ****Kapcsolati sor**: „NIC {mbps} Mbps – folyamatos {MB/s} MB/s”.
+* **Kapcsolati sor**: „NIC {mbps} Mbps – folyamatos {MB/s} MB/s”.
 
 Ez a rendszer aktuális sávszélesség-kerete. Az alapul szolgáló fps- és hálózati modellről — valamint arról, hogy mit kell módosítani, ha a szint sárgára vagy pirosra vált — lásd a [Többkamerás rendszerek](arrays.md) és a [CLI-referencia](../reference/cli-reference.md) című dokumentumokat.
 
@@ -403,7 +403,7 @@ Gyors áttekintés arról, hogy mi hol található, ha egy kamera a tömb tagja:
 Egyéb átfogó viselkedés:
 
 * **Kombinált vagy külön megjelenítés**: a választás a mátrix csatlakoztatásakor történik: kombinált = egy igazított összetett csempe (az elemek csak Split View-on keresztül továbbítanak); külön = minden elem saját, szinkronizált csempét jelenít meg. Egy kamera soha nem jeleníti meg egyszerre az önálló képet és a mátrixcsempét.
-* ****Automatikus újracsatlakozás**: egy mentett projekt megnyitásakor a rendszer visszaállítja a kamerákat és a tömböket, és az adatfolyamok folytatását megelőzően minden mentett beállítást újraalkalmaz a háttérrendszerre.
+* **Automatikus újracsatlakozás**: egy mentett projekt megnyitásakor a rendszer visszaállítja a kamerákat és a tömböket, és az adatfolyamok folytatását megelőzően minden mentett beállítást újraalkalmaz a háttérrendszerre.
 * **Felvételi szűrés**: a rejtett vagy szüneteltetett kamerák nem kerülnek bele a „Capture All” funkcióba; egy tömb csak akkor blokkolódik teljesen, ha MINDEN tagja rejtett vagy szüneteltetett. Lásd [Felvételi beállítások és módok](capture.md).
 
 ## A beállítások megőrzése

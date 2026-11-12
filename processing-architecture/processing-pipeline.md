@@ -45,7 +45,11 @@ CPU-igényes számítási szál. Survey3-as vagy vegyes futtatás esetén a 3. s
 
 ### 3. szál: Feldolgozás (GPU)
 
-**Cél**: Korrekciók alkalmazása és vegetációs indexek kiszámítása.**Ez a legnagyobb számítási terhelést igénylő szál.*** **Debayering**: a RAW Bayer-adatokat többcsatornás képekké alakítja
+**Cél**: Korrekciók alkalmazása és vegetációs indexek kiszámítása.
+
+**Ez a legnagyobb számítási terhelést igénylő szál.**
+
+* **Debayering**: a RAW Bayer-adatokat többcsatornás képekké alakítja
   * Standard (gyors, közepes minőség) — alapértelmezett, `--debayer standard`
   * Texture Aware (lassú, legmagasabb minőség) — csak Chloros+ esetén, `--debayer texture-aware`, AI/ML zajszűrő modellt használ
   * A LATTICE mono (M3M) felvételek egycsatornásak: ezek esetében a demosaic és a fehéregyensúly-beállítás lépései kihagyásra kerülnek (egy soros naplóüzenettel), míg az ugyanazon futtatás során készült M3C/Bayer képek továbbra is megkapják ezeket

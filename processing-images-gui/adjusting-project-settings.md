@@ -44,7 +44,9 @@ A Projektbeállítások panel az alábbi szakaszokra van felosztva. Két tovább
 
 Ez szabályozza, hogy a Chloros hogyan azonosítja a kalibrációs célpontokat a képein.
 
-**Főbb beállítások:*** **Minimális kalibrációs mintafelület (px)**: A célpont-felismerés méretküszöbe (alapértelmezett:**25**, tartomány: 0–10000)
+**Főbb beállítások:**
+
+* **Minimális kalibrációs mintafelület (px)**: A célpont-felismerés méretküszöbe (alapértelmezett:**25**, tartomány: 0–10000)
 * **Minimális célpont-csoportosítás (0–100)**: A célterületek csoportosításának hasonlósági küszöbértéke (alapértelmezett:**60**)**Mikor kell módosítani:**
 
 * Növelje a minta területét, ha téves felismerések történnek
@@ -59,7 +61,9 @@ Ezek a beállítások szürkén jelennek meg, ha a **Fényvisszaverődés-kalibr
 
 Főbb képfeldolgozási és kalibrálási beállítások.
 
-**Főbb beállítások:*** **Vignettakorrekció**: Kompenzálja az objektív szélein jelentkező sötétedést ✅ Ajánlott
+**Főbb beállítások:**
+
+* **Vignettakorrekció**: Kompenzálja az objektív szélein jelentkező sötétedést ✅ Ajánlott
 * **Reflektancia-kalibrálás / fehéregyensúly**: Kalibrálja a képeket az észlelt célpontok (Survey3) és/vagy a DAQ fényérzékelő adatai (LATTICE) segítségével ✅ Ajánlott
 * **Debayer-módszer**: Algoritmus a RAW-fájlok 3-csatornás multispektrális formátumba történő konvertálásához
 * **Minimális újrakalibrálási intervallum**: A kalibrációs célpontok használata közötti minimális idő másodpercben kifejezve (alapértelmezett:**0** = mindet használja, tartomány: 0–3600)**Kalibrálatlan tartaléktermékek:**Ha egy képkocka reflektancia-kalibrálása nem lehetséges (nincs elérhető célpont, vagy a kalibrálás le van tiltva), akkor azt két tartaléktermék egyikeként exportálja a rendszer —**futásonként pontosan egy létezik a párból**, amelyet a Vignette-korrekció kapcsolója választ ki:
@@ -70,9 +74,13 @@ Főbb képfeldolgozási és kalibrálási beállítások.
 * **Debayered export**: a lineáris debayered kép (`Debayered_Images`): a kalibrációs csomag sötét eltolásának eltávolítása után demosaicing, flat field vagy unmix nélkül — ugyanaz a fájl, amelyet a felvétel debayered szinten ment — az érzékelő natív tájolásában. RGB- és multispektrális modulokra vonatkozik.
 * **Előnézet exportálása**: a képernyőn megjelenő előnézet (`Preview_Images`). RGB = fehéregyensúly (DAQ-megvilágítás, ha elérhető, egyébként szürke-világ) + gamma; multispektrális = hamis színű kiterjesztés.
 * **Sugárzás exportálása**: float32 spektrális sugárzás (`Radiance_Images`, W/m²/sr/nm). Csak multispektrális moduloknál – nem alkalmazható RGB-mesterfájlokra.
-* ****Reflektancia exportálása**: uint16 reflektancia (`Reflectance_Calibrated_Images`, DN 32768 = ρ 1,0), amennyiben egy `.daq` lefelé irányuló mérés vagy a képkockán belüli célpont lefedi a képkockát. Csak multispektrális modulok esetében.
+* **Reflektancia exportálása**: uint16 reflektancia (`Reflectance_Calibrated_Images`, DN 32768 = ρ 1,0), amennyiben egy `.daq` lefelé irányuló mérés vagy a képkockán belüli célpont lefedi a képkockát. Csak multispektrális modulok esetében.
 
-Mind a négy **alapértelmezés szerint be van kapcsolva**— egy importált LATTICE nyers képkocka egyetlen feldolgozási lépésben minden engedélyezett és alkalmazható termékre kiterjed. Az**Export reflectance** jelölőnégyzet szürkén jelenik meg, ha a Reflectance calibration ki van kapcsolva. Azok a beállítások, amelyeket a szülőkapcsoló letilt, mindig szürkén jelennek meg, és egy eszköztipp jelzi, melyik kapcsolót kell megváltoztatni.**Speciális beállítások:*** **Fényérzékelő időzóna-eltolás**: Órák az UTC-től a fényérzékelő időszinkronizálásához (alapértelmezett: 0, tartomány −12 és +12 között)
+Mind a négy **alapértelmezés szerint be van kapcsolva**— egy importált LATTICE nyers képkocka egyetlen feldolgozási lépésben minden engedélyezett és alkalmazható termékre kiterjed. Az**Export reflectance** jelölőnégyzet szürkén jelenik meg, ha a Reflectance calibration ki van kapcsolva. Azok a beállítások, amelyeket a szülőkapcsoló letilt, mindig szürkén jelennek meg, és egy eszköztipp jelzi, melyik kapcsolót kell megváltoztatni.
+
+**Speciális beállítások:**
+
+* **Fényérzékelő időzóna-eltolás**: Órák az UTC-től a fényérzékelő időszinkronizálásához (alapértelmezett: 0, tartomány −12 és +12 között)
 * **PPK-korrekciók alkalmazása**: Az `.daq` fájlokból származó GPS/expozíciós pin-adatokat használja (alapértelmezés: ki)
 * **Expozíciós pin 1/2**: Kamerákat rendel az expozíciós pinekhez kettős kamerás felállások esetén
 
@@ -105,7 +113,9 @@ A textúraérzékeny módszer egy kiváló minőségű, élekkel számoló debay
 3. Állítsa be a megjelenítési beállításokat (LUT-színek, értéktartományok)
 4. Szükség szerint adjon hozzá több indexet is
 
-**Gyakori indexek:*** **NDVI**: Általános növényzetállapot (a leggyakoribb)
+**Gyakori indexek:**
+
+* **NDVI**: Általános növényzetállapot (a leggyakoribb)
 * **NDRE**: Korai stresszfelismerés RedEdge segítségével* **GNDVI**: Klorofill-koncentrációra érzékeny
 * **OSAVI**: Jól működik látható talaj esetén
 * **EVI**: Magas levélfelületi indexű (LAI) régiók
@@ -214,7 +224,11 @@ MAPIR DAQ-rögzítők használata esetén GPS-szel a pontos földrajzi helymegha
 3. Szükség esetén állítsa be a **„Fényérzékelő időzóna-eltolódás”** értéket (alapértelmezett: 0 az UTC-hez)
 4. Rendelje hozzá a kamerákat az expozíciós csatlakozókhoz:
    * **Egy kamera**: Automatikusan a 1. csatlakozóhoz kerül
-   * **Két kamera**: Minden kamerát manuálisan rendeljen a megfelelő csatlakozóhoz**Expozíciós csatlakozók hozzárendelése:*** **
+   * **Két kamera**: Minden kamerát manuálisan rendeljen a megfelelő csatlakozóhoz
+
+**Expozíciós csatlakozók hozzárendelése:**
+
+* **
 
 1. expozíciós csatlakozó**: Válassza ki a kamera modelljét a legördülő menüből
 * **

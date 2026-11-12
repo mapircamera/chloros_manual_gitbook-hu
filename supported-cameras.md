@@ -21,9 +21,9 @@ A LATTICE sorozat egy moduláris multispektrális kamerarendszer, amely a Sony I
 
 ```
 <sensor>-<lens>-F<filter>        e.g.  M3C-L41-FRGN,  M3M-L87-F550
-``` Az
+```
 
-Chloros ezt az `LATT-` előtaggal jeleníti meg (például `LATT-M3M-L41-F550`), és ez a modellszöveg vezérli az összes további lépést — az érzékelőprofil, a sávelrendezés és a kalibrálás automatikusan meghatározódik; kameránként nincs szükség semmilyen beállításra. Az objektívszám a **fokban kifejezett vízszintes látómező**: `L41` = keskeny 41°, `L87` = széles 87°.
+Az Chloros ezt az `LATT-` előtaggal jeleníti meg (például `LATT-M3M-L41-F550`), és ez a modellszöveg vezérli az összes további lépést — az érzékelőprofil, a sávelrendezés és a kalibrálás automatikusan meghatározódik; kameránként nincs szükség semmilyen beállításra. Az objektívszám a **fokban kifejezett vízszintes látómező**: `L41` = keskeny 41°, `L87` = széles 87°.
 
 Két érzékelőkonfiguráció létezik:
 

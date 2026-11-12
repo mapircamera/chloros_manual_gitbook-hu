@@ -57,7 +57,11 @@ output/
 └── *.daq          the downwelling reading matched to the capture
 ```
 
-**Állítsa be a „Mappa hozzáadása” opciót a felvételek gyökérkönyvtárára** (a fenti `output/`). Ha a kiválasztott mappa maga nem tartalmaz képeket, de almappákkal rendelkezik, az Chloros automatikusan belemegy azokba — a szint almappáit és a gyökérkönyvtárat (`.daq`) egy lépésben veszi fel.**Hogyan történik a felvételek importálása:*** Minden felvétel **egyetlen kép**ként kerül importálásra, felvételenként csoportosítva (nem szintenként egy-egy bejegyzésként). Ugyanazon felvétel többi szintje az adott kép nézetmódjaiként jelenik meg.
+**Állítsa be a „Mappa hozzáadása” opciót a felvételek gyökérkönyvtárára** (a fenti `output/`). Ha a kiválasztott mappa maga nem tartalmaz képeket, de almappákkal rendelkezik, az Chloros automatikusan belemegy azokba — a szint almappáit és a gyökérkönyvtárat (`.daq`) egy lépésben veszi fel.
+
+**Hogyan történik a felvételek importálása:**
+
+* Minden felvétel **egyetlen kép**ként kerül importálásra, felvételenként csoportosítva (nem szintenként egy-egy bejegyzésként). Ugyanazon felvétel többi szintje az adott kép nézetmódjaiként jelenik meg.
 * **A feldolgozás mindig a nyers képkockából indul.** A többi szint megtekinthető, de csak az `raw` kerül be a feldolgozási folyamatba — egy már feldolgozott termék újrafeldolgozása a korrekciók kétszeri alkalmazását jelentené, ezért a Chloros ezt elutasítja. Egy újraimportált export soha nem foglalhatja el egy felvétel nyers adathelyét.
 * A nyers adatok **importálása nélkül** mentett felvételi mappa normálisan jelenik meg, de a feldolgozás kihagyja, és ezt a naplóban is jelzi. (Az `--input-level` CLI-jelzővel ebben az esetben kényszeríthető a belépési pont – lásd [a CLI-referenciát](../reference/cli-reference.md#what-a-captures-folder-looks-like).)
 * Az 1.3.0-s verziótól kezdve egy felvételi mappa tartalmazhat egy `clamp_masks/` mappát is (pixelenkénti maszkok a sugárzási és visszaverődési szintekhez — lásd [Kimeneti képformátumok](../output-image-formats.md#clamp-masks)). A maszkok nem a jelenet képei, és az Chloros az importálás során figyelmen kívül hagyja őket, bárhol is legyenek.
